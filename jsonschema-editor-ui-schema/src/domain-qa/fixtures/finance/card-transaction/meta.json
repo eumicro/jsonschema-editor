@@ -1,0 +1,9 @@
+{
+  "id": "card-transaction",
+  "domain": "finance",
+  "label": "Kartentransaktion",
+  "description": "Zahlungskartentransaktion mit Händler, 3DS und Betrugssignalen.",
+  "sources": [
+    "https://www.iso20022.org/sites/default/files/documents/D7/ISO20022_API_JSON_Whitepaper_Final_20180129.pdf"
+  ]
+}

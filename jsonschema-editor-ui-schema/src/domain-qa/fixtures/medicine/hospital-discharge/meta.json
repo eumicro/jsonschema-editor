@@ -1,0 +1,9 @@
+{
+  "id": "hospital-discharge",
+  "domain": "medicine",
+  "label": "Krankenhaus-Entlassung",
+  "description": "Entlassungsmanagement mit Diagnosen, Medikation und Nachsorge.",
+  "sources": [
+    "https://hl7.org/fhir/R5/composition.schema.json.html"
+  ]
+}

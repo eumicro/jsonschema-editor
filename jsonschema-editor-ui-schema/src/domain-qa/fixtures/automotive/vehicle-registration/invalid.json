@@ -1,0 +1,9 @@
+{
+  "applicationType": "invalid",
+  "holder": {
+    "type": "person"
+  },
+  "vehicle": {
+    "vin": "x"
+  }
+}

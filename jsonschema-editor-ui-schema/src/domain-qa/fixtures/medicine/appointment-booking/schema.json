@@ -1,0 +1,88 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Termin",
+  "type": "object",
+  "required": [
+    "appointmentId",
+    "patientId",
+    "specialty",
+    "slot"
+  ],
+  "properties": {
+    "appointmentId": {
+      "type": "string"
+    },
+    "patientId": {
+      "type": "string"
+    },
+    "specialty": {
+      "type": "string",
+      "enum": [
+        "general",
+        "cardiology",
+        "orthopedics",
+        "radiology"
+      ]
+    },
+    "slot": {
+      "$ref": "#/$defs/AppointmentSlot"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "routine",
+        "urgent",
+        "emergency"
+      ]
+    },
+    "reason": {
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "AppointmentSlot": {
+      "type": "object",
+      "required": [
+        "start",
+        "end",
+        "location"
+      ],
+      "properties": {
+        "start": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "end": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "location": {
+          "$ref": "#/$defs/LocationRef"
+        },
+        "modality": {
+          "type": "string",
+          "enum": [
+            "in-person",
+            "video",
+            "phone"
+          ]
+        }
+      }
+    },
+    "LocationRef": {
+      "type": "object",
+      "required": [
+        "siteId",
+        "room"
+      ],
+      "properties": {
+        "siteId": {
+          "type": "string"
+        },
+        "room": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

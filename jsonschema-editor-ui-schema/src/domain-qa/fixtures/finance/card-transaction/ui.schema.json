@@ -1,0 +1,35 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "scope": "#/properties/transactionId",
+      "label": "transactionId"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/card",
+      "label": "card"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/merchant",
+      "label": "merchant"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/amount",
+      "label": "amount"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/authentication",
+      "label": "authentication"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/fraudSignals",
+      "label": "fraudSignals"
+    }
+  ]
+}

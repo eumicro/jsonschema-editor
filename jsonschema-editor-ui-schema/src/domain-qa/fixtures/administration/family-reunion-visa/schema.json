@@ -1,0 +1,153 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Familiennachzug",
+  "type": "object",
+  "required": [
+    "caseId",
+    "sponsor",
+    "applicant",
+    "relationship",
+    "documents"
+  ],
+  "properties": {
+    "caseId": {
+      "type": "string"
+    },
+    "sponsor": {
+      "$ref": "#/$defs/Sponsor"
+    },
+    "applicant": {
+      "$ref": "#/$defs/VisaApplicant"
+    },
+    "relationship": {
+      "$ref": "#/$defs/FamilyRelationship"
+    },
+    "documents": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/VisaDocument"
+      }
+    }
+  },
+  "$defs": {
+    "Sponsor": {
+      "type": "object",
+      "required": [
+        "name",
+        "residencePermit",
+        "incomeEur"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "residencePermit": {
+          "type": "string"
+        },
+        "incomeEur": {
+          "type": "number",
+          "minimum": 0
+        },
+        "housingSizeSqm": {
+          "type": "number",
+          "minimum": 20
+        }
+      }
+    },
+    "VisaApplicant": {
+      "type": "object",
+      "required": [
+        "name",
+        "nationality",
+        "passportNumber"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "nationality": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2
+        },
+        "passportNumber": {
+          "type": "string"
+        },
+        "birthDate": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "FamilyRelationship": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "type",
+            "marriageDate"
+          ],
+          "properties": {
+            "type": {
+              "const": "spouse"
+            },
+            "marriageDate": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "type",
+            "childAge"
+          ],
+          "properties": {
+            "type": {
+              "const": "child"
+            },
+            "childAge": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "const": "parent"
+            }
+          }
+        }
+      ]
+    },
+    "VisaDocument": {
+      "type": "object",
+      "required": [
+        "type",
+        "referenceNumber"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "passport",
+            "marriage_certificate",
+            "birth_certificate",
+            "language_certificate"
+          ]
+        },
+        "referenceNumber": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

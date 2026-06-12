@@ -1,0 +1,35 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "scope": "#/properties/triageId",
+      "label": "triageId"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/arrivalDateTime",
+      "label": "arrivalDateTime"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/vitals",
+      "label": "vitals"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/esiLevel",
+      "label": "esiLevel"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/redFlags",
+      "label": "redFlags"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/disposition",
+      "label": "disposition"
+    }
+  ]
+}

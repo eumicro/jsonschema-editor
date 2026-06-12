@@ -1,0 +1,35 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "scope": "#/properties/invoiceNumber",
+      "label": "invoiceNumber"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/issueDate",
+      "label": "issueDate"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/seller",
+      "label": "seller"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/buyer",
+      "label": "buyer"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/lineItems",
+      "label": "lineItems"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/taxTotal",
+      "label": "taxTotal"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "encounterId": "E",
+  "patientId": "P",
+  "dischargeDateTime": "x",
+  "diagnoses": [],
+  "dischargeDisposition": "invalid"
+}

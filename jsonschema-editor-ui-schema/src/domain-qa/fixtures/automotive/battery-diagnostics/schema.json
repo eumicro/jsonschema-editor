@@ -1,0 +1,87 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "BMS-Diagnose",
+  "type": "object",
+  "required": [
+    "packId",
+    "stateOfChargePct",
+    "cellGroups"
+  ],
+  "properties": {
+    "packId": {
+      "type": "string"
+    },
+    "stateOfChargePct": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "cellGroups": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/CellGroup"
+      }
+    },
+    "thermalProfile": {
+      "$ref": "#/$defs/ThermalProfile"
+    }
+  },
+  "$defs": {
+    "CellGroup": {
+      "type": "object",
+      "required": [
+        "groupId",
+        "cells"
+      ],
+      "properties": {
+        "groupId": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "cells": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "cellId",
+              "voltageV"
+            ],
+            "properties": {
+              "cellId": {
+                "type": "integer"
+              },
+              "voltageV": {
+                "type": "number",
+                "minimum": 2.5,
+                "maximum": 4.3
+              }
+            }
+          }
+        }
+      }
+    },
+    "ThermalProfile": {
+      "type": "object",
+      "required": [
+        "minTempC",
+        "maxTempC"
+      ],
+      "properties": {
+        "minTempC": {
+          "type": "number"
+        },
+        "maxTempC": {
+          "type": "number"
+        },
+        "probeLocations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

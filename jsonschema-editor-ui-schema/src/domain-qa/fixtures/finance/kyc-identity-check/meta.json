@@ -1,0 +1,9 @@
+{
+  "id": "kyc-identity-check",
+  "domain": "finance",
+  "label": "KYC-Identitätsprüfung",
+  "description": "Know-Your-Customer mit Identitätsnachweis, PEP/Sanktions-Screening.",
+  "sources": [
+    "https://www.mastercard.com/us/en/news-and-trends/Insights/2024/iso-20022-and-json-balancing-standardisation-and-flexibility-in-.html"
+  ]
+}

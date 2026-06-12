@@ -1,0 +1,21 @@
+{
+  "permitId": "BP-2026-001",
+  "parcel": {
+    "flurstueckId": "123/456",
+    "address": "Bauweg 1, 80331 München",
+    "areaSqm": 450
+  },
+  "project": {
+    "type": "neubau",
+    "grossFloorAreaSqm": 220,
+    "floors": 2,
+    "energyStandard": "KfW40"
+  },
+  "professionals": [
+    {
+      "role": "architect",
+      "name": "Architektur Büro Müller",
+      "licenseNumber": "BY-12345"
+    }
+  ]
+}

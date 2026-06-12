@@ -1,0 +1,121 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Melderegister-Auszug",
+  "type": "object",
+  "required": [
+    "requestId",
+    "purpose",
+    "dataSubject",
+    "delivery"
+  ],
+  "properties": {
+    "requestId": {
+      "type": "string"
+    },
+    "purpose": {
+      "type": "string",
+      "enum": [
+        "self",
+        "thirdParty",
+        "authority"
+      ]
+    },
+    "dataSubject": {
+      "$ref": "#/$defs/RegisteredPerson"
+    },
+    "delivery": {
+      "$ref": "#/$defs/DeliveryMethod"
+    }
+  },
+  "$defs": {
+    "RegisteredPerson": {
+      "type": "object",
+      "required": [
+        "firstName",
+        "lastName",
+        "birthDate",
+        "currentAddress"
+      ],
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "birthDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "currentAddress": {
+          "$ref": "#/$defs/GermanAddress"
+        }
+      }
+    },
+    "GermanAddress": {
+      "type": "object",
+      "required": [
+        "street",
+        "houseNumber",
+        "postalCode",
+        "city"
+      ],
+      "properties": {
+        "street": {
+          "type": "string"
+        },
+        "houseNumber": {
+          "type": "string"
+        },
+        "postalCode": {
+          "type": "string",
+          "pattern": "^[0-9]{5}$"
+        },
+        "city": {
+          "type": "string"
+        }
+      }
+    },
+    "DeliveryMethod": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/PostalDelivery"
+        },
+        {
+          "$ref": "#/$defs/DigitalDelivery"
+        }
+      ]
+    },
+    "PostalDelivery": {
+      "type": "object",
+      "required": [
+        "method",
+        "address"
+      ],
+      "properties": {
+        "method": {
+          "const": "postal"
+        },
+        "address": {
+          "$ref": "#/$defs/GermanAddress"
+        }
+      }
+    },
+    "DigitalDelivery": {
+      "type": "object",
+      "required": [
+        "method",
+        "email"
+      ],
+      "properties": {
+        "method": {
+          "const": "digital"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        }
+      }
+    }
+  }
+}

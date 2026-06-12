@@ -1,0 +1,8 @@
+{
+  "invoiceId": "I",
+  "issueDate": "x",
+  "dueDate": "y",
+  "customer": {},
+  "lines": [],
+  "paymentTerms": {}
+}

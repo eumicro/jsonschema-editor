@@ -1,0 +1,9 @@
+{
+  "id": "building-permit",
+  "domain": "administration",
+  "label": "Bauantrag",
+  "description": "Baugenehmigung mit Grundstück, Bauvorhaben und Statiknachweis.",
+  "sources": [
+    "https://docs.xoev.de/xoev-handbuch/x%C3%B6v-handbuch"
+  ]
+}

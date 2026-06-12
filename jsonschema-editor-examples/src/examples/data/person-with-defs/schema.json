@@ -1,0 +1,44 @@
+{
+  "oneOf": [
+    {
+      "$ref": "#/$defs/Mensch"
+    },
+    {
+      "$ref": "#/$defs/Maschine"
+    }
+  ],
+  "title": "Person",
+  "description": "Wähle zwischen Mensch und Maschine (Definitionen in $defs)",
+  "$defs": {
+    "Mensch": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "Name",
+          "description": "Vollständiger Name"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "Mensch",
+      "description": "Natürliche Person mit Name"
+    },
+    "Maschine": {
+      "type": "object",
+      "properties": {
+        "nummer": {
+          "type": "string",
+          "title": "Nummer",
+          "description": "Serien- oder Inventarnummer"
+        }
+      },
+      "required": [
+        "nummer"
+      ],
+      "title": "Maschine",
+      "description": "Technisches Gerät mit Seriennummer"
+    }
+  }
+}

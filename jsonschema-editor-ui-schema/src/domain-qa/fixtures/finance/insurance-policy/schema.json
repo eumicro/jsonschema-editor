@@ -1,0 +1,150 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Versicherungspolice",
+  "type": "object",
+  "required": [
+    "policyNumber",
+    "product",
+    "policyholder",
+    "coverage",
+    "premium"
+  ],
+  "properties": {
+    "policyNumber": {
+      "type": "string"
+    },
+    "product": {
+      "$ref": "#/$defs/InsuranceProduct"
+    },
+    "policyholder": {
+      "$ref": "#/$defs/Policyholder"
+    },
+    "coverage": {
+      "$ref": "#/$defs/CoverageDetails"
+    },
+    "premium": {
+      "$ref": "#/$defs/PremiumSchedule"
+    },
+    "beneficiaries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Beneficiary"
+      }
+    }
+  },
+  "$defs": {
+    "InsuranceProduct": {
+      "type": "object",
+      "required": [
+        "code",
+        "name",
+        "line"
+      ],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "line": {
+          "type": "string",
+          "enum": [
+            "life",
+            "health",
+            "property",
+            "liability"
+          ]
+        }
+      }
+    },
+    "Policyholder": {
+      "type": "object",
+      "required": [
+        "name",
+        "birthDate",
+        "address"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "birthDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "address": {
+          "type": "string"
+        }
+      }
+    },
+    "CoverageDetails": {
+      "type": "object",
+      "required": [
+        "sumInsuredEur",
+        "deductibleEur"
+      ],
+      "properties": {
+        "sumInsuredEur": {
+          "type": "number",
+          "minimum": 0
+        },
+        "deductibleEur": {
+          "type": "number",
+          "minimum": 0
+        },
+        "exclusions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "PremiumSchedule": {
+      "type": "object",
+      "required": [
+        "amountEur",
+        "frequency"
+      ],
+      "properties": {
+        "amountEur": {
+          "type": "number",
+          "minimum": 0
+        },
+        "frequency": {
+          "type": "string",
+          "enum": [
+            "monthly",
+            "quarterly",
+            "annual"
+          ]
+        },
+        "nextDueDate": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "Beneficiary": {
+      "type": "object",
+      "required": [
+        "name",
+        "sharePct"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "sharePct": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "relation": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

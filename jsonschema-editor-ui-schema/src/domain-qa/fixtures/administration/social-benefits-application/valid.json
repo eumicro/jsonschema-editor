@@ -1,0 +1,26 @@
+{
+  "applicationId": "SL-2026-001",
+  "household": {
+    "members": [
+      {
+        "name": "Anna Schmidt",
+        "birthDate": "1990-03-15",
+        "relation": "applicant"
+      }
+    ]
+  },
+  "income": {
+    "totalMonthlyEur": 900,
+    "sources": [
+      {
+        "type": "employment",
+        "amountEur": 900
+      }
+    ]
+  },
+  "housing": {
+    "rentEur": 650,
+    "heatingEur": 80,
+    "sqm": 45
+  }
+}

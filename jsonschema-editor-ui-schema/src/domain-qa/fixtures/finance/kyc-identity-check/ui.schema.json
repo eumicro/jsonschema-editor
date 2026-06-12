@@ -1,0 +1,49 @@
+{
+  "type": "Categorization",
+  "elements": [
+    {
+      "type": "Category",
+      "label": "Kunde",
+      "elements": [
+        {
+          "type": "Control",
+          "scope": "#/properties/customer",
+          "label": "Kunde"
+        }
+      ]
+    },
+    {
+      "type": "Category",
+      "label": "Ausweis",
+      "elements": [
+        {
+          "type": "Control",
+          "scope": "#/properties/identityDocument",
+          "label": "Ausweis"
+        }
+      ]
+    },
+    {
+      "type": "Category",
+      "label": "Screening",
+      "elements": [
+        {
+          "type": "Control",
+          "scope": "#/properties/screening",
+          "label": "Screening"
+        }
+      ]
+    },
+    {
+      "type": "Category",
+      "label": "Risiko",
+      "elements": [
+        {
+          "type": "Control",
+          "scope": "#/properties/riskRating",
+          "label": "Risiko"
+        }
+      ]
+    }
+  ]
+}

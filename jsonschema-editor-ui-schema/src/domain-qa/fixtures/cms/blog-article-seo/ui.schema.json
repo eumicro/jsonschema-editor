@@ -1,0 +1,40 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "scope": "#/properties/title",
+      "label": "title"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/slug",
+      "label": "slug"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/authorId",
+      "label": "authorId"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/publishedAt",
+      "label": "publishedAt"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/categories",
+      "label": "categories"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/body",
+      "label": "body"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/seo",
+      "label": "seo"
+    }
+  ]
+}

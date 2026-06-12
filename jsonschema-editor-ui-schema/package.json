@@ -1,0 +1,44 @@
+{
+  "name": "@jsonschema-editor/ui-schema",
+  "version": "0.1.0",
+  "description": "Objektorientiertes JSON-UI-Schema-Datenmodell",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./bridge": {
+      "types": "./dist/bridge/index.d.ts",
+      "import": "./dist/bridge/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "domain-qa:fixtures": "tsx src/domain-qa/build-fixtures.ts"
+  },
+  "peerDependencies": {
+    "@jsonschema-editor/json-schema": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "@jsonschema-editor/json-schema": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@jsonforms/core": "^3.7.0",
+    "@jsonschema-editor/json-schema": "file:../jsonschema-editor-json-schema",
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
+    "tsx": "^4.22.4",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  }
+}

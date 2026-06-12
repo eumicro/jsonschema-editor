@@ -1,0 +1,23 @@
+{
+  "resourceType": "Patient",
+  "identifier": [
+    {
+      "system": "http://fhir.de/sid/kvid/10",
+      "value": "A123456789"
+    }
+  ],
+  "name": [
+    {
+      "family": "Müller",
+      "given": [
+        "Sabine"
+      ]
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1985-07-22",
+  "insurance": {
+    "payorType": "gesetzlich",
+    "memberId": "M123456789"
+  }
+}

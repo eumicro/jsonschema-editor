@@ -1,0 +1,15 @@
+{
+  "requestId": "FZ-2026-001",
+  "certificateType": "oeffentlich",
+  "applicant": {
+    "firstName": "Anna",
+    "lastName": "Schmidt",
+    "birthDate": "1990-03-15",
+    "birthPlace": "Berlin",
+    "nationality": "DE"
+  },
+  "purpose": {
+    "category": "employment",
+    "employerName": "Krankenhaus Charité"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "productId": "P",
+  "hero": {
+    "title": "X",
+    "price": {
+      "amount": -1,
+      "currency": "EUR"
+    },
+    "gallery": []
+  }
+}

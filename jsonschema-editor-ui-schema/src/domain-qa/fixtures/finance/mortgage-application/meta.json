@@ -1,0 +1,9 @@
+{
+  "id": "mortgage-application",
+  "domain": "finance",
+  "label": "Hypothekenantrag",
+  "description": "Immobilienfinanzierung mit Objekt, Eigenkapital und Tilgungsplan.",
+  "sources": [
+    "https://www.tracefinancial.com/when-worlds-collide-iso-20022-meets-json-2/"
+  ]
+}

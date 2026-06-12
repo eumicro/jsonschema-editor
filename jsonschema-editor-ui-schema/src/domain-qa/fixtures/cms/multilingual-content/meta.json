@@ -1,0 +1,9 @@
+{
+  "id": "multilingual-content",
+  "domain": "cms",
+  "label": "Mehrsprachiger Content",
+  "description": "Lokalisierte Felder mit Fallback-Locale und Übersetzungsstatus.",
+  "sources": [
+    "https://hygraph.com/blog/structured-content"
+  ]
+}

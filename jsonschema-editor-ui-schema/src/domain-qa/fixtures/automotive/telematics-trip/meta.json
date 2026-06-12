@@ -1,0 +1,9 @@
+{
+  "id": "telematics-trip",
+  "domain": "automotive",
+  "label": "Telematik-Fahrtprotokoll",
+  "description": "Flottentelematik mit GPS-Track, Fahrverhalten und Kraftstoff/EV-Verbrauch.",
+  "sources": [
+    "https://www.asam.net/standards/detail/sovd"
+  ]
+}

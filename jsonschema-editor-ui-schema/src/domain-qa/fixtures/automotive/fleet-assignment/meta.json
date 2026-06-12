@@ -1,0 +1,9 @@
+{
+  "id": "fleet-assignment",
+  "domain": "automotive",
+  "label": "Flottenzuweisung",
+  "description": "Fahrzeug-zu-Fahrer-Zuweisung mit Pool-/Leasing-Modell und Kostenstelle.",
+  "sources": [
+    "https://www.asam.net/standards/detail/sovd"
+  ]
+}

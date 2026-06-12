@@ -1,0 +1,137 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ECU-Diagnose",
+  "type": "object",
+  "required": [
+    "ecuId",
+    "variant",
+    "parameters",
+    "connection"
+  ],
+  "properties": {
+    "ecuId": {
+      "type": "string",
+      "title": "ECU-ID",
+      "pattern": "^[A-Z0-9._-]{3,32}$"
+    },
+    "variant": {
+      "$ref": "#/$defs/EcuVariant"
+    },
+    "parameters": {
+      "type": "array",
+      "title": "Parameter",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/DiagnosticParameter"
+      }
+    },
+    "connection": {
+      "$ref": "#/$defs/DiagnosticConnection"
+    }
+  },
+  "$defs": {
+    "EcuVariant": {
+      "type": "object",
+      "title": "ECU-Variante",
+      "required": [
+        "softwareVersion",
+        "hardwareVersion"
+      ],
+      "properties": {
+        "softwareVersion": {
+          "type": "string",
+          "title": "Softwareversion"
+        },
+        "hardwareVersion": {
+          "type": "string",
+          "title": "Hardwareversion"
+        },
+        "supplierCode": {
+          "type": "string",
+          "title": "Lieferantencode"
+        }
+      }
+    },
+    "DiagnosticParameter": {
+      "type": "object",
+      "required": [
+        "name",
+        "dataFormat",
+        "startBit",
+        "lengthBits",
+        "byteOrder"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "Name"
+        },
+        "unit": {
+          "type": "string",
+          "title": "Einheit"
+        },
+        "dataFormat": {
+          "type": "string",
+          "title": "Datentyp",
+          "enum": [
+            "A_UINT32",
+            "A_INT16",
+            "A_FLOAT32",
+            "A_ASCIISTRING"
+          ]
+        },
+        "startBit": {
+          "type": "integer",
+          "title": "Startbit",
+          "minimum": 0
+        },
+        "lengthBits": {
+          "type": "integer",
+          "title": "Bitlänge",
+          "minimum": 1
+        },
+        "byteOrder": {
+          "type": "string",
+          "title": "Byte-Reihenfolge",
+          "enum": [
+            "MSB",
+            "LSB"
+          ]
+        }
+      }
+    },
+    "DiagnosticConnection": {
+      "type": "object",
+      "required": [
+        "connectionType",
+        "baud",
+        "sendId",
+        "recvId"
+      ],
+      "properties": {
+        "connectionType": {
+          "type": "string",
+          "title": "Verbindungstyp",
+          "enum": [
+            "CAN",
+            "CAN_FD",
+            "Ethernet",
+            "K_LINE"
+          ]
+        },
+        "baud": {
+          "type": "integer",
+          "title": "Baudrate"
+        },
+        "sendId": {
+          "type": "integer",
+          "title": "Tester-ID"
+        },
+        "recvId": {
+          "type": "integer",
+          "title": "Empfänger-ID"
+        }
+      }
+    }
+  }
+}

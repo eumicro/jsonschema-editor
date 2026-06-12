@@ -1,0 +1,47 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Group",
+      "label": "Basis",
+      "elements": [
+        {
+          "type": "Control",
+          "scope": "#/properties/name",
+          "label": "Name"
+        }
+      ]
+    },
+    {
+      "type": "Group",
+      "label": "Variante",
+      "elements": [
+        {
+          "type": "Control",
+          "scope": "#/properties/kind",
+          "label": "Art"
+        },
+        {
+          "type": "Control",
+          "scope": "#/properties/firstName",
+          "label": "Vorname"
+        },
+        {
+          "type": "Control",
+          "scope": "#/properties/lastName",
+          "label": "Nachname"
+        },
+        {
+          "type": "Control",
+          "scope": "#/properties/companyName",
+          "label": "Firma"
+        },
+        {
+          "type": "Control",
+          "scope": "#/properties/vatId",
+          "label": "USt-IdNr."
+        }
+      ]
+    }
+  ]
+}

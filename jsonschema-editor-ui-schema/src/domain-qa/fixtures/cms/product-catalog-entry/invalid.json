@@ -1,0 +1,14 @@
+{
+  "sku": "P",
+  "name": "X",
+  "variants": [
+    {
+      "variantId": "v1",
+      "attributes": {},
+      "price": {
+        "amount": -1,
+        "currency": "XXX"
+      }
+    }
+  ]
+}

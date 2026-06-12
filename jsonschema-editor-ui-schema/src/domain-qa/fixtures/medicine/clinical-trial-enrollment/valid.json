@@ -1,0 +1,21 @@
+{
+  "studyId": "NCT-2026-001",
+  "patientId": "PAT-001",
+  "eligibility": {
+    "inclusionMet": [
+      "age>=18",
+      "diagnosis-confirmed"
+    ],
+    "exclusionMet": [],
+    "screeningDate": "2026-06-01"
+  },
+  "randomization": {
+    "arm": "treatment",
+    "blockNumber": 4
+  },
+  "informedConsent": {
+    "version": "v2.1",
+    "signedAt": "2026-06-12T09:00:00Z",
+    "witnessPresent": true
+  }
+}

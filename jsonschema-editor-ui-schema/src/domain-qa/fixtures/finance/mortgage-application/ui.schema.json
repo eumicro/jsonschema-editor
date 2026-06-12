@@ -1,0 +1,49 @@
+{
+  "type": "Categorization",
+  "elements": [
+    {
+      "type": "Category",
+      "label": "Darlehensnehmer",
+      "elements": [
+        {
+          "type": "Control",
+          "scope": "#/properties/borrowers",
+          "label": "Darlehensnehmer"
+        }
+      ]
+    },
+    {
+      "type": "Category",
+      "label": "Immobilie",
+      "elements": [
+        {
+          "type": "Control",
+          "scope": "#/properties/property",
+          "label": "Immobilie"
+        }
+      ]
+    },
+    {
+      "type": "Category",
+      "label": "Finanzierung",
+      "elements": [
+        {
+          "type": "Control",
+          "scope": "#/properties/financing",
+          "label": "Finanzierung"
+        }
+      ]
+    },
+    {
+      "type": "Category",
+      "label": "Tilgung",
+      "elements": [
+        {
+          "type": "Control",
+          "scope": "#/properties/repayment",
+          "label": "Tilgung"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "resourceType": "Composition",
+  "status": "final",
+  "type": {
+    "code": "11503-0",
+    "display": "Medical records"
+  },
+  "subject": {
+    "patientId": "PAT-001"
+  },
+  "date": "2026-06-12T16:00:00Z",
+  "author": [
+    {
+      "practitionerId": "PRAC-01",
+      "role": "attending"
+    }
+  ],
+  "sections": [
+    {
+      "title": "Anamnese",
+      "code": "10164-2",
+      "text": "Patient berichtet über..."
+    }
+  ]
+}

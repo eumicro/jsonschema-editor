@@ -1,0 +1,9 @@
+{
+  "id": "recall-campaign",
+  "domain": "automotive",
+  "label": "Rückrufaktion",
+  "description": "Recall-Kampagne mit betroffenen Fahrzeugen, Maßnahme und Statusverfolgung.",
+  "sources": [
+    "https://www.asam.net/standards/detail/mcd-2-d"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "id": "battery-diagnostics",
+  "domain": "automotive",
+  "label": "Batterie-Management-Diagnose",
+  "description": "BMS-Zellspannungen, Temperaturprofil und Ladezustand mit Grenzwertprüfung.",
+  "sources": [
+    "https://github.com/rnd-ash/OpenVehicleDiag/blob/main/SCHEMA.md"
+  ]
+}

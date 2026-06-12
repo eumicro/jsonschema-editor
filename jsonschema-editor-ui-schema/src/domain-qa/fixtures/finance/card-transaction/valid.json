@@ -1,0 +1,23 @@
+{
+  "transactionId": "TXN-2026-001",
+  "card": {
+    "maskedPan": "411111******1111",
+    "expiryMonth": 12,
+    "expiryYear": 2028,
+    "cardBrand": "visa"
+  },
+  "merchant": {
+    "name": "Online Shop",
+    "mcc": "5411",
+    "country": "DE"
+  },
+  "amount": {
+    "value": 49.99,
+    "currency": "EUR"
+  },
+  "authentication": {
+    "method": "3ds",
+    "eci": "05",
+    "status": "authenticated"
+  }
+}

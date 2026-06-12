@@ -1,0 +1,148 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Hypothekenantrag",
+  "type": "object",
+  "required": [
+    "applicationId",
+    "borrowers",
+    "property",
+    "financing"
+  ],
+  "properties": {
+    "applicationId": {
+      "type": "string"
+    },
+    "borrowers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/Borrower"
+      }
+    },
+    "property": {
+      "$ref": "#/$defs/MortgageProperty"
+    },
+    "financing": {
+      "$ref": "#/$defs/MortgageFinancing"
+    },
+    "repayment": {
+      "$ref": "#/$defs/RepaymentPlan"
+    }
+  },
+  "$defs": {
+    "Borrower": {
+      "type": "object",
+      "required": [
+        "name",
+        "monthlyIncomeEur"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "monthlyIncomeEur": {
+          "type": "number",
+          "minimum": 0
+        },
+        "employmentType": {
+          "type": "string",
+          "enum": [
+            "permanent",
+            "temporary",
+            "self-employed"
+          ]
+        }
+      }
+    },
+    "MortgageProperty": {
+      "type": "object",
+      "required": [
+        "address",
+        "marketValueEur",
+        "propertyType"
+      ],
+      "properties": {
+        "address": {
+          "type": "string"
+        },
+        "marketValueEur": {
+          "type": "number",
+          "minimum": 10000
+        },
+        "propertyType": {
+          "type": "string",
+          "enum": [
+            "apartment",
+            "house",
+            "commercial"
+          ]
+        },
+        "yearBuilt": {
+          "type": "integer",
+          "minimum": 1800,
+          "maximum": 2030
+        },
+        "livingAreaSqm": {
+          "type": "number",
+          "minimum": 10
+        }
+      }
+    },
+    "MortgageFinancing": {
+      "type": "object",
+      "required": [
+        "loanAmountEur",
+        "equityEur",
+        "interestRatePct",
+        "fixedRateYears"
+      ],
+      "properties": {
+        "loanAmountEur": {
+          "type": "number",
+          "minimum": 10000
+        },
+        "equityEur": {
+          "type": "number",
+          "minimum": 0
+        },
+        "interestRatePct": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 20
+        },
+        "fixedRateYears": {
+          "type": "integer",
+          "enum": [
+            5,
+            10,
+            15,
+            20,
+            30
+          ]
+        }
+      }
+    },
+    "RepaymentPlan": {
+      "type": "object",
+      "required": [
+        "initialRepaymentPct",
+        "durationYears"
+      ],
+      "properties": {
+        "initialRepaymentPct": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "durationYears": {
+          "type": "integer",
+          "minimum": 5,
+          "maximum": 40
+        },
+        "specialRepaymentAllowed": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

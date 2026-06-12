@@ -1,0 +1,121 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Gewerbeanmeldung",
+  "type": "object",
+  "required": [
+    "registrationType",
+    "business",
+    "owner",
+    "premises"
+  ],
+  "properties": {
+    "registrationType": {
+      "type": "string",
+      "enum": [
+        "neuanmeldung",
+        "ummeldung",
+        "abmeldung"
+      ]
+    },
+    "business": {
+      "$ref": "#/$defs/BusinessInfo"
+    },
+    "owner": {
+      "$ref": "#/$defs/BusinessOwner"
+    },
+    "premises": {
+      "$ref": "#/$defs/BusinessPremises"
+    }
+  },
+  "$defs": {
+    "BusinessInfo": {
+      "type": "object",
+      "required": [
+        "tradeName",
+        "activityDescription",
+        "legalForm"
+      ],
+      "properties": {
+        "tradeName": {
+          "type": "string"
+        },
+        "activityDescription": {
+          "type": "string",
+          "minLength": 10
+        },
+        "legalForm": {
+          "type": "string",
+          "enum": [
+            "Einzelunternehmen",
+            "GbR",
+            "GmbH",
+            "UG"
+          ]
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "BusinessOwner": {
+      "type": "object",
+      "required": [
+        "name",
+        "birthDate",
+        "taxId"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "birthDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "taxId": {
+          "type": "string",
+          "pattern": "^[0-9]{11}$"
+        }
+      }
+    },
+    "BusinessPremises": {
+      "type": "object",
+      "required": [
+        "address",
+        "employeesCount"
+      ],
+      "properties": {
+        "address": {
+          "$ref": "#/$defs/GermanAddress"
+        },
+        "employeesCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "homeOffice": {
+          "type": "boolean"
+        }
+      }
+    },
+    "GermanAddress": {
+      "type": "object",
+      "required": [
+        "street",
+        "postalCode",
+        "city"
+      ],
+      "properties": {
+        "street": {
+          "type": "string"
+        },
+        "postalCode": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "applicationId": "L",
+  "applicant": {},
+  "loan": {
+    "amountEur": 100,
+    "durationMonths": 6
+  },
+  "creditScore": {}
+}

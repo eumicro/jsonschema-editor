@@ -1,0 +1,49 @@
+{
+  "type": "Categorization",
+  "elements": [
+    {
+      "type": "Category",
+      "label": "Antragstyp",
+      "elements": [
+        {
+          "type": "Control",
+          "scope": "#/properties/applicationType",
+          "label": "Antragstyp"
+        }
+      ]
+    },
+    {
+      "type": "Category",
+      "label": "Halter",
+      "elements": [
+        {
+          "type": "Control",
+          "scope": "#/properties/holder",
+          "label": "Halter"
+        }
+      ]
+    },
+    {
+      "type": "Category",
+      "label": "Fahrzeug",
+      "elements": [
+        {
+          "type": "Control",
+          "scope": "#/properties/vehicle",
+          "label": "Fahrzeug"
+        }
+      ]
+    },
+    {
+      "type": "Category",
+      "label": "Versicherung",
+      "elements": [
+        {
+          "type": "Control",
+          "scope": "#/properties/insurance",
+          "label": "Versicherung"
+        }
+      ]
+    }
+  ]
+}

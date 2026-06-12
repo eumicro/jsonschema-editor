@@ -1,0 +1,9 @@
+{
+  "id": "investment-portfolio",
+  "domain": "finance",
+  "label": "Investment-Depot",
+  "description": "Wertpapierdepot mit Positionen, Asset Allocation und Performance.",
+  "sources": [
+    "https://iso20022.plus/api/json/"
+  ]
+}

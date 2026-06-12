@@ -1,0 +1,108 @@
+{
+  "type": "Stepper",
+  "elements": [
+    {
+      "type": "Step",
+      "label": "Fahrzeug",
+      "elements": [
+        {
+          "type": "Categorization",
+          "elements": [
+            {
+              "type": "Category",
+              "label": "Modell (oneOf)",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/fahrzeug/properties/modell",
+                  "label": "Modelllinie"
+                }
+              ]
+            },
+            {
+              "type": "Category",
+              "label": "Antrieb (oneOf)",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/fahrzeug/properties/antrieb",
+                  "label": "Antrieb"
+                }
+              ]
+            },
+            {
+              "type": "Category",
+              "label": "Lackierung (anyOf)",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/fahrzeug/properties/lackierung",
+                  "label": "Lackierung"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Step",
+      "label": "Kunde",
+      "elements": [
+        {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/kunde/properties/vorname",
+              "label": "Vorname"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/kunde/properties/nachname",
+              "label": "Nachname"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/kunde/properties/email",
+              "label": "E-Mail"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Step",
+      "label": "Bestellung",
+      "elements": [
+        {
+          "type": "Categorization",
+          "elements": [
+            {
+              "type": "Category",
+              "label": "Ausstattung (oneOf)",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/bestellung/properties/ausstattung",
+                  "label": "Paket"
+                }
+              ]
+            },
+            {
+              "type": "Category",
+              "label": "Finanzierung (anyOf)",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/bestellung/properties/finanzierung",
+                  "label": "Finanzierung"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

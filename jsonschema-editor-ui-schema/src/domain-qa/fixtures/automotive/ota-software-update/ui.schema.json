@@ -1,0 +1,25 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "scope": "#/properties/campaignId",
+      "label": "campaignId"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/package",
+      "label": "package"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/targets",
+      "label": "targets"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/rollback",
+      "label": "rollback"
+    }
+  ]
+}

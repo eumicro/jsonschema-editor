@@ -1,0 +1,21 @@
+{
+  "portfolioId": "DEP-001",
+  "owner": {
+    "clientId": "CL-100",
+    "name": "Max Mustermann",
+    "riskProfile": "balanced"
+  },
+  "positions": [
+    {
+      "isin": "DE0005140008",
+      "quantity": 100,
+      "marketValueEur": 8500,
+      "assetClass": "equity"
+    }
+  ],
+  "allocation": {
+    "equityPct": 60,
+    "bondPct": 30,
+    "cashPct": 10
+  }
+}

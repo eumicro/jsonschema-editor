@@ -1,0 +1,35 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "scope": "#/properties/sku",
+      "label": "sku"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/name",
+      "label": "name"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/description",
+      "label": "description"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/brand",
+      "label": "brand"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/variants",
+      "label": "variants"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/media",
+      "label": "media"
+    }
+  ]
+}

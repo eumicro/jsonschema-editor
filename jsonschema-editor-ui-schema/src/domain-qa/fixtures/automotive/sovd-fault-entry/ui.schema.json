@@ -1,0 +1,20 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "scope": "#/properties/entityPath",
+      "label": "entityPath"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/fault",
+      "label": "fault"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/environment",
+      "label": "environment"
+    }
+  ]
+}

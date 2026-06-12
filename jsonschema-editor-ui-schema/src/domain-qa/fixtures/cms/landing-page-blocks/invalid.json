@@ -1,0 +1,10 @@
+{
+  "title": "X",
+  "slug": "Invalid Slug!",
+  "sections": [
+    {
+      "type": "hero",
+      "id": "h1"
+    }
+  ]
+}

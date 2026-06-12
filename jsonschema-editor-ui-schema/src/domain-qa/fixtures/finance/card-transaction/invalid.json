@@ -1,0 +1,12 @@
+{
+  "transactionId": "T",
+  "card": {
+    "maskedPan": "bad",
+    "expiryMonth": 13
+  },
+  "merchant": {},
+  "amount": {
+    "value": 0,
+    "currency": "EUR"
+  }
+}

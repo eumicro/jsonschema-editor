@@ -1,0 +1,9 @@
+{
+  "id": "adas-calibration",
+  "domain": "automotive",
+  "label": "ADAS-Sensorkalibrierung",
+  "description": "Kalibrierung von Kamera/Radar/Lidar mit Toleranzmatrizen und Prüfprotokoll.",
+  "sources": [
+    "https://www.asam.net/standards/detail/mcd-2-d"
+  ]
+}

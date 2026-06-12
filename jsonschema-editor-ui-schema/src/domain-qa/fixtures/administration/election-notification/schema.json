@@ -1,0 +1,141 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Wahlbenachrichtigung",
+  "type": "object",
+  "required": [
+    "notificationId",
+    "election",
+    "voter",
+    "pollingStation",
+    "votingMethod"
+  ],
+  "properties": {
+    "notificationId": {
+      "type": "string"
+    },
+    "election": {
+      "$ref": "#/$defs/ElectionInfo"
+    },
+    "voter": {
+      "$ref": "#/$defs/Voter"
+    },
+    "pollingStation": {
+      "$ref": "#/$defs/PollingStation"
+    },
+    "votingMethod": {
+      "$ref": "#/$defs/VotingMethod"
+    }
+  },
+  "$defs": {
+    "ElectionInfo": {
+      "type": "object",
+      "required": [
+        "name",
+        "date",
+        "type"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "bundestag",
+            "landtag",
+            "kommunal",
+            "europawahl"
+          ]
+        }
+      }
+    },
+    "Voter": {
+      "type": "object",
+      "required": [
+        "firstName",
+        "lastName",
+        "birthDate",
+        "address"
+      ],
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "birthDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "address": {
+          "type": "string"
+        }
+      }
+    },
+    "PollingStation": {
+      "type": "object",
+      "required": [
+        "districtNumber",
+        "location",
+        "openingHours"
+      ],
+      "properties": {
+        "districtNumber": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "openingHours": {
+          "type": "string"
+        }
+      }
+    },
+    "VotingMethod": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/InPersonVoting"
+        },
+        {
+          "$ref": "#/$defs/PostalVoting"
+        }
+      ]
+    },
+    "InPersonVoting": {
+      "type": "object",
+      "required": [
+        "method"
+      ],
+      "properties": {
+        "method": {
+          "const": "in_person"
+        }
+      }
+    },
+    "PostalVoting": {
+      "type": "object",
+      "required": [
+        "method",
+        "requestedAt"
+      ],
+      "properties": {
+        "method": {
+          "const": "postal"
+        },
+        "requestedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "returnDeadline": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    }
+  }
+}

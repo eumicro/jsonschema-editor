@@ -1,0 +1,30 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "scope": "#/properties/messageId",
+      "label": "messageId"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/creationDateTime",
+      "label": "creationDateTime"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/debtor",
+      "label": "debtor"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/creditor",
+      "label": "creditor"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/payment",
+      "label": "payment"
+    }
+  ]
+}

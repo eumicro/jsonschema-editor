@@ -1,0 +1,16 @@
+{
+  "campaignCode": "RC-2026-AIRBAG",
+  "severity": "safety",
+  "affectedModels": [
+    "Model X 2022-2024"
+  ],
+  "remedy": {
+    "remedyType": "hardware",
+    "partNumber": "PN-998877",
+    "laborHours": 1.5
+  },
+  "tracking": {
+    "notifiedOwners": 1200,
+    "completedRepairs": 340
+  }
+}

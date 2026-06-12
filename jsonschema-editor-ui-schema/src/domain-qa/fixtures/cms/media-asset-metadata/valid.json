@@ -1,0 +1,19 @@
+{
+  "assetId": "MEDIA-001",
+  "filename": "hero.jpg",
+  "mimeType": "image/jpeg",
+  "dimensions": {
+    "width": 1920,
+    "height": 1080
+  },
+  "copyright": {
+    "holder": "Fotograf GmbH",
+    "license": "cc-by"
+  },
+  "altTexts": [
+    {
+      "locale": "de",
+      "text": "Produktbild auf weißem Hintergrund"
+    }
+  ]
+}

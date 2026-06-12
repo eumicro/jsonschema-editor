@@ -1,0 +1,169 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "KYC-Prüfung",
+  "type": "object",
+  "required": [
+    "caseId",
+    "customer",
+    "identityDocument",
+    "screening",
+    "riskRating"
+  ],
+  "properties": {
+    "caseId": {
+      "type": "string"
+    },
+    "customer": {
+      "$ref": "#/$defs/KycCustomer"
+    },
+    "identityDocument": {
+      "$ref": "#/$defs/IdentityDocument"
+    },
+    "screening": {
+      "$ref": "#/$defs/ComplianceScreening"
+    },
+    "riskRating": {
+      "$ref": "#/$defs/RiskRating"
+    }
+  },
+  "$defs": {
+    "KycCustomer": {
+      "type": "object",
+      "required": [
+        "firstName",
+        "lastName",
+        "birthDate",
+        "nationality"
+      ],
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "birthDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "nationality": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2
+        },
+        "taxResidency": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2
+        }
+      }
+    },
+    "IdentityDocument": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/PassportDoc"
+        },
+        {
+          "$ref": "#/$defs/IdCardDoc"
+        }
+      ]
+    },
+    "PassportDoc": {
+      "type": "object",
+      "required": [
+        "docType",
+        "number",
+        "expiryDate"
+      ],
+      "properties": {
+        "docType": {
+          "const": "passport"
+        },
+        "number": {
+          "type": "string"
+        },
+        "expiryDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "issuingCountry": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2
+        }
+      }
+    },
+    "IdCardDoc": {
+      "type": "object",
+      "required": [
+        "docType",
+        "number",
+        "expiryDate"
+      ],
+      "properties": {
+        "docType": {
+          "const": "id_card"
+        },
+        "number": {
+          "type": "string"
+        },
+        "expiryDate": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "ComplianceScreening": {
+      "type": "object",
+      "required": [
+        "pepCheck",
+        "sanctionsCheck",
+        "checkedAt"
+      ],
+      "properties": {
+        "pepCheck": {
+          "type": "string",
+          "enum": [
+            "clear",
+            "match",
+            "review"
+          ]
+        },
+        "sanctionsCheck": {
+          "type": "string",
+          "enum": [
+            "clear",
+            "match",
+            "review"
+          ]
+        },
+        "checkedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "RiskRating": {
+      "type": "object",
+      "required": [
+        "score",
+        "level"
+      ],
+      "properties": {
+        "score": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "level": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        }
+      }
+    }
+  }
+}

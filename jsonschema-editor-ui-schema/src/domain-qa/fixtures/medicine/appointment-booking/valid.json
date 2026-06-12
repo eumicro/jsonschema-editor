@@ -1,0 +1,15 @@
+{
+  "appointmentId": "APT-2026-001",
+  "patientId": "PAT-001",
+  "specialty": "cardiology",
+  "slot": {
+    "start": "2026-06-20T09:00:00Z",
+    "end": "2026-06-20T09:30:00Z",
+    "location": {
+      "siteId": "SITE-01",
+      "room": "Raum 3"
+    },
+    "modality": "in-person"
+  },
+  "priority": "routine"
+}

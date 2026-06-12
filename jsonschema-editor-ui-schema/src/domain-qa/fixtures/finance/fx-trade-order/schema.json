@@ -1,0 +1,167 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "FX-Order",
+  "type": "object",
+  "required": [
+    "orderId",
+    "client",
+    "instrument",
+    "order"
+  ],
+  "properties": {
+    "orderId": {
+      "type": "string"
+    },
+    "client": {
+      "$ref": "#/$defs/FxClient"
+    },
+    "instrument": {
+      "$ref": "#/$defs/CurrencyPair"
+    },
+    "order": {
+      "$ref": "#/$defs/FxOrderDetails"
+    },
+    "execution": {
+      "$ref": "#/$defs/FxExecution"
+    }
+  },
+  "$defs": {
+    "FxClient": {
+      "type": "object",
+      "required": [
+        "clientId",
+        "accountId"
+      ],
+      "properties": {
+        "clientId": {
+          "type": "string"
+        },
+        "accountId": {
+          "type": "string"
+        },
+        "lei": {
+          "type": "string",
+          "pattern": "^[A-Z0-9]{20}$"
+        }
+      }
+    },
+    "CurrencyPair": {
+      "type": "object",
+      "required": [
+        "base",
+        "quote"
+      ],
+      "properties": {
+        "base": {
+          "type": "string",
+          "enum": [
+            "EUR",
+            "USD",
+            "GBP",
+            "CHF",
+            "JPY"
+          ]
+        },
+        "quote": {
+          "type": "string",
+          "enum": [
+            "EUR",
+            "USD",
+            "GBP",
+            "CHF",
+            "JPY"
+          ]
+        }
+      }
+    },
+    "FxOrderDetails": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "side",
+            "amount",
+            "orderType"
+          ],
+          "properties": {
+            "side": {
+              "type": "string",
+              "enum": [
+                "buy",
+                "sell"
+              ]
+            },
+            "amount": {
+              "type": "number",
+              "minimum": 0.01
+            },
+            "orderType": {
+              "type": "string",
+              "enum": [
+                "market",
+                "stop"
+              ]
+            },
+            "validUntil": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "side",
+            "amount",
+            "orderType",
+            "limitRate"
+          ],
+          "properties": {
+            "side": {
+              "type": "string",
+              "enum": [
+                "buy",
+                "sell"
+              ]
+            },
+            "amount": {
+              "type": "number",
+              "minimum": 0.01
+            },
+            "orderType": {
+              "const": "limit"
+            },
+            "limitRate": {
+              "type": "number",
+              "minimum": 0
+            },
+            "validUntil": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      ]
+    },
+    "FxExecution": {
+      "type": "object",
+      "properties": {
+        "executedRate": {
+          "type": "number",
+          "minimum": 0
+        },
+        "executedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "counterparty": {
+          "type": "string"
+        },
+        "feesEur": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

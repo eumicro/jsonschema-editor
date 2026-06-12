@@ -1,0 +1,9 @@
+{
+  "id": "faq-page",
+  "domain": "cms",
+  "label": "FAQ-Seite",
+  "description": "FAQ mit Kategorien und JSON-LD-tauglichen Q&A-Paaren.",
+  "sources": [
+    "https://elmapicms.com/blog/headless-cms-content-modeling-reusable-page-sections-blocks"
+  ]
+}

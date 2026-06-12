@@ -1,0 +1,35 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "scope": "#/properties/policyNumber",
+      "label": "policyNumber"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/product",
+      "label": "product"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/policyholder",
+      "label": "policyholder"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/coverage",
+      "label": "coverage"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/premium",
+      "label": "premium"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/beneficiaries",
+      "label": "beneficiaries"
+    }
+  ]
+}

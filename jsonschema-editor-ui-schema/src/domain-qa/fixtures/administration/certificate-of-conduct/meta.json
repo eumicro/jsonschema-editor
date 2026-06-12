@@ -1,0 +1,9 @@
+{
+  "id": "certificate-of-conduct",
+  "domain": "administration",
+  "label": "Führungszeugnis",
+  "description": "Antrag auf polizeiliches Führungszeugnis mit Verwendungszweck.",
+  "sources": [
+    "https://docs.xoev.de/xoev-handbuch/x%C3%B6v-handbuch"
+  ]
+}

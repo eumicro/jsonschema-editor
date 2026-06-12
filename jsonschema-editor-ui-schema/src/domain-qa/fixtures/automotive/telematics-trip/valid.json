@@ -1,0 +1,24 @@
+{
+  "vehicleVin": "WVWZZZ1JZXW000001",
+  "trip": {
+    "startTime": "2026-06-12T08:00:00Z",
+    "endTime": "2026-06-12T09:15:00Z",
+    "distanceKm": 62.4,
+    "positions": [
+      {
+        "lat": 52.52,
+        "lon": 13.405,
+        "recordedAt": "2026-06-12T08:00:00Z"
+      },
+      {
+        "lat": 52.48,
+        "lon": 13.44,
+        "recordedAt": "2026-06-12T09:15:00Z"
+      }
+    ],
+    "consumption": {
+      "type": "ev",
+      "kwhPer100Km": 16.2
+    }
+  }
+}

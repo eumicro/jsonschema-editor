@@ -1,0 +1,9 @@
+{
+  "id": "site-navigation",
+  "domain": "cms",
+  "label": "Site-Navigation",
+  "description": "Hierarchisches Menü mit internen/externen Links und Sichtbarkeit.",
+  "sources": [
+    "https://elmapicms.com/blog/headless-cms-content-modeling-reusable-page-sections-blocks"
+  ]
+}

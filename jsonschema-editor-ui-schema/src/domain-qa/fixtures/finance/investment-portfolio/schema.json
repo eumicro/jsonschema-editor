@@ -1,0 +1,129 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Depot",
+  "type": "object",
+  "required": [
+    "portfolioId",
+    "owner",
+    "positions"
+  ],
+  "properties": {
+    "portfolioId": {
+      "type": "string"
+    },
+    "owner": {
+      "$ref": "#/$defs/PortfolioOwner"
+    },
+    "positions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/SecurityPosition"
+      }
+    },
+    "allocation": {
+      "$ref": "#/$defs/AssetAllocation"
+    },
+    "performance": {
+      "$ref": "#/$defs/PortfolioPerformance"
+    }
+  },
+  "$defs": {
+    "PortfolioOwner": {
+      "type": "object",
+      "required": [
+        "clientId",
+        "name"
+      ],
+      "properties": {
+        "clientId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "riskProfile": {
+          "type": "string",
+          "enum": [
+            "conservative",
+            "balanced",
+            "aggressive"
+          ]
+        }
+      }
+    },
+    "SecurityPosition": {
+      "type": "object",
+      "required": [
+        "isin",
+        "quantity",
+        "marketValueEur"
+      ],
+      "properties": {
+        "isin": {
+          "type": "string",
+          "pattern": "^[A-Z]{2}[A-Z0-9]{9}[0-9]$"
+        },
+        "quantity": {
+          "type": "number",
+          "minimum": 0.0001
+        },
+        "marketValueEur": {
+          "type": "number",
+          "minimum": 0
+        },
+        "assetClass": {
+          "type": "string",
+          "enum": [
+            "equity",
+            "bond",
+            "fund",
+            "etf",
+            "cash"
+          ]
+        }
+      }
+    },
+    "AssetAllocation": {
+      "type": "object",
+      "required": [
+        "equityPct",
+        "bondPct",
+        "cashPct"
+      ],
+      "properties": {
+        "equityPct": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "bondPct": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "cashPct": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      }
+    },
+    "PortfolioPerformance": {
+      "type": "object",
+      "properties": {
+        "ytdReturnPct": {
+          "type": "number"
+        },
+        "totalValueEur": {
+          "type": "number",
+          "minimum": 0
+        },
+        "asOfDate": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    }
+  }
+}

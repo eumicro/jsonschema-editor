@@ -1,0 +1,101 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Impfung",
+  "type": "object",
+  "required": [
+    "patientId",
+    "vaccine",
+    "administration"
+  ],
+  "properties": {
+    "patientId": {
+      "type": "string"
+    },
+    "vaccine": {
+      "$ref": "#/$defs/VaccineProduct"
+    },
+    "administration": {
+      "$ref": "#/$defs/VaccineAdministration"
+    },
+    "performer": {
+      "$ref": "#/$defs/Performer"
+    }
+  },
+  "$defs": {
+    "VaccineProduct": {
+      "type": "object",
+      "required": [
+        "name",
+        "atcCode",
+        "batchNumber"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "atcCode": {
+          "type": "string"
+        },
+        "batchNumber": {
+          "type": "string"
+        },
+        "manufacturer": {
+          "type": "string"
+        }
+      }
+    },
+    "VaccineAdministration": {
+      "type": "object",
+      "required": [
+        "occurrenceDateTime",
+        "doseNumber",
+        "site"
+      ],
+      "properties": {
+        "occurrenceDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "doseNumber": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "seriesDoses": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "site": {
+          "type": "string",
+          "enum": [
+            "left_arm",
+            "right_arm",
+            "left_thigh",
+            "right_thigh"
+          ]
+        },
+        "route": {
+          "type": "string",
+          "enum": [
+            "intramuscular",
+            "subcutaneous"
+          ]
+        }
+      }
+    },
+    "Performer": {
+      "type": "object",
+      "required": [
+        "organization",
+        "practitionerId"
+      ],
+      "properties": {
+        "organization": {
+          "type": "string"
+        },
+        "practitionerId": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

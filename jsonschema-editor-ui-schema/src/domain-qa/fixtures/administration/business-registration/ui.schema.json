@@ -1,0 +1,25 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "scope": "#/properties/registrationType",
+      "label": "registrationType"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/business",
+      "label": "business"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/owner",
+      "label": "owner"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/premises",
+      "label": "premises"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "scope": "#/properties/invoiceId",
+      "label": "invoiceId"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/issueDate",
+      "label": "issueDate"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/dueDate",
+      "label": "dueDate"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/customer",
+      "label": "customer"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/lines",
+      "label": "lines"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/paymentTerms",
+      "label": "paymentTerms"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/dunning",
+      "label": "dunning"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "pageTitle": "Häufige Fragen",
+  "slug": "faq",
+  "categories": [
+    {
+      "name": "Allgemein",
+      "items": [
+        {
+          "question": "Was ist JSON Schema?",
+          "answer": "Ein Standard zur Validierung strukturierter JSON-Daten.",
+          "order": 0
+        }
+      ]
+    }
+  ]
+}

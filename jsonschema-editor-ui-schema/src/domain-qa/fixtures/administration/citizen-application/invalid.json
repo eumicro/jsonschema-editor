@@ -1,0 +1,14 @@
+{
+  "applicationId": "A",
+  "authority": {
+    "ags": "1",
+    "name": "X"
+  },
+  "applicant": {
+    "type": "naturalPerson"
+  },
+  "request": {
+    "subject": "X",
+    "description": "kurz"
+  }
+}

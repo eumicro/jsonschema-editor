@@ -1,0 +1,32 @@
+{
+  "invoiceNumber": "RE-2026-001",
+  "issueDate": "2026-06-12",
+  "seller": {
+    "name": "Muster GmbH",
+    "vatId": "DE123456789",
+    "address": {
+      "street": "Industriestr. 1",
+      "postalCode": "10115",
+      "city": "Berlin",
+      "country": "DE"
+    }
+  },
+  "buyer": {
+    "name": "Bundesamt",
+    "leitwegId": "99-123456789-01"
+  },
+  "lineItems": [
+    {
+      "lineId": 1,
+      "description": "Beratung",
+      "quantity": 8,
+      "unitPriceEur": 120,
+      "taxCategory": "S"
+    }
+  ],
+  "taxTotal": {
+    "taxAmountEur": 182.4,
+    "netAmountEur": 960,
+    "grossAmountEur": 1142.4
+  }
+}

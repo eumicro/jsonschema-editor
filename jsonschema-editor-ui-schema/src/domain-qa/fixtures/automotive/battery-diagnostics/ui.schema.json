@@ -1,0 +1,25 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "scope": "#/properties/packId",
+      "label": "packId"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/stateOfChargePct",
+      "label": "stateOfChargePct"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/cellGroups",
+      "label": "cellGroups"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/thermalProfile",
+      "label": "thermalProfile"
+    }
+  ]
+}

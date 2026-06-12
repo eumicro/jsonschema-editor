@@ -1,0 +1,9 @@
+{
+  "id": "loan-application",
+  "domain": "finance",
+  "label": "Kreditantrag",
+  "description": "Privatkredit mit Einkommen, Sicherheiten und Bonitätsdaten.",
+  "sources": [
+    "https://www.tracefinancial.com/when-worlds-collide-iso-20022-meets-json-2/"
+  ]
+}

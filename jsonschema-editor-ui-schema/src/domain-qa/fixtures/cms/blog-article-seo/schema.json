@@ -1,0 +1,88 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Blog-Artikel",
+  "type": "object",
+  "required": [
+    "title",
+    "slug",
+    "authorId",
+    "publishedAt",
+    "body"
+  ],
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "authorId": {
+      "type": "string"
+    },
+    "publishedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "body": {
+      "$ref": "#/$defs/RichTextBody"
+    },
+    "seo": {
+      "$ref": "#/$defs/ArticleSeo"
+    }
+  },
+  "$defs": {
+    "RichTextBody": {
+      "type": "object",
+      "required": [
+        "format",
+        "content"
+      ],
+      "properties": {
+        "format": {
+          "type": "string",
+          "enum": [
+            "markdown",
+            "html",
+            "portable-text"
+          ]
+        },
+        "content": {
+          "type": "string",
+          "minLength": 50
+        },
+        "wordCount": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "ArticleSeo": {
+      "type": "object",
+      "required": [
+        "metaTitle"
+      ],
+      "properties": {
+        "metaTitle": {
+          "type": "string"
+        },
+        "metaDescription": {
+          "type": "string"
+        },
+        "ogImageUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "noIndex": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

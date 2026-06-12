@@ -1,0 +1,19 @@
+{
+  "workshopId": "WS-BER-01",
+  "vehicle": {
+    "vin": "WVWZZZ1JZXW000001"
+  },
+  "sensors": [
+    {
+      "sensorType": "front_camera",
+      "result": {
+        "status": "pass",
+        "deviationDeg": 0.12
+      }
+    }
+  ],
+  "signOff": {
+    "technicianId": "TECH-42",
+    "signedAt": "2026-06-12T14:00:00Z"
+  }
+}

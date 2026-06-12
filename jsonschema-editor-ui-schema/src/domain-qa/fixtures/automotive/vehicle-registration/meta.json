@@ -1,0 +1,9 @@
+{
+  "id": "vehicle-registration",
+  "domain": "automotive",
+  "label": "Fahrzeugzulassung",
+  "description": "Zulassungsantrag mit Halter, Typgenehmigung und Versicherungsnachweis.",
+  "sources": [
+    "https://en.wikipedia.org/wiki/X%C3%96V"
+  ]
+}

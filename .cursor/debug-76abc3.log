@@ -1,0 +1,6 @@
+{"sessionId":"76abc3","hypothesisId":"B","location":"SchemaStructureEditor.vue:openAttributesDialog","message":"edit dialog open","data":{"path":["$defs","ModellLimousine"],"valid":true,"dialogWasOpen":false},"timestamp":1781276493546}
+{"sessionId":"76abc3","hypothesisId":"B","location":"SchemaStructureEditor.vue:openAttributesDialog","message":"edit dialog open","data":{"path":["oneOf","0"],"valid":true,"dialogWasOpen":false},"timestamp":1781276496943}
+{"sessionId":"76abc3","hypothesisId":"B","location":"SchemaStructureEditor.vue:openAttributesDialog","message":"edit dialog open","data":{"path":["oneOf","0"],"valid":true,"dialogWasOpen":false},"timestamp":1781276497124}
+{"sessionId":"76abc3","hypothesisId":"B","location":"SchemaStructureEditor.vue:openAttributesDialog","message":"edit dialog open","data":{"path":["$defs","Mensch"],"valid":true,"dialogWasOpen":false},"timestamp":1781276497144}
+{"sessionId":"76abc3","hypothesisId":"B","location":"SchemaStructureEditor.vue:openAttributesDialog","message":"edit dialog open","data":{"path":["oneOf","1"],"valid":true,"dialogWasOpen":false},"timestamp":1781276497277}
+{"sessionId":"76abc3","hypothesisId":"B","location":"SchemaStructureEditor.vue:openAttributesDialog","message":"edit dialog open","data":{"path":["$defs","Mensch"],"valid":true,"dialogWasOpen":false},"timestamp":1781276497407}

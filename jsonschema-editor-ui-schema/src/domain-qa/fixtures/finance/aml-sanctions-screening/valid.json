@@ -1,0 +1,19 @@
+{
+  "screeningId": "AML-2026-001",
+  "subject": {
+    "name": "Anna Schmidt",
+    "type": "individual",
+    "dateOfBirth": "1990-03-15",
+    "country": "DE"
+  },
+  "lists": [
+    "EU_SANCTIONS",
+    "PEP"
+  ],
+  "matches": [],
+  "disposition": {
+    "status": "clear",
+    "reviewedBy": "compliance-01",
+    "reviewedAt": "2026-06-12T11:00:00Z"
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Führungszeugnis",
+  "type": "object",
+  "required": [
+    "requestId",
+    "certificateType",
+    "applicant",
+    "purpose"
+  ],
+  "properties": {
+    "requestId": {
+      "type": "string"
+    },
+    "certificateType": {
+      "type": "string",
+      "enum": [
+        "privat",
+        "oeffentlich",
+        "besonders"
+      ]
+    },
+    "applicant": {
+      "$ref": "#/$defs/CertificateApplicant"
+    },
+    "purpose": {
+      "$ref": "#/$defs/CertificatePurpose"
+    }
+  },
+  "$defs": {
+    "CertificateApplicant": {
+      "type": "object",
+      "required": [
+        "firstName",
+        "lastName",
+        "birthDate",
+        "birthPlace",
+        "nationality"
+      ],
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "birthDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "birthPlace": {
+          "type": "string"
+        },
+        "nationality": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2
+        },
+        "previousNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "CertificatePurpose": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "category",
+            "employerName"
+          ],
+          "properties": {
+            "category": {
+              "const": "employment"
+            },
+            "employerName": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "category"
+          ],
+          "properties": {
+            "category": {
+              "type": "string",
+              "enum": [
+                "volunteer",
+                "visa",
+                "other"
+              ]
+            },
+            "description": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

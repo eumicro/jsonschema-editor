@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Autor",
+  "type": "object",
+  "required": [
+    "authorId",
+    "displayName",
+    "bio",
+    "expertise"
+  ],
+  "properties": {
+    "authorId": {
+      "type": "string"
+    },
+    "displayName": {
+      "type": "string"
+    },
+    "bio": {
+      "$ref": "#/$defs/AuthorBio"
+    },
+    "socialLinks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/SocialLink"
+      }
+    },
+    "expertise": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    }
+  },
+  "$defs": {
+    "AuthorBio": {
+      "type": "object",
+      "required": [
+        "short",
+        "long"
+      ],
+      "properties": {
+        "short": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "long": {
+          "type": "string",
+          "minLength": 50
+        },
+        "avatarAssetId": {
+          "type": "string"
+        }
+      }
+    },
+    "SocialLink": {
+      "type": "object",
+      "required": [
+        "platform",
+        "url"
+      ],
+      "properties": {
+        "platform": {
+          "type": "string",
+          "enum": [
+            "linkedin",
+            "twitter",
+            "github",
+            "website"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "productId": "PAGE-001",
+  "hero": {
+    "title": "Smartwatch X",
+    "price": {
+      "amount": 299,
+      "currency": "EUR"
+    },
+    "gallery": [
+      "img-1",
+      "img-2"
+    ]
+  },
+  "specifications": [
+    {
+      "label": "Display",
+      "value": "1.9 Zoll AMOLED"
+    }
+  ],
+  "reviews": [
+    {
+      "rating": 5,
+      "author": "Max",
+      "text": "Sehr zufrieden mit der Qualität.",
+      "verifiedPurchase": true
+    }
+  ]
+}

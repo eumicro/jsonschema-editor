@@ -1,0 +1,35 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "scope": "#/properties/appointmentId",
+      "label": "appointmentId"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/patientId",
+      "label": "patientId"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/specialty",
+      "label": "specialty"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/slot",
+      "label": "slot"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/priority",
+      "label": "priority"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/reason",
+      "label": "reason"
+    }
+  ]
+}

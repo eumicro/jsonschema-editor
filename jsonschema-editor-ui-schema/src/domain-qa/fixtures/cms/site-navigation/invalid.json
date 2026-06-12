@@ -1,0 +1,12 @@
+{
+  "menuId": "m",
+  "label": "X",
+  "items": [
+    {
+      "label": "Y",
+      "link": {
+        "linkType": "internal"
+      }
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Studieneinschluss",
+  "type": "object",
+  "required": [
+    "studyId",
+    "patientId",
+    "eligibility",
+    "informedConsent"
+  ],
+  "properties": {
+    "studyId": {
+      "type": "string"
+    },
+    "patientId": {
+      "type": "string"
+    },
+    "eligibility": {
+      "$ref": "#/$defs/EligibilityAssessment"
+    },
+    "randomization": {
+      "$ref": "#/$defs/RandomizationArm"
+    },
+    "informedConsent": {
+      "$ref": "#/$defs/InformedConsent"
+    }
+  },
+  "$defs": {
+    "EligibilityAssessment": {
+      "type": "object",
+      "required": [
+        "inclusionMet",
+        "exclusionMet"
+      ],
+      "properties": {
+        "inclusionMet": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "exclusionMet": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "screeningDate": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "RandomizationArm": {
+      "type": "object",
+      "required": [
+        "arm",
+        "blockNumber"
+      ],
+      "properties": {
+        "arm": {
+          "type": "string",
+          "enum": [
+            "treatment",
+            "control",
+            "placebo"
+          ]
+        },
+        "blockNumber": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "InformedConsent": {
+      "type": "object",
+      "required": [
+        "version",
+        "signedAt",
+        "witnessPresent"
+      ],
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "signedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "witnessPresent": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

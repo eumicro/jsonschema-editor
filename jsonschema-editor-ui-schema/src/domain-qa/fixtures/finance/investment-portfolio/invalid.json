@@ -1,0 +1,11 @@
+{
+  "portfolioId": "D",
+  "owner": {},
+  "positions": [
+    {
+      "isin": "INVALID",
+      "quantity": 0,
+      "marketValueEur": -1
+    }
+  ]
+}

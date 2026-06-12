@@ -1,0 +1,9 @@
+{
+  "id": "workshop-service-order",
+  "domain": "automotive",
+  "label": "Werkstatt-Serviceauftrag",
+  "description": "Serviceauftrag mit Arbeitsplänen, Ersatzteilen und Kundenfreigabe.",
+  "sources": [
+    "https://www.asam.net/standards/detail/mcd-2-d"
+  ]
+}

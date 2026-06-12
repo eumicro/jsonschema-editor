@@ -1,0 +1,25 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "scope": "#/properties/patientId",
+      "label": "patientId"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/planDate",
+      "label": "planDate"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/medications",
+      "label": "medications"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/prescriber",
+      "label": "prescriber"
+    }
+  ]
+}

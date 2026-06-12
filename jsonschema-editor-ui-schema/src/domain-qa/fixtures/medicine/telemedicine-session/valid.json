@@ -1,0 +1,18 @@
+{
+  "sessionId": "TM-001",
+  "patientId": "PAT-001",
+  "consent": {
+    "dataProcessing": true,
+    "recording": false,
+    "signedAt": "2026-06-12T08:55:00Z"
+  },
+  "technicalCheck": {
+    "audioOk": true,
+    "videoOk": true,
+    "connectionQuality": "good"
+  },
+  "clinicalAssessment": {
+    "chiefComplaint": "Husten seit 3 Tagen",
+    "recommendation": "gp-visit"
+  }
+}

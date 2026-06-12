@@ -1,0 +1,18 @@
+{
+  "contentId": "CNT-001",
+  "defaultLocale": "de",
+  "localizations": [
+    {
+      "locale": "de",
+      "title": "Startseite",
+      "body": "Willkommen",
+      "status": "published"
+    },
+    {
+      "locale": "en",
+      "title": "Home",
+      "body": "Welcome",
+      "status": "published"
+    }
+  ]
+}

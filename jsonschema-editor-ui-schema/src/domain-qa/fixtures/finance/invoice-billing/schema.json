@@ -1,0 +1,126 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "B2B-Rechnung",
+  "type": "object",
+  "required": [
+    "invoiceId",
+    "issueDate",
+    "dueDate",
+    "customer",
+    "lines",
+    "paymentTerms"
+  ],
+  "properties": {
+    "invoiceId": {
+      "type": "string"
+    },
+    "issueDate": {
+      "type": "string",
+      "format": "date"
+    },
+    "dueDate": {
+      "type": "string",
+      "format": "date"
+    },
+    "customer": {
+      "$ref": "#/$defs/BillingCustomer"
+    },
+    "lines": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/BillingLine"
+      }
+    },
+    "paymentTerms": {
+      "$ref": "#/$defs/PaymentTerms"
+    },
+    "dunning": {
+      "$ref": "#/$defs/DunningStatus"
+    }
+  },
+  "$defs": {
+    "BillingCustomer": {
+      "type": "object",
+      "required": [
+        "name",
+        "customerNumber"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "customerNumber": {
+          "type": "string"
+        },
+        "vatId": {
+          "type": "string"
+        }
+      }
+    },
+    "BillingLine": {
+      "type": "object",
+      "required": [
+        "description",
+        "quantity",
+        "unitPriceEur",
+        "taxRatePct"
+      ],
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "number",
+          "minimum": 0.01
+        },
+        "unitPriceEur": {
+          "type": "number"
+        },
+        "taxRatePct": {
+          "type": "number",
+          "enum": [
+            0,
+            7,
+            19
+          ]
+        }
+      }
+    },
+    "PaymentTerms": {
+      "type": "object",
+      "required": [
+        "netDays"
+      ],
+      "properties": {
+        "netDays": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "discountPct": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "discountDays": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "DunningStatus": {
+      "type": "object",
+      "properties": {
+        "level": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3
+        },
+        "lastReminderDate": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    }
+  }
+}

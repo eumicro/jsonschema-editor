@@ -1,0 +1,120 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Bauantrag",
+  "type": "object",
+  "required": [
+    "permitId",
+    "parcel",
+    "project",
+    "professionals"
+  ],
+  "properties": {
+    "permitId": {
+      "type": "string"
+    },
+    "parcel": {
+      "$ref": "#/$defs/LandParcel"
+    },
+    "project": {
+      "$ref": "#/$defs/ConstructionProject"
+    },
+    "professionals": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/BuildingProfessional"
+      }
+    }
+  },
+  "$defs": {
+    "LandParcel": {
+      "type": "object",
+      "required": [
+        "flurstueckId",
+        "address",
+        "areaSqm"
+      ],
+      "properties": {
+        "flurstueckId": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "areaSqm": {
+          "type": "number",
+          "minimum": 1
+        },
+        "zoning": {
+          "type": "string",
+          "enum": [
+            "WA",
+            "MI",
+            "GE",
+            "SO"
+          ]
+        }
+      }
+    },
+    "ConstructionProject": {
+      "type": "object",
+      "required": [
+        "type",
+        "grossFloorAreaSqm",
+        "floors"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "neubau",
+            "anbau",
+            "umbau",
+            "abbruch"
+          ]
+        },
+        "grossFloorAreaSqm": {
+          "type": "number",
+          "minimum": 1
+        },
+        "floors": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 30
+        },
+        "energyStandard": {
+          "type": "string",
+          "enum": [
+            "KfW55",
+            "KfW40",
+            "Passivhaus"
+          ]
+        }
+      }
+    },
+    "BuildingProfessional": {
+      "type": "object",
+      "required": [
+        "role",
+        "name",
+        "licenseNumber"
+      ],
+      "properties": {
+        "role": {
+          "type": "string",
+          "enum": [
+            "architect",
+            "structural_engineer",
+            "energy_consultant"
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "licenseNumber": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

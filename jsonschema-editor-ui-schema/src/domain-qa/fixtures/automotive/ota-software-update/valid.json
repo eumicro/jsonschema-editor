@@ -1,0 +1,20 @@
+{
+  "campaignId": "OTA-2026-Q2",
+  "package": {
+    "version": "3.1.0",
+    "checksumSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "sizeBytes": 524288000
+  },
+  "targets": [
+    {
+      "ecuId": "IVI",
+      "currentVersion": "3.0.2",
+      "updateMode": "sequential"
+    }
+  ],
+  "rollback": {
+    "enabled": true,
+    "previousVersion": "3.0.2",
+    "maxAttempts": 2
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "applicationId": "MORT-2026-001",
+  "borrowers": [
+    {
+      "name": "Max & Erika Mustermann",
+      "monthlyIncomeEur": 6500,
+      "employmentType": "permanent"
+    }
+  ],
+  "property": {
+    "address": "Berlin",
+    "marketValueEur": 450000,
+    "propertyType": "apartment",
+    "yearBuilt": 2015,
+    "livingAreaSqm": 85
+  },
+  "financing": {
+    "loanAmountEur": 360000,
+    "equityEur": 90000,
+    "interestRatePct": 3.2,
+    "fixedRateYears": 15
+  },
+  "repayment": {
+    "initialRepaymentPct": 2,
+    "durationYears": 30
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "orderNumber": "SO-2026-001",
+  "customer": {
+    "name": "Max Mustermann",
+    "phone": "+491701234567"
+  },
+  "vehicle": {
+    "vin": "WVWZZZ1JZXW000001",
+    "mileageKm": 42000
+  },
+  "jobs": [
+    {
+      "code": "OEL",
+      "description": "Ölwechsel",
+      "laborHours": 0.8
+    }
+  ],
+  "approval": {
+    "approved": true,
+    "maxCostEur": 250
+  }
+}

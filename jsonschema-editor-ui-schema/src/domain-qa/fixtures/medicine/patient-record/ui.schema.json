@@ -1,0 +1,40 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "scope": "#/properties/resourceType",
+      "label": "Ressourcentyp"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/identifier",
+      "label": "identifier"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/name",
+      "label": "name"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/gender",
+      "label": "gender"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/birthDate",
+      "label": "birthDate"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/address",
+      "label": "address"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/insurance",
+      "label": "insurance"
+    }
+  ]
+}

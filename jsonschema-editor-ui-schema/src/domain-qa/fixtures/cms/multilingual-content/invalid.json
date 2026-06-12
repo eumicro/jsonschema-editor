@@ -1,0 +1,11 @@
+{
+  "contentId": "C",
+  "defaultLocale": "xx",
+  "localizations": [
+    {
+      "locale": "de",
+      "title": "X",
+      "status": "invalid"
+    }
+  ]
+}

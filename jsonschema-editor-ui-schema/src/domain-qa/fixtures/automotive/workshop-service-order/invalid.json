@@ -1,0 +1,11 @@
+{
+  "orderNumber": "SO",
+  "customer": {
+    "name": "X"
+  },
+  "vehicle": {
+    "vin": "x",
+    "mileageKm": -1
+  },
+  "jobs": []
+}

@@ -1,0 +1,30 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "scope": "#/properties/campaignId",
+      "label": "campaignId"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/name",
+      "label": "name"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/segment",
+      "label": "segment"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/content",
+      "label": "content"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/abTest",
+      "label": "abTest"
+    }
+  ]
+}

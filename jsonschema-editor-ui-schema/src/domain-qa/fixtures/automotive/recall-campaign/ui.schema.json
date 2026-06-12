@@ -1,0 +1,30 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "scope": "#/properties/campaignCode",
+      "label": "campaignCode"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/severity",
+      "label": "severity"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/affectedModels",
+      "label": "affectedModels"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/remedy",
+      "label": "remedy"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/tracking",
+      "label": "tracking"
+    }
+  ]
+}

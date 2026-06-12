@@ -1,0 +1,38 @@
+{
+  "type": "Categorization",
+  "elements": [
+    {
+      "type": "Category",
+      "label": "Zweck",
+      "elements": [
+        {
+          "type": "Control",
+          "scope": "#/properties/purpose",
+          "label": "Zweck"
+        }
+      ]
+    },
+    {
+      "type": "Category",
+      "label": "Betroffene Person",
+      "elements": [
+        {
+          "type": "Control",
+          "scope": "#/properties/dataSubject",
+          "label": "Betroffene Person"
+        }
+      ]
+    },
+    {
+      "type": "Category",
+      "label": "Zustellung",
+      "elements": [
+        {
+          "type": "Control",
+          "scope": "#/properties/delivery",
+          "label": "Zustellung"
+        }
+      ]
+    }
+  ]
+}

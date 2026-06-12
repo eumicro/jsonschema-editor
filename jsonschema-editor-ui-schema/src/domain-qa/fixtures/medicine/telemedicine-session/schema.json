@@ -1,0 +1,99 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Telemedizin",
+  "type": "object",
+  "required": [
+    "sessionId",
+    "patientId",
+    "consent",
+    "technicalCheck",
+    "clinicalAssessment"
+  ],
+  "properties": {
+    "sessionId": {
+      "type": "string"
+    },
+    "patientId": {
+      "type": "string"
+    },
+    "consent": {
+      "$ref": "#/$defs/TeleConsent"
+    },
+    "technicalCheck": {
+      "$ref": "#/$defs/TechnicalCheck"
+    },
+    "clinicalAssessment": {
+      "$ref": "#/$defs/ClinicalAssessment"
+    }
+  },
+  "$defs": {
+    "TeleConsent": {
+      "type": "object",
+      "required": [
+        "dataProcessing",
+        "recording",
+        "signedAt"
+      ],
+      "properties": {
+        "dataProcessing": {
+          "type": "boolean"
+        },
+        "recording": {
+          "type": "boolean"
+        },
+        "signedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "TechnicalCheck": {
+      "type": "object",
+      "required": [
+        "audioOk",
+        "videoOk",
+        "connectionQuality"
+      ],
+      "properties": {
+        "audioOk": {
+          "type": "boolean"
+        },
+        "videoOk": {
+          "type": "boolean"
+        },
+        "connectionQuality": {
+          "type": "string",
+          "enum": [
+            "good",
+            "fair",
+            "poor"
+          ]
+        }
+      }
+    },
+    "ClinicalAssessment": {
+      "type": "object",
+      "required": [
+        "chiefComplaint",
+        "recommendation"
+      ],
+      "properties": {
+        "chiefComplaint": {
+          "type": "string"
+        },
+        "recommendation": {
+          "type": "string",
+          "enum": [
+            "self-care",
+            "gp-visit",
+            "er-visit",
+            "prescription"
+          ]
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

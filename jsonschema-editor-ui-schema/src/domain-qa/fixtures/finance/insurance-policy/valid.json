@@ -1,0 +1,22 @@
+{
+  "policyNumber": "POL-2026-001",
+  "product": {
+    "code": "HR-001",
+    "name": "Hausrat Komfort",
+    "line": "property"
+  },
+  "policyholder": {
+    "name": "Anna Schmidt",
+    "birthDate": "1990-03-15",
+    "address": "Berlin"
+  },
+  "coverage": {
+    "sumInsuredEur": 50000,
+    "deductibleEur": 150
+  },
+  "premium": {
+    "amountEur": 12.5,
+    "frequency": "monthly",
+    "nextDueDate": "2026-07-01"
+  }
+}

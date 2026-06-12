@@ -1,0 +1,40 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "scope": "#/properties/resourceType",
+      "label": "resourceType"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/status",
+      "label": "status"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/type",
+      "label": "type"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/subject",
+      "label": "subject"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/date",
+      "label": "date"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/author",
+      "label": "author"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/sections",
+      "label": "sections"
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ADAS-Kalibrierung",
+  "type": "object",
+  "required": [
+    "workshopId",
+    "vehicle",
+    "sensors",
+    "signOff"
+  ],
+  "properties": {
+    "workshopId": {
+      "type": "string"
+    },
+    "vehicle": {
+      "$ref": "#/$defs/VehicleRef"
+    },
+    "sensors": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/SensorCalibration"
+      }
+    },
+    "signOff": {
+      "$ref": "#/$defs/CalibrationSignOff"
+    }
+  },
+  "$defs": {
+    "VehicleRef": {
+      "type": "object",
+      "required": [
+        "vin"
+      ],
+      "properties": {
+        "vin": {
+          "type": "string",
+          "minLength": 17,
+          "maxLength": 17
+        }
+      }
+    },
+    "SensorCalibration": {
+      "type": "object",
+      "required": [
+        "sensorType",
+        "result"
+      ],
+      "properties": {
+        "sensorType": {
+          "type": "string",
+          "enum": [
+            "front_camera",
+            "rear_camera",
+            "front_radar",
+            "lidar"
+          ]
+        },
+        "result": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/CalibrationPass"
+            },
+            {
+              "$ref": "#/$defs/CalibrationFail"
+            }
+          ]
+        }
+      }
+    },
+    "CalibrationPass": {
+      "type": "object",
+      "required": [
+        "status",
+        "deviationDeg"
+      ],
+      "properties": {
+        "status": {
+          "const": "pass"
+        },
+        "deviationDeg": {
+          "type": "number",
+          "maximum": 0.5
+        }
+      }
+    },
+    "CalibrationFail": {
+      "type": "object",
+      "required": [
+        "status",
+        "reason"
+      ],
+      "properties": {
+        "status": {
+          "const": "fail"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "retryAllowed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "CalibrationSignOff": {
+      "type": "object",
+      "required": [
+        "technicianId",
+        "signedAt"
+      ],
+      "properties": {
+        "technicianId": {
+          "type": "string"
+        },
+        "signedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

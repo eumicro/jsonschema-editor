@@ -1,0 +1,19 @@
+{
+  "campaignId": "NL-2026-001",
+  "name": "Sommer-Newsletter",
+  "segment": {
+    "name": "Aktive Abonnenten",
+    "filters": [
+      {
+        "field": "status",
+        "operator": "equals",
+        "value": "active"
+      }
+    ]
+  },
+  "content": {
+    "subject": "Neuigkeiten",
+    "preheader": "Das ist neu",
+    "bodyHtml": "<p>Willkommen zu unserem Newsletter.</p>"
+  }
+}

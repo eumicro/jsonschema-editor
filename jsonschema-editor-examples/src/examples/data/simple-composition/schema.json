@@ -1,0 +1,69 @@
+{
+  "allOf": [
+    {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "Name",
+          "description": "Anzeigename der Person"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "Person (Basis)"
+    }
+  ],
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "title": "Art",
+          "const": "natural"
+        },
+        "firstName": {
+          "type": "string",
+          "title": "Vorname"
+        },
+        "lastName": {
+          "type": "string",
+          "title": "Nachname"
+        }
+      },
+      "required": [
+        "kind",
+        "firstName",
+        "lastName"
+      ],
+      "title": "Natürliche Person"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "title": "Art",
+          "const": "legal"
+        },
+        "companyName": {
+          "type": "string",
+          "title": "Firma"
+        },
+        "vatId": {
+          "type": "string",
+          "title": "USt-IdNr."
+        }
+      },
+      "required": [
+        "kind",
+        "companyName"
+      ],
+      "title": "Juristische Person"
+    }
+  ],
+  "title": "Person",
+  "description": "Natürliche oder juristische Person mit gemeinsamer Basis"
+}

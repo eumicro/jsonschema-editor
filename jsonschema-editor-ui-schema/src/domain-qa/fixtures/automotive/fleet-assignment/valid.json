@@ -1,0 +1,17 @@
+{
+  "fleetId": "FLEET-DE-01",
+  "assignment": {
+    "vehicleVin": "WVWZZZ1JZXW000001",
+    "mode": "dedicated",
+    "driver": {
+      "employeeId": "E-1001",
+      "licenseClass": [
+        "B"
+      ]
+    }
+  },
+  "costCenter": {
+    "code": "CC-4400",
+    "department": "Vertrieb"
+  }
+}

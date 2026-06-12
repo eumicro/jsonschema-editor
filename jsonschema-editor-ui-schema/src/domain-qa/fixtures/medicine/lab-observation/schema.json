@@ -1,0 +1,159 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Laborbefund",
+  "type": "object",
+  "required": [
+    "resourceType",
+    "status",
+    "code",
+    "subject",
+    "effectiveDateTime",
+    "value"
+  ],
+  "properties": {
+    "resourceType": {
+      "const": "Observation"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "registered",
+        "final",
+        "amended"
+      ]
+    },
+    "code": {
+      "$ref": "#/$defs/ObservationCode"
+    },
+    "subject": {
+      "$ref": "#/$defs/SubjectRef"
+    },
+    "effectiveDateTime": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "value": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/QuantityValue"
+        },
+        {
+          "$ref": "#/$defs/StringValue"
+        },
+        {
+          "$ref": "#/$defs/BooleanValue"
+        }
+      ]
+    },
+    "referenceRange": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ReferenceRange"
+      }
+    }
+  },
+  "$defs": {
+    "ObservationCode": {
+      "type": "object",
+      "required": [
+        "system",
+        "code",
+        "display"
+      ],
+      "properties": {
+        "system": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "display": {
+          "type": "string"
+        }
+      }
+    },
+    "SubjectRef": {
+      "type": "object",
+      "required": [
+        "patientId"
+      ],
+      "properties": {
+        "patientId": {
+          "type": "string"
+        }
+      }
+    },
+    "QuantityValue": {
+      "type": "object",
+      "required": [
+        "valueType",
+        "value",
+        "unit"
+      ],
+      "properties": {
+        "valueType": {
+          "const": "quantity"
+        },
+        "value": {
+          "type": "number"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "comparator": {
+          "type": "string",
+          "enum": [
+            "<",
+            "<=",
+            ">=",
+            ">"
+          ]
+        }
+      }
+    },
+    "StringValue": {
+      "type": "object",
+      "required": [
+        "valueType",
+        "text"
+      ],
+      "properties": {
+        "valueType": {
+          "const": "string"
+        },
+        "text": {
+          "type": "string"
+        }
+      }
+    },
+    "BooleanValue": {
+      "type": "object",
+      "required": [
+        "valueType",
+        "flag"
+      ],
+      "properties": {
+        "valueType": {
+          "const": "boolean"
+        },
+        "flag": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ReferenceRange": {
+      "type": "object",
+      "properties": {
+        "low": {
+          "type": "number"
+        },
+        "high": {
+          "type": "number"
+        },
+        "text": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

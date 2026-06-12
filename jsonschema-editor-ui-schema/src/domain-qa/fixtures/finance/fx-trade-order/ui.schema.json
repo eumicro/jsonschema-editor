@@ -1,0 +1,30 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "scope": "#/properties/orderId",
+      "label": "orderId"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/client",
+      "label": "client"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/instrument",
+      "label": "instrument"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/order",
+      "label": "order"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/execution",
+      "label": "execution"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "id": "product-catalog-entry",
+  "domain": "cms",
+  "label": "Produktkatalog-Eintrag",
+  "description": "PIM-Produkt mit Varianten, Preisen und Medien-Referenzen.",
+  "sources": [
+    "https://hygraph.com/blog/structured-content"
+  ]
+}

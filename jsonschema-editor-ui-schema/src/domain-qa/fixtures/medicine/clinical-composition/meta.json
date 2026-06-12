@@ -1,0 +1,9 @@
+{
+  "id": "clinical-composition",
+  "domain": "medicine",
+  "label": "Arztbrief (Composition)",
+  "description": "Klinisches Dokument mit Abschnitten, Autoren und Attestierung.",
+  "sources": [
+    "https://hl7.org/fhir/R5/composition.schema.json.html"
+  ]
+}

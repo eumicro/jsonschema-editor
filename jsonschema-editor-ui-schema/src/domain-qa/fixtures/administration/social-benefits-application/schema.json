@@ -1,0 +1,151 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Sozialleistung",
+  "type": "object",
+  "required": [
+    "applicationId",
+    "household",
+    "income",
+    "housing"
+  ],
+  "properties": {
+    "applicationId": {
+      "type": "string"
+    },
+    "household": {
+      "$ref": "#/$defs/Household"
+    },
+    "income": {
+      "$ref": "#/$defs/HouseholdIncome"
+    },
+    "assets": {
+      "$ref": "#/$defs/HouseholdAssets"
+    },
+    "housing": {
+      "$ref": "#/$defs/HousingCosts"
+    }
+  },
+  "$defs": {
+    "Household": {
+      "type": "object",
+      "required": [
+        "members"
+      ],
+      "properties": {
+        "members": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/HouseholdMember"
+          }
+        }
+      }
+    },
+    "HouseholdMember": {
+      "type": "object",
+      "required": [
+        "name",
+        "birthDate",
+        "relation"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "birthDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "relation": {
+          "type": "string",
+          "enum": [
+            "applicant",
+            "spouse",
+            "child",
+            "other"
+          ]
+        },
+        "employed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "HouseholdIncome": {
+      "type": "object",
+      "required": [
+        "totalMonthlyEur"
+      ],
+      "properties": {
+        "totalMonthlyEur": {
+          "type": "number",
+          "minimum": 0
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/IncomeSource"
+          }
+        }
+      }
+    },
+    "IncomeSource": {
+      "type": "object",
+      "required": [
+        "type",
+        "amountEur"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "employment",
+            "pension",
+            "child_benefit",
+            "other"
+          ]
+        },
+        "amountEur": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "HouseholdAssets": {
+      "type": "object",
+      "properties": {
+        "cashEur": {
+          "type": "number",
+          "minimum": 0
+        },
+        "vehicleCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "realEstate": {
+          "type": "boolean"
+        }
+      }
+    },
+    "HousingCosts": {
+      "type": "object",
+      "required": [
+        "rentEur",
+        "heatingEur"
+      ],
+      "properties": {
+        "rentEur": {
+          "type": "number",
+          "minimum": 0
+        },
+        "heatingEur": {
+          "type": "number",
+          "minimum": 0
+        },
+        "sqm": {
+          "type": "number",
+          "minimum": 10
+        }
+      }
+    }
+  }
+}

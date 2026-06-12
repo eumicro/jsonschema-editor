@@ -1,0 +1,38 @@
+{
+  "type": "Categorization",
+  "elements": [
+    {
+      "type": "Category",
+      "label": "Hero",
+      "elements": [
+        {
+          "type": "Control",
+          "scope": "#/properties/hero",
+          "label": "Hero"
+        }
+      ]
+    },
+    {
+      "type": "Category",
+      "label": "Spezifikationen",
+      "elements": [
+        {
+          "type": "Control",
+          "scope": "#/properties/specifications",
+          "label": "Spezifikationen"
+        }
+      ]
+    },
+    {
+      "type": "Category",
+      "label": "Bewertungen",
+      "elements": [
+        {
+          "type": "Control",
+          "scope": "#/properties/reviews",
+          "label": "Bewertungen"
+        }
+      ]
+    }
+  ]
+}

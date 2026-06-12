@@ -1,0 +1,24 @@
+{
+  "notificationId": "WB-2026-001",
+  "election": {
+    "name": "Bundestagswahl 2026",
+    "date": "2026-09-27",
+    "type": "bundestag"
+  },
+  "voter": {
+    "firstName": "Anna",
+    "lastName": "Schmidt",
+    "birthDate": "1990-03-15",
+    "address": "Musterstr. 1, 10115 Berlin"
+  },
+  "pollingStation": {
+    "districtNumber": "101-042",
+    "location": "Grundschule Mitte",
+    "openingHours": "08:00-18:00"
+  },
+  "votingMethod": {
+    "method": "postal",
+    "requestedAt": "2026-08-01T10:00:00Z",
+    "returnDeadline": "2026-09-26"
+  }
+}

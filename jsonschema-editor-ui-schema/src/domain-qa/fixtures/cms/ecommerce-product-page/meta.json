@@ -1,0 +1,9 @@
+{
+  "id": "ecommerce-product-page",
+  "domain": "cms",
+  "label": "E-Commerce Produktseite",
+  "description": "Produktseite mit Rich Content, Bewertungen und Cross-Selling.",
+  "sources": [
+    "https://hygraph.com/blog/structured-content"
+  ]
+}

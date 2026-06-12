@@ -1,0 +1,30 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "scope": "#/properties/studyId",
+      "label": "studyId"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/patientId",
+      "label": "patientId"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/eligibility",
+      "label": "eligibility"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/randomization",
+      "label": "randomization"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/informedConsent",
+      "label": "informedConsent"
+    }
+  ]
+}

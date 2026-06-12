@@ -1,0 +1,122 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Notfall-Triage",
+  "type": "object",
+  "required": [
+    "triageId",
+    "arrivalDateTime",
+    "vitals",
+    "esiLevel",
+    "disposition"
+  ],
+  "properties": {
+    "triageId": {
+      "type": "string"
+    },
+    "arrivalDateTime": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "vitals": {
+      "$ref": "#/$defs/VitalSigns"
+    },
+    "esiLevel": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "redFlags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "disposition": {
+      "$ref": "#/$defs/TriageDisposition"
+    }
+  },
+  "$defs": {
+    "VitalSigns": {
+      "type": "object",
+      "required": [
+        "heartRate",
+        "respiratoryRate",
+        "systolicBp",
+        "temperatureC"
+      ],
+      "properties": {
+        "heartRate": {
+          "type": "integer",
+          "minimum": 20,
+          "maximum": 250
+        },
+        "respiratoryRate": {
+          "type": "integer",
+          "minimum": 4,
+          "maximum": 60
+        },
+        "systolicBp": {
+          "type": "integer",
+          "minimum": 50,
+          "maximum": 250
+        },
+        "temperatureC": {
+          "type": "number",
+          "minimum": 30,
+          "maximum": 45
+        },
+        "oxygenSaturationPct": {
+          "type": "number",
+          "minimum": 50,
+          "maximum": 100
+        }
+      }
+    },
+    "TriageDisposition": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/ImmediateCare"
+        },
+        {
+          "$ref": "#/$defs/WaitingArea"
+        }
+      ]
+    },
+    "ImmediateCare": {
+      "type": "object",
+      "required": [
+        "dispositionType",
+        "bay"
+      ],
+      "properties": {
+        "dispositionType": {
+          "const": "immediate"
+        },
+        "bay": {
+          "type": "string",
+          "enum": [
+            "resuscitation",
+            "trauma",
+            "acute"
+          ]
+        }
+      }
+    },
+    "WaitingArea": {
+      "type": "object",
+      "required": [
+        "dispositionType",
+        "estimatedWaitMin"
+      ],
+      "properties": {
+        "dispositionType": {
+          "const": "waiting"
+        },
+        "estimatedWaitMin": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

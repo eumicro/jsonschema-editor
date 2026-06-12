@@ -1,0 +1,9 @@
+{
+  "id": "social-benefits-application",
+  "domain": "administration",
+  "label": "Sozialleistungsantrag",
+  "description": "Antrag auf Grundsicherung/Bürgergeld mit Haushalt und Einkommen.",
+  "sources": [
+    "https://docs.xoev.de/xoev-handbuch/x%C3%B6v-handbuch"
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Flottenzuweisung",
+  "type": "object",
+  "required": [
+    "fleetId",
+    "assignment"
+  ],
+  "properties": {
+    "fleetId": {
+      "type": "string"
+    },
+    "assignment": {
+      "$ref": "#/$defs/FleetAssignment"
+    },
+    "costCenter": {
+      "$ref": "#/$defs/CostCenter"
+    }
+  },
+  "$defs": {
+    "FleetAssignment": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "vehicleVin",
+            "mode",
+            "driver"
+          ],
+          "properties": {
+            "vehicleVin": {
+              "type": "string",
+              "minLength": 17,
+              "maxLength": 17
+            },
+            "mode": {
+              "type": "string",
+              "enum": [
+                "pool",
+                "dedicated"
+              ]
+            },
+            "driver": {
+              "$ref": "#/$defs/FleetDriver"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "vehicleVin",
+            "mode",
+            "driver",
+            "leasing"
+          ],
+          "properties": {
+            "vehicleVin": {
+              "type": "string",
+              "minLength": 17,
+              "maxLength": 17
+            },
+            "mode": {
+              "const": "leasing"
+            },
+            "driver": {
+              "$ref": "#/$defs/FleetDriver"
+            },
+            "leasing": {
+              "$ref": "#/$defs/LeasingTerms"
+            }
+          }
+        }
+      ]
+    },
+    "FleetDriver": {
+      "type": "object",
+      "required": [
+        "employeeId",
+        "licenseClass"
+      ],
+      "properties": {
+        "employeeId": {
+          "type": "string"
+        },
+        "licenseClass": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "LeasingTerms": {
+      "type": "object",
+      "required": [
+        "contractId",
+        "monthlyRateEur",
+        "endDate"
+      ],
+      "properties": {
+        "contractId": {
+          "type": "string"
+        },
+        "monthlyRateEur": {
+          "type": "number",
+          "minimum": 0
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "CostCenter": {
+      "type": "object",
+      "required": [
+        "code",
+        "department"
+      ],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "department": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

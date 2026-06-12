@@ -1,0 +1,9 @@
+{
+  "id": "citizen-application",
+  "domain": "administration",
+  "label": "Online-Bürgerantrag",
+  "description": "Generischer Verwaltungsantrag mit Antragsteller, Anliegen und Nachweisen.",
+  "sources": [
+    "https://docs.xoev.de/xoev-handbuch/x%C3%B6v-handbuch"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "id": "business-registration",
+  "domain": "administration",
+  "label": "Gewerbeanmeldung",
+  "description": "Gewerbeamt-Anmeldung mit Tätigkeit, Betriebsstätte und Rechtsform.",
+  "sources": [
+    "https://docs.xoev.de/xoev-handbuch/x%C3%B6v-handbuch"
+  ]
+}

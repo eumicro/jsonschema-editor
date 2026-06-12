@@ -1,0 +1,10 @@
+{
+  "screeningId": "A",
+  "subject": {
+    "name": "X"
+  },
+  "lists": [],
+  "disposition": {
+    "status": "clear"
+  }
+}

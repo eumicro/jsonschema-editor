@@ -1,0 +1,9 @@
+{
+  "id": "telemedicine-session",
+  "domain": "medicine",
+  "label": "Telemedizin-Sitzung",
+  "description": "Videosprechstunde mit Consent, Technikcheck und klinischer Bewertung.",
+  "sources": [
+    "http://hl7.org/fhir/observation.schema.json.html"
+  ]
+}

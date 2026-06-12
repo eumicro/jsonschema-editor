@@ -1,0 +1,25 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "scope": "#/properties/ecuId",
+      "label": "ecuId"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/variant",
+      "label": "variant"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/parameters",
+      "label": "parameters"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/connection",
+      "label": "connection"
+    }
+  ]
+}

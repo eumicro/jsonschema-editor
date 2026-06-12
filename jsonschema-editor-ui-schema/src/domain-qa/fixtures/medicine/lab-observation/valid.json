@@ -1,0 +1,18 @@
+{
+  "resourceType": "Observation",
+  "status": "final",
+  "code": {
+    "system": "http://loinc.org",
+    "code": "718-7",
+    "display": "Hemoglobin"
+  },
+  "subject": {
+    "patientId": "PAT-001"
+  },
+  "effectiveDateTime": "2026-06-12T07:30:00Z",
+  "value": {
+    "valueType": "quantity",
+    "value": 14.2,
+    "unit": "g/dL"
+  }
+}

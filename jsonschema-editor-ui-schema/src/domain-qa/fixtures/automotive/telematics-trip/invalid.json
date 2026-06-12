@@ -1,0 +1,9 @@
+{
+  "vehicleVin": "SHORT",
+  "trip": {
+    "startTime": "x",
+    "endTime": "y",
+    "distanceKm": -1,
+    "positions": []
+  }
+}

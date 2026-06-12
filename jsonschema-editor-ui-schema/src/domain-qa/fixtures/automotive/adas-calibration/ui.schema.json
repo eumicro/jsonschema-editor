@@ -1,0 +1,25 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "scope": "#/properties/workshopId",
+      "label": "workshopId"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/vehicle",
+      "label": "vehicle"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/sensors",
+      "label": "sensors"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/signOff",
+      "label": "signOff"
+    }
+  ]
+}

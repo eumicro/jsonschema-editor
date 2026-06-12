@@ -1,0 +1,25 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "scope": "#/properties/permitId",
+      "label": "permitId"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/parcel",
+      "label": "parcel"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/project",
+      "label": "project"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/professionals",
+      "label": "professionals"
+    }
+  ]
+}

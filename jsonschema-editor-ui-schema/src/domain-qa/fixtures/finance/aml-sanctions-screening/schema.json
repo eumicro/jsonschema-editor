@@ -1,0 +1,142 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AML-Screening",
+  "type": "object",
+  "required": [
+    "screeningId",
+    "subject",
+    "lists"
+  ],
+  "properties": {
+    "screeningId": {
+      "type": "string"
+    },
+    "subject": {
+      "$ref": "#/$defs/ScreeningSubject"
+    },
+    "lists": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "enum": [
+          "EU_SANCTIONS",
+          "OFAC",
+          "UN",
+          "PEP"
+        ]
+      }
+    },
+    "matches": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/SanctionMatch"
+      }
+    },
+    "disposition": {
+      "$ref": "#/$defs/ScreeningDisposition"
+    }
+  },
+  "$defs": {
+    "ScreeningSubject": {
+      "type": "object",
+      "required": [
+        "name",
+        "type"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "individual",
+            "organization"
+          ]
+        },
+        "dateOfBirth": {
+          "type": "string",
+          "format": "date"
+        },
+        "country": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2
+        }
+      }
+    },
+    "SanctionMatch": {
+      "type": "object",
+      "required": [
+        "listName",
+        "matchedName",
+        "score"
+      ],
+      "properties": {
+        "listName": {
+          "type": "string"
+        },
+        "matchedName": {
+          "type": "string"
+        },
+        "score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "matchReason": {
+          "type": "string"
+        }
+      }
+    },
+    "ScreeningDisposition": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/ClearDisposition"
+        },
+        {
+          "$ref": "#/$defs/EscalatedDisposition"
+        }
+      ]
+    },
+    "ClearDisposition": {
+      "type": "object",
+      "required": [
+        "status",
+        "reviewedBy"
+      ],
+      "properties": {
+        "status": {
+          "const": "clear"
+        },
+        "reviewedBy": {
+          "type": "string"
+        },
+        "reviewedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "EscalatedDisposition": {
+      "type": "object",
+      "required": [
+        "status",
+        "reason",
+        "assignedTo"
+      ],
+      "properties": {
+        "status": {
+          "const": "escalated"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "assignedTo": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

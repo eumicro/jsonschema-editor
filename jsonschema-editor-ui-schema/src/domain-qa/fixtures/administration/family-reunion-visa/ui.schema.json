@@ -1,0 +1,30 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "scope": "#/properties/caseId",
+      "label": "caseId"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/sponsor",
+      "label": "sponsor"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/applicant",
+      "label": "applicant"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/relationship",
+      "label": "relationship"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/documents",
+      "label": "documents"
+    }
+  ]
+}

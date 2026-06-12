@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SOVD-Fehlereintrag",
+  "type": "object",
+  "required": [
+    "entityPath",
+    "fault"
+  ],
+  "properties": {
+    "entityPath": {
+      "type": "string",
+      "title": "Entity-Pfad"
+    },
+    "fault": {
+      "$ref": "#/$defs/FaultEntry"
+    },
+    "environment": {
+      "$ref": "#/$defs/FaultEnvironment"
+    }
+  },
+  "$defs": {
+    "FaultEntry": {
+      "type": "object",
+      "required": [
+        "code",
+        "severity",
+        "status"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "title": "DTC/SOVD-Code",
+          "pattern": "^[PCBU][0-9A-F]{4}$"
+        },
+        "severity": {
+          "type": "string",
+          "enum": [
+            "info",
+            "warning",
+            "error",
+            "critical"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "active",
+            "pending",
+            "stored",
+            "cleared"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "title": "Beschreibung"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Zeitpunkt"
+        }
+      }
+    },
+    "FaultEnvironment": {
+      "type": "object",
+      "properties": {
+        "mileageKm": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "ignitionCycle": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "ambientTempC": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}

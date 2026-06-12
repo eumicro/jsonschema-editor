@@ -1,0 +1,208 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Kreditantrag",
+  "type": "object",
+  "required": [
+    "applicationId",
+    "applicant",
+    "loan",
+    "creditScore"
+  ],
+  "properties": {
+    "applicationId": {
+      "type": "string"
+    },
+    "applicant": {
+      "$ref": "#/$defs/LoanApplicant"
+    },
+    "loan": {
+      "$ref": "#/$defs/LoanTerms"
+    },
+    "collateral": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/CollateralItem"
+      }
+    },
+    "creditScore": {
+      "$ref": "#/$defs/CreditScore"
+    }
+  },
+  "$defs": {
+    "LoanApplicant": {
+      "type": "object",
+      "required": [
+        "name",
+        "employment"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "employment": {
+          "$ref": "#/$defs/EmploymentInfo"
+        },
+        "existingLoans": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ExistingLoan"
+          }
+        }
+      }
+    },
+    "EmploymentInfo": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "status",
+            "monthlyNetIncomeEur",
+            "employerName"
+          ],
+          "properties": {
+            "status": {
+              "const": "employed"
+            },
+            "monthlyNetIncomeEur": {
+              "type": "number",
+              "minimum": 0
+            },
+            "employerName": {
+              "type": "string"
+            },
+            "sinceDate": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "status",
+            "monthlyNetIncomeEur"
+          ],
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "self-employed",
+                "retired",
+                "unemployed"
+              ]
+            },
+            "monthlyNetIncomeEur": {
+              "type": "number",
+              "minimum": 0
+            },
+            "sinceDate": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        }
+      ]
+    },
+    "ExistingLoan": {
+      "type": "object",
+      "required": [
+        "type",
+        "remainingBalanceEur"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "mortgage",
+            "consumer",
+            "student",
+            "other"
+          ]
+        },
+        "remainingBalanceEur": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "LoanTerms": {
+      "type": "object",
+      "required": [
+        "amountEur",
+        "durationMonths",
+        "purpose"
+      ],
+      "properties": {
+        "amountEur": {
+          "type": "number",
+          "minimum": 1000
+        },
+        "durationMonths": {
+          "type": "integer",
+          "minimum": 12,
+          "maximum": 360
+        },
+        "purpose": {
+          "type": "string",
+          "enum": [
+            "vehicle",
+            "renovation",
+            "debt_consolidation",
+            "other"
+          ]
+        },
+        "interestType": {
+          "type": "string",
+          "enum": [
+            "fixed",
+            "variable"
+          ]
+        }
+      }
+    },
+    "CollateralItem": {
+      "type": "object",
+      "required": [
+        "type",
+        "estimatedValueEur"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "real_estate",
+            "vehicle",
+            "securities",
+            "other"
+          ]
+        },
+        "estimatedValueEur": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "CreditScore": {
+      "type": "object",
+      "required": [
+        "provider",
+        "score",
+        "date"
+      ],
+      "properties": {
+        "provider": {
+          "type": "string"
+        },
+        "score": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000
+        },
+        "date": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    }
+  }
+}

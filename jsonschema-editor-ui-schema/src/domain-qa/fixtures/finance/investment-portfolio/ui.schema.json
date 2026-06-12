@@ -1,0 +1,30 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "scope": "#/properties/portfolioId",
+      "label": "portfolioId"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/owner",
+      "label": "owner"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/positions",
+      "label": "positions"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/allocation",
+      "label": "allocation"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/performance",
+      "label": "performance"
+    }
+  ]
+}

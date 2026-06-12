@@ -1,0 +1,49 @@
+{
+  "type": "Categorization",
+  "elements": [
+    {
+      "type": "Category",
+      "label": "Wahl",
+      "elements": [
+        {
+          "type": "Control",
+          "scope": "#/properties/election",
+          "label": "Wahl"
+        }
+      ]
+    },
+    {
+      "type": "Category",
+      "label": "Wähler",
+      "elements": [
+        {
+          "type": "Control",
+          "scope": "#/properties/voter",
+          "label": "Wähler"
+        }
+      ]
+    },
+    {
+      "type": "Category",
+      "label": "Wahlbezirk",
+      "elements": [
+        {
+          "type": "Control",
+          "scope": "#/properties/pollingStation",
+          "label": "Wahlbezirk"
+        }
+      ]
+    },
+    {
+      "type": "Category",
+      "label": "Stimmart",
+      "elements": [
+        {
+          "type": "Control",
+          "scope": "#/properties/votingMethod",
+          "label": "Stimmart"
+        }
+      ]
+    }
+  ]
+}

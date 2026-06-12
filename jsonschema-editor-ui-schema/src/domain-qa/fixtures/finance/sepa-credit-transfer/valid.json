@@ -1,0 +1,18 @@
+{
+  "messageId": "MSG-2026-001",
+  "creationDateTime": "2026-06-12T10:00:00Z",
+  "debtor": {
+    "name": "Max Mustermann",
+    "iban": "DE89370400440532013000"
+  },
+  "creditor": {
+    "name": "Miet GmbH",
+    "iban": "DE12500105170648489890"
+  },
+  "payment": {
+    "amount": 850,
+    "currency": "EUR",
+    "remittanceInfo": "Miete Juni 2026",
+    "executionDate": "2026-06-15"
+  }
+}

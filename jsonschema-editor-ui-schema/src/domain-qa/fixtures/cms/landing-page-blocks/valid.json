@@ -1,0 +1,27 @@
+{
+  "title": "Produkt Launch",
+  "slug": "produkt-launch",
+  "seo": {
+    "metaTitle": "Launch 2026",
+    "metaDescription": "Neues Produkt ab sofort verfügbar"
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "id": "hero-1",
+      "headline": "Willkommen",
+      "primaryCtaLabel": "Mehr",
+      "primaryCtaHref": "https://example.com"
+    },
+    {
+      "type": "faq",
+      "id": "faq-1",
+      "items": [
+        {
+          "question": "Wann?",
+          "answer": "Jetzt."
+        }
+      ]
+    }
+  ]
+}

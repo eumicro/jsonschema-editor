@@ -1,0 +1,35 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "scope": "#/properties/encounterId",
+      "label": "encounterId"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/patientId",
+      "label": "patientId"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/dischargeDateTime",
+      "label": "dischargeDateTime"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/diagnoses",
+      "label": "diagnoses"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/followUp",
+      "label": "followUp"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/dischargeDisposition",
+      "label": "dischargeDisposition"
+    }
+  ]
+}

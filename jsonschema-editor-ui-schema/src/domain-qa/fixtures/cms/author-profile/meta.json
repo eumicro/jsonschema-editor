@@ -1,0 +1,9 @@
+{
+  "id": "author-profile",
+  "domain": "cms",
+  "label": "Autorenprofil",
+  "description": "Content-Autor mit Bio, Social Links und Expertise-Tags.",
+  "sources": [
+    "https://www.contentful.com/headless-cms/"
+  ]
+}

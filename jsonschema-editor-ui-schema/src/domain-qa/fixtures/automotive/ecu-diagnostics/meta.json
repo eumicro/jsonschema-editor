@@ -1,0 +1,10 @@
+{
+  "id": "ecu-diagnostics",
+  "domain": "automotive",
+  "label": "ECU-Diagnoseparameter",
+  "description": "Diagnoseparameter mit Byte-Layout und Einheiten (OpenVehicleDiag / ASAM MCD-2D-inspiriert).",
+  "sources": [
+    "https://github.com/rnd-ash/OpenVehicleDiag/blob/main/SCHEMA.md",
+    "https://www.asam.net/standards/detail/mcd-2-d"
+  ]
+}

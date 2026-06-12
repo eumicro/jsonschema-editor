@@ -1,0 +1,10 @@
+{
+  "requestId": "F",
+  "certificateType": "invalid",
+  "applicant": {
+    "firstName": "A"
+  },
+  "purpose": {
+    "category": "employment"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "caseId": "FN-2026-001",
+  "sponsor": {
+    "name": "Max Mustermann",
+    "residencePermit": "Niederlassungserlaubnis",
+    "incomeEur": 45000,
+    "housingSizeSqm": 65
+  },
+  "applicant": {
+    "name": "Erika Mustermann",
+    "nationality": "TR",
+    "passportNumber": "U12345678"
+  },
+  "relationship": {
+    "type": "spouse",
+    "marriageDate": "2020-05-10"
+  },
+  "documents": [
+    {
+      "type": "passport",
+      "referenceNumber": "U12345678"
+    },
+    {
+      "type": "marriage_certificate",
+      "referenceNumber": "MC-001"
+    }
+  ]
+}

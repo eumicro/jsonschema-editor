@@ -1,0 +1,96 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "OTA-Update",
+  "type": "object",
+  "required": [
+    "campaignId",
+    "package",
+    "targets"
+  ],
+  "properties": {
+    "campaignId": {
+      "type": "string",
+      "title": "Kampagnen-ID"
+    },
+    "package": {
+      "$ref": "#/$defs/UpdatePackage"
+    },
+    "targets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/EcuTarget"
+      },
+      "minItems": 1
+    },
+    "rollback": {
+      "$ref": "#/$defs/RollbackPlan"
+    }
+  },
+  "$defs": {
+    "UpdatePackage": {
+      "type": "object",
+      "required": [
+        "version",
+        "checksumSha256",
+        "sizeBytes"
+      ],
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "checksumSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "sizeBytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "releaseNotes": {
+          "type": "string"
+        }
+      }
+    },
+    "EcuTarget": {
+      "type": "object",
+      "required": [
+        "ecuId",
+        "currentVersion"
+      ],
+      "properties": {
+        "ecuId": {
+          "type": "string"
+        },
+        "currentVersion": {
+          "type": "string"
+        },
+        "updateMode": {
+          "type": "string",
+          "enum": [
+            "sequential",
+            "parallel"
+          ]
+        }
+      }
+    },
+    "RollbackPlan": {
+      "type": "object",
+      "required": [
+        "enabled"
+      ],
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "previousVersion": {
+          "type": "string"
+        },
+        "maxAttempts": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        }
+      }
+    }
+  }
+}

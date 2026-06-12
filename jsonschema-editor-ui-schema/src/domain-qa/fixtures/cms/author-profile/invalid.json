@@ -1,0 +1,9 @@
+{
+  "authorId": "a",
+  "displayName": "X",
+  "bio": {
+    "short": "s",
+    "long": "kurz"
+  },
+  "expertise": []
+}

@@ -1,0 +1,19 @@
+{
+  "title": "JSON Schema in der Praxis",
+  "slug": "json-schema-praxis",
+  "authorId": "author-001",
+  "publishedAt": "2026-06-12T10:00:00Z",
+  "categories": [
+    "tech",
+    "tutorial"
+  ],
+  "body": {
+    "format": "markdown",
+    "content": "In diesem Artikel erklären wir die Grundlagen von JSON Schema für Formulare und APIs in der Praxis.",
+    "wordCount": 1200
+  },
+  "seo": {
+    "metaTitle": "JSON Schema Praxis",
+    "metaDescription": "Tutorial"
+  }
+}

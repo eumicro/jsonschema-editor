@@ -1,0 +1,18 @@
+{
+  "patientId": "PAT-001",
+  "vaccine": {
+    "name": "Comirnaty",
+    "atcCode": "J07BX03",
+    "batchNumber": "BATCH-2026-01"
+  },
+  "administration": {
+    "occurrenceDateTime": "2026-06-12T10:00:00Z",
+    "doseNumber": 3,
+    "site": "left_arm",
+    "route": "intramuscular"
+  },
+  "performer": {
+    "organization": "Impfzentrum Berlin",
+    "practitionerId": "PRAC-02"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "fahrzeug": {
+    "modell": {
+      "karosserie": "suv",
+      "tueren": 5,
+      "bodenhoeheMm": 214
+    },
+    "antrieb": {
+      "art": "verbrenner",
+      "hubraum": 1998,
+      "leistungPs": 204,
+      "getriebe": "Automatik"
+    },
+    "lackierung": {
+      "lackArt": "serie",
+      "farbe": "Grau"
+    }
+  },
+  "kunde": {
+    "vorname": "Anna",
+    "nachname": "Schneider",
+    "email": "anna@example.de"
+  },
+  "bestellung": {
+    "ausstattung": {
+      "paket": "sport",
+      "sportfahrwerk": true,
+      "felgenZoll": 19
+    },
+    "finanzierung": {
+      "finanzArt": "leasing",
+      "laufzeitMonate": 48,
+      "jahreskilometer": 15000
+    }
+  }
+}

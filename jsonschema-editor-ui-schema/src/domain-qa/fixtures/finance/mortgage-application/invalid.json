@@ -1,0 +1,9 @@
+{
+  "applicationId": "M",
+  "borrowers": [],
+  "property": {
+    "address": "X",
+    "marketValueEur": 1000
+  },
+  "financing": {}
+}

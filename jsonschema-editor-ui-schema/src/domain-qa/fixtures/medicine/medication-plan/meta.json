@@ -1,0 +1,9 @@
+{
+  "id": "medication-plan",
+  "domain": "medicine",
+  "label": "Medikationsplan",
+  "description": "Medikationsliste mit Dosierungsschema, Interaktionshinweisen und Verordner.",
+  "sources": [
+    "http://hl7.org/fhir/observation.schema.json.html"
+  ]
+}

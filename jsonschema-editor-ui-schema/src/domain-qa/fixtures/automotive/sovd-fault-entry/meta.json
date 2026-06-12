@@ -1,0 +1,10 @@
+{
+  "id": "sovd-fault-entry",
+  "domain": "automotive",
+  "label": "SOVD-Fehlereintrag",
+  "description": "Service-Oriented Vehicle Diagnostics: Fehlercode, Schweregrad und Kontext.",
+  "sources": [
+    "https://www.asam.net/standards/detail/sovd",
+    "https://www.asam.net/index.php?eID=dumpFile&f=5036&t=f&token=b339d6abff02d6b0f6884f4fe6e0681955160505"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "scope": "#/properties/patientId",
+      "label": "patientId"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/vaccine",
+      "label": "vaccine"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/administration",
+      "label": "administration"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/performer",
+      "label": "performer"
+    }
+  ]
+}

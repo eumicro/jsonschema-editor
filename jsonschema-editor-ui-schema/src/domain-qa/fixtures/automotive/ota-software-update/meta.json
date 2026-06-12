@@ -1,0 +1,9 @@
+{
+  "id": "ota-software-update",
+  "domain": "automotive",
+  "label": "OTA-Software-Update",
+  "description": "Over-the-Air Update mit Paketmanifest, Ziel-ECUs und Rollback-Plan.",
+  "sources": [
+    "https://www.asam.net/standards/detail/sovd"
+  ]
+}

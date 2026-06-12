@@ -1,0 +1,9 @@
+{
+  "id": "vaccination-record",
+  "domain": "medicine",
+  "label": "Impfpass-Eintrag",
+  "description": "Impfung mit Impfstoff, Charge, Dosisnummer und Impfort.",
+  "sources": [
+    "http://hl7.org/fhir/observation.schema.json.html"
+  ]
+}

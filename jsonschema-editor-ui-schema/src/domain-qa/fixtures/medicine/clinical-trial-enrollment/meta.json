@@ -1,0 +1,9 @@
+{
+  "id": "clinical-trial-enrollment",
+  "domain": "medicine",
+  "label": "Klinische Studie – Einschluss",
+  "description": "Studieneinschluss mit Eligibility-Kriterien, Randomisierung und Einwilligung.",
+  "sources": [
+    "https://github.com/reason-healthcare/fhir-types-workspace"
+  ]
+}

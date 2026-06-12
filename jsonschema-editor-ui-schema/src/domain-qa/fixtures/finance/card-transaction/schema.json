@@ -1,0 +1,174 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Kartentransaktion",
+  "type": "object",
+  "required": [
+    "transactionId",
+    "card",
+    "merchant",
+    "amount"
+  ],
+  "properties": {
+    "transactionId": {
+      "type": "string"
+    },
+    "card": {
+      "$ref": "#/$defs/CardInfo"
+    },
+    "merchant": {
+      "$ref": "#/$defs/MerchantInfo"
+    },
+    "amount": {
+      "$ref": "#/$defs/TransactionAmount"
+    },
+    "authentication": {
+      "$ref": "#/$defs/CardAuthentication"
+    },
+    "fraudSignals": {
+      "$ref": "#/$defs/FraudSignals"
+    }
+  },
+  "$defs": {
+    "CardInfo": {
+      "type": "object",
+      "required": [
+        "maskedPan",
+        "expiryMonth",
+        "expiryYear"
+      ],
+      "properties": {
+        "maskedPan": {
+          "type": "string",
+          "pattern": "^[0-9]{6}\\*{6}[0-9]{4}$"
+        },
+        "expiryMonth": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 12
+        },
+        "expiryYear": {
+          "type": "integer",
+          "minimum": 2024
+        },
+        "cardBrand": {
+          "type": "string",
+          "enum": [
+            "visa",
+            "mastercard",
+            "amex"
+          ]
+        }
+      }
+    },
+    "MerchantInfo": {
+      "type": "object",
+      "required": [
+        "name",
+        "mcc",
+        "country"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "mcc": {
+          "type": "string",
+          "pattern": "^[0-9]{4}$"
+        },
+        "country": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2
+        }
+      }
+    },
+    "TransactionAmount": {
+      "type": "object",
+      "required": [
+        "value",
+        "currency"
+      ],
+      "properties": {
+        "value": {
+          "type": "number",
+          "minimum": 0.01
+        },
+        "currency": {
+          "type": "string",
+          "enum": [
+            "EUR",
+            "USD",
+            "GBP"
+          ]
+        },
+        "originalValue": {
+          "type": "number"
+        },
+        "originalCurrency": {
+          "type": "string"
+        }
+      }
+    },
+    "CardAuthentication": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/ThreeDSAuth"
+        },
+        {
+          "$ref": "#/$defs/NoAuth"
+        }
+      ]
+    },
+    "ThreeDSAuth": {
+      "type": "object",
+      "required": [
+        "method",
+        "eci",
+        "status"
+      ],
+      "properties": {
+        "method": {
+          "const": "3ds"
+        },
+        "eci": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "authenticated",
+            "attempted",
+            "failed"
+          ]
+        }
+      }
+    },
+    "NoAuth": {
+      "type": "object",
+      "required": [
+        "method"
+      ],
+      "properties": {
+        "method": {
+          "const": "none"
+        }
+      }
+    },
+    "FraudSignals": {
+      "type": "object",
+      "properties": {
+        "velocityScore": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "geoMismatch": {
+          "type": "boolean"
+        },
+        "deviceFingerprint": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

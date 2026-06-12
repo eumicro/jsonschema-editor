@@ -1,0 +1,19 @@
+{
+  "packId": "HV-001",
+  "stateOfChargePct": 78.5,
+  "cellGroups": [
+    {
+      "groupId": 0,
+      "cells": [
+        {
+          "cellId": 1,
+          "voltageV": 3.92
+        }
+      ]
+    }
+  ],
+  "thermalProfile": {
+    "minTempC": 18,
+    "maxTempC": 32
+  }
+}

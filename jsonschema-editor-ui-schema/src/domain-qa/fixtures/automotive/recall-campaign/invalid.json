@@ -1,0 +1,8 @@
+{
+  "campaignCode": "RC",
+  "severity": "unknown",
+  "affectedModels": [],
+  "remedy": {
+    "remedyType": "software"
+  }
+}

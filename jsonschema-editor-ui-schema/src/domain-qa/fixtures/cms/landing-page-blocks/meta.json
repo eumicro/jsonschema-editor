@@ -1,0 +1,10 @@
+{
+  "id": "landing-page-blocks",
+  "domain": "cms",
+  "label": "Landing Page mit Sektions-Blocks",
+  "description": "Polymorphe sections[] mit if/then-Diskriminator (Headless-CMS-Muster).",
+  "sources": [
+    "https://elmapicms.com/blog/headless-cms-content-modeling-reusable-page-sections-blocks",
+    "https://stackoverflow.com/questions/65331064/how-can-i-create-a-json-schema-for-array-of-blocks-of-different-types"
+  ]
+}

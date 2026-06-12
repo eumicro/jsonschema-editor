@@ -1,0 +1,22 @@
+{
+  "applicationId": "LOAN-2026-001",
+  "applicant": {
+    "name": "Max Mustermann",
+    "employment": {
+      "status": "employed",
+      "monthlyNetIncomeEur": 3200,
+      "employerName": "Tech AG"
+    }
+  },
+  "loan": {
+    "amountEur": 15000,
+    "durationMonths": 48,
+    "purpose": "vehicle",
+    "interestType": "fixed"
+  },
+  "creditScore": {
+    "provider": "Schufa",
+    "score": 92,
+    "date": "2026-06-01"
+  }
+}

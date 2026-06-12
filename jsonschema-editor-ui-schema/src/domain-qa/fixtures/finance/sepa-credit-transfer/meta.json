@@ -1,0 +1,10 @@
+{
+  "id": "sepa-credit-transfer",
+  "domain": "finance",
+  "label": "SEPA-Überweisung (ISO 20022 pain.001)",
+  "description": "Zahlungsauftrag mit Auftraggeber, Empfänger und pain.001-inspirierten Feldern.",
+  "sources": [
+    "https://www.iso20022.org/sites/default/files/documents/D7/ISO20022_API_JSON_Whitepaper_Final_20180129.pdf",
+    "https://iso20022.plus/api/json/"
+  ]
+}

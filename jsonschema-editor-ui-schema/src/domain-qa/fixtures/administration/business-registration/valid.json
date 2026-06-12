@@ -1,0 +1,22 @@
+{
+  "registrationType": "neuanmeldung",
+  "business": {
+    "tradeName": "Café Sonnenschein",
+    "activityDescription": "Gastronomie mit Kaffee und Snacks",
+    "legalForm": "Einzelunternehmen",
+    "startDate": "2026-07-01"
+  },
+  "owner": {
+    "name": "Peter Klein",
+    "birthDate": "1980-01-10",
+    "taxId": "12345678901"
+  },
+  "premises": {
+    "address": {
+      "street": "Hauptstr. 5",
+      "postalCode": "80331",
+      "city": "München"
+    },
+    "employeesCount": 2
+  }
+}

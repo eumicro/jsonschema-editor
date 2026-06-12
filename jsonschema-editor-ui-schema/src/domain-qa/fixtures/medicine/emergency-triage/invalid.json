@@ -1,0 +1,9 @@
+{
+  "triageId": "T",
+  "arrivalDateTime": "x",
+  "vitals": {
+    "heartRate": 10
+  },
+  "esiLevel": 9,
+  "disposition": {}
+}

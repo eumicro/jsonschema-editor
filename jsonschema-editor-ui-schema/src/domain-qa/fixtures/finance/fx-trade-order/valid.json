@@ -1,0 +1,18 @@
+{
+  "orderId": "FX-2026-001",
+  "client": {
+    "clientId": "CL-500",
+    "accountId": "ACC-9001"
+  },
+  "instrument": {
+    "base": "EUR",
+    "quote": "USD"
+  },
+  "order": {
+    "side": "buy",
+    "amount": 100000,
+    "orderType": "limit",
+    "limitRate": 1.085,
+    "validUntil": "2026-06-12T17:00:00Z"
+  }
+}

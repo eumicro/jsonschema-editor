@@ -1,0 +1,30 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "scope": "#/properties/screeningId",
+      "label": "screeningId"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/subject",
+      "label": "subject"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/lists",
+      "label": "lists"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/matches",
+      "label": "matches"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/disposition",
+      "label": "disposition"
+    }
+  ]
+}

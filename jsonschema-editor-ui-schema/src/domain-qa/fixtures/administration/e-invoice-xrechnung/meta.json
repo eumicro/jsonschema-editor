@@ -1,0 +1,10 @@
+{
+  "id": "e-invoice-xrechnung",
+  "domain": "administration",
+  "label": "E-Rechnung (XRechnung)",
+  "description": "Behördenrechnung nach EN 16931 / XRechnung mit Positionen und Steuer.",
+  "sources": [
+    "https://en.wikipedia.org/wiki/X%C3%96V",
+    "https://www.xrepository.de"
+  ]
+}

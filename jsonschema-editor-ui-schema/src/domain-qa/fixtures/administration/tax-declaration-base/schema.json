@@ -1,0 +1,146 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Steuererklärung",
+  "type": "object",
+  "required": [
+    "taxYear",
+    "taxpayer",
+    "income"
+  ],
+  "properties": {
+    "taxYear": {
+      "type": "integer",
+      "minimum": 2020,
+      "maximum": 2030
+    },
+    "taxpayer": {
+      "$ref": "#/$defs/Taxpayer"
+    },
+    "income": {
+      "$ref": "#/$defs/IncomeSummary"
+    },
+    "deductions": {
+      "$ref": "#/$defs/Deductions"
+    }
+  },
+  "$defs": {
+    "Taxpayer": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "taxId",
+            "maritalStatus"
+          ],
+          "properties": {
+            "taxId": {
+              "type": "string",
+              "pattern": "^[0-9]{11}$"
+            },
+            "maritalStatus": {
+              "type": "string",
+              "enum": [
+                "single",
+                "widowed",
+                "divorced"
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "taxId",
+            "maritalStatus",
+            "spouse"
+          ],
+          "properties": {
+            "taxId": {
+              "type": "string",
+              "pattern": "^[0-9]{11}$"
+            },
+            "maritalStatus": {
+              "const": "married"
+            },
+            "spouse": {
+              "$ref": "#/$defs/SpouseInfo"
+            }
+          }
+        }
+      ]
+    },
+    "SpouseInfo": {
+      "type": "object",
+      "required": [
+        "taxId",
+        "name"
+      ],
+      "properties": {
+        "taxId": {
+          "type": "string",
+          "pattern": "^[0-9]{11}$"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "IncomeSummary": {
+      "type": "object",
+      "required": [
+        "employment",
+        "capitalGains"
+      ],
+      "properties": {
+        "employment": {
+          "$ref": "#/$defs/EmploymentIncome"
+        },
+        "capitalGains": {
+          "type": "number",
+          "minimum": 0
+        },
+        "rentalIncome": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "EmploymentIncome": {
+      "type": "object",
+      "required": [
+        "grossEur",
+        "taxWithheldEur"
+      ],
+      "properties": {
+        "grossEur": {
+          "type": "number",
+          "minimum": 0
+        },
+        "taxWithheldEur": {
+          "type": "number",
+          "minimum": 0
+        },
+        "employerId": {
+          "type": "string"
+        }
+      }
+    },
+    "Deductions": {
+      "type": "object",
+      "properties": {
+        "specialExpensesEur": {
+          "type": "number",
+          "minimum": 0
+        },
+        "extraordinaryExpensesEur": {
+          "type": "number",
+          "minimum": 0
+        },
+        "childAllowanceCount": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

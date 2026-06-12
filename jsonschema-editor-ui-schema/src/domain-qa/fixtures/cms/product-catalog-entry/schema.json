@@ -1,0 +1,133 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Produkt",
+  "type": "object",
+  "required": [
+    "sku",
+    "name",
+    "variants"
+  ],
+  "properties": {
+    "sku": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "brand": {
+      "$ref": "#/$defs/BrandRef"
+    },
+    "variants": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/ProductVariant"
+      }
+    },
+    "media": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/MediaRef"
+      }
+    }
+  },
+  "$defs": {
+    "BrandRef": {
+      "type": "object",
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "ProductVariant": {
+      "type": "object",
+      "required": [
+        "variantId",
+        "attributes",
+        "price"
+      ],
+      "properties": {
+        "variantId": {
+          "type": "string"
+        },
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "color": {
+              "type": "string"
+            },
+            "size": {
+              "type": "string"
+            },
+            "material": {
+              "type": "string"
+            }
+          }
+        },
+        "price": {
+          "$ref": "#/$defs/PriceInfo"
+        },
+        "stock": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "PriceInfo": {
+      "type": "object",
+      "required": [
+        "amount",
+        "currency"
+      ],
+      "properties": {
+        "amount": {
+          "type": "number",
+          "minimum": 0
+        },
+        "currency": {
+          "type": "string",
+          "enum": [
+            "EUR",
+            "USD",
+            "GBP"
+          ]
+        },
+        "compareAt": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "MediaRef": {
+      "type": "object",
+      "required": [
+        "assetId",
+        "role"
+      ],
+      "properties": {
+        "assetId": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "thumbnail",
+            "gallery",
+            "video"
+          ]
+        }
+      }
+    }
+  }
+}

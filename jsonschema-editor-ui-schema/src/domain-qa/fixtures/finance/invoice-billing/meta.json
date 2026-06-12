@@ -1,0 +1,9 @@
+{
+  "id": "invoice-billing",
+  "domain": "finance",
+  "label": "Rechnungsstellung B2B",
+  "description": "B2B-Rechnung mit Zahlungsbedingungen, Skonto und Mahnstufen.",
+  "sources": [
+    "https://www.iso20022.org/sites/default/files/documents/D7/ISO20022_API_JSON_Whitepaper_Final_20180129.pdf"
+  ]
+}

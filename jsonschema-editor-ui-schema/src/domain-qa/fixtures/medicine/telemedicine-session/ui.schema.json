@@ -1,0 +1,30 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "scope": "#/properties/sessionId",
+      "label": "sessionId"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/patientId",
+      "label": "patientId"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/consent",
+      "label": "consent"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/technicalCheck",
+      "label": "technicalCheck"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/clinicalAssessment",
+      "label": "clinicalAssessment"
+    }
+  ]
+}

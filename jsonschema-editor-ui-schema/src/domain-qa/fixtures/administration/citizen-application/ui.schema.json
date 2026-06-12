@@ -1,0 +1,30 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "scope": "#/properties/applicationId",
+      "label": "applicationId"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/authority",
+      "label": "authority"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/applicant",
+      "label": "applicant"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/request",
+      "label": "request"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/attachments",
+      "label": "attachments"
+    }
+  ]
+}

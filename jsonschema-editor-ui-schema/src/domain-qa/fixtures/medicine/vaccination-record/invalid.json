@@ -1,0 +1,10 @@
+{
+  "patientId": "P",
+  "vaccine": {
+    "name": "X"
+  },
+  "administration": {
+    "occurrenceDateTime": "x",
+    "doseNumber": 0
+  }
+}

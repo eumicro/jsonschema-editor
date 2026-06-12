@@ -1,0 +1,35 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "scope": "#/properties/resourceType",
+      "label": "resourceType"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/status",
+      "label": "status"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/code",
+      "label": "code"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/subject",
+      "label": "subject"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/effectiveDateTime",
+      "label": "effectiveDateTime"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/value",
+      "label": "value"
+    }
+  ]
+}

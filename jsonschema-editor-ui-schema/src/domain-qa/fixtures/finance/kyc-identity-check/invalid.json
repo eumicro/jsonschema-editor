@@ -1,0 +1,11 @@
+{
+  "caseId": "K",
+  "customer": {},
+  "identityDocument": {
+    "docType": "passport"
+  },
+  "screening": {},
+  "riskRating": {
+    "score": 200
+  }
+}

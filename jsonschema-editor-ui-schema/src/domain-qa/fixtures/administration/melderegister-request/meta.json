@@ -1,0 +1,10 @@
+{
+  "id": "melderegister-request",
+  "domain": "administration",
+  "label": "Melderegister-Auszug (XMeld)",
+  "description": "Meldebescheinigung mit Abfragegrund und Empfänger (XÖV/XMeld-inspiriert).",
+  "sources": [
+    "https://en.wikipedia.org/wiki/X%C3%96V",
+    "https://www.xrepository.de"
+  ]
+}

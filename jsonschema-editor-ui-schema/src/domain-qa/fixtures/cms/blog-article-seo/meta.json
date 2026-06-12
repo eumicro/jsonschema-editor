@@ -1,0 +1,9 @@
+{
+  "id": "blog-article-seo",
+  "domain": "cms",
+  "label": "Blog-Artikel mit SEO",
+  "description": "Artikel mit Autor-Referenz, Kategorien und strukturierten Metadaten.",
+  "sources": [
+    "https://www.contentful.com/headless-cms/"
+  ]
+}

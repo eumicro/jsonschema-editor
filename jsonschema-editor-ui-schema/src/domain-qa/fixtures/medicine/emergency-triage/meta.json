@@ -1,0 +1,9 @@
+{
+  "id": "emergency-triage",
+  "domain": "medicine",
+  "label": "Notaufnahme-Triage",
+  "description": "ESI-Triage mit Vitalparametern, Red Flags und Zuweisungspriorität.",
+  "sources": [
+    "http://hl7.org/fhir/observation.schema.json.html"
+  ]
+}

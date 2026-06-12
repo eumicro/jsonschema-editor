@@ -1,0 +1,4 @@
+{
+  "label": "oneOf: Mensch / Maschine",
+  "description": "Zwei Varianten direkt im oneOf-Array – im Formular erscheint ein Dropdown."
+}

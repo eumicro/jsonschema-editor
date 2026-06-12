@@ -1,0 +1,9 @@
+{
+  "id": "election-notification",
+  "domain": "administration",
+  "label": "Wahlbenachrichtigung",
+  "description": "Wahlbenachrichtigung mit Wahlbezirk, Stimmart und Briefwahloption.",
+  "sources": [
+    "https://docs.xoev.de/xoev-handbuch/x%C3%B6v-handbuch"
+  ]
+}

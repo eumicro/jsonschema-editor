@@ -1,0 +1,9 @@
+{
+  "id": "aml-sanctions-screening",
+  "domain": "finance",
+  "label": "AML/Sanktionsprüfung",
+  "description": "Anti-Money-Laundering Screening mit Trefferliste und Disposition.",
+  "sources": [
+    "https://www.mastercard.com/us/en/news-and-trends/Insights/2024/iso-20022-and-json-balancing-standardisation-and-flexibility-in-.html"
+  ]
+}

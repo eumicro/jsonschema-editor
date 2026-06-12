@@ -1,0 +1,98 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Media-Asset",
+  "type": "object",
+  "required": [
+    "assetId",
+    "filename",
+    "mimeType"
+  ],
+  "properties": {
+    "assetId": {
+      "type": "string"
+    },
+    "filename": {
+      "type": "string"
+    },
+    "mimeType": {
+      "type": "string",
+      "enum": [
+        "image/jpeg",
+        "image/png",
+        "image/webp",
+        "video/mp4"
+      ]
+    },
+    "dimensions": {
+      "$ref": "#/$defs/MediaDimensions"
+    },
+    "copyright": {
+      "$ref": "#/$defs/CopyrightInfo"
+    },
+    "altTexts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/AltTextEntry"
+      }
+    }
+  },
+  "$defs": {
+    "MediaDimensions": {
+      "type": "object",
+      "required": [
+        "width",
+        "height"
+      ],
+      "properties": {
+        "width": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "CopyrightInfo": {
+      "type": "object",
+      "required": [
+        "holder"
+      ],
+      "properties": {
+        "holder": {
+          "type": "string"
+        },
+        "license": {
+          "type": "string",
+          "enum": [
+            "all-rights-reserved",
+            "cc-by",
+            "cc-by-sa",
+            "public-domain"
+          ]
+        },
+        "expiryDate": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "AltTextEntry": {
+      "type": "object",
+      "required": [
+        "locale",
+        "text"
+      ],
+      "properties": {
+        "locale": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 3
+        }
+      }
+    }
+  }
+}

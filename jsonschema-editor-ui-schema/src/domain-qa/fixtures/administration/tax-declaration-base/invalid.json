@@ -1,0 +1,11 @@
+{
+  "taxYear": 2010,
+  "taxpayer": {
+    "taxId": "abc"
+  },
+  "income": {
+    "employment": {
+      "grossEur": -1
+    }
+  }
+}

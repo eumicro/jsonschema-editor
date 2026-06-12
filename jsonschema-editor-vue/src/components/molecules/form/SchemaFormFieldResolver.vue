@@ -1,0 +1,43 @@
+<script setup lang="ts">
+import { computed, toRef } from "vue";
+import type { SchemaDocument, SchemaNode } from "@jsonschema-editor/json-schema";
+import { resolveCompositionAtScope } from "@jsonschema-editor/ui-schema/bridge";
+import { useScopedField } from "../../../composables/useScopedField";
+import { useSchemaFormTypeRegistry } from "../../../composables/useRegistries";
+import DefaultFormField from "./DefaultFormField.vue";
+import OneOfFormField from "./OneOfFormField.vue";
+
+const props = defineProps<{
+  schema: SchemaNode;
+  document?: SchemaDocument;
+  scope: string;
+  label?: string;
+  readonly?: boolean;
+}>();
+
+const rootSchema = toRef(props, "schema");
+const documentRef = toRef(props, "document");
+const rootData = defineModel<Record<string, unknown>>({ required: true });
+const typeRegistry = useSchemaFormTypeRegistry();
+const { fieldSchema } = useScopedField(rootSchema, rootData, props.scope, documentRef);
+
+const oneOfComposition = computed(() => resolveCompositionAtScope(props.schema, props.scope));
+
+const resolvedComponent = computed(() => {
+  if (oneOfComposition.value) return OneOfFormField;
+  const node = fieldSchema.value ?? props.schema;
+  return typeRegistry.resolve(node) ?? DefaultFormField;
+});
+</script>
+
+<template>
+  <component
+    :is="resolvedComponent"
+    v-model="rootData"
+    :schema="schema"
+    :document="document"
+    :scope="scope"
+    :label="label"
+    :readonly="readonly"
+  />
+</template>

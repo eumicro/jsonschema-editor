@@ -1,0 +1,7 @@
+{
+  "entityPath": "/x",
+  "fault": {
+    "code": "INVALID",
+    "severity": "warning"
+  }
+}

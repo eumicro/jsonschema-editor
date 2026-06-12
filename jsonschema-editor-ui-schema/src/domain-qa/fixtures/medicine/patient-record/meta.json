@@ -1,0 +1,10 @@
+{
+  "id": "patient-record",
+  "domain": "medicine",
+  "label": "Patientenstammdaten",
+  "description": "FHIR-inspirierte Patientenakte mit Identifikatoren, Kontakt und Versicherung.",
+  "sources": [
+    "https://hl7.org/fhir/R5/patient.schema.json.html",
+    "https://github.com/alysivji/fhir-zod"
+  ]
+}

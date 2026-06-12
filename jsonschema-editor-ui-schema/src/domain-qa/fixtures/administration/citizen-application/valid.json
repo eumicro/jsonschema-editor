@@ -1,0 +1,19 @@
+{
+  "applicationId": "APP-2026-001",
+  "authority": {
+    "ags": "11000000",
+    "name": "Senatsverwaltung Berlin"
+  },
+  "applicant": {
+    "type": "naturalPerson",
+    "person": {
+      "firstName": "Anna",
+      "lastName": "Schmidt",
+      "birthDate": "1990-03-15"
+    }
+  },
+  "request": {
+    "subject": "Ummeldung",
+    "description": "Ich beantrage die Ummeldung an die neue Adresse wegen Umzugs."
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "menuId": "main-nav",
+  "label": "Hauptnavigation",
+  "items": [
+    {
+      "label": "Start",
+      "link": {
+        "linkType": "internal",
+        "pageSlug": "home"
+      },
+      "visible": true
+    },
+    {
+      "label": "Blog",
+      "link": {
+        "linkType": "internal",
+        "pageSlug": "blog"
+      },
+      "children": [
+        {
+          "label": "Tech",
+          "link": {
+            "linkType": "internal",
+            "pageSlug": "blog/tech"
+          }
+        }
+      ]
+    }
+  ]
+}

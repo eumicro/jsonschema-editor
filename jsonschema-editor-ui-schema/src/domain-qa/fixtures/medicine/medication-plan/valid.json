@@ -1,0 +1,19 @@
+{
+  "patientId": "PAT-001",
+  "planDate": "2026-06-12",
+  "medications": [
+    {
+      "pzn": "12345678",
+      "name": "Metformin 500mg",
+      "dosage": {
+        "dose": "1 Tablette",
+        "frequency": "1-0-1"
+      },
+      "route": "oral"
+    }
+  ],
+  "prescriber": {
+    "name": "Dr. Weber",
+    "lanr": "123456789"
+  }
+}

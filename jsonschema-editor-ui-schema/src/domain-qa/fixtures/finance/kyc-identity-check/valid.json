@@ -1,0 +1,24 @@
+{
+  "caseId": "KYC-2026-001",
+  "customer": {
+    "firstName": "Anna",
+    "lastName": "Schmidt",
+    "birthDate": "1990-03-15",
+    "nationality": "DE"
+  },
+  "identityDocument": {
+    "docType": "passport",
+    "number": "C01X00T47",
+    "expiryDate": "2030-05-01",
+    "issuingCountry": "DE"
+  },
+  "screening": {
+    "pepCheck": "clear",
+    "sanctionsCheck": "clear",
+    "checkedAt": "2026-06-12T09:00:00Z"
+  },
+  "riskRating": {
+    "score": 15,
+    "level": "low"
+  }
+}

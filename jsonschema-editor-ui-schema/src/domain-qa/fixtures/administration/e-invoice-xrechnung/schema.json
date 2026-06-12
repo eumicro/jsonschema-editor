@@ -1,0 +1,157 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "XRechnung",
+  "type": "object",
+  "required": [
+    "invoiceNumber",
+    "issueDate",
+    "seller",
+    "buyer",
+    "lineItems",
+    "taxTotal"
+  ],
+  "properties": {
+    "invoiceNumber": {
+      "type": "string"
+    },
+    "issueDate": {
+      "type": "string",
+      "format": "date"
+    },
+    "seller": {
+      "$ref": "#/$defs/InvoiceParty"
+    },
+    "buyer": {
+      "$ref": "#/$defs/PublicBuyer"
+    },
+    "lineItems": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/InvoiceLine"
+      }
+    },
+    "taxTotal": {
+      "$ref": "#/$defs/TaxTotal"
+    }
+  },
+  "$defs": {
+    "InvoiceParty": {
+      "type": "object",
+      "required": [
+        "name",
+        "vatId",
+        "address"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "vatId": {
+          "type": "string"
+        },
+        "address": {
+          "$ref": "#/$defs/GermanAddress"
+        }
+      }
+    },
+    "PublicBuyer": {
+      "type": "object",
+      "required": [
+        "name",
+        "leitwegId"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "leitwegId": {
+          "type": "string",
+          "pattern": "^[0-9]{2}-[A-Za-z0-9]+-[0-9]{2}$"
+        }
+      }
+    },
+    "GermanAddress": {
+      "type": "object",
+      "required": [
+        "street",
+        "postalCode",
+        "city",
+        "country"
+      ],
+      "properties": {
+        "street": {
+          "type": "string"
+        },
+        "postalCode": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string",
+          "const": "DE"
+        }
+      }
+    },
+    "InvoiceLine": {
+      "type": "object",
+      "required": [
+        "lineId",
+        "description",
+        "quantity",
+        "unitPriceEur",
+        "taxCategory"
+      ],
+      "properties": {
+        "lineId": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "description": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "number",
+          "minimum": 0.01
+        },
+        "unitPriceEur": {
+          "type": "number",
+          "minimum": 0
+        },
+        "taxCategory": {
+          "type": "string",
+          "enum": [
+            "S",
+            "Z",
+            "E",
+            "AE"
+          ]
+        }
+      }
+    },
+    "TaxTotal": {
+      "type": "object",
+      "required": [
+        "taxAmountEur",
+        "netAmountEur",
+        "grossAmountEur"
+      ],
+      "properties": {
+        "taxAmountEur": {
+          "type": "number",
+          "minimum": 0
+        },
+        "netAmountEur": {
+          "type": "number",
+          "minimum": 0
+        },
+        "grossAmountEur": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

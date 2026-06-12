@@ -1,0 +1,21 @@
+{
+  "encounterId": "ENC-001",
+  "patientId": "PAT-001",
+  "dischargeDateTime": "2026-06-12T14:00:00Z",
+  "diagnoses": [
+    {
+      "icd10": "I21.9",
+      "description": "Akuter Myokardinfarkt",
+      "type": "primary"
+    }
+  ],
+  "dischargeDisposition": "rehab",
+  "followUp": {
+    "appointments": [
+      {
+        "specialty": "cardiology",
+        "withinDays": 14
+      }
+    ]
+  }
+}

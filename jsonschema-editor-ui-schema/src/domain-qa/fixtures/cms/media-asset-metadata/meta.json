@@ -1,0 +1,9 @@
+{
+  "id": "media-asset-metadata",
+  "domain": "cms",
+  "label": "Media-Asset-Metadaten",
+  "description": "Digitales Asset mit Copyright, Varianten und Alt-Texten.",
+  "sources": [
+    "https://hygraph.com/blog/structured-content"
+  ]
+}

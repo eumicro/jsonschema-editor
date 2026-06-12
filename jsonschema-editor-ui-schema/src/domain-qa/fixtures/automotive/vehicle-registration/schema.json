@@ -1,0 +1,143 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Fahrzeugzulassung",
+  "type": "object",
+  "required": [
+    "applicationType",
+    "holder",
+    "vehicle"
+  ],
+  "properties": {
+    "applicationType": {
+      "type": "string",
+      "enum": [
+        "neuzulassung",
+        "ummeldung",
+        "abmeldung"
+      ]
+    },
+    "holder": {
+      "$ref": "#/$defs/RegistrationHolder"
+    },
+    "vehicle": {
+      "$ref": "#/$defs/RegistrationVehicle"
+    },
+    "insurance": {
+      "$ref": "#/$defs/InsuranceProof"
+    }
+  },
+  "$defs": {
+    "RegistrationHolder": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "type",
+            "person"
+          ],
+          "properties": {
+            "type": {
+              "const": "person"
+            },
+            "person": {
+              "$ref": "#/$defs/PersonHolder"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "type",
+            "company"
+          ],
+          "properties": {
+            "type": {
+              "const": "company"
+            },
+            "company": {
+              "$ref": "#/$defs/CompanyHolder"
+            }
+          }
+        }
+      ]
+    },
+    "PersonHolder": {
+      "type": "object",
+      "required": [
+        "firstName",
+        "lastName",
+        "birthDate"
+      ],
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "birthDate": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "CompanyHolder": {
+      "type": "object",
+      "required": [
+        "companyName",
+        "registerNumber"
+      ],
+      "properties": {
+        "companyName": {
+          "type": "string"
+        },
+        "registerNumber": {
+          "type": "string"
+        }
+      }
+    },
+    "RegistrationVehicle": {
+      "type": "object",
+      "required": [
+        "vin",
+        "typeApproval",
+        "fuelType"
+      ],
+      "properties": {
+        "vin": {
+          "type": "string",
+          "minLength": 17,
+          "maxLength": 17
+        },
+        "typeApproval": {
+          "type": "string"
+        },
+        "fuelType": {
+          "type": "string",
+          "enum": [
+            "benzin",
+            "diesel",
+            "elektro",
+            "hybrid"
+          ]
+        }
+      }
+    },
+    "InsuranceProof": {
+      "type": "object",
+      "required": [
+        "evbNumber",
+        "validFrom"
+      ],
+      "properties": {
+        "evbNumber": {
+          "type": "string"
+        },
+        "validFrom": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    }
+  }
+}

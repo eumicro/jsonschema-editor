@@ -1,0 +1,9 @@
+{
+  "id": "lab-observation",
+  "domain": "medicine",
+  "label": "Laborbefund (Observation)",
+  "description": "Laborwert mit choice-type value[x], Referenzbereich und Interpretation.",
+  "sources": [
+    "http://hl7.org/fhir/observation.schema.json.html"
+  ]
+}

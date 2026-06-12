@@ -1,0 +1,10 @@
+{
+  "requestId": "M",
+  "purpose": "invalid",
+  "dataSubject": {
+    "firstName": "A"
+  },
+  "delivery": {
+    "method": "postal"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "id": "tax-declaration-base",
+  "domain": "administration",
+  "label": "Steuererklärung – Grunddaten",
+  "description": "ESt-Grunddaten mit Steuerpflichtigen, Einkünften und Freibeträgen.",
+  "sources": [
+    "https://docs.xoev.de/xoev-handbuch/x%C3%B6v-handbuch"
+  ]
+}

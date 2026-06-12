@@ -1,0 +1,22 @@
+{
+  "invoiceId": "INV-2026-001",
+  "issueDate": "2026-06-01",
+  "dueDate": "2026-06-15",
+  "customer": {
+    "name": "Kunde GmbH",
+    "customerNumber": "C-1001"
+  },
+  "lines": [
+    {
+      "description": "Beratung",
+      "quantity": 10,
+      "unitPriceEur": 150,
+      "taxRatePct": 19
+    }
+  ],
+  "paymentTerms": {
+    "netDays": 14,
+    "discountPct": 2,
+    "discountDays": 7
+  }
+}

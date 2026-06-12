@@ -1,0 +1,9 @@
+{
+  "id": "insurance-policy",
+  "domain": "finance",
+  "label": "Versicherungspolice",
+  "description": "Police mit Deckung, Prämie und Begünstigten.",
+  "sources": [
+    "https://www.iso.org/standard/20022-9"
+  ]
+}

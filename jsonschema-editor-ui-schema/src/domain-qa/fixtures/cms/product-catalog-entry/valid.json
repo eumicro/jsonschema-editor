@@ -1,0 +1,23 @@
+{
+  "sku": "PROD-001",
+  "name": "Laptop Pro 15",
+  "description": "Leistungsstarker Laptop",
+  "brand": {
+    "id": "brand-1",
+    "name": "TechCo"
+  },
+  "variants": [
+    {
+      "variantId": "v1",
+      "attributes": {
+        "color": "silver",
+        "size": "15 inch"
+      },
+      "price": {
+        "amount": 1499,
+        "currency": "EUR"
+      },
+      "stock": 42
+    }
+  ]
+}

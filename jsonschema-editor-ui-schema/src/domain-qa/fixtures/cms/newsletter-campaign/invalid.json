@@ -1,0 +1,12 @@
+{
+  "campaignId": "N",
+  "name": "X",
+  "segment": {
+    "name": "S"
+  },
+  "content": {
+    "subject": "S",
+    "preheader": "P",
+    "bodyHtml": "kurz"
+  }
+}

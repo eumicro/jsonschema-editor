@@ -1,0 +1,102 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Entlassung",
+  "type": "object",
+  "required": [
+    "encounterId",
+    "patientId",
+    "dischargeDateTime",
+    "diagnoses",
+    "dischargeDisposition"
+  ],
+  "properties": {
+    "encounterId": {
+      "type": "string"
+    },
+    "patientId": {
+      "type": "string"
+    },
+    "dischargeDateTime": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "diagnoses": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/DischargeDiagnosis"
+      }
+    },
+    "followUp": {
+      "$ref": "#/$defs/FollowUpPlan"
+    },
+    "dischargeDisposition": {
+      "type": "string",
+      "enum": [
+        "home",
+        "rehab",
+        "nursing",
+        "hospice"
+      ]
+    }
+  },
+  "$defs": {
+    "DischargeDiagnosis": {
+      "type": "object",
+      "required": [
+        "icd10",
+        "description",
+        "type"
+      ],
+      "properties": {
+        "icd10": {
+          "type": "string",
+          "pattern": "^[A-Z][0-9]{2}(\\.[0-9]{1,2})?$"
+        },
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "primary",
+            "secondary"
+          ]
+        }
+      }
+    },
+    "FollowUpPlan": {
+      "type": "object",
+      "properties": {
+        "appointments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/FollowUpAppointment"
+          }
+        },
+        "homeCare": {
+          "type": "boolean"
+        },
+        "instructions": {
+          "type": "string"
+        }
+      }
+    },
+    "FollowUpAppointment": {
+      "type": "object",
+      "required": [
+        "specialty",
+        "withinDays"
+      ],
+      "properties": {
+        "specialty": {
+          "type": "string"
+        },
+        "withinDays": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    }
+  }
+}

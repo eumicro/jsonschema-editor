@@ -1,0 +1,9 @@
+{
+  "appointmentId": "A",
+  "patientId": "P",
+  "specialty": "invalid",
+  "slot": {
+    "start": "x",
+    "end": "y"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "entityPath": "/components/Engine/subcomponents/ECU_1",
+  "fault": {
+    "code": "P0420",
+    "severity": "warning",
+    "status": "active",
+    "occurredAt": "2026-06-12T10:00:00Z"
+  },
+  "environment": {
+    "mileageKm": 84200,
+    "ignitionCycle": 3
+  }
+}

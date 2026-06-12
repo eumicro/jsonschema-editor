@@ -1,0 +1,18 @@
+{
+  "triageId": "TRI-001",
+  "arrivalDateTime": "2026-06-12T22:10:00Z",
+  "vitals": {
+    "heartRate": 110,
+    "respiratoryRate": 22,
+    "systolicBp": 140,
+    "temperatureC": 38.5
+  },
+  "esiLevel": 2,
+  "redFlags": [
+    "chest_pain"
+  ],
+  "disposition": {
+    "dispositionType": "immediate",
+    "bay": "acute"
+  }
+}

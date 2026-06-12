@@ -1,0 +1,17 @@
+{
+  "taxYear": 2025,
+  "taxpayer": {
+    "taxId": "12345678901",
+    "maritalStatus": "single"
+  },
+  "income": {
+    "employment": {
+      "grossEur": 52000,
+      "taxWithheldEur": 9800
+    },
+    "capitalGains": 1200
+  },
+  "deductions": {
+    "specialExpensesEur": 800
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "authorId": "author-001",
+  "displayName": "Dr. Julia Richter",
+  "bio": {
+    "short": "Tech-Autorin",
+    "long": "Dr. Julia Richter schreibt seit 10 Jahren über Software-Architektur und Datenmodelle."
+  },
+  "expertise": [
+    "json-schema",
+    "api-design"
+  ],
+  "socialLinks": [
+    {
+      "platform": "linkedin",
+      "url": "https://linkedin.com/in/juliarichter"
+    }
+  ]
+}

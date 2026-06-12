@@ -1,0 +1,137 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Telematik-Fahrt",
+  "type": "object",
+  "required": [
+    "vehicleVin",
+    "trip"
+  ],
+  "properties": {
+    "vehicleVin": {
+      "type": "string",
+      "title": "FIN/VIN",
+      "minLength": 17,
+      "maxLength": 17
+    },
+    "trip": {
+      "$ref": "#/$defs/TripRecord"
+    },
+    "driver": {
+      "$ref": "#/$defs/DriverRef"
+    }
+  },
+  "$defs": {
+    "TripRecord": {
+      "type": "object",
+      "required": [
+        "startTime",
+        "endTime",
+        "distanceKm",
+        "positions"
+      ],
+      "properties": {
+        "startTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "distanceKm": {
+          "type": "number",
+          "minimum": 0
+        },
+        "avgSpeedKmh": {
+          "type": "number",
+          "minimum": 0
+        },
+        "harshBrakingEvents": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "positions": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "required": [
+              "lat",
+              "lon",
+              "recordedAt"
+            ],
+            "properties": {
+              "lat": {
+                "type": "number",
+                "minimum": -90,
+                "maximum": 90
+              },
+              "lon": {
+                "type": "number",
+                "minimum": -180,
+                "maximum": 180
+              },
+              "recordedAt": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        },
+        "consumption": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/FuelConsumption"
+            },
+            {
+              "$ref": "#/$defs/EvConsumption"
+            }
+          ]
+        }
+      }
+    },
+    "FuelConsumption": {
+      "type": "object",
+      "required": [
+        "type",
+        "litersPer100Km"
+      ],
+      "properties": {
+        "type": {
+          "const": "fuel"
+        },
+        "litersPer100Km": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "EvConsumption": {
+      "type": "object",
+      "required": [
+        "type",
+        "kwhPer100Km"
+      ],
+      "properties": {
+        "type": {
+          "const": "ev"
+        },
+        "kwhPer100Km": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "DriverRef": {
+      "type": "object",
+      "properties": {
+        "driverId": {
+          "type": "string"
+        },
+        "fleetCardId": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "orderId": "F",
+  "client": {},
+  "instrument": {
+    "base": "EUR",
+    "quote": "EUR"
+  },
+  "order": {
+    "side": "buy",
+    "amount": 0,
+    "orderType": "limit"
+  }
+}

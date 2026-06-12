@@ -1,0 +1,9 @@
+{
+  "id": "appointment-booking",
+  "domain": "medicine",
+  "label": "Terminvereinbarung",
+  "description": "Praxis-/Kliniktermin mit Slot, Fachrichtung und Priorität.",
+  "sources": [
+    "https://hl7.org/fhir/R5/composition.schema.json.html"
+  ]
+}

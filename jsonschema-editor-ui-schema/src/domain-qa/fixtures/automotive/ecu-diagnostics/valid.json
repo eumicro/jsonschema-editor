@@ -1,0 +1,23 @@
+{
+  "ecuId": "ECU.ENGINE.001",
+  "variant": {
+    "softwareVersion": "2.4.1",
+    "hardwareVersion": "HW-B12"
+  },
+  "parameters": [
+    {
+      "name": "EngineSpeed",
+      "unit": "rpm",
+      "dataFormat": "A_UINT32",
+      "startBit": 0,
+      "lengthBits": 16,
+      "byteOrder": "MSB"
+    }
+  ],
+  "connection": {
+    "connectionType": "CAN",
+    "baud": 500000,
+    "sendId": 2016,
+    "recvId": 2024
+  }
+}

@@ -1,0 +1,152 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Patient",
+  "type": "object",
+  "required": [
+    "resourceType",
+    "identifier",
+    "name",
+    "gender",
+    "birthDate"
+  ],
+  "properties": {
+    "resourceType": {
+      "const": "Patient"
+    },
+    "identifier": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/PatientIdentifier"
+      }
+    },
+    "name": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/HumanName"
+      }
+    },
+    "gender": {
+      "type": "string",
+      "enum": [
+        "male",
+        "female",
+        "other",
+        "unknown"
+      ]
+    },
+    "birthDate": {
+      "type": "string",
+      "format": "date"
+    },
+    "address": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Address"
+      }
+    },
+    "insurance": {
+      "$ref": "#/$defs/InsuranceCoverage"
+    }
+  },
+  "$defs": {
+    "PatientIdentifier": {
+      "type": "object",
+      "required": [
+        "system",
+        "value"
+      ],
+      "properties": {
+        "system": {
+          "type": "string",
+          "enum": [
+            "http://fhir.de/sid/kvid/10",
+            "urn:oid:2.16.840.1.113883.2.4.3.07"
+          ]
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "HumanName": {
+      "type": "object",
+      "required": [
+        "family",
+        "given"
+      ],
+      "properties": {
+        "family": {
+          "type": "string"
+        },
+        "given": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "prefix": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Address": {
+      "type": "object",
+      "required": [
+        "line",
+        "city",
+        "postalCode",
+        "country"
+      ],
+      "properties": {
+        "line": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "city": {
+          "type": "string"
+        },
+        "postalCode": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2
+        }
+      }
+    },
+    "InsuranceCoverage": {
+      "type": "object",
+      "required": [
+        "payorType",
+        "memberId"
+      ],
+      "properties": {
+        "payorType": {
+          "type": "string",
+          "enum": [
+            "gesetzlich",
+            "privat",
+            "self-pay"
+          ]
+        },
+        "memberId": {
+          "type": "string"
+        },
+        "validUntil": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    }
+  }
+}

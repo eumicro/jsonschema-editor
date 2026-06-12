@@ -1,0 +1,25 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "scope": "#/properties/taxYear",
+      "label": "taxYear"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/taxpayer",
+      "label": "taxpayer"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/income",
+      "label": "income"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/deductions",
+      "label": "deductions"
+    }
+  ]
+}

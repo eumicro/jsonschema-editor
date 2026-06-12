@@ -1,0 +1,9 @@
+{
+  "id": "newsletter-campaign",
+  "domain": "cms",
+  "label": "Newsletter-Kampagne",
+  "description": "E-Mail-Kampagne mit Segment, Inhalt und A/B-Varianten.",
+  "sources": [
+    "https://www.contentful.com/headless-cms/"
+  ]
+}
