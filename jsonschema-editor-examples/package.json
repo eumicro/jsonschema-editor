@@ -13,9 +13,9 @@
     "test:e2e:report": "playwright show-report"
   },
   "dependencies": {
-    "@jsonschema-editor/json-schema": "file:../jsonschema-editor-json-schema",
-    "@jsonschema-editor/ui-schema": "file:../jsonschema-editor-ui-schema",
-    "@jsonschema-editor/vue": "file:../jsonschema-editor-vue",
+    "@jsonschema-editor/json-schema": "workspace:*",
+    "@jsonschema-editor/ui-schema": "workspace:*",
+    "@jsonschema-editor/vue": "workspace:*",
     "vue": "^3.5.16"
   },
   "devDependencies": {

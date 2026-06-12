@@ -2,3 +2,15 @@ node_modules/
 dist/
 *.local
 .DS_Store
+.cursor/
+.playwright-mcp/
+
+# Test & build artifacts
+test-results/
+playwright-report/
+coverage/
+*.log
+
+# Editor
+.vscode/
+.idea/

@@ -13,9 +13,15 @@ Eigenständiges, **streng objektorientiertes** JSON-Schema-Datenmodell.
 ## Installation
 
 ```bash
-npm install
-npm run build
-npm test
+npm install @jsonschema-editor/json-schema
+```
+
+Entwicklung im Monorepo:
+
+```bash
+pnpm install
+pnpm run build
+pnpm test
 ```
 
 ## Custom Attributes

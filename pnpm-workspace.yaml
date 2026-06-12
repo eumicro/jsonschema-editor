@@ -1,2 +1,5 @@
 packages:
-  - "packages/*"
+  - "jsonschema-editor-json-schema"
+  - "jsonschema-editor-ui-schema"
+  - "jsonschema-editor-vue"
+  - "jsonschema-editor-examples"

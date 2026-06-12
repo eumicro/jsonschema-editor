@@ -12,11 +12,21 @@ Eigenständiges, **streng objektorientiertes** UI-Schema-Datenmodell (JSON Forms
 ## Installation
 
 ```bash
-npm install
-npm run build
+npm install @jsonschema-editor/ui-schema
 ```
 
-Peer-Dependency (optional): `@jsonschema-editor/json-schema` nur für die Bridge.
+Optional für die Bridge:
+
+```bash
+npm install @jsonschema-editor/json-schema
+```
+
+Entwicklung im Monorepo:
+
+```bash
+pnpm install
+pnpm run build
+```
 
 ## Isoliert (ohne JSON Schema)
 

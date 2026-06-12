@@ -3,6 +3,27 @@
   "version": "0.1.0",
   "description": "Objektorientiertes JSON-Schema-Datenmodell",
   "type": "module",
+  "license": "MIT",
+  "author": "JSON Schema Editor Contributors",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsonschema-editor/jsonschema-editor.git",
+    "directory": "jsonschema-editor-json-schema"
+  },
+  "homepage": "https://github.com/jsonschema-editor/jsonschema-editor/tree/main/jsonschema-editor-json-schema#readme",
+  "bugs": "https://github.com/jsonschema-editor/jsonschema-editor/issues",
+  "keywords": [
+    "json-schema",
+    "schema",
+    "oop",
+    "typescript"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20"
+  },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -11,9 +32,15 @@
       "import": "./dist/index.js"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "sideEffects": false,
   "scripts": {
+    "prebuild": "node --input-type=module -e \"import fs from 'node:fs'; fs.rmSync('dist',{recursive:true,force:true})\"",
     "build": "tsc -p tsconfig.json",
+    "prepublishOnly": "pnpm run build",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run"
   },

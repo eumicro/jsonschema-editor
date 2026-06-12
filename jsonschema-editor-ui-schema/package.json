@@ -3,6 +3,28 @@
   "version": "0.1.0",
   "description": "Objektorientiertes JSON-UI-Schema-Datenmodell",
   "type": "module",
+  "license": "MIT",
+  "author": "JSON Schema Editor Contributors",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsonschema-editor/jsonschema-editor.git",
+    "directory": "jsonschema-editor-ui-schema"
+  },
+  "homepage": "https://github.com/jsonschema-editor/jsonschema-editor/tree/main/jsonschema-editor-ui-schema#readme",
+  "bugs": "https://github.com/jsonschema-editor/jsonschema-editor/issues",
+  "keywords": [
+    "ui-schema",
+    "jsonforms",
+    "json-schema",
+    "form",
+    "typescript"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20"
+  },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -16,10 +38,14 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
+  "sideEffects": false,
   "scripts": {
+    "prebuild": "node --input-type=module -e \"import fs from 'node:fs'; fs.rmSync('dist',{recursive:true,force:true})\"",
     "build": "tsc -p tsconfig.json",
+    "prepublishOnly": "pnpm run build",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
     "domain-qa:fixtures": "tsx src/domain-qa/build-fixtures.ts"
@@ -34,7 +60,7 @@
   },
   "devDependencies": {
     "@jsonforms/core": "^3.7.0",
-    "@jsonschema-editor/json-schema": "file:../jsonschema-editor-json-schema",
+    "@jsonschema-editor/json-schema": "workspace:*",
     "ajv": "^8.20.0",
     "ajv-formats": "^3.0.1",
     "tsx": "^4.22.4",

@@ -3,6 +3,29 @@
   "version": "0.1.0",
   "description": "JSON-Schema Form-Editor und ausfüllbares Formular für Vue 3",
   "type": "module",
+  "license": "MIT",
+  "author": "JSON Schema Editor Contributors",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsonschema-editor/jsonschema-editor.git",
+    "directory": "jsonschema-editor-vue"
+  },
+  "homepage": "https://github.com/jsonschema-editor/jsonschema-editor/tree/main/jsonschema-editor-vue#readme",
+  "bugs": "https://github.com/jsonschema-editor/jsonschema-editor/issues",
+  "keywords": [
+    "vue",
+    "vue3",
+    "json-schema",
+    "ui-schema",
+    "form-editor",
+    "form"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20"
+  },
   "main": "./dist/jsonschema-editor-vue.js",
   "module": "./dist/jsonschema-editor-vue.js",
   "types": "./dist/index.d.ts",
@@ -13,17 +36,25 @@
     },
     "./style.css": "./dist/style.css"
   },
-  "files": ["dist"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
   "scripts": {
+    "prebuild": "node --input-type=module -e \"import fs from 'node:fs'; fs.rmSync('dist',{recursive:true,force:true})\"",
     "build": "vue-tsc -p tsconfig.json --noEmit && vite build",
+    "prepublishOnly": "pnpm run build",
     "typecheck": "vue-tsc -p tsconfig.json --noEmit"
   },
   "peerDependencies": {
     "vue": "^3.5.0"
   },
   "dependencies": {
-    "@jsonschema-editor/json-schema": "file:../jsonschema-editor-json-schema",
-    "@jsonschema-editor/ui-schema": "file:../jsonschema-editor-ui-schema"
+    "@jsonschema-editor/json-schema": "workspace:*",
+    "@jsonschema-editor/ui-schema": "workspace:*"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.4",

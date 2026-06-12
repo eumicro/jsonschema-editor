@@ -1,0 +1,17 @@
+{
+  "$schema": "https://unpkg.com/@changesets/cli@2.29.4/schema.json",
+  "changelog": "@changesets/cli/changelog",
+  "commit": false,
+  "fixed": [
+    [
+      "@jsonschema-editor/json-schema",
+      "@jsonschema-editor/ui-schema",
+      "@jsonschema-editor/vue"
+    ]
+  ],
+  "linked": [],
+  "access": "public",
+  "baseBranch": "main",
+  "updateInternalDependencies": "patch",
+  "ignore": ["jsonschema-editor-examples"]
+}

@@ -1,4 +1,21 @@
 {
+  "name": "jsonschema-editor",
   "private": true,
-  "description": "Meta-Repository – siehe README.md für die einzelnen Projekte"
+  "description": "Monorepo für @jsonschema-editor – JSON Schema, UI Schema und Vue Form-Editor",
+  "scripts": {
+    "build": "pnpm -r --filter @jsonschema-editor/json-schema --filter @jsonschema-editor/ui-schema --filter @jsonschema-editor/vue run build",
+    "typecheck": "pnpm -r --filter @jsonschema-editor/json-schema --filter @jsonschema-editor/ui-schema --filter @jsonschema-editor/vue run typecheck",
+    "test": "pnpm -r --filter @jsonschema-editor/json-schema --filter @jsonschema-editor/ui-schema run test",
+    "test:e2e": "pnpm --filter jsonschema-editor-examples run test:e2e",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "pnpm run build && pnpm run test && changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.29.4"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@9.15.9"
 }

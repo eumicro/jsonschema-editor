@@ -24,12 +24,13 @@ test.describe("Form-Editor", () => {
   test("Attribute-Dialog für Definition", async ({ page }) => {
     await page.getByRole("button", { name: "Attribute von Mensch bearbeiten" }).click();
 
-    await expect(page.locator(".jse-floating-panel")).toBeVisible();
-    await expect(page.locator(".jse-floating-panel__title")).toContainText("Attribute");
-    await expect(page.getByPlaceholder("title")).toHaveValue("Mensch");
+    const panel = page.getByRole("dialog", { name: /Attribute – Mensch/ });
+    await expect(panel).toBeVisible();
+    await expect(panel.getByPlaceholder("z. B. Person")).toHaveValue("Mensch");
+    await expect(panel.getByRole("textbox").nth(1)).toHaveValue("Mensch");
 
     await page.getByRole("button", { name: "Schließen" }).click();
-    await expect(page.locator(".jse-floating-panel")).toHaveCount(0);
+    await expect(panel).toHaveCount(0);
   });
 
   test("oneOf-$ref-Knoten auswählbar ohne Fehler", async ({ page }) => {
