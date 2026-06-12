@@ -2,13 +2,16 @@
 import { computed, nextTick, ref } from "vue";
 import type { UiElement } from "@jsonschema-editor/ui-schema";
 import UiTreeNode from "../molecules/tree/UiTreeNode.vue";
+import UiLayoutEditor from "./UiLayoutEditor.vue";
 import UiAttributesPanel from "../molecules/panels/UiAttributesPanel.vue";
 import JseFloatingPanel from "../molecules/JseFloatingPanel.vue";
 import UiElementActions from "../molecules/UiElementActions.vue";
 import {
   getUiElementAt,
   getUiElementLabel,
+  isLayoutElement,
   moveUiElement,
+  moveUiElementTo,
   removeUiElement,
   uiPathKey,
   type UiPath,
@@ -24,6 +27,7 @@ const emit = defineEmits<{
   "update:selectedPath": [path: UiPath];
 }>();
 
+const viewMode = ref<"tree" | "layout">("layout");
 const expandedKeys = ref(new Set<string>(["root"]));
 const dragSourcePath = ref<UiPath | null>(null);
 const addDialogOpen = ref(false);
@@ -40,6 +44,15 @@ const attributesPanelTitle = computed(() => {
     return `UI – ${label}`;
   } catch {
     return "UI bearbeiten";
+  }
+});
+
+const selectedLabel = computed(() => {
+  try {
+    const element = getUiElementAt(props.root, props.selectedPath);
+    return getUiElementLabel(element);
+  } catch {
+    return "Kein Element ausgewählt";
   }
 });
 
@@ -67,7 +80,9 @@ async function anchorPanel(
   await nextTick();
   const target = event.currentTarget;
   const row =
-    target instanceof HTMLElement ? target.closest(".jse-tree-node__row") : null;
+    target instanceof HTMLElement
+      ? (target.closest(".jse-tree-node__row") ?? target.closest(".jse-layout-block__header"))
+      : null;
   if (row instanceof HTMLElement) panelRef?.anchorNear(row);
 }
 
@@ -105,26 +120,92 @@ function onDragStart(path: UiPath) {
   dragSourcePath.value = path;
 }
 
-function onDrop(targetPath: UiPath, sourcePath: UiPath) {
+function onDragEnd() {
+  dragSourcePath.value = null;
+}
+
+function onTreeDrop(targetPath: UiPath, sourcePath: UiPath) {
   dragSourcePath.value = null;
   if (uiPathKey(sourcePath) === uiPathKey(targetPath)) return;
 
   const sourceParent = sourcePath.slice(0, -1);
   const targetParent = targetPath.slice(0, -1);
-  if (uiPathKey(sourceParent) !== uiPathKey(targetParent)) return;
 
-  patchRoot(moveUiElement(props.root, sourcePath, targetPath));
+  if (uiPathKey(sourceParent) === uiPathKey(targetParent)) {
+    patchRoot(moveUiElement(props.root, sourcePath, targetPath));
+    return;
+  }
+
+  const targetElement = getUiElementAt(props.root, targetPath);
+  if (isLayoutElement(targetElement)) {
+    patchRoot(
+      moveUiElementTo(props.root, sourcePath, targetPath, targetElement.elements.length),
+      sourcePath,
+    );
+    return;
+  }
+
+  patchRoot(
+    moveUiElementTo(props.root, sourcePath, targetParent, targetPath[targetPath.length - 1]),
+    sourcePath,
+  );
 }
 </script>
 
 <template>
   <div class="jse-structure-editor">
+    <div class="jse-structure-editor__view-toggle" role="tablist" aria-label="UI-Schema Ansicht">
+      <button
+        type="button"
+        role="tab"
+        class="jse-structure-editor__view-tab"
+        :class="{ 'jse-structure-editor__view-tab--active': viewMode === 'layout' }"
+        :aria-selected="viewMode === 'layout'"
+        @click="viewMode = 'layout'"
+      >
+        Layout-Editor
+      </button>
+      <button
+        type="button"
+        role="tab"
+        class="jse-structure-editor__view-tab"
+        :class="{ 'jse-structure-editor__view-tab--active': viewMode === 'tree' }"
+        :aria-selected="viewMode === 'tree'"
+        @click="viewMode = 'tree'"
+      >
+        Baumansicht
+      </button>
+    </div>
+
     <p class="jse-structure-editor__hint jse-structure-editor__hint--top">
-      Elemente per Drag &amp; Drop innerhalb desselben Layouts sortieren. + fügt hinzu, Stift
-      bearbeitet Layout und Eigenschaften.
+      <template v-if="viewMode === 'layout'">
+        Felder und Gruppen per Drag &amp; Drop anordnen – auch zwischen Objekten und deren
+        Unterelementen. Ganze Gruppen verschieben alle enthaltenen Schema-Felder mit.
+      </template>
+      <template v-else>
+        Hierarchie als Baum. Elemente per Drag &amp; Drop sortieren oder in andere Layouts
+        verschieben. + fügt hinzu, Stift bearbeitet Eigenschaften.
+      </template>
     </p>
 
-    <div class="jse-structure-editor__tree" role="tree" aria-label="UI-Struktur">
+    <UiLayoutEditor
+      v-if="viewMode === 'layout'"
+      :root="root"
+      :selected-path="selectedPath"
+      @update:root="patchRoot($event)"
+      @update:selected-path="selectPath"
+      @add="openAddDialog"
+      @edit="openAttributesDialog"
+      @delete="deleteAtPath"
+    />
+
+    <div
+      v-else
+      class="jse-structure-editor__tree"
+      role="tree"
+      aria-label="UI-Struktur"
+      @dragend="onDragEnd"
+    >
       <UiTreeNode
         :root="root"
         :path="[]"
@@ -137,8 +218,13 @@ function onDrop(targetPath: UiPath, sourcePath: UiPath) {
         @edit="openAttributesDialog"
         @delete="deleteAtPath"
         @drag-start="onDragStart"
-        @drop="onDrop"
+        @drop="onTreeDrop"
       />
+    </div>
+
+    <div class="jse-structure-editor__status" aria-live="polite">
+      <span class="jse-structure-editor__status-label">Ausgewählt:</span>
+      <span class="jse-structure-editor__status-name">{{ selectedLabel }}</span>
     </div>
 
     <JseFloatingPanel ref="addPanelRef" v-model="addDialogOpen" title="UI-Element hinzufügen">

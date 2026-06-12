@@ -128,6 +128,100 @@ export function moveUiElement(root: UiElement, from: UiPath, to: UiPath): UiElem
   return replaceUiAtPath(root, fromParentPath, parentClone);
 }
 
+export function isAncestorPath(ancestor: UiPath, descendant: UiPath): boolean {
+  if (ancestor.length >= descendant.length) return false;
+  return ancestor.every((segment, index) => segment === descendant[index]);
+}
+
+export function isSameOrAncestorPath(ancestor: UiPath, path: UiPath): boolean {
+  if (uiPathKey(ancestor) === uiPathKey(path)) return true;
+  return isAncestorPath(ancestor, path);
+}
+
+export function canAcceptUiChild(parent: UiElement, child: UiElement): boolean {
+  if (!isLayoutElement(parent)) return false;
+  try {
+    const clone = parent.clone();
+    if (!isLayoutElement(clone)) return false;
+    clone.insertChild(clone.elements.length, child.clone());
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export function canMoveUiElementTo(
+  root: UiElement,
+  from: UiPath,
+  toParent: UiPath,
+  toIndex: number,
+): boolean {
+  if (from.length === 0) return false;
+  if (isSameOrAncestorPath(from, toParent)) return false;
+
+  try {
+    const element = getUiElementAt(root, from);
+    const targetParent = getUiElementAt(root, toParent);
+    if (!canAcceptUiChild(targetParent, element)) return false;
+
+    const fromParent = getUiParentPath(from);
+    if (uiPathKey(fromParent) === uiPathKey(toParent)) {
+      const fromIndex = from[from.length - 1];
+      const maxIndex = isLayoutElement(targetParent) ? targetParent.elements.length : 0;
+      const insertIndex = Math.max(0, Math.min(toIndex, maxIndex));
+      if (insertIndex === fromIndex || insertIndex === fromIndex + 1) return false;
+    }
+
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export function adjustUiPathAfterRemoval(path: UiPath, removed: UiPath): UiPath {
+  if (removed.length === 0) return path;
+
+  const removedParent = removed.slice(0, -1);
+  const removedIndex = removed[removed.length - 1];
+
+  if (path.length < removedParent.length) return path;
+  for (let index = 0; index < removedParent.length; index += 1) {
+    if (path[index] !== removedParent[index]) return path;
+  }
+
+  const next = [...path];
+  const affectedIndex = next[removedParent.length];
+  if (affectedIndex !== undefined && affectedIndex > removedIndex) {
+    next[removedParent.length] = affectedIndex - 1;
+  }
+  return next;
+}
+
+export function moveUiElementTo(
+  root: UiElement,
+  from: UiPath,
+  toParent: UiPath,
+  toIndex: number,
+): UiElement {
+  if (!canMoveUiElementTo(root, from, toParent, toIndex)) return root;
+
+  const element = getUiElementAt(root, from).clone();
+  let next = removeUiElement(root, from);
+
+  const adjustedParent = adjustUiPathAfterRemoval(toParent, from);
+  const targetParent = getUiElementAt(next, adjustedParent);
+  const maxIndex = isLayoutElement(targetParent) ? targetParent.elements.length : 0;
+  let insertIndex = Math.max(0, Math.min(toIndex, maxIndex));
+
+  const fromParent = getUiParentPath(from);
+  const fromIndex = from[from.length - 1];
+  if (uiPathKey(fromParent) === uiPathKey(adjustedParent) && fromIndex < insertIndex) {
+    insertIndex -= 1;
+  }
+
+  return insertUiElement(next, adjustedParent, element, insertIndex);
+}
+
 export function createUiElement(
   kind:
     | "Control"
