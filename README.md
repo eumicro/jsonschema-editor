@@ -1,6 +1,6 @@
 # JSON Schema Editor
 
-[![CI](https://github.com/jsonschema-editor/jsonschema-editor/actions/workflows/ci.yml/badge.svg)](https://github.com/jsonschema-editor/jsonschema-editor/actions/workflows/ci.yml)
+[![CI](https://github.com/eumicro/jsonschema-editor/actions/workflows/ci.yml/badge.svg)](https://github.com/eumicro/jsonschema-editor/actions/workflows/ci.yml)
 
 Drei **eigenständige npm-Pakete** – JSON Schema und UI Schema sind bewusst getrennt:
 

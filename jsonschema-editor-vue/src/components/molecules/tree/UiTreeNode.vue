@@ -11,6 +11,7 @@ import {
   type UiPath,
 } from "../../../utils/ui-editor";
 import { canAcceptUiChildren, canDeleteUiElement } from "../../../utils/ui-tree-actions";
+import JseTreeToggle from "../../atoms/JseTreeToggle.vue";
 import JseTreeNodeActions from "../JseTreeNodeActions.vue";
 
 defineOptions({ name: "UiTreeNode" });
@@ -89,15 +90,11 @@ function onDrop(event: DragEvent) {
       @dragleave="onDragLeave"
       @drop="onDrop"
     >
-      <button
-        v-if="isLayout && children.length"
-        type="button"
-        class="jse-tree-node__toggle"
-        @click.stop="emit('toggle', path)"
-      >
-        {{ isExpanded ? "▼" : "▶" }}
-      </button>
-      <span v-else class="jse-tree-node__spacer" />
+      <JseTreeToggle
+        :has-children="isLayout && children.length > 0"
+        :expanded="isExpanded"
+        @toggle="emit('toggle', path)"
+      />
 
       <span class="jse-tree-node__kind">{{ element.elementKind }}</span>
       <span class="jse-tree-node__label">{{ label }}</span>

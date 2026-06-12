@@ -11,7 +11,7 @@
 Bitte melden Sie Sicherheitslücken **nicht** als öffentliches GitHub Issue.
 
 Senden Sie stattdessen eine E-Mail oder eine private Meldung an die Maintainer des Repositories
-[jsonschema-editor/jsonschema-editor](https://github.com/jsonschema-editor/jsonschema-editor).
+[jsonschema-editor/jsonschema-editor](https://github.com/eumicro/jsonschema-editor).
 
 Bitte beschreiben Sie:
 

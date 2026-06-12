@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { computed, toRef } from "vue";
 import type { SchemaNode } from "@jsonschema-editor/json-schema";
+import { useFormFieldLabel } from "../../../composables/useFormFieldLabel";
 import { useScopedField } from "../../../composables/useScopedField";
 import JseSelect from "../../atoms/JseSelect.vue";
+import JseSchemaFormField from "./JseSchemaFormField.vue";
 
 const props = defineProps<{
   schema: SchemaNode;
@@ -12,25 +14,22 @@ const props = defineProps<{
 }>();
 
 const rootSchema = toRef(props, "schema");
+const labelRef = toRef(props, "label");
 const rootData = defineModel<Record<string, unknown>>({ required: true });
 
 const { fieldSchema, value } = useScopedField(rootSchema, rootData, props.scope);
-
-const resolvedSchema = computed(() => fieldSchema.value ?? props.schema);
-const enumValues = computed(() => resolvedSchema.value?.enumValues ?? []);
-const displayLabel = computed(
-  () => props.label ?? resolvedSchema.value?.title ?? props.scope.split("/").pop() ?? "Feld",
+const { resolvedSchema, displayLabel, description } = useFormFieldLabel(
+  rootSchema,
+  props.scope,
+  labelRef,
+  fieldSchema,
 );
+
+const enumValues = computed(() => resolvedSchema.value?.enumValues ?? []);
 </script>
 
 <template>
-  <div class="jse-field">
-    <label class="jse-field__label">
-      {{ displayLabel }}
-      <span v-if="resolvedSchema?.description" class="jse-field__hint">
-        {{ resolvedSchema.description }}
-      </span>
-    </label>
+  <JseSchemaFormField :label="displayLabel" :description="description">
     <JseSelect
       :model-value="value as string | number"
       class="jse-field__input"
@@ -41,5 +40,5 @@ const displayLabel = computed(
         {{ option }}
       </option>
     </JseSelect>
-  </div>
+  </JseSchemaFormField>
 </template>

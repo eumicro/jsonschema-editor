@@ -16,8 +16,10 @@ export {
 } from "@jsonschema-editor/json-schema";
 
 export * from "./composables/useScopedField";
+export * from "./composables/useFormFieldLabel";
 export * from "./composables/useRegistries";
 export * from "./composables/useEditorContext";
+export * from "./composables/useSchemaFormEditorState";
 export * from "./registry/type-registry";
 export * from "./registry/attribute-control-registry";
 export * from "./registry/registries";

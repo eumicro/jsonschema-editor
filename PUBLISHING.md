@@ -4,9 +4,35 @@ Checkliste für Maintainer vor dem ersten Release und für Folge-Releases.
 
 ## Einmalige Vorbereitung
 
-1. GitHub-Repository `jsonschema-editor/jsonschema-editor` anlegen und dieses Monorepo pushen
-2. npm-Organisation `@jsonschema-editor` anlegen unter https://www.npmjs.com/org/create
-3. GitHub Secret `NPM_TOKEN` mit einem npm Automation-Token hinterlegen
+1. GitHub-Repository `eumicro/jsonschema-editor` anlegen und dieses Monorepo pushen
+2. npm-Organisation `@jsonschema-editor` anlegen (Scope ist derzeit **frei**)
+
+   **Voraussetzung – lokal einloggen:**
+
+   ```bash
+   npm login --auth-type=web
+   npm whoami
+   ```
+
+   **Organisation (nur über die Website):**
+
+   1. https://www.npmjs.com/org/create öffnen
+   2. Name: `jsonschema-editor`
+   3. Plan: **Unlimited public packages** (kostenlos)
+   4. **Create** klicken
+
+   **Verifizieren:**
+
+   ```bash
+   npm org ls jsonschema-editor
+   ```
+
+   Im Repo liegt `.npmrc` mit `access=public` für scoped Packages.
+3. GitHub Secret `NPM_TOKEN` in der **Environment „Dev“** hinterlegen
+
+   Repository → **Settings** → **Environments** → **Dev** → **Environment secrets** → `NPM_TOKEN`
+
+   Der Publish-Workflow (`.github/workflows/publish.yml`) nutzt `environment: Dev`.
 4. Optional: npm [Trusted Publishing](https://docs.npmjs.com/trusted-publishers) mit GitHub verknüpfen
 
 ## Release-Ablauf

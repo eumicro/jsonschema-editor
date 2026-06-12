@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { computed, toRef } from "vue";
 import type { SchemaNode } from "@jsonschema-editor/json-schema";
+import { useFormFieldLabel } from "../../../composables/useFormFieldLabel";
 import { useScopedField } from "../../../composables/useScopedField";
+import JseCheckbox from "../../atoms/JseCheckbox.vue";
 import JseInput from "../../atoms/JseInput.vue";
 import JseSelect from "../../atoms/JseSelect.vue";
-import JseCheckbox from "../../atoms/JseCheckbox.vue";
+import JseSchemaFormField from "./JseSchemaFormField.vue";
 
 const props = defineProps<{
   schema: SchemaNode;
@@ -14,13 +16,15 @@ const props = defineProps<{
 }>();
 
 const rootSchema = toRef(props, "schema");
+const labelRef = toRef(props, "label");
 const rootData = defineModel<Record<string, unknown>>({ required: true });
 
 const { fieldSchema, value } = useScopedField(rootSchema, rootData, props.scope);
-
-const resolvedSchema = computed(() => fieldSchema.value ?? props.schema);
-const displayLabel = computed(
-  () => props.label ?? resolvedSchema.value?.title ?? props.scope.split("/").pop() ?? "Feld",
+const { resolvedSchema, displayLabel, description } = useFormFieldLabel(
+  rootSchema,
+  props.scope,
+  labelRef,
+  fieldSchema,
 );
 
 const inputType = computed(() => {
@@ -36,17 +40,15 @@ const inputType = computed(() => {
 });
 
 const enumValues = computed(() => resolvedSchema.value?.enumValues ?? []);
+const isCheckbox = computed(() => inputType.value === "checkbox");
 </script>
 
 <template>
-  <div class="jse-field">
-    <label class="jse-field__label">
-      {{ displayLabel }}
-      <span v-if="resolvedSchema?.description" class="jse-field__hint">
-        {{ resolvedSchema.description }}
-      </span>
-    </label>
-
+  <JseSchemaFormField
+    :boolean="isCheckbox"
+    :label="displayLabel"
+    :description="description"
+  >
     <JseSelect
       v-if="enumValues.length"
       :model-value="value as string | number"
@@ -60,7 +62,7 @@ const enumValues = computed(() => resolvedSchema.value?.enumValues ?? []);
     </JseSelect>
 
     <JseCheckbox
-      v-else-if="inputType === 'checkbox'"
+      v-else-if="isCheckbox"
       :model-value="value as boolean"
       class="jse-field__checkbox"
       :disabled="readonly"
@@ -75,5 +77,5 @@ const enumValues = computed(() => resolvedSchema.value?.enumValues ?? []);
       :disabled="readonly"
       @update:model-value="value = $event"
     />
-  </div>
+  </JseSchemaFormField>
 </template>

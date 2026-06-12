@@ -12,6 +12,7 @@ import {
   listDocumentChildren,
 } from "../../../utils/schema-document";
 import { schemaPathKey, type SchemaPath } from "../../../utils/schema-editor";
+import JseTreeToggle from "../../atoms/JseTreeToggle.vue";
 import JseTreeNodeActions from "../JseTreeNodeActions.vue";
 
 defineOptions({ name: "SchemaTreeNode" });
@@ -56,16 +57,11 @@ const showDelete = computed(() => canDeleteDocumentNode(props.path));
       :style="{ paddingLeft: `${((depth ?? 0) * 16) + 4}px` }"
       @click="emit('select', path)"
     >
-      <button
-        v-if="hasChildren"
-        type="button"
-        class="jse-tree-node__toggle"
-        :aria-label="isExpanded ? 'Einklappen' : 'Ausklappen'"
-        @click.stop="emit('toggle', path)"
-      >
-        {{ isExpanded ? "▼" : "▶" }}
-      </button>
-      <span v-else class="jse-tree-node__spacer" />
+      <JseTreeToggle
+        :has-children="hasChildren"
+        :expanded="isExpanded"
+        @toggle="emit('toggle', path)"
+      />
 
       <span class="jse-tree-node__kind">{{ kindLabel }}</span>
       <span class="jse-tree-node__label">{{ label }}</span>

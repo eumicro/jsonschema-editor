@@ -19,5 +19,5 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.1.0/).
 - `@jsonschema-editor/ui-schema`: Objektorientiertes UI-Schema-Datenmodell inkl. Bridge
 - `@jsonschema-editor/vue`: Vue-3-Form-Editor und ausfüllbares Formular
 
-[Unveröffentlicht]: https://github.com/jsonschema-editor/jsonschema-editor/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/jsonschema-editor/jsonschema-editor/releases/tag/v0.1.0
+[Unveröffentlicht]: https://github.com/eumicro/jsonschema-editor/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/eumicro/jsonschema-editor/releases/tag/v0.1.0

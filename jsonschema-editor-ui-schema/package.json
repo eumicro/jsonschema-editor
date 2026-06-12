@@ -7,11 +7,11 @@
   "author": "JSON Schema Editor Contributors",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jsonschema-editor/jsonschema-editor.git",
+    "url": "git+https://github.com/eumicro/jsonschema-editor.git",
     "directory": "jsonschema-editor-ui-schema"
   },
-  "homepage": "https://github.com/jsonschema-editor/jsonschema-editor/tree/main/jsonschema-editor-ui-schema#readme",
-  "bugs": "https://github.com/jsonschema-editor/jsonschema-editor/issues",
+  "homepage": "https://github.com/eumicro/jsonschema-editor/tree/main/jsonschema-editor-ui-schema#readme",
+  "bugs": "https://github.com/eumicro/jsonschema-editor/issues",
   "keywords": [
     "ui-schema",
     "jsonforms",

@@ -6,3 +6,4 @@ export { default as JseLabel } from "./JseLabel.vue";
 export { default as JseSelect } from "./JseSelect.vue";
 export { default as JseTabs } from "./JseTabs.vue";
 export { default as JseTextarea } from "./JseTextarea.vue";
+export { default as JseTreeToggle } from "./JseTreeToggle.vue";

@@ -7,11 +7,11 @@
   "author": "JSON Schema Editor Contributors",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jsonschema-editor/jsonschema-editor.git",
+    "url": "git+https://github.com/eumicro/jsonschema-editor.git",
     "directory": "jsonschema-editor-vue"
   },
-  "homepage": "https://github.com/jsonschema-editor/jsonschema-editor/tree/main/jsonschema-editor-vue#readme",
-  "bugs": "https://github.com/jsonschema-editor/jsonschema-editor/issues",
+  "homepage": "https://github.com/eumicro/jsonschema-editor/tree/main/jsonschema-editor-vue#readme",
+  "bugs": "https://github.com/eumicro/jsonschema-editor/issues",
   "keywords": [
     "vue",
     "vue3",
