@@ -1,0 +1,11 @@
+{
+  "name": "Max Mustermann",
+  "email": "max@example.com",
+  "phone": "+49 170 1234567",
+  "internalNote": "VIP-Kunde",
+  "address": {
+    "street": "Musterstraße 1",
+    "city": "Hannover",
+    "zip": "30159"
+  }
+}

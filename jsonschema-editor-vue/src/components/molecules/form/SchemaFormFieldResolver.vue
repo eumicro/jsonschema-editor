@@ -5,6 +5,7 @@ import { resolveCompositionAtScope } from "@jsonschema-editor/ui-schema/bridge";
 import { useScopedField } from "../../../composables/useScopedField";
 import { useSchemaFormTypeRegistry } from "../../../composables/useRegistries";
 import { createFormFieldMatchContext } from "../../../registry/form-field-context";
+import { isSchemaFieldHidden, isSchemaFieldReadOnly } from "../../../utils/field-behavior";
 import DefaultFormField from "./DefaultFormField.vue";
 import OneOfFormField from "./OneOfFormField.vue";
 
@@ -46,10 +47,16 @@ const resolvedComponent = computed(() => {
   const node = fieldSchema.value ?? props.schema;
   return typeRegistry.resolve(node, matchContext.value) ?? DefaultFormField;
 });
+
+const isHidden = computed(() => isSchemaFieldHidden(fieldSchema.value));
+const effectiveReadonly = computed(() =>
+  isSchemaFieldReadOnly(fieldSchema.value, props.readonly),
+);
 </script>
 
 <template>
   <component
+    v-if="!isHidden"
     :is="resolvedComponent"
     v-model="rootData"
     :schema="schema"
@@ -57,6 +64,6 @@ const resolvedComponent = computed(() => {
     :scope="scope"
     :label="label"
     :i18n-key="i18nKey"
-    :readonly="readonly"
+    :readonly="effectiveReadonly"
   />
 </template>

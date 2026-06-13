@@ -1,0 +1,35 @@
+{
+  "type": "object",
+  "title": "Kontakt",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Name"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "title": "E-Mail",
+      "x-read-only": true
+    },
+    "phone": {
+      "type": "string",
+      "format": "phone",
+      "title": "Telefon"
+    },
+    "internalNote": {
+      "type": "string",
+      "title": "Interne Notiz",
+      "x-hidden": true
+    },
+    "address": {
+      "type": "object",
+      "title": "Adresse",
+      "properties": {
+        "street": { "type": "string", "title": "Straße" },
+        "city": { "type": "string", "title": "Ort" },
+        "zip": { "type": "string", "title": "PLZ" }
+      }
+    }
+  }
+}

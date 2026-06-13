@@ -67,3 +67,13 @@ export {
   compileFormatValidator,
   type RegisterAjvFormatsOptions,
 } from "./ajv.js";
+
+export {
+  READ_ONLY_ATTRIBUTE,
+  HIDDEN_ATTRIBUTE,
+  registerFieldFlagAttributes,
+  readFieldBooleanFlag,
+  isFieldReadOnly,
+  isFieldHidden,
+  setFieldBooleanFlag,
+} from "./field-flags.js";

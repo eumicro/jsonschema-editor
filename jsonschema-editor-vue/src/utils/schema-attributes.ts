@@ -3,6 +3,7 @@ import {
   IntegerSchema,
   NumberSchema,
   StringSchema,
+  globalJsonSchemaAttributeRegistry,
   type SchemaDocument,
   type SchemaNode,
 } from "@jsonschema-editor/json-schema";
@@ -53,6 +54,12 @@ export function listSchemaAttributeFields(node: SchemaNode): SchemaAttributeFiel
     }
   }
 
+  for (const definition of globalJsonSchemaAttributeRegistry.listFieldScoped()) {
+    if (!fields.some((field) => field.name === definition.name)) {
+      fields.push({ name: definition.name, labelKey: `schemaAttributes.${definition.name}` });
+    }
+  }
+
   return fields;
 }
 
@@ -82,8 +89,13 @@ export function getSchemaAttributeValue(node: SchemaNode, name: string): unknown
       return node instanceof ArraySchema ? (node.minItems ?? undefined) : undefined;
     case "maxItems":
       return node instanceof ArraySchema ? (node.maxItems ?? undefined) : undefined;
-    default:
+    default: {
+      const definition = globalJsonSchemaAttributeRegistry.get(name);
+      if (definition?.scope === "field") {
+        return node.getCustomAttribute(name) === true;
+      }
       return node.getCustomAttribute(name);
+    }
   }
 }
 
@@ -135,8 +147,18 @@ export function setSchemaAttributeValue(node: SchemaNode, name: string, value: u
         node.maxItems = value === undefined || value === "" ? undefined : Number(value);
       }
       return;
-    default:
+    default: {
+      const definition = globalJsonSchemaAttributeRegistry.get(name);
+      if (definition?.scope === "field" && typeof value === "boolean") {
+        if (value) {
+          node.setCustomAttribute(name, true);
+        } else {
+          node.deleteCustomAttribute(name);
+        }
+        return;
+      }
       node.setCustomAttribute(name, value);
+    }
   }
 }
 

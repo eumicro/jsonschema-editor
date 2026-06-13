@@ -21,6 +21,10 @@ import simpleCompositionDefaults from "./data/simple-composition/defaults.json";
 import simpleCompositionMeta from "./data/simple-composition/meta.json";
 import simpleCompositionSchema from "./data/simple-composition/schema.json";
 import simpleCompositionUi from "./data/simple-composition/ui.schema.json";
+import fieldExtensionsQaDefaults from "./data/field-extensions-qa/defaults.json";
+import fieldExtensionsQaMeta from "./data/field-extensions-qa/meta.json";
+import fieldExtensionsQaSchema from "./data/field-extensions-qa/schema.json";
+import fieldExtensionsQaUi from "./data/field-extensions-qa/ui.schema.json";
 import geometryQaDefaults from "./data/geometry-qa/defaults.json";
 import geometryQaMeta from "./data/geometry-qa/meta.json";
 import geometryQaSchema from "./data/geometry-qa/schema.json";
@@ -32,7 +36,8 @@ export type ExampleId =
   | "simple-composition"
   | "car-configurator"
   | "occupational-health-g37"
-  | "geometry-qa";
+  | "geometry-qa"
+  | "field-extensions-qa";
 
 export interface ExampleManifest {
   id: ExampleId;
@@ -91,6 +96,14 @@ export const exampleManifests: ExampleManifest[] = [
     schema: geometryQaSchema as unknown as JsonSchemaObject,
     uiSchema: geometryQaUi as unknown as UiSchemaObject,
     defaults: geometryQaDefaults,
+  },
+  {
+    id: "field-extensions-qa",
+    label: fieldExtensionsQaMeta.label,
+    description: fieldExtensionsQaMeta.description,
+    schema: fieldExtensionsQaSchema as unknown as JsonSchemaObject,
+    uiSchema: fieldExtensionsQaUi as unknown as UiSchemaObject,
+    defaults: fieldExtensionsQaDefaults,
   },
 ];
 

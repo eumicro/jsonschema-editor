@@ -23,6 +23,8 @@ import {
   validateGeometryCollection,
   validatePhone,
   validateUrl,
+  isFieldReadOnly,
+  isFieldHidden,
 } from "./index.js";
 
 describe("format validators", () => {
@@ -194,6 +196,37 @@ describe("GeometryExtension", () => {
         { point: true, exactObjects: 2 },
       ),
     ).toBe(true);
+  });
+});
+
+describe("Field flag extensions", () => {
+  const registry = createExtensionsRegistry();
+
+  it("registers x-read-only and x-hidden as field-scoped attributes", () => {
+    expect(registry.isRegistered("x-read-only")).toBe(true);
+    expect(registry.isRegistered("x-hidden")).toBe(true);
+    expect(registry.listFieldScoped().map((def) => def.name)).toEqual(
+      expect.arrayContaining(["x-read-only", "x-hidden"]),
+    );
+  });
+
+  it("roundtrips field flags through documentFromJSONWithExtensions", () => {
+    const doc = documentFromJSONWithExtensions(
+      {
+        type: "object",
+        properties: {
+          visible: { type: "string" },
+          locked: { type: "string", "x-read-only": true },
+          secret: { type: "string", "x-hidden": true },
+        },
+      },
+      registry,
+    );
+    const locked = doc.root.getProperty("locked");
+    const secret = doc.root.getProperty("secret");
+    expect(isFieldReadOnly(locked)).toBe(true);
+    expect(isFieldHidden(secret)).toBe(true);
+    expect(isFieldReadOnly(doc.root.getProperty("visible"))).toBe(false);
   });
 });
 

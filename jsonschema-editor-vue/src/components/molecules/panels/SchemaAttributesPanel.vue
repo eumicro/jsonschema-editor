@@ -7,6 +7,7 @@ import JseFormField from "../JseFormField.vue";
 import JseSelect from "../../atoms/JseSelect.vue";
 import ArrayItemsTypeControl from "../ArrayItemsTypeControl.vue";
 import AttributeControlResolver from "../attributes/AttributeControlResolver.vue";
+import SchemaFieldBulkActions from "./SchemaFieldBulkActions.vue";
 import { useJseI18n } from "../../../composables/useJseI18n";
 import { useSchemaAttributesPanel } from "../../../composables/useSchemaAttributesPanel";
 import type { SchemaPath } from "../../../utils/schema-editor";
@@ -38,12 +39,14 @@ const {
   isRequired,
   showItemsTypeControl,
   itemsTypeKind,
+  showBulkFieldActions,
   commitPropertyRename,
   readAttribute,
   updateAttribute,
   setRequired,
   commitRefChange,
   setItemsType,
+  applyBulkFieldAttribute,
 } = useSchemaAttributesPanel(toRef(props, "document"), toRef(props, "selectedPath"), emit);
 </script>
 
@@ -97,5 +100,10 @@ const {
     <JseFormField v-if="showItemsTypeControl" :label="t('schemaAttributes.itemsType')">
       <ArrayItemsTypeControl compact :current-kind="itemsTypeKind" @select="setItemsType" />
     </JseFormField>
+
+    <SchemaFieldBulkActions
+      v-if="showBulkFieldActions"
+      @apply="applyBulkFieldAttribute"
+    />
   </div>
 </template>

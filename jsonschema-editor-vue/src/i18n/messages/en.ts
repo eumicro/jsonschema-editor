@@ -84,6 +84,15 @@ export const enMessages = {
   "schemaAttributes.minItems": "minItems",
   "schemaAttributes.maximum": "maximum",
   "schemaAttributes.x-geometry": "Geometry (map)",
+  "schemaAttributes.x-read-only": "Read-only (x-read-only)",
+  "schemaAttributes.x-hidden": "Hidden (x-hidden)",
+  "schemaAttributes.bulkFieldExtensions": "Field extensions (bulk)",
+  "schemaAttributes.bulkFieldExtensionsHint":
+    "Applies the attribute to this object and all nested fields.",
+  "schemaAttributes.bulkSetReadOnly": "All: read-only",
+  "schemaAttributes.bulkClearReadOnly": "All: editable",
+  "schemaAttributes.bulkSetHidden": "All: hidden",
+  "schemaAttributes.bulkClearHidden": "All: visible",
 
   "uiAttributes.rootLayout": "Root layout: {label}",
   "uiAttributes.layoutType": "Layout type",

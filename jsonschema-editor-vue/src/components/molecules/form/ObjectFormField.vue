@@ -4,6 +4,7 @@ import type { SchemaDocument, SchemaNode, ObjectSchema } from "@jsonschema-edito
 import { buildPropertyScope } from "@jsonschema-editor/ui-schema";
 import { useFormFieldLabel } from "../../../composables/useFormFieldLabel";
 import { useScopedField } from "../../../composables/useScopedField";
+import { isSchemaFieldHidden, isSchemaFieldReadOnly } from "../../../utils/field-behavior";
 import SchemaFormFieldResolver from "./SchemaFormFieldResolver.vue";
 
 const props = defineProps<{
@@ -39,10 +40,15 @@ const properties = computed(() => {
   if (!objectSchema.value) return [];
   return [...objectSchema.value.properties.entries()];
 });
+
+const isHidden = computed(() => isSchemaFieldHidden(fieldSchema.value));
+const effectiveReadonly = computed(() =>
+  isSchemaFieldReadOnly(fieldSchema.value, props.readonly),
+);
 </script>
 
 <template>
-  <fieldset v-if="objectSchema" class="jse-group jse-object-field">
+  <fieldset v-if="objectSchema && !isHidden" class="jse-group jse-object-field">
     <legend v-if="displayLabel">{{ displayLabel }}</legend>
     <SchemaFormFieldResolver
       v-for="[name] in properties"
@@ -51,7 +57,7 @@ const properties = computed(() => {
       :schema="schema"
       :document="document"
       :scope="buildPropertyScope(scope, name)"
-      :readonly="readonly"
+      :readonly="effectiveReadonly"
     />
   </fieldset>
 </template>

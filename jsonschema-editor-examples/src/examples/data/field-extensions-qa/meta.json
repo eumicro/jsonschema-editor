@@ -1,0 +1,4 @@
+{
+  "label": "Field extensions (x-read-only / x-hidden)",
+  "description": "Universal field flags on every property plus bulk apply on object nodes."
+}

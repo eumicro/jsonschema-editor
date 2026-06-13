@@ -1,0 +1,18 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    { "type": "Control", "scope": "#/properties/name" },
+    { "type": "Control", "scope": "#/properties/email" },
+    { "type": "Control", "scope": "#/properties/phone" },
+    { "type": "Control", "scope": "#/properties/internalNote" },
+    {
+      "type": "Group",
+      "label": "Adresse",
+      "elements": [
+        { "type": "Control", "scope": "#/properties/address/properties/street" },
+        { "type": "Control", "scope": "#/properties/address/properties/city" },
+        { "type": "Control", "scope": "#/properties/address/properties/zip" }
+      ]
+    }
+  ]
+}

@@ -42,9 +42,14 @@ export interface JsonSchemaObject {
   [key: string]: unknown;
 }
 
+/** `field` = shown on every schema field in the editor and storable on any property node. */
+export type AttributeScope = "field";
+
 export interface AttributeDefinition<T = unknown> {
   name: string;
   defaultValue?: T;
+  /** When `"field"`, the attribute is offered for all field types (not only after it was set once). */
+  scope?: AttributeScope;
   serialize?: (value: T) => unknown;
   deserialize?: (raw: unknown) => T;
 }

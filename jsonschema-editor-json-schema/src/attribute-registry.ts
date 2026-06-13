@@ -52,6 +52,10 @@ export class JsonSchemaAttributeRegistry {
     return [...this.definitions.values()];
   }
 
+  listFieldScoped(): AttributeDefinition[] {
+    return this.list().filter((definition) => definition.scope === "field");
+  }
+
   isRegistered(name: string): boolean {
     return this.definitions.has(name);
   }

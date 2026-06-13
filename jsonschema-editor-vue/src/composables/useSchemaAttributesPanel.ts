@@ -12,6 +12,7 @@ import {
   setPropertyKindInDocument,
   setPropertyRefInDocument,
   setPropertyRequiredInDocument,
+  applyFieldAttributeToDescendants,
 } from "../utils/schema-document";
 import {
   getArrayItemsKind,
@@ -90,6 +91,11 @@ export function useSchemaAttributesPanel(
   const showItemsTypeControl = computed(
     () => selectedNode.value instanceof ArraySchema || isItemsNode.value,
   );
+
+  const showBulkFieldActions = computed(() => {
+    const node = selectedNode.value;
+    return node instanceof ObjectSchema && node.propertyCount > 0;
+  });
 
   const itemsTypeKind = computed(() => {
     if (selectedNode.value instanceof ArraySchema) {
@@ -217,6 +223,14 @@ export function useSchemaAttributesPanel(
     }
   }
 
+  function applyBulkFieldAttribute(attributeName: string, value: boolean) {
+    if (!isValidDocumentPath(document.value, selectedPath.value)) return;
+    emit(
+      "update:document",
+      applyFieldAttributeToDescendants(document.value, selectedPath.value, attributeName, value),
+    );
+  }
+
   return {
     propertyNameInput,
     propertyNameError,
@@ -232,11 +246,13 @@ export function useSchemaAttributesPanel(
     isRequired,
     showItemsTypeControl,
     itemsTypeKind,
+    showBulkFieldActions,
     commitPropertyRename,
     readAttribute,
     updateAttribute,
     setRequired,
     commitRefChange,
     setItemsType,
+    applyBulkFieldAttribute,
   };
 }

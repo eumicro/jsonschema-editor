@@ -13,6 +13,7 @@ import { emailExtension, phoneExtension, urlExtension } from "./formats/index.js
 import type { FormatExtensionId, JsonSchemaFormatExtension } from "./types.js";
 import { isGeometryExtensionConfig } from "./geometry.js";
 import { isValuesSourceConfig } from "./values-source.js";
+import { registerFieldFlagAttributes } from "./field-flags.js";
 
 export const jsonSchemaFormatExtensions: readonly JsonSchemaFormatExtension[] = [
   emailExtension,
@@ -109,6 +110,7 @@ export function createExtensionsRegistry(
       serialize: (value) => value,
     });
   }
+  registerFieldFlagAttributes(base);
   return base;
 }
 

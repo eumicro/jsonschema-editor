@@ -84,6 +84,15 @@ export const deMessages = {
   "schemaAttributes.minItems": "minItems",
   "schemaAttributes.maxItems": "maxItems",
   "schemaAttributes.x-geometry": "Geometrie (Karte)",
+  "schemaAttributes.x-read-only": "Nur lesen (x-read-only)",
+  "schemaAttributes.x-hidden": "Ausblenden (x-hidden)",
+  "schemaAttributes.bulkFieldExtensions": "Felder-Erweiterungen (Sammelaktion)",
+  "schemaAttributes.bulkFieldExtensionsHint":
+    "Setzt das Attribut auf dieses Objekt und alle verschachtelten Felder.",
+  "schemaAttributes.bulkSetReadOnly": "Alle: nur lesen",
+  "schemaAttributes.bulkClearReadOnly": "Alle: Lesen freigeben",
+  "schemaAttributes.bulkSetHidden": "Alle: ausblenden",
+  "schemaAttributes.bulkClearHidden": "Alle: sichtbar",
 
   "uiAttributes.rootLayout": "Root-Layout: {label}",
   "uiAttributes.layoutType": "Layout-Typ",

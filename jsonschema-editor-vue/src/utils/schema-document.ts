@@ -20,6 +20,7 @@ import {
   replaceNodeAtPath,
   suggestPropertyName,
 } from "./schema-editor";
+import { patchSchemaAttribute } from "./schema-attributes";
 import {
   getSchemaTypeExtension,
   resolveSchemaTypeExtensionId,
@@ -455,4 +456,33 @@ export function canDeleteDocumentNode(path: SchemaPath): boolean {
 
 export function canAddToDefsContainer(path: SchemaPath): boolean {
   return isDefsContainerPath(path);
+}
+
+export function collectDescendantPaths(document: SchemaDocument, startPath: SchemaPath): SchemaPath[] {
+  const paths: SchemaPath[] = [];
+  const queue: SchemaPath[] = [startPath];
+
+  while (queue.length > 0) {
+    const path = queue.shift()!;
+    paths.push(path);
+    const node = getNodeAtPath(document, path);
+    for (const childPath of listSchemaChildren(node, path)) {
+      queue.push(childPath);
+    }
+  }
+
+  return paths;
+}
+
+export function applyFieldAttributeToDescendants(
+  document: SchemaDocument,
+  startPath: SchemaPath,
+  attributeName: string,
+  value: boolean,
+): SchemaDocument {
+  let next = document;
+  for (const path of collectDescendantPaths(document, startPath)) {
+    next = patchSchemaAttribute(next, path, attributeName, value);
+  }
+  return next;
 }
