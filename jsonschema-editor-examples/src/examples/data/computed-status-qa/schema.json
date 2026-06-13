@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
-  "title": "Antrag",
+  "title": "Förderantrag",
   "properties": {
     "antragskopf": {
       "type": "object",
@@ -47,8 +47,8 @@
     },
     "status": {
       "type": "string",
-      "title": "Status",
-      "description": "Workflow-Status aus Antragsfortschritt (CEL)",
+      "title": "Bearbeitungsstand",
+      "description": "Wird automatisch aus dem ausgefüllten Antrag abgeleitet",
       "enum": ["NEU", "ANTRAG_ANGELEGT", "BEREIT_ZUR_DURCHFUEHRUNG", "DURCHGEFUEHRT", "ERLEDIGT"],
       "x-computed": {
         "expression": "!has(data.antragskopf.antragsdatum) || data.antragskopf.antragsdatum == '' ? 'NEU' : (!has(data.auftragsdaten.adresse) || data.auftragsdaten.adresse == '') ? 'ANTRAG_ANGELEGT' : (!has(data.durchfuehrung.datum) || data.durchfuehrung.datum == '') ? 'BEREIT_ZUR_DURCHFUEHRUNG' : (!data.abrechnung.beglichen) ? 'DURCHGEFUEHRT' : 'ERLEDIGT'"

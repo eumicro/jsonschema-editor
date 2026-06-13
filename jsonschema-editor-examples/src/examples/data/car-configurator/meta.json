@@ -1,4 +1,7 @@
 {
-  "label": "Car configurator (complex)",
-  "description": "Nested sub-objects with <code>Stepper</code>/<code>Step</code> and <code>Categorization</code>/<code>Category</code>: <code>fahrzeug.modell</code> (oneOf), <code>fahrzeug.antrieb</code> (oneOf), <code>fahrzeug.lackierung</code> (anyOf), <code>bestellung.ausstattung</code> (oneOf), and <code>bestellung.finanzierung</code> (anyOf) — definitions in <code>$defs</code>."
+  "label": "Fahrzeugbestellung",
+  "tagline": "Mehrstufige Bestellung mit Modell, Antrieb und Finanzierung",
+  "description": "Konfigurieren Sie Fahrzeug, Ausstattung und Zahlungsweise in einem geführten Bestellprozess — typisch für Flotten- oder Händlerportale.",
+  "category": "Vertrieb & Konfiguration",
+  "visibility": "public"
 }

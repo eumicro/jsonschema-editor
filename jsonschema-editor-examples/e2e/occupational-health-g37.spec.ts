@@ -47,7 +47,7 @@ test.describe("G37 Arbeitsmedizin", () => {
   test("Aufnahme: Betriebsgelände rendert Karte", async ({ page }) => {
     await expect(page.getByText("Betriebsgelände (Karte)")).toBeVisible();
     await expect(page.locator(".jse-geometry-map")).toBeVisible();
-    await expect(page.getByRole("button", { name: "Bearbeiten" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Bearbeiten", exact: true })).toBeVisible();
     await expect(page.getByRole("button", { name: "Löschen" })).toBeVisible();
 
     const output = await readFormOutput(page);

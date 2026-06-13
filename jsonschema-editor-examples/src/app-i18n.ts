@@ -2,42 +2,65 @@ import type { JseLocale } from "@jsonschema-editor/vue";
 
 const appUi = {
   de: {
-    title: "JSON Schema Editor – Beispiel",
+    title: "Formulare für echte Einsatzszenarien",
     lead:
-      "Strukturieren Sie das JSON Schema, passen Sie die Formular-Oberfläche an und testen Sie das Ergebnis – ohne zwischen Tools wechseln zu müssen.",
-    workflowAria: "Arbeitsablauf",
-    stepEdit: "Schema & UI bearbeiten",
-    stepTest: "Formular testen",
-    exampleLabel: "Beispiel",
+      "Wählen Sie ein Praxisbeispiel, passen Sie Schema und Oberfläche an und testen Sie das ausfüllbare Formular — alles in einer Oberfläche.",
+    scenariosHeading: "Einsatzszenarien",
     localeLabel: "Sprache",
     tabsAria: "Ansichtsmodus",
-    tabEditor: "Form-Editor",
-    tabForm: "Ausfüllbares Formular",
-    formHintBefore: "Vorschau des generierten Formulars. Änderungen am Schema nehmen Sie im",
-    formHintLink: "Form-Editor",
+    tabEditor: "Schema bearbeiten",
+    tabForm: "Formular testen",
+    formHintBefore: "Vorschau des Formulars für das gewählte Szenario. Änderungen am Schema nehmen Sie unter",
+    formHintLink: "Schema bearbeiten",
     formHintAfter: "vor.",
     formPanelAria: "Ausfüllbares Formular",
     formDataSummary: "Formulardaten (JSON)",
+    categoryLabels: {
+      "Gesundheit & Arbeitsschutz": "Gesundheit & Arbeitsschutz",
+      "Vertrieb & Konfiguration": "Vertrieb & Konfiguration",
+      "Anträge & Prozesse": "Anträge & Prozesse",
+      Stammdaten: "Stammdaten",
+    },
   },
   en: {
-    title: "JSON Schema Editor – Demo",
+    title: "Forms for real-world scenarios",
     lead:
-      "Structure your JSON schema, customize the form UI, and test the result — without switching between tools.",
-    workflowAria: "Workflow",
-    stepEdit: "Edit schema & UI",
-    stepTest: "Test form",
-    exampleLabel: "Example",
+      "Pick a practical example, adjust schema and UI, and test the fillable form — all in one place.",
+    scenariosHeading: "Use cases",
     localeLabel: "Language",
     tabsAria: "View mode",
-    tabEditor: "Form editor",
-    tabForm: "Fillable form",
-    formHintBefore: "Preview of the generated form. Edit the schema in the",
-    formHintLink: "form editor",
+    tabEditor: "Edit schema",
+    tabForm: "Test form",
+    formHintBefore: "Preview of the form for the selected scenario. Edit the schema under",
+    formHintLink: "Edit schema",
     formHintAfter: ".",
     formPanelAria: "Fillable form",
     formDataSummary: "Form data (JSON)",
+    categoryLabels: {
+      "Gesundheit & Arbeitsschutz": "Health & occupational safety",
+      "Vertrieb & Konfiguration": "Sales & configuration",
+      "Anträge & Prozesse": "Applications & processes",
+      Stammdaten: "Master data",
+    },
   },
-} as const satisfies Record<JseLocale, Record<string, string>>;
+} as const satisfies Record<
+  JseLocale,
+  {
+    title: string;
+    lead: string;
+    scenariosHeading: string;
+    localeLabel: string;
+    tabsAria: string;
+    tabEditor: string;
+    tabForm: string;
+    formHintBefore: string;
+    formHintLink: string;
+    formHintAfter: string;
+    formPanelAria: string;
+    formDataSummary: string;
+    categoryLabels: Record<string, string>;
+  }
+>;
 
 export const localeOptions: { value: JseLocale; label: string }[] = [
   { value: "de", label: "Deutsch" },
@@ -50,4 +73,9 @@ export function appUiFor(locale: JseLocale) {
 
 export function fallbackLocaleFor(locale: JseLocale): JseLocale {
   return locale === "en" ? "de" : "en";
+}
+
+export function categoryLabelFor(locale: JseLocale, category: string): string {
+  const labels = appUiFor(locale).categoryLabels as Record<string, string>;
+  return labels[category] ?? category;
 }

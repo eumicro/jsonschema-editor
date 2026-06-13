@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
-  "title": "Rechnung",
+  "title": "Kostenvoranschlag",
   "properties": {
     "positionen": {
       "type": "array",
@@ -19,7 +19,7 @@
     "gesamtsumme": {
       "type": "number",
       "title": "Gesamtsumme (EUR)",
-      "description": "Summe aller Teilsummen – berechnet per CEL",
+      "description": "Wird aus allen Positionen automatisch berechnet",
       "x-computed": {
         "expression": "data.positionen.map(p, double(p.betrag)).sum()"
       }

@@ -1,4 +1,7 @@
 {
-  "label": "Array QA (Rechnung)",
-  "description": "Dynamische Liste von Kostenpositionen mit hinzufügen/entfernen."
+  "label": "Leistungsverzeichnis",
+  "tagline": "Dynamische Liste von Positionen mit hinzufügen und entfernen",
+  "description": "Internes Beispiel: Positionen als bearbeitbare Liste ohne automatische Summenbildung.",
+  "category": "Anträge & Prozesse",
+  "visibility": "internal"
 }

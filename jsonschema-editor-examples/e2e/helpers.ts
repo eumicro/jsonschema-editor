@@ -7,11 +7,11 @@ export async function selectExample(page: Page, id: ExampleId): Promise<void> {
 }
 
 export async function openFormMode(page: Page): Promise<void> {
-  await page.getByRole("tab", { name: "Ausfüllbares Formular" }).click();
+  await page.getByRole("tab", { name: "Formular testen" }).click();
 }
 
 export async function openEditorMode(page: Page): Promise<void> {
-  await page.getByRole("tab", { name: "Form-Editor" }).click();
+  await page.getByRole("tab", { name: "Schema bearbeiten" }).click();
 }
 
 /** Variant selector of the root oneOf field (excludes nested property selects). */

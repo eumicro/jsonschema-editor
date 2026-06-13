@@ -1,4 +1,7 @@
 {
-  "label": "$defs + oneOf: Human / Machine",
-  "description": "Variants defined in $defs and reused via $ref in oneOf."
+  "label": "Ansprechpartner erfassen",
+  "tagline": "Person oder Betriebsmittel mit E-Mail, Telefon und Auswahlfeldern",
+  "description": "Erfassen Sie Ansprechpartner oder zugeordnete Betriebsmittel mit Kontaktdaten und strukturierten Zusatzfeldern.",
+  "category": "Stammdaten",
+  "visibility": "public"
 }

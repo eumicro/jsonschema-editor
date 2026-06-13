@@ -1,11 +1,11 @@
 {
   "type": "object",
-  "title": "Geometry QA",
-  "description": "x-geometry combinations for map editing QA",
+  "title": "Standort & Gebiet",
+  "description": "Kartenfelder für Standortplanung und Einsatzgebiete",
   "properties": {
     "pointOnly": {
       "type": "object",
-      "title": "Nur Punkt",
+      "title": "Standort markieren",
       "x-geometry": {
         "point": true,
         "line": false,
@@ -15,7 +15,7 @@
     },
     "lineOnly": {
       "type": "object",
-      "title": "Nur Linie",
+      "title": "Route erfassen",
       "x-geometry": {
         "point": false,
         "line": true,
@@ -25,7 +25,7 @@
     },
     "polygonOnly": {
       "type": "object",
-      "title": "Nur Polygon",
+      "title": "Einsatzgebiet abgrenzen",
       "x-geometry": {
         "point": false,
         "line": false,
@@ -35,7 +35,7 @@
     },
     "pointLine": {
       "type": "object",
-      "title": "Punkt + Linie",
+      "title": "Standort und Route",
       "x-geometry": {
         "point": true,
         "line": true,
@@ -45,7 +45,7 @@
     },
     "pointPolygon": {
       "type": "object",
-      "title": "Punkt + Polygon",
+      "title": "Standort und Gebiet",
       "x-geometry": {
         "point": true,
         "line": false,
@@ -55,7 +55,7 @@
     },
     "linePolygon": {
       "type": "object",
-      "title": "Linie + Polygon",
+      "title": "Route und Gebiet",
       "x-geometry": {
         "point": false,
         "line": true,
@@ -65,7 +65,7 @@
     },
     "allTypes": {
       "type": "object",
-      "title": "Alle Typen",
+      "title": "Gesamtplanung",
       "x-geometry": {
         "point": true,
         "line": true,
@@ -75,7 +75,7 @@
     },
     "rangeOneThree": {
       "type": "object",
-      "title": "Polygon 1–3",
+      "title": "Mehrere Gebiete",
       "x-geometry": {
         "point": false,
         "line": false,
@@ -86,7 +86,7 @@
     },
     "exactTwo": {
       "type": "object",
-      "title": "Exakt 2",
+      "title": "Zwei Kartenelemente",
       "x-geometry": {
         "point": true,
         "line": true,

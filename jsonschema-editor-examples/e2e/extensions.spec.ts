@@ -37,20 +37,20 @@ test.describe("Vue-Extensions", () => {
     await openFormMode(page);
     await oneOfSelect(page).selectOption("0");
 
-    await expect(fieldByLabel(page, /^Email/)).toBeVisible();
+    await expect(fieldByLabel(page, /^E-Mail/)).toBeVisible();
     await expect(fieldByLabel(page, /^Website/)).toBeVisible();
-    await expect(fieldByLabel(page, /^Phone/)).toBeVisible();
+    await expect(fieldByLabel(page, /^Telefon/)).toBeVisible();
     await expect(fieldByLabel(page, /^Abteilung/)).toBeVisible();
-    await expect(fieldByLabel(page, /^Manager \(API\)/)).toBeVisible();
+    await expect(fieldByLabel(page, /^Vorgesetzter/)).toBeVisible();
 
-    await expect(fieldByLabel(page, /^Email/).locator("input")).toHaveAttribute("type", "email");
+    await expect(fieldByLabel(page, /^E-Mail/).locator("input")).toHaveAttribute("type", "email");
 
     const abteilungOptions = await fieldByLabel(page, /^Abteilung/)
       .locator("select option")
       .allTextContents();
     expect(abteilungOptions).toEqual(expect.arrayContaining(["Vertrieb", "Entwicklung", "Support"]));
 
-    const managerSelect = fieldByLabel(page, /^Manager \(API\)/).locator("select");
+    const managerSelect = fieldByLabel(page, /^Vorgesetzter/).locator("select");
     await expect
       .poll(async () => managerSelect.locator("option").count(), { timeout: 15_000 })
       .toBeGreaterThan(1);

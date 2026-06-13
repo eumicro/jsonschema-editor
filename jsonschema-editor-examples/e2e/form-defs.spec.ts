@@ -10,7 +10,7 @@ test.describe("$defs + oneOf-Formular", () => {
 
   test("Dropdown zeigt aufgelöste Definitions-Titel", async ({ page }) => {
     const options = await oneOfSelect(page).locator("option").allTextContents();
-    expect(options).toEqual(["Mensch", "Maschine"]);
+    expect(options).toEqual(["Person", "Betriebsmittel"]);
   });
 
   test("Wechsel zu Maschine zeigt Nummer aus $defs", async ({ page }) => {

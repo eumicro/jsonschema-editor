@@ -1,4 +1,7 @@
 {
-  "label": "Geometry QA (map options)",
-  "description": "All x-geometry type and count combinations for browser QA."
+  "label": "Standort & Gebiet",
+  "tagline": "Kartenfelder für Punkt, Linie und Fläche",
+  "description": "Internes Beispiel: verschiedene Kartendarstellungen für Standortplanung und Einsatzgebiete.",
+  "category": "Standort & Planung",
+  "visibility": "internal"
 }

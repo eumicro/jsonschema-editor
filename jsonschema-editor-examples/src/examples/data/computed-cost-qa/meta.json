@@ -1,4 +1,7 @@
 {
-  "label": "Computed QA (Kostensumme)",
-  "description": "x-computed: Gesamtsumme aus dynamischen Kostenpositionen (Array) per CEL."
+  "label": "Kostenvoranschlag",
+  "tagline": "Positionen erfassen, Gesamtsumme wird automatisch berechnet",
+  "description": "Leistungen und Beträge als Positionen erfassen — die Gesamtsumme aktualisiert sich bei jeder Änderung von selbst.",
+  "category": "Anträge & Prozesse",
+  "visibility": "public"
 }

@@ -6,10 +6,13 @@ import { JsonSchemaForm, JsonSchemaFormEditor, type JseLocale } from "@jsonschem
 import {
   defaultExampleId,
   exampleCatalog,
+  exampleCategoryOrder,
+  exampleManifests,
+  examplesByCategory,
   type ExampleId,
 } from "./examples/catalog";
 import { loadExampleFromJson } from "./examples/load-example";
-import { appUiFor, fallbackLocaleFor, localeOptions } from "./app-i18n";
+import { appUiFor, categoryLabelFor, fallbackLocaleFor, localeOptions } from "./app-i18n";
 
 const initial = loadExampleFromJson(exampleCatalog[defaultExampleId]);
 
@@ -23,7 +26,11 @@ const mode = ref<"editor" | "form">("editor");
 const ui = computed(() => appUiFor(locale.value));
 const fallbackLocale = computed(() => fallbackLocaleFor(locale.value));
 
-const activeExample = () => exampleCatalog[activeExampleId.value];
+const activeExample = computed(() => exampleCatalog[activeExampleId.value]);
+
+const visibleCategories = computed(() =>
+  exampleCategoryOrder.filter((category) => examplesByCategory[category].length > 0),
+);
 
 function loadExample(id: ExampleId) {
   const loaded = loadExampleFromJson(exampleCatalog[id]);
@@ -32,54 +39,24 @@ function loadExample(id: ExampleId) {
   formData.value = loaded.defaults;
 }
 
+function selectExample(id: ExampleId) {
+  activeExampleId.value = id;
+}
+
 watch(activeExampleId, (id) => loadExample(id));
 </script>
 
 <template>
   <main class="app">
     <header class="app__header">
-      <h1 id="json-schema-editor-beispiel">{{ ui.title }}</h1>
-      <p class="app__lead">
-        {{ ui.lead }}
-      </p>
-
-      <nav class="app__workflow" :aria-label="ui.workflowAria">
-        <ol class="app__workflow-steps">
-          <li
-            class="app__workflow-step"
-            :class="{ 'app__workflow-step--active': mode === 'editor' }"
-          >
-            <span class="app__workflow-step-num" aria-hidden="true">1</span>
-            <span class="app__workflow-step-text">{{ ui.stepEdit }}</span>
-          </li>
-          <li class="app__workflow-step app__workflow-step--connector" aria-hidden="true" />
-          <li
-            class="app__workflow-step"
-            :class="{ 'app__workflow-step--active': mode === 'form' }"
-          >
-            <span class="app__workflow-step-num" aria-hidden="true">2</span>
-            <span class="app__workflow-step-text">{{ ui.stepTest }}</span>
-          </li>
-        </ol>
-      </nav>
-
-      <div class="app__pickers">
-        <div class="app__example-picker">
-          <label class="app__picker-label" for="app-example-select">{{ ui.exampleLabel }}</label>
-          <select
-            id="app-example-select"
-            v-model="activeExampleId"
-            class="app__select"
-          >
-            <option v-for="(entry, id) in exampleCatalog" :key="id" :value="id">
-              {{ entry.label }}
-            </option>
-          </select>
+      <div class="app__header-top">
+        <div class="app__header-copy">
+          <h1 id="json-schema-editor-beispiel">{{ ui.title }}</h1>
+          <p class="app__lead">{{ ui.lead }}</p>
         </div>
-
         <div class="app__locale-picker">
           <label class="app__picker-label" for="app-locale-select">{{ ui.localeLabel }}</label>
-          <select id="app-locale-select" v-model="locale" class="app__select">
+          <select id="app-locale-select" v-model="locale" class="app__select app__select--locale">
             <option v-for="option in localeOptions" :key="option.value" :value="option.value">
               {{ option.label }}
             </option>
@@ -87,7 +64,44 @@ watch(activeExampleId, (id) => loadExample(id));
         </div>
       </div>
 
-      <p v-if="activeExample().description" class="app__example-desc" v-html="activeExample().description" />
+      <section class="app__gallery" :aria-label="ui.scenariosHeading">
+        <h2 class="app__gallery-heading">{{ ui.scenariosHeading }}</h2>
+        <div v-for="category in visibleCategories" :key="category" class="app__category">
+          <h3 class="app__category-title">{{ categoryLabelFor(locale, category) }}</h3>
+          <ul class="app__card-grid">
+            <li v-for="entry in examplesByCategory[category]" :key="entry.id">
+              <button
+                type="button"
+                class="app__card"
+                :class="{ 'app__card--active': activeExampleId === entry.id }"
+                :aria-pressed="activeExampleId === entry.id"
+                @click="selectExample(entry.id)"
+              >
+                <span class="app__card-label">{{ entry.label }}</span>
+                <span class="app__card-tagline">{{ entry.tagline }}</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Hidden select keeps E2E helpers working (selectExample). -->
+      <select
+        id="app-example-select"
+        v-model="activeExampleId"
+        class="app__example-select-hidden"
+        tabindex="-1"
+        aria-hidden="true"
+      >
+        <option v-for="entry in exampleManifests" :key="entry.id" :value="entry.id">
+          {{ entry.label }}
+        </option>
+      </select>
+
+      <div v-if="activeExample" class="app__example-detail">
+        <p class="app__example-tagline">{{ activeExample.tagline }}</p>
+        <p class="app__example-desc">{{ activeExample.description }}</p>
+      </div>
 
       <div class="app__tabs" role="tablist" :aria-label="ui.tabsAria">
         <button

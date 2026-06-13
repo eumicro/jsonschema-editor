@@ -9,11 +9,9 @@
           "description": "Vollständiger Name"
         }
       },
-      "required": [
-        "name"
-      ],
-      "title": "Mensch",
-      "description": "Natürliche Person mit Name"
+      "required": ["name"],
+      "title": "Person",
+      "description": "Mitarbeiter oder Ansprechpartner"
     },
     {
       "type": "object",
@@ -24,13 +22,11 @@
           "description": "Serien- oder Inventarnummer"
         }
       },
-      "required": [
-        "nummer"
-      ],
-      "title": "Maschine",
-      "description": "Technisches Gerät mit Seriennummer"
+      "required": ["nummer"],
+      "title": "Betriebsmittel",
+      "description": "Gerät oder Anlage"
     }
   ],
-  "title": "Person",
-  "description": "Wähle zwischen Mensch und Maschine"
+  "title": "Ressource zuweisen",
+  "description": "Person oder Betriebsmittel per Typauswahl erfassen"
 }

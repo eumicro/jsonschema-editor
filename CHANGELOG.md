@@ -16,6 +16,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 
 
+### Changed
+
+- Example app: curated **practice scenario gallery** (6 public use cases by category); internal examples hidden from browsing but kept for E2E; practice-oriented labels and schema titles throughout
+
+
+
 ## [0.1.7] - 2026-06-13
 
 

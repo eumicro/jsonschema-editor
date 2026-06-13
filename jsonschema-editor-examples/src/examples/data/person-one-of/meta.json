@@ -1,4 +1,7 @@
 {
-  "label": "oneOf: Human / Machine",
-  "description": "Two variants directly in the oneOf array — the form shows a dropdown."
+  "label": "Ressource zuweisen",
+  "tagline": "Mitarbeiter oder Gerät per Typauswahl erfassen",
+  "description": "Internes Beispiel: einfache Typauswahl zwischen Person und Betriebsmittel.",
+  "category": "Stammdaten",
+  "visibility": "internal"
 }

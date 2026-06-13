@@ -1,4 +1,7 @@
 {
-  "label": "Field extensions (x-read-only / x-hidden)",
-  "description": "Universal field flags on every property plus bulk apply on object nodes."
+  "label": "Kundenkontakt",
+  "tagline": "Kontaktdaten mit schreibgeschützten Systemfeldern und internen Notizen",
+  "description": "Pflegen Sie Kundenkontakte mit Adresse und Erreichbarkeit — Systemfelder bleiben geschützt, interne Hinweise nur für Sachbearbeiter sichtbar.",
+  "category": "Stammdaten",
+  "visibility": "public"
 }

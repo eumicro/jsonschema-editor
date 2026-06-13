@@ -1,19 +1,19 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Auto-Konfigurator",
-  "description": "Verschachtelte Objekte mit oneOf- und anyOf-Beziehungen ($defs + $ref)",
+  "title": "Fahrzeugbestellung",
+  "description": "Bestellung mit Fahrzeugkonfiguration, Kundendaten und Finanzierung",
   "type": "object",
   "required": ["fahrzeug", "kunde", "bestellung"],
   "properties": {
     "fahrzeug": {
       "type": "object",
       "title": "Fahrzeug",
-      "description": "Modell, Antrieb und Lackierung als Unterobjekte",
+      "description": "Modell, Antrieb und Lackierung",
       "required": ["modell", "antrieb", "lackierung"],
       "properties": {
         "modell": {
           "title": "Modelllinie",
-          "description": "oneOf: Karosserie-Varianten aus $defs",
+          "description": "Karosserie-Variante wählen",
           "oneOf": [
             { "$ref": "#/$defs/ModellLimousine" },
             { "$ref": "#/$defs/ModellSuv" }
@@ -21,7 +21,7 @@
         },
         "antrieb": {
           "title": "Antrieb",
-          "description": "oneOf: Verbrenner oder Elektro",
+          "description": "Verbrenner oder Elektroantrieb",
           "oneOf": [
             { "$ref": "#/$defs/AntriebVerbrenner" },
             { "$ref": "#/$defs/AntriebElektro" }
@@ -29,7 +29,7 @@
         },
         "lackierung": {
           "title": "Lackierung",
-          "description": "anyOf: Serienfarbe oder Individual",
+          "description": "Serienfarbe oder Individual-Lack",
           "anyOf": [
             { "$ref": "#/$defs/LackSerie" },
             { "$ref": "#/$defs/LackIndividual" }
@@ -43,7 +43,7 @@
     "bestellung": {
       "type": "object",
       "title": "Bestellung",
-      "description": "Ausstattung (oneOf) und Finanzierung (anyOf)",
+      "description": "Ausstattungspaket und Zahlungsweise",
       "required": ["ausstattung", "finanzierung"],
       "properties": {
         "ausstattung": {

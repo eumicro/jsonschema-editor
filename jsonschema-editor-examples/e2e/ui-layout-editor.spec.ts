@@ -42,7 +42,7 @@ test.describe("UI-Schema Layout-Editor", () => {
     await expect(nameLayout).toBeVisible();
     await expect(nameLayout.locator(":scope > .jse-layout-editor__stack .jse-layout-dropzone")).toBeVisible();
 
-    const nachname = groupStack.locator(":scope > .jse-layout-block--control").filter({ hasText: "nachname" });
+    const nachname = groupStack.locator(".jse-layout-block--control").filter({ hasText: "nachname" });
     await expect(nachname.locator(".jse-layout-block__drag-handle")).toBeVisible();
   });
 });
