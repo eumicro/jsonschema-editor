@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "title": "Antrag",
+  "properties": {
+    "antragskopf": {
+      "type": "object",
+      "title": "Antragskopf",
+      "properties": {
+        "antragsdatum": {
+          "type": "string",
+          "format": "date",
+          "title": "Antragsdatum"
+        }
+      }
+    },
+    "auftragsdaten": {
+      "type": "object",
+      "title": "Auftragsdaten",
+      "properties": {
+        "adresse": {
+          "type": "string",
+          "title": "Adresse zum Antrag"
+        }
+      }
+    },
+    "durchfuehrung": {
+      "type": "object",
+      "title": "Durchführung",
+      "properties": {
+        "datum": {
+          "type": "string",
+          "format": "date",
+          "title": "Datum der Durchführung"
+        }
+      }
+    },
+    "abrechnung": {
+      "type": "object",
+      "title": "Abrechnung",
+      "properties": {
+        "beglichen": {
+          "type": "boolean",
+          "title": "Rechnung beglichen"
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "title": "Status",
+      "description": "Workflow-Status aus Antragsfortschritt (CEL)",
+      "enum": ["NEU", "ANTRAG_ANGELEGT", "BEREIT_ZUR_DURCHFUEHRUNG", "DURCHGEFUEHRT", "ERLEDIGT"],
+      "x-computed": {
+        "expression": "!has(data.antragskopf.antragsdatum) || data.antragskopf.antragsdatum == '' ? 'NEU' : (!has(data.auftragsdaten.adresse) || data.auftragsdaten.adresse == '') ? 'ANTRAG_ANGELEGT' : (!has(data.durchfuehrung.datum) || data.durchfuehrung.datum == '') ? 'BEREIT_ZUR_DURCHFUEHRUNG' : (!data.abrechnung.beglichen) ? 'DURCHGEFUEHRT' : 'ERLEDIGT'"
+      }
+    }
+  }
+}

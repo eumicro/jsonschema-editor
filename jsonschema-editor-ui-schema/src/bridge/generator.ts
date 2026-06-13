@@ -50,6 +50,11 @@ export class UiSchemaGenerator {
       return elements;
     }
 
+    if (schema.kind === "array") {
+      const label = schema.title ?? scope.split("/").pop() ?? "Liste";
+      return [this.factory.createControl(scope, label)];
+    }
+
     if (schema.kind === "composition") {
       const comp = schema as CompositionSchema;
       const elements: UiElement[] = [];

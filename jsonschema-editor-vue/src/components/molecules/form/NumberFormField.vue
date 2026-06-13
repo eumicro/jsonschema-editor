@@ -29,6 +29,10 @@ const { displayLabel, description } = useFormFieldLabel(
   fieldSchema,
   i18nKeyRef,
 );
+
+function onInput(raw: string | number): void {
+  value.value = raw === "" ? undefined : Number(raw);
+}
 </script>
 
 <template>
@@ -38,7 +42,7 @@ const { displayLabel, description } = useFormFieldLabel(
       class="jse-field__input"
       type="number"
       :disabled="readonly"
-      @update:model-value="value = $event"
+      @update:model-value="onInput"
     />
   </JseSchemaFormField>
 </template>

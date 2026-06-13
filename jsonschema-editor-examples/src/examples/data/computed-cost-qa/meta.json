@@ -1,0 +1,4 @@
+{
+  "label": "Computed QA (Kostensumme)",
+  "description": "x-computed: Gesamtsumme aus dynamischen Kostenpositionen (Array) per CEL."
+}

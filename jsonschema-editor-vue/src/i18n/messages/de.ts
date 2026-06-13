@@ -86,6 +86,7 @@ export const deMessages = {
   "schemaAttributes.x-geometry": "Geometrie (Karte)",
   "schemaAttributes.x-read-only": "Nur lesen (x-read-only)",
   "schemaAttributes.x-hidden": "Ausblenden (x-hidden)",
+  "schemaAttributes.x-computed": "Berechnet (CEL, x-computed)",
   "schemaAttributes.bulkFieldExtensions": "Felder-Erweiterungen (Sammelaktion)",
   "schemaAttributes.bulkFieldExtensionsHint":
     "Setzt das Attribut auf dieses Objekt und alle verschachtelten Felder.",
@@ -108,6 +109,11 @@ export const deMessages = {
   "arrayItems.structure": "Struktur:",
   "arrayItems.note":
     "Bei object oder array im Baum unter „items“ weiter bearbeiten.",
+
+  "arrayList.empty": "Noch keine Einträge.",
+  "arrayList.itemTitle": "Eintrag {index}",
+  "arrayList.addItem": "Eintrag hinzufügen",
+  "arrayList.removeItem": "Entfernen",
 
   "panel.maximize": "Vergrößern",
   "panel.minimize": "Verkleinern",

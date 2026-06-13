@@ -1,0 +1,8 @@
+{
+  "positionen": [
+    { "bezeichnung": "Material", "betrag": 120.5 },
+    { "bezeichnung": "Arbeitszeit", "betrag": 85 },
+    { "bezeichnung": "Reisekosten", "betrag": 42.75 }
+  ],
+  "gesamtsumme": 0
+}

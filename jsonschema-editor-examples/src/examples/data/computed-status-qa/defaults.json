@@ -1,0 +1,15 @@
+{
+  "antragskopf": {
+    "antragsdatum": ""
+  },
+  "auftragsdaten": {
+    "adresse": ""
+  },
+  "durchfuehrung": {
+    "datum": ""
+  },
+  "abrechnung": {
+    "beglichen": false
+  },
+  "status": "NEU"
+}

@@ -4,6 +4,7 @@ import type { SchemaDocument, SchemaNode } from "@jsonschema-editor/json-schema"
 import type { Category, Categorization } from "@jsonschema-editor/ui-schema";
 import JseTabs from "../../atoms/JseTabs.vue";
 import { useJseI18n } from "../../../composables/useJseI18n";
+import { buildUiElementKey } from "../../../utils/ui-element-key";
 import UiFormElementResolver from "./UiFormElementResolver.vue";
 
 const props = defineProps<{
@@ -41,7 +42,7 @@ const activeCategory = computed(
     <div v-if="activeCategory" class="jse-categorization__panel">
       <UiFormElementResolver
         v-for="(child, index) in activeCategory.elements"
-        :key="index"
+        :key="buildUiElementKey(`tab-${activeTab}`, child, index)"
         v-model="data"
         :element="child"
         :schema="schema"

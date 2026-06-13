@@ -74,6 +74,10 @@ importers:
         version: 3.2.6(tsx@4.22.4)
 
   jsonschema-editor-json-schema-extensions:
+    dependencies:
+      '@marcbachmann/cel-js':
+        specifier: ^7.6.1
+        version: 7.6.1
     devDependencies:
       '@jsonschema-editor/json-schema':
         specifier: file:../jsonschema-editor-json-schema
@@ -605,6 +609,11 @@ packages:
 
   '@manypkg/get-packages@1.1.3':
     resolution: {integrity: sha512-fo+QhuU3qE/2TQMQmbVMqaQ6EWbMhi4ABWP+O4AM1NqPBuy0OrApV5LO6BrrgnhtAHS2NH6RrVk9OL181tTi8A==}
+
+  '@marcbachmann/cel-js@7.6.1':
+    resolution: {integrity: sha512-YyY8yiDU07ByKb2rJUoNgMAkYeeDvkdrONBREV2MP9siAW7yNft0KfbIoonWTIMY0fGtv8og0EhzKx3Xsi1Nmg==}
+    engines: {node: '>=20.19.0'}
+    hasBin: true
 
   '@microsoft/api-extractor-model@7.33.8':
     resolution: {integrity: sha512-aIcoQggPyer3B6Ze3usz0YWC/oBwUHfRH5ETUsr+oT2BRA6SfTJl7IKPcPZkX4UR+PohowzW4uMxsvjrn8vm+w==}
@@ -2116,6 +2125,8 @@ snapshots:
       fs-extra: 8.1.0
       globby: 11.1.0
       read-yaml-file: 1.1.0
+
+  '@marcbachmann/cel-js@7.6.1': {}
 
   '@microsoft/api-extractor-model@7.33.8':
     dependencies:

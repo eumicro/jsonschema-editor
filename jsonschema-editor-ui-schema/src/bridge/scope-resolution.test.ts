@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   documentFromJSON,
+  NumberSchema,
   ObjectSchema,
   StringSchema,
 } from "@jsonschema-editor/json-schema";
@@ -59,6 +60,34 @@ describe("resolveSchemaAtScope", () => {
 
     expect(node).toBeInstanceOf(ObjectSchema);
     expect(node?.title).toBe("Untersuchte Person");
+  });
+
+  it("resolves array item property scopes", () => {
+    const doc = documentFromJSON({
+      type: "object",
+      properties: {
+        positionen: {
+          type: "array",
+          items: {
+            type: "object",
+            properties: {
+              bezeichnung: { type: "string", title: "Bezeichnung" },
+              betrag: { type: "number", title: "Betrag" },
+            },
+          },
+        },
+      },
+    });
+
+    const item = resolveSchemaAtScope(doc.root, "#/properties/positionen/items/0");
+    expect(item).toBeInstanceOf(ObjectSchema);
+
+    const betrag = resolveSchemaAtScope(
+      doc.root,
+      "#/properties/positionen/items/0/properties/betrag",
+    );
+    expect(betrag).toBeInstanceOf(NumberSchema);
+    expect(betrag?.title).toBe("Betrag");
   });
 
   it("resolves nested properties through oneOf with $ref branches", () => {

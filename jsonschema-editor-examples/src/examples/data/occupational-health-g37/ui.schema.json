@@ -9,6 +9,7 @@
           "type": "VerticalLayout",
           "elements": [
             { "type": "Control", "scope": "#/properties/aktenzeichen", "label": "Aktenzeichen" },
+            { "type": "Control", "scope": "#/properties/vorsorgeStatus", "label": "Vorsorge-Status" },
             { "type": "Control", "scope": "#/properties/untersuchungsdatum", "label": "Untersuchungsdatum" },
             {
               "type": "Group",

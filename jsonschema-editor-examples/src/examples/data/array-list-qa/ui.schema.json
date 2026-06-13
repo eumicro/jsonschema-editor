@@ -1,0 +1,6 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    { "type": "Control", "scope": "#/properties/positionen", "label": "Kostenpositionen" }
+  ]
+}

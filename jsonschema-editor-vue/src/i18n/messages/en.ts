@@ -86,6 +86,7 @@ export const enMessages = {
   "schemaAttributes.x-geometry": "Geometry (map)",
   "schemaAttributes.x-read-only": "Read-only (x-read-only)",
   "schemaAttributes.x-hidden": "Hidden (x-hidden)",
+  "schemaAttributes.x-computed": "Computed (CEL, x-computed)",
   "schemaAttributes.bulkFieldExtensions": "Field extensions (bulk)",
   "schemaAttributes.bulkFieldExtensionsHint":
     "Applies the attribute to this object and all nested fields.",
@@ -107,6 +108,11 @@ export const enMessages = {
   "arrayItems.stringFormat": "String (format):",
   "arrayItems.structure": "Structure:",
   "arrayItems.note": "For object or array, continue editing under “items” in the tree.",
+
+  "arrayList.empty": "No entries yet.",
+  "arrayList.itemTitle": "Entry {index}",
+  "arrayList.addItem": "Add entry",
+  "arrayList.removeItem": "Remove",
 
   "panel.maximize": "Maximize",
   "panel.minimize": "Minimize",

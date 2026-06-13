@@ -52,7 +52,7 @@ const effectiveReadonly = computed(() =>
     <legend v-if="displayLabel">{{ displayLabel }}</legend>
     <SchemaFormFieldResolver
       v-for="[name] in properties"
-      :key="name"
+      :key="`${scope}-${name}`"
       v-model="rootData"
       :schema="schema"
       :document="document"

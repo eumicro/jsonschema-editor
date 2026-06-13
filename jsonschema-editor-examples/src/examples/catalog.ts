@@ -21,6 +21,18 @@ import simpleCompositionDefaults from "./data/simple-composition/defaults.json";
 import simpleCompositionMeta from "./data/simple-composition/meta.json";
 import simpleCompositionSchema from "./data/simple-composition/schema.json";
 import simpleCompositionUi from "./data/simple-composition/ui.schema.json";
+import computedCostQaDefaults from "./data/computed-cost-qa/defaults.json";
+import computedCostQaMeta from "./data/computed-cost-qa/meta.json";
+import computedCostQaSchema from "./data/computed-cost-qa/schema.json";
+import computedCostQaUi from "./data/computed-cost-qa/ui.schema.json";
+import computedStatusQaDefaults from "./data/computed-status-qa/defaults.json";
+import computedStatusQaMeta from "./data/computed-status-qa/meta.json";
+import computedStatusQaSchema from "./data/computed-status-qa/schema.json";
+import computedStatusQaUi from "./data/computed-status-qa/ui.schema.json";
+import arrayListQaDefaults from "./data/array-list-qa/defaults.json";
+import arrayListQaMeta from "./data/array-list-qa/meta.json";
+import arrayListQaSchema from "./data/array-list-qa/schema.json";
+import arrayListQaUi from "./data/array-list-qa/ui.schema.json";
 import fieldExtensionsQaDefaults from "./data/field-extensions-qa/defaults.json";
 import fieldExtensionsQaMeta from "./data/field-extensions-qa/meta.json";
 import fieldExtensionsQaSchema from "./data/field-extensions-qa/schema.json";
@@ -37,7 +49,10 @@ export type ExampleId =
   | "car-configurator"
   | "occupational-health-g37"
   | "geometry-qa"
-  | "field-extensions-qa";
+  | "field-extensions-qa"
+  | "computed-cost-qa"
+  | "computed-status-qa"
+  | "array-list-qa";
 
 export interface ExampleManifest {
   id: ExampleId;
@@ -104,6 +119,30 @@ export const exampleManifests: ExampleManifest[] = [
     schema: fieldExtensionsQaSchema as unknown as JsonSchemaObject,
     uiSchema: fieldExtensionsQaUi as unknown as UiSchemaObject,
     defaults: fieldExtensionsQaDefaults,
+  },
+  {
+    id: "computed-cost-qa",
+    label: computedCostQaMeta.label,
+    description: computedCostQaMeta.description,
+    schema: computedCostQaSchema as unknown as JsonSchemaObject,
+    uiSchema: computedCostQaUi as unknown as UiSchemaObject,
+    defaults: computedCostQaDefaults,
+  },
+  {
+    id: "computed-status-qa",
+    label: computedStatusQaMeta.label,
+    description: computedStatusQaMeta.description,
+    schema: computedStatusQaSchema as unknown as JsonSchemaObject,
+    uiSchema: computedStatusQaUi as unknown as UiSchemaObject,
+    defaults: computedStatusQaDefaults,
+  },
+  {
+    id: "array-list-qa",
+    label: arrayListQaMeta.label,
+    description: arrayListQaMeta.description,
+    schema: arrayListQaSchema as unknown as JsonSchemaObject,
+    uiSchema: arrayListQaUi as unknown as UiSchemaObject,
+    defaults: arrayListQaDefaults,
   },
 ];
 

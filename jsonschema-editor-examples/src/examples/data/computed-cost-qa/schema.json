@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "title": "Rechnung",
+  "properties": {
+    "positionen": {
+      "type": "array",
+      "title": "Kostenpositionen",
+      "items": {
+        "type": "object",
+        "title": "Kostenposition",
+        "properties": {
+          "bezeichnung": { "type": "string", "title": "Bezeichnung" },
+          "betrag": { "type": "number", "title": "Betrag (EUR)" }
+        },
+        "required": ["bezeichnung", "betrag"]
+      }
+    },
+    "gesamtsumme": {
+      "type": "number",
+      "title": "Gesamtsumme (EUR)",
+      "description": "Summe aller Teilsummen – berechnet per CEL",
+      "x-computed": {
+        "expression": "data.positionen.map(p, double(p.betrag)).sum()"
+      }
+    }
+  }
+}

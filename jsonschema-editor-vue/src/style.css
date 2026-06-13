@@ -865,3 +865,37 @@
   padding: 0;
 }
 
+.jse-array-field__empty {
+  margin: 0 0 0.75rem;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.jse-array-item {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+  background: #fafafa;
+}
+
+.jse-array-item__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.jse-array-item__title {
+  font-weight: 600;
+}
+
+.jse-array-item__remove {
+  flex-shrink: 0;
+}
+
+.jse-array-field__add {
+  margin-top: 0.25rem;
+}
+

@@ -10,6 +10,7 @@ import {
   setupFormValidation,
   type FormValidationMode,
 } from "../../composables/useFormValidation";
+import { provideFormData } from "../../composables/useFormData";
 import { setupJseVueExtensions, type JseVueExtension } from "../../registry/vue-extension";
 
 const props = withDefaults(
@@ -41,6 +42,7 @@ setupJseVueExtensions(props.extensions);
 registerDefaultControls();
 
 const data = defineModel<Record<string, unknown>>({ required: true });
+provideFormData(data);
 
 const validationEnabled = computed(() => props.validation !== false);
 const validation = setupFormValidation({

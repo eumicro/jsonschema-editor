@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "title": "Rechnung",
+  "properties": {
+    "positionen": {
+      "type": "array",
+      "title": "Kostenpositionen",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "bezeichnung": { "type": "string", "title": "Bezeichnung" },
+          "betrag": { "type": "number", "title": "Betrag (EUR)" }
+        },
+        "required": ["bezeichnung", "betrag"]
+      }
+    }
+  }
+}

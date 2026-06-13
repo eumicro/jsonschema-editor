@@ -1,0 +1,7 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    { "type": "Control", "scope": "#/properties/positionen", "label": "Kostenpositionen" },
+    { "type": "Control", "scope": "#/properties/gesamtsumme", "label": "Gesamtsumme" }
+  ]
+}

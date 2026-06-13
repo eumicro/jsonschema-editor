@@ -1,0 +1,4 @@
+{
+  "label": "Computed QA (Antragsstatus)",
+  "description": "x-computed: Workflow-Status aus Stepper-Daten per CEL."
+}

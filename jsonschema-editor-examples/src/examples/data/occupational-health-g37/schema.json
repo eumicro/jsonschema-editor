@@ -19,6 +19,15 @@
       "title": "Aktenzeichen",
       "description": "Interne Vorsorgeakte / Praxisnummer"
     },
+    "vorsorgeStatus": {
+      "type": "string",
+      "title": "Vorsorge-Status",
+      "description": "Bearbeitungsstand aus Formularfortschritt (CEL)",
+      "enum": ["NEU", "AUFNAHME", "ANAMNESE", "UNTERSUCHUNG", "BEURTEILUNG", "ATTEST_OFFEN", "ABGESCHLOSSEN"],
+      "x-computed": {
+        "expression": "!has(data.aktenzeichen) || data.aktenzeichen == '' ? 'NEU' : (!has(data.untersuchungsdatum) || data.untersuchungsdatum == '') ? 'AUFNAHME' : (!has(data.anamnese.allgemein.beschwerdenFreitext) || data.anamnese.allgemein.beschwerdenFreitext == '') ? 'ANAMNESE' : (!has(data.programm)) ? 'UNTERSUCHUNG' : (!has(data.beurteilung)) ? 'BEURTEILUNG' : (!(has(data.attest.unterschriftErteilt) && data.attest.unterschriftErteilt)) ? 'ATTEST_OFFEN' : 'ABGESCHLOSSEN'"
+      }
+    },
     "untersuchungsdatum": {
       "type": "string",
       "format": "date",

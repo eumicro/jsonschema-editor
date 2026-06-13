@@ -1,4 +1,5 @@
 import {
+  ArraySchema,
   CompositionSchema,
   ObjectSchema,
   RefSchema,
@@ -66,6 +67,17 @@ function mergeCompositionForScope(
   return merged.propertyCount > 0 ? merged : undefined;
 }
 
+function isArraySchemaNode(node: SchemaNode): node is ArraySchema {
+  return node.nodeKind === "array";
+}
+
+function descendArrayIndex(array: ArraySchema, index: number): SchemaNode | undefined {
+  if (array.itemsMode === "tuple") {
+    return array.getPrefixItem(index);
+  }
+  return array.items;
+}
+
 function descendForScope(
   current: SchemaNode,
   segment: string,
@@ -76,6 +88,10 @@ function descendForScope(
   if (current instanceof CompositionSchema) {
     const merged = mergeCompositionForScope(current, resolveRef);
     if (merged) current = merged;
+  }
+
+  if (isArraySchemaNode(current) && /^\d+$/.test(segment)) {
+    return descendArrayIndex(current, Number(segment));
   }
 
   if (!isObjectSchemaNode(current)) return undefined;

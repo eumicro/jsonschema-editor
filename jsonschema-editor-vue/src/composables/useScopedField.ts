@@ -1,5 +1,6 @@
 import { computed, toRaw, type Ref } from "vue";
 import type { SchemaDocument, SchemaNode } from "@jsonschema-editor/json-schema";
+import { getValueAtPath, normalizeArrayValue, setValueAtPath } from "@jsonschema-editor/json-schema";
 import { resolveSchemaAtScope } from "@jsonschema-editor/ui-schema/bridge";
 import { scopeToPath } from "@jsonschema-editor/ui-schema";
 import type { UiElement } from "@jsonschema-editor/ui-schema";
@@ -10,6 +11,7 @@ import {
   Label,
   VerticalLayout,
 } from "@jsonschema-editor/ui-schema";
+import { useFormData } from "./useFormData";
 
 export function useScopedField(
   rootSchema: Ref<SchemaNode>,
@@ -17,6 +19,7 @@ export function useScopedField(
   scope: string,
   document?: Ref<SchemaDocument | undefined>,
 ) {
+  const formData = useFormData(rootData);
   const path = computed(() => scopeToPath(scope));
   const fieldSchema = computed(() => {
     const resolveRef = document?.value
@@ -26,38 +29,35 @@ export function useScopedField(
   });
 
   const value = computed({
-    get: () => {
-      let current: unknown = rootData.value;
-      for (const key of path.value) {
-        if (current === null || current === undefined || typeof current !== "object") {
-          return undefined;
-        }
-        current = (current as Record<string, unknown>)[key];
-      }
-      return current;
-    },
+    get: () => getValueAtPath(formData.value, path.value),
     set: (next: unknown) => {
-      const clone = structuredClone(toRaw(rootData.value) as Record<string, unknown>);
-      let current: Record<string, unknown> = clone;
-
-      for (let i = 0; i < path.value.length - 1; i++) {
-        const key = path.value[i];
-        if (
-          current[key] === undefined ||
-          typeof current[key] !== "object" ||
-          current[key] === null
-        ) {
-          current[key] = {};
-        }
-        current = current[key] as Record<string, unknown>;
-      }
-
-      current[path.value[path.value.length - 1]] = next;
-      rootData.value = clone;
+      formData.value = setValueAtPath(
+        toRaw(formData.value) as Record<string, unknown>,
+        path.value,
+        next,
+      );
     },
   });
 
-  return { path, fieldSchema, value };
+  return { path, fieldSchema, value, formData };
+}
+
+export function useArrayFieldValue(
+  rootData: Ref<Record<string, unknown>>,
+  path: Ref<string[]>,
+) {
+  const formData = useFormData(rootData);
+
+  return computed<unknown[]>({
+    get: () => normalizeArrayValue(getValueAtPath(formData.value, path.value)),
+    set: (next) => {
+      formData.value = setValueAtPath(
+        toRaw(formData.value) as Record<string, unknown>,
+        path.value,
+        next,
+      );
+    },
+  });
 }
 
 export function isControl(element: UiElement): element is Control {

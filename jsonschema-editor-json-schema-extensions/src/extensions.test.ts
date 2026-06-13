@@ -25,6 +25,8 @@ import {
   validateUrl,
   isFieldReadOnly,
   isFieldHidden,
+  evaluateComputedExpression,
+  readComputedConfig,
 } from "./index.js";
 
 describe("format validators", () => {
@@ -196,6 +198,57 @@ describe("GeometryExtension", () => {
         { point: true, exactObjects: 2 },
       ),
     ).toBe(true);
+  });
+});
+
+describe("Computed extensions", () => {
+  it("evaluates sum expression over form data", () => {
+    const data = {
+      positionen: [
+        { betrag: 10 },
+        { betrag: 25.5 },
+        { betrag: 4.5 },
+      ],
+    };
+    const result = evaluateComputedExpression(
+      "data.positionen.map(p, double(p.betrag)).sum()",
+      data,
+    );
+    expect(result).toEqual({ ok: true, value: 40 });
+  });
+
+  it("evaluates workflow status expression", () => {
+    const result = evaluateComputedExpression(
+      `!has(data.antragskopf.antragsdatum) || data.antragskopf.antragsdatum == '' ? 'NEU' :
+        (!has(data.auftragsdaten.adresse) || data.auftragsdaten.adresse == '') ? 'ANTRAG_ANGELEGT' :
+        (!has(data.durchfuehrung.datum) || data.durchfuehrung.datum == '') ? 'BEREIT_ZUR_DURCHFUEHRUNG' :
+        (!data.abrechnung.beglichen) ? 'DURCHGEFUEHRT' : 'ERLEDIGT'`,
+      {
+        antragskopf: { antragsdatum: "2026-01-01" },
+        auftragsdaten: { adresse: "Berlin" },
+        durchfuehrung: { datum: "" },
+        abrechnung: { beglichen: false },
+      },
+    );
+    expect(result).toEqual({ ok: true, value: "BEREIT_ZUR_DURCHFUEHRUNG" });
+  });
+
+  it("roundtrips x-computed through documentFromJSONWithExtensions", () => {
+    const registry = createExtensionsRegistry();
+    const doc = documentFromJSONWithExtensions(
+      {
+        type: "object",
+        properties: {
+          total: {
+            type: "number",
+            "x-computed": { expression: "double(data.a) + double(data.b)" },
+          },
+        },
+      },
+      registry,
+    );
+    const total = doc.root.getProperty("total");
+    expect(readComputedConfig(total)?.expression).toBe("double(data.a) + double(data.b)");
   });
 });
 

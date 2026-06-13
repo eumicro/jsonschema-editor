@@ -21,10 +21,23 @@ export {
   NumericSchema,
   LeafSchema,
   CompositeSchema,
-  parseScope,
   type SchemaNodeKind,
   type SchemaVisitor,
 } from "./model/index.js";
+export {
+  parseScope,
+  scopeToPath,
+  buildPropertyScope,
+  buildArrayItemScope,
+  buildArrayItemPropertyScope,
+} from "./scope.js";
+export {
+  getValueAtPath,
+  setValueAtPath,
+  createDefaultForSchema,
+  createEmptyDataForSchema,
+  normalizeArrayValue,
+} from "./data-instance.js";
 export { schemaFromJSON } from "./parse.js";
 export {
   SchemaDocument,

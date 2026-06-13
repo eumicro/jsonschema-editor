@@ -6,6 +6,7 @@ import {
   CompositionSchema,
   JsonSchemaAttributeRegistry,
   ObjectSchema,
+  NumberSchema,
   StringSchema,
   UntypedSchema,
   schemaFromJSON,
@@ -144,6 +145,48 @@ describe("SchemaNode", () => {
 
     const resolved = root.resolveAtScope("#/properties/name");
     expect(resolved?.title).toBe("Name");
+  });
+
+  it("supports homogeneous array model operations", () => {
+    const position = new ObjectSchema();
+    position.setProperty("bezeichnung", new StringSchema());
+    position.setProperty("betrag", new NumberSchema());
+
+    const list = new ArraySchema();
+    list.setItems(position);
+    list.minItems = 1;
+    list.maxItems = 5;
+
+    expect(list.supportsDynamicItems()).toBe(true);
+    expect(list.canAddItem(0)).toBe(true);
+    expect(list.canRemoveItem(0)).toBe(false);
+    expect(list.canAddItem(5)).toBe(false);
+    expect(list.createDefaultItemValue()).toEqual({ bezeichnung: "", betrag: 0 });
+    expect(list.createDefaultValue()).toHaveLength(1);
+    expect(list.resolvePath(["0"])?.nodeKind).toBe("object");
+    expect(list.resolvePath(["0", "betrag"])?.nodeKind).toBe("number");
+    expect(list.resolveAtScope("#/items/0/properties/betrag")?.nodeKind).toBe("number");
+  });
+
+  it("roundtrips homogeneous array schema", () => {
+    const json: JsonSchemaObject = {
+      type: "array",
+      minItems: 1,
+      items: {
+        type: "object",
+        properties: {
+          bezeichnung: { type: "string" },
+          betrag: { type: "number" },
+        },
+      },
+    };
+
+    const node = schemaFromJSON(json);
+    expect(node).toBeInstanceOf(ArraySchema);
+    const array = node as ArraySchema;
+    expect(array.itemsMode).toBe("homogeneous");
+    expect(array.minItems).toBe(1);
+    expect(node.toJSON()).toEqual(json);
   });
 
   it("roundtrips if/then/else on object schemas", () => {

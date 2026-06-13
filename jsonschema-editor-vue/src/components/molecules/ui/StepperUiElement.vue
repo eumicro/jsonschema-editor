@@ -4,6 +4,7 @@ import type { SchemaDocument, SchemaNode } from "@jsonschema-editor/json-schema"
 import type { Step, Stepper } from "@jsonschema-editor/ui-schema";
 import JseButton from "../../atoms/JseButton.vue";
 import { useJseI18n } from "../../../composables/useJseI18n";
+import { buildUiElementKey } from "../../../utils/ui-element-key";
 import UiFormElementResolver from "./UiFormElementResolver.vue";
 
 const props = defineProps<{
@@ -70,7 +71,7 @@ function nextStep() {
     <div v-if="activeStepElement" class="jse-stepper__panel">
       <UiFormElementResolver
         v-for="(child, index) in activeStepElement.elements"
-        :key="index"
+        :key="buildUiElementKey(`step-${activeStep}`, child, index)"
         v-model="data"
         :element="child"
         :schema="schema"

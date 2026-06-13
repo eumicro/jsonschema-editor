@@ -6,5 +6,7 @@ export {
   ValuesSourceFormField,
   geometryExtension,
   GeometryCollectionFormField,
+  computedExtension,
+  ComputedFormField,
 } from "./register.js";
 

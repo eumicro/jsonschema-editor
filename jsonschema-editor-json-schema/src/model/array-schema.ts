@@ -114,6 +114,39 @@ export class ArraySchema extends CompositeSchema {
     return this._items ? [this._items] : [];
   }
 
+  /** Whether list entries can be added/removed at runtime (homogeneous `items` schema). */
+  supportsDynamicItems(): boolean {
+    return this.itemsMode === "homogeneous" && this._items !== undefined;
+  }
+
+  /** Schema of the list entry at `index` (tuple index or homogeneous `items`). */
+  resolveItemSchema(index: number): SchemaNode | undefined {
+    if (this._prefixItems.length > 0) {
+      return this.getPrefixItem(index) ?? this._items;
+    }
+    return this._items;
+  }
+
+  /** Default JSON value for a newly appended list entry. */
+  createDefaultItemValue(index = 0): unknown {
+    const itemSchema = this.resolveItemSchema(index);
+    if (!itemSchema) {
+      throw new Error("Array has no item schema.");
+    }
+    if (itemSchema.defaultValue !== undefined) return itemSchema.defaultValue;
+    if (itemSchema.constValue !== undefined) return itemSchema.constValue;
+    return itemSchema.createDefaultValue();
+  }
+
+  canAddItem(currentLength: number): boolean {
+    if (!this.supportsDynamicItems()) return false;
+    return this._maxItems === undefined || currentLength < this._maxItems;
+  }
+
+  canRemoveItem(currentLength: number): boolean {
+    return currentLength > (this._minItems ?? 0);
+  }
+
   static fromJSON(json: JsonSchemaObject, factory: SchemaFactory): ArraySchema {
     const node = new ArraySchema(factory.attributeRegistry);
     node.applyMetadata(json);
@@ -155,7 +188,14 @@ export class ArraySchema extends CompositeSchema {
   }
 
   createDefaultValue(): unknown[] {
-    return [];
+    if (!this.supportsDynamicItems()) {
+      return [];
+    }
+    const min = this._minItems ?? 0;
+    if (min <= 0) {
+      return [];
+    }
+    return Array.from({ length: min }, (_, index) => this.createDefaultItemValue(index));
   }
 
   protected writeTypeDefinition(json: JsonSchemaObject): void {
@@ -185,7 +225,23 @@ export class ArraySchema extends CompositeSchema {
     if (this._maxItems !== undefined) json.maxItems = this._maxItems;
   }
 
-  protected resolvePathImpl(_segments: readonly string[]): SchemaNode | undefined {
+  protected resolvePathImpl(segments: readonly string[]): SchemaNode | undefined {
+    if (segments.length === 0) return this;
+
+    const [head, ...tail] = segments;
+    if (!/^\d+$/.test(head)) return undefined;
+
+    const index = Number(head);
+    if (this._prefixItems.length > 0) {
+      const item = this.getPrefixItem(index);
+      if (!item) return undefined;
+      return tail.length ? item.resolvePath(tail) : item;
+    }
+
+    if (this._items) {
+      return tail.length ? this._items.resolvePath(tail) : this._items;
+    }
+
     return undefined;
   }
 }

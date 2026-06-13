@@ -1,0 +1,37 @@
+{
+  "type": "Stepper",
+  "elements": [
+    {
+      "type": "Step",
+      "label": "Antragskopf",
+      "elements": [
+        { "type": "Control", "scope": "#/properties/antragskopf/properties/antragsdatum" },
+        { "type": "Control", "scope": "#/properties/status", "label": "Status" }
+      ]
+    },
+    {
+      "type": "Step",
+      "label": "Auftragsdaten",
+      "elements": [
+        { "type": "Control", "scope": "#/properties/auftragsdaten/properties/adresse" },
+        { "type": "Control", "scope": "#/properties/status", "label": "Status" }
+      ]
+    },
+    {
+      "type": "Step",
+      "label": "Durchführung",
+      "elements": [
+        { "type": "Control", "scope": "#/properties/durchfuehrung/properties/datum" },
+        { "type": "Control", "scope": "#/properties/status", "label": "Status" }
+      ]
+    },
+    {
+      "type": "Step",
+      "label": "Abrechnung",
+      "elements": [
+        { "type": "Control", "scope": "#/properties/abrechnung/properties/beglichen" },
+        { "type": "Control", "scope": "#/properties/status", "label": "Status" }
+      ]
+    }
+  ]
+}

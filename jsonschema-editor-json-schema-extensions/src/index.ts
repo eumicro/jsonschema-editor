@@ -77,3 +77,22 @@ export {
   isFieldHidden,
   setFieldBooleanFlag,
 } from "./field-flags.js";
+
+export {
+  COMPUTED_ATTRIBUTE,
+  createComputedBooleanSchema,
+  createComputedIntegerSchema,
+  createComputedNumberSchema,
+  createComputedStringSchema,
+  isComputedExtensionConfig,
+  readComputedConfig,
+} from "./computed.js";
+export type { ComputedExtensionConfig } from "./computed.js";
+
+export {
+  createComputedCelEnvironment,
+  evaluateComputedExpression,
+  getComputedCelEnvironment,
+  normalizeComputedValue,
+} from "./computed-cel.js";
+export type { ComputedEvaluationResult } from "./computed-cel.js";

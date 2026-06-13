@@ -1,4 +1,5 @@
 import type { JsonSchemaObject, JsonSchemaType } from "../types.js";
+import { parseScope } from "../scope.js";
 import { CustomAttributeCollection } from "./custom-attributes.js";
 import { SchemaMetadata } from "./metadata.js";
 import { TypeVariants } from "./type-variants.js";
@@ -155,14 +156,4 @@ export abstract class LeafSchema extends SchemaNode {
 
 export abstract class CompositeSchema extends SchemaNode {
   abstract getChildren(): readonly SchemaNode[];
-}
-
-export function parseScope(scope: string): string[] {
-  const segments: string[] = [];
-  const regex = /\/properties\/([^/]+)/g;
-  let match: RegExpExecArray | null;
-  while ((match = regex.exec(scope)) !== null) {
-    segments.push(match[1]);
-  }
-  return segments;
 }
