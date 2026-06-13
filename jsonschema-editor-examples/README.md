@@ -19,8 +19,16 @@ pnpm --filter jsonschema-editor-examples run dev
 
 Opens http://localhost:5173 with:
 
+- **Get started** — install steps and package overview (`#/get-started`)
 - **Edit schema** — adjust schema and UI layout with live preview
 - **Test form** — fill the form and inspect JSON output
+
+**GitHub Pages:** After enabling Pages (*Settings → Pages → Build and deployment: GitHub Actions*), pushes to `main` publish the site at `https://<user>.github.io/jsonschema-editor/`. Local production preview:
+
+```bash
+VITE_BASE_PATH=/jsonschema-editor/ pnpm run build
+pnpm run preview
+```
 
 The landing page shows **curated use-case scenarios** grouped by domain (occupational health, vehicle orders, applications, master data). Internal examples remain available for automated tests via the hidden example selector.
 
