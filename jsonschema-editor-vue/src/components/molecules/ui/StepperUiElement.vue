@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import type { SchemaDocument, SchemaNode } from "@jsonschema-editor/json-schema";
-import { Step, Stepper } from "@jsonschema-editor/ui-schema";
+import type { Step, Stepper } from "@jsonschema-editor/ui-schema";
 import JseButton from "../../atoms/JseButton.vue";
 import { useJseI18n } from "../../../composables/useJseI18n";
 import UiFormElementResolver from "./UiFormElementResolver.vue";
@@ -19,7 +19,7 @@ const { t } = useJseI18n();
 const activeStep = ref(0);
 
 const steps = computed(() =>
-  props.element.elements.filter((child): child is Step => child instanceof Step),
+  props.element.elements.filter((child): child is Step => child.elementKind === "Step"),
 );
 
 const activeStepElement = computed(

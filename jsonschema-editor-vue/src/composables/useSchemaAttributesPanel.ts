@@ -23,7 +23,6 @@ import {
   listSchemaAttributeFields,
   patchSchemaAttribute,
 } from "../utils/schema-attributes";
-import type { ArrayItemTypeKind } from "../utils/schema-type-kinds";
 import { useJseI18n } from "./useJseI18n";
 
 export interface SchemaAttributesPanelEmits {
@@ -202,7 +201,7 @@ export function useSchemaAttributesPanel(
     );
   }
 
-  function setItemsType(kind: ArrayItemTypeKind) {
+  function setItemsType(kind: string) {
     if (selectedNode.value instanceof ArraySchema) {
       emit(
         "update:document",

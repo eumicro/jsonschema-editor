@@ -11,6 +11,10 @@ import {
   StringSchema,
 } from "@jsonschema-editor/json-schema";
 import {
+  getSchemaTypeExtension,
+  resolveSchemaTypeExtensionId,
+} from "../registry/schema-type-extension-registry.js";
+import {
   FORMAT_BY_STRING_KIND,
   formatToSchemaKind,
 } from "./schema-type-kinds";
@@ -150,6 +154,9 @@ export function getSchemaAtPath(
 
 /** Anzeige-/Auswahl-Typ inkl. string-Formate wie date / date-time. */
 export function resolveSchemaDisplayKind(node: SchemaNode): string {
+  const extensionId = resolveSchemaTypeExtensionId(node);
+  if (extensionId) return extensionId;
+
   if (node instanceof StringSchema) {
     const formatKind = formatToSchemaKind(node.format);
     if (formatKind) return formatKind;
@@ -260,8 +267,11 @@ export function createSchemaByKind(kind: string): SchemaNode {
       field.format = FORMAT_BY_STRING_KIND[kind];
       return field;
     }
-    default:
+    default: {
+      const extension = getSchemaTypeExtension(kind);
+      if (extension) return extension.create();
       return new StringSchema();
+    }
   }
 }
 

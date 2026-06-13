@@ -16,14 +16,53 @@
         "name": {
           "type": "string",
           "title": "Name",
-          "description": "Vollständiger Name"
+          "description": "Full name"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "title": "Email",
+          "description": "Contact email address"
+        },
+        "website": {
+          "type": "string",
+          "format": "uri",
+          "title": "Website",
+          "description": "Personal or company website (HTTPS)"
+        },
+        "phone": {
+          "type": "string",
+          "format": "phone",
+          "title": "Phone",
+          "description": "International phone number"
+        },
+        "abteilung": {
+          "type": "string",
+          "title": "Abteilung",
+          "description": "Auswahl aus einer festen Liste",
+          "enum": ["Vertrieb", "Entwicklung", "Support"],
+          "x-values-source": {
+            "kind": "static",
+            "values": ["Vertrieb", "Entwicklung", "Support"]
+          }
+        },
+        "manager": {
+          "type": "string",
+          "title": "Manager (API)",
+          "description": "Auswahl aus externem API-Endpunkt",
+          "x-values-source": {
+            "kind": "fetch",
+            "url": "https://jsonplaceholder.typicode.com/users",
+            "valueField": "id",
+            "labelField": "name"
+          }
         }
       },
       "required": [
         "name"
       ],
       "title": "Mensch",
-      "description": "Natürliche Person mit Name"
+      "description": "Natural person with contact details"
     },
     "Maschine": {
       "type": "object",

@@ -1,0 +1,65 @@
+{
+  "name": "@jsonschema-editor/json-schema-extensions",
+  "version": "0.1.0",
+  "description": "Format extensions for JSON Schema (email, url, phone) with validators and schema helpers",
+  "type": "module",
+  "license": "MIT",
+  "author": "JSON Schema Editor Contributors",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eumicro/jsonschema-editor.git",
+    "directory": "jsonschema-editor-json-schema-extensions"
+  },
+  "homepage": "https://github.com/eumicro/jsonschema-editor/tree/main/jsonschema-editor-json-schema-extensions#readme",
+  "bugs": "https://github.com/eumicro/jsonschema-editor/issues",
+  "keywords": [
+    "json-schema",
+    "format",
+    "email",
+    "url",
+    "phone",
+    "validation",
+    "extensions"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "prebuild": "node --input-type=module -e \"import fs from 'node:fs'; fs.rmSync('dist',{recursive:true,force:true})\"",
+    "build": "tsc -p tsconfig.json",
+    "prepublishOnly": "pnpm run build",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "peerDependencies": {
+    "@jsonschema-editor/json-schema": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "@jsonschema-editor/json-schema": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@jsonschema-editor/json-schema": "file:../jsonschema-editor-json-schema",
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  }
+}

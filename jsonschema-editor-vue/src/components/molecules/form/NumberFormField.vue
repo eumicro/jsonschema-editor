@@ -30,7 +30,7 @@ const { displayLabel, description } = useFormFieldLabel(
 </script>
 
 <template>
-  <JseSchemaFormField :label="displayLabel" :description="description">
+  <JseSchemaFormField :label="displayLabel" :description="description" :scope="scope">
     <JseInput
       :model-value="value as number"
       class="jse-field__input"

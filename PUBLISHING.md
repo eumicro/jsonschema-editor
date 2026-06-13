@@ -58,6 +58,7 @@ pnpm publish -r --access public
 | Package | Directory |
 | --- | --- |
 | `@jsonschema-editor/json-schema` | `jsonschema-editor-json-schema` |
+| `@jsonschema-editor/json-schema-extensions` | `jsonschema-editor-json-schema-extensions` |
 | `@jsonschema-editor/ui-schema` | `jsonschema-editor-ui-schema` |
 | `@jsonschema-editor/vue` | `jsonschema-editor-vue` |
 

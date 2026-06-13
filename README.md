@@ -9,8 +9,10 @@ Three **standalone npm packages** — JSON Schema and UI Schema are intentionall
 | Project | Package | Responsibility |
 | --- | --- | --- |
 | [jsonschema-editor-json-schema](./jsonschema-editor-json-schema) | `@jsonschema-editor/json-schema` | Object-oriented **JSON Schema** model |
+| [jsonschema-editor-json-schema-extensions](./jsonschema-editor-json-schema-extensions) | `@jsonschema-editor/json-schema-extensions` | Format extensions (**email**, **url**, **phone**) |
 | [jsonschema-editor-ui-schema](./jsonschema-editor-ui-schema) | `@jsonschema-editor/ui-schema` | Object-oriented **UI Schema** model |
 | [jsonschema-editor-vue](./jsonschema-editor-vue) | `@jsonschema-editor/vue` | Vue form editor & form |
+| [jsonschema-editor-vue-extensions](./jsonschema-editor-vue-extensions) | `@jsonschema-editor/vue-extensions` | Custom form renderers (email, url, phone) |
 | [jsonschema-editor-examples](./jsonschema-editor-examples) | – | Local editor example (not published to npm) |
 
 ## Installation (npm)

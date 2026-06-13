@@ -102,6 +102,21 @@ const { t, locale } = useJseI18n();
 
 `useJseI18n()` works inside `JsonSchemaForm` / `JsonSchemaFormEditor` and their child components. Message keys are typed in `deMessages` / `enMessages` (`JseMessageKey`).
 
+## Extensions (custom form renderers)
+
+Register Vue components for schema fields via `registerVueExtension()` or the `extensions` prop:
+
+```ts
+import {
+  registerVueExtension,
+  matchStringFormat,
+  matchPropertyName,
+  type JseVueExtension,
+} from "@jsonschema-editor/vue";
+```
+
+Matchers receive the schema node and a `FormFieldMatchContext` (`scope`, `propertyName`, `label`, `fieldSchema`, …). Higher `priority` wins. See `@jsonschema-editor/vue-extensions` for built-in `email`, `uri`, and `phone` renderers.
+
 ## Development
 
 ```bash

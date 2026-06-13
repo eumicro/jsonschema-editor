@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { openFormMode, readFormOutput, selectExample } from "./helpers";
+import { openEditorMode, openFormMode, readFormOutput, selectExample } from "./helpers";
 
 test.describe("Auto-Konfigurator (verschachtelt)", () => {
   test.beforeEach(async ({ page }) => {
@@ -41,5 +41,25 @@ test.describe("Auto-Konfigurator (verschachtelt)", () => {
     expect(modell.karosserie).toBe("limousine");
     expect(modell).toHaveProperty("radstandMm");
     expect(modell).not.toHaveProperty("bodenhoeheMm");
+  });
+
+  test("Schema-Feld hinzufügen: Stepper-Layout bleibt, Formular bleibt nutzbar", async ({ page }) => {
+    const errors: string[] = [];
+    page.on("pageerror", (error) => errors.push(error.message));
+
+    await openEditorMode(page);
+    await page.getByRole("button", { name: "Element zu Auto-Konfigurator hinzufügen" }).click();
+    const dialog = page.getByRole("dialog", { name: "Element hinzufügen" });
+    await dialog.getByPlaceholder("z. B. name").fill("extra");
+    await dialog.getByRole("button", { name: "+ string", exact: true }).click();
+
+    await openFormMode(page);
+    await expect(page.locator(".jse-stepper")).toBeVisible();
+    await expect(page.locator(".jse-stepper__step-indicator")).toHaveCount(4);
+    await expect(page.locator(".jse-field")).not.toHaveCount(0);
+
+    const output = await readFormOutput(page);
+    expect(output).toHaveProperty("fahrzeug");
+    expect(errors).toEqual([]);
   });
 });

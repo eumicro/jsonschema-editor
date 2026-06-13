@@ -4,6 +4,7 @@ import type { SchemaDocument, SchemaNode } from "@jsonschema-editor/json-schema"
 import { resolveCompositionAtScope } from "@jsonschema-editor/ui-schema/bridge";
 import { useScopedField } from "../../../composables/useScopedField";
 import { useSchemaFormTypeRegistry } from "../../../composables/useRegistries";
+import { createFormFieldMatchContext } from "../../../registry/form-field-context";
 import DefaultFormField from "./DefaultFormField.vue";
 import OneOfFormField from "./OneOfFormField.vue";
 
@@ -24,10 +25,21 @@ const { fieldSchema } = useScopedField(rootSchema, rootData, props.scope, docume
 
 const oneOfComposition = computed(() => resolveCompositionAtScope(props.schema, props.scope));
 
+const matchContext = computed(() =>
+  createFormFieldMatchContext({
+    scope: props.scope,
+    label: props.label,
+    i18nKey: props.i18nKey,
+    readonly: props.readonly,
+    fieldSchema: fieldSchema.value,
+    rootSchema: props.schema,
+  }),
+);
+
 const resolvedComponent = computed(() => {
   if (oneOfComposition.value) return OneOfFormField;
   const node = fieldSchema.value ?? props.schema;
-  return typeRegistry.resolve(node) ?? DefaultFormField;
+  return typeRegistry.resolve(node, matchContext.value) ?? DefaultFormField;
 });
 </script>
 

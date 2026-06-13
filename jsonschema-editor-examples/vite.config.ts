@@ -11,6 +11,10 @@ export default defineConfig({
         __dirname,
         "../jsonschema-editor-vue/src/style.css",
       ),
+      "@jsonschema-editor/vue-extensions": resolve(
+        __dirname,
+        "../jsonschema-editor-vue-extensions/src/index.ts",
+      ),
     },
   },
   server: {

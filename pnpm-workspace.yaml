@@ -1,5 +1,7 @@
 packages:
   - "jsonschema-editor-json-schema"
+  - "jsonschema-editor-json-schema-extensions"
   - "jsonschema-editor-ui-schema"
   - "jsonschema-editor-vue"
+  - "jsonschema-editor-vue-extensions"
   - "jsonschema-editor-examples"

@@ -15,6 +15,7 @@ const data = defineModel<Record<string, unknown>>({ required: true });
 
 <template>
   <SchemaFormFieldResolver
+    v-if="element.elementKind === 'Control' && element.scope"
     v-model="data"
     :schema="schema"
     :document="document"

@@ -167,7 +167,7 @@ function onVariantChange(raw: string | number) {
       v-model="data"
       :schema="activeBranch"
       :document="document"
-      :scope="buildPropertyScope('#', name)"
+      :scope="buildPropertyScope(scope, name)"
       :label="propSchema.title ?? name"
       :readonly="readonly"
     />

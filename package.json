@@ -3,9 +3,9 @@
   "private": true,
   "description": "Monorepo for @jsonschema-editor — JSON Schema, UI Schema, and Vue form editor",
   "scripts": {
-    "build": "pnpm -r --filter @jsonschema-editor/json-schema --filter @jsonschema-editor/ui-schema --filter @jsonschema-editor/vue run build",
-    "typecheck": "pnpm -r --filter @jsonschema-editor/json-schema --filter @jsonschema-editor/ui-schema --filter @jsonschema-editor/vue run typecheck",
-    "test": "pnpm -r --filter @jsonschema-editor/json-schema --filter @jsonschema-editor/ui-schema run test",
+    "build": "pnpm -r --filter @jsonschema-editor/json-schema --filter @jsonschema-editor/json-schema-extensions --filter @jsonschema-editor/ui-schema --filter @jsonschema-editor/vue --filter @jsonschema-editor/vue-extensions run build",
+    "typecheck": "pnpm -r --filter @jsonschema-editor/json-schema --filter @jsonschema-editor/json-schema-extensions --filter @jsonschema-editor/ui-schema --filter @jsonschema-editor/vue --filter @jsonschema-editor/vue-extensions run typecheck",
+    "test": "pnpm -r --filter @jsonschema-editor/json-schema --filter @jsonschema-editor/json-schema-extensions --filter @jsonschema-editor/ui-schema run test",
     "test:e2e": "pnpm --filter jsonschema-editor-examples run test:e2e",
     "changeset": "changeset",
     "version-packages": "changeset version",

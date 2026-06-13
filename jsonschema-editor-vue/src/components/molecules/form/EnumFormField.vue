@@ -32,7 +32,7 @@ const enumValues = computed(() => resolvedSchema.value?.enumValues ?? []);
 </script>
 
 <template>
-  <JseSchemaFormField :label="displayLabel" :description="description">
+  <JseSchemaFormField :label="displayLabel" :description="description" :scope="scope">
     <JseSelect
       :model-value="value as string | number"
       class="jse-field__input"

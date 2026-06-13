@@ -107,6 +107,16 @@ export const enMessages = {
 
   "form.fallbackLabel": "Field",
   "form.oneOf.type": "Type",
+  "form.validation.required": "Required field.",
+  "form.validation.minLength": "At least {limit} characters required.",
+  "form.validation.maxLength": "At most {limit} characters allowed.",
+  "form.validation.minimum": "Minimum value is {limit}.",
+  "form.validation.maximum": "Maximum value is {limit}.",
+  "form.validation.pattern": "Invalid format.",
+  "form.validation.format": "Invalid format.",
+  "form.validation.type": "Invalid value.",
+  "form.validation.enum": "Please select a valid value.",
+  "form.validation.invalid": "Invalid value.",
 
   "stepper.step": "Step {index}",
   "stepper.back": "Back",

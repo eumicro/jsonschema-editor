@@ -1,0 +1,67 @@
+{
+  "name": "@jsonschema-editor/vue-extensions",
+  "version": "0.1.0",
+  "description": "Vue form field renderers for JSON Schema format extensions (email, url, phone)",
+  "type": "module",
+  "license": "MIT",
+  "author": "JSON Schema Editor Contributors",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eumicro/jsonschema-editor.git",
+    "directory": "jsonschema-editor-vue-extensions"
+  },
+  "homepage": "https://github.com/eumicro/jsonschema-editor/tree/main/jsonschema-editor-vue-extensions#readme",
+  "bugs": "https://github.com/eumicro/jsonschema-editor/issues",
+  "keywords": [
+    "vue",
+    "json-schema",
+    "form",
+    "extensions",
+    "email",
+    "url",
+    "phone"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "./dist/jsonschema-editor-vue-extensions.js",
+  "module": "./dist/jsonschema-editor-vue-extensions.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/jsonschema-editor-vue-extensions.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "prebuild": "node --input-type=module -e \"import fs from 'node:fs'; fs.rmSync('dist',{recursive:true,force:true})\"",
+    "build": "vue-tsc -p tsconfig.json --noEmit && vite build",
+    "prepublishOnly": "pnpm run build",
+    "typecheck": "vue-tsc -p tsconfig.json --noEmit"
+  },
+  "peerDependencies": {
+    "@jsonschema-editor/json-schema": "workspace:*",
+    "@jsonschema-editor/json-schema-extensions": "workspace:*",
+    "@jsonschema-editor/vue": "workspace:*",
+    "vue": "^3.5.0"
+  },
+  "devDependencies": {
+    "@jsonschema-editor/json-schema": "workspace:*",
+    "@jsonschema-editor/json-schema-extensions": "workspace:*",
+    "@jsonschema-editor/vue": "workspace:*",
+    "@vitejs/plugin-vue": "^5.2.4",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5",
+    "vite-plugin-dts": "^4.5.4",
+    "vue": "^3.5.16",
+    "vue-tsc": "^2.2.10"
+  }
+}

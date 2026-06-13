@@ -33,9 +33,36 @@
   font: inherit;
 }
 
+.jse-field__link {
+  display: inline-block;
+  margin-top: 0.35rem;
+  font-size: 0.85rem;
+  color: #1d4ed8;
+  word-break: break-all;
+}
+
+.jse-field__link:hover {
+  color: #1e40af;
+}
+
+.jse-field__input--format {
+  max-width: 100%;
+}
+
 .jse-field__checkbox {
   width: 1.1rem;
   height: 1.1rem;
+}
+
+.jse-field--invalid .jse-field__input,
+.jse-field--invalid .jse-select {
+  border-color: #dc2626;
+}
+
+.jse-field__error {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #dc2626;
 }
 
 .jse-group {

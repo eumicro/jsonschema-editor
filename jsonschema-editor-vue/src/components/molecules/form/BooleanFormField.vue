@@ -30,7 +30,7 @@ const { displayLabel, description } = useFormFieldLabel(
 </script>
 
 <template>
-  <JseSchemaFormField boolean :label="displayLabel" :description="description">
+  <JseSchemaFormField boolean :label="displayLabel" :description="description" :scope="scope">
     <JseCheckbox
       :model-value="value as boolean"
       :disabled="readonly"

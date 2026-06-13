@@ -20,6 +20,10 @@ import {
   replaceNodeAtPath,
   suggestPropertyName,
 } from "./schema-editor";
+import {
+  getSchemaTypeExtension,
+  resolveSchemaTypeExtensionId,
+} from "../registry/schema-type-extension-registry.js";
 
 type CompositionOperator = "allOf" | "anyOf" | "oneOf";
 
@@ -403,9 +407,17 @@ export function getDocumentKindLabel(node: SchemaNode): string {
     if (node.oneOf.length) operators.push("oneOf");
     return operators.length ? operators.join(" + ") : "Komposition";
   }
+
+  const extensionId = resolveSchemaTypeExtensionId(node);
+  if (extensionId) {
+    const extension = getSchemaTypeExtension(extensionId);
+    return extension?.label ?? extensionId;
+  }
+
   if (node instanceof StringSchema) {
     const formatKind = formatToSchemaKind(node.format);
     if (formatKind) return formatKind;
+    if (node.format) return node.format;
   }
   return node.kind;
 }

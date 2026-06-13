@@ -39,7 +39,7 @@ const inputType = computed((): string => {
 </script>
 
 <template>
-  <JseSchemaFormField :label="displayLabel" :description="description">
+  <JseSchemaFormField :label="displayLabel" :description="description" :scope="scope">
     <JseInput
       :model-value="value as string"
       class="jse-field__input"

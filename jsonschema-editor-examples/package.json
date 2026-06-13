@@ -15,8 +15,10 @@
   },
   "dependencies": {
     "@jsonschema-editor/json-schema": "workspace:*",
+    "@jsonschema-editor/json-schema-extensions": "workspace:*",
     "@jsonschema-editor/ui-schema": "workspace:*",
     "@jsonschema-editor/vue": "workspace:*",
+    "@jsonschema-editor/vue-extensions": "workspace:*",
     "vue": "^3.5.16"
   },
   "devDependencies": {

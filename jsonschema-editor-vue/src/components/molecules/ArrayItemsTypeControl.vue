@@ -1,12 +1,13 @@
 <script setup lang="ts">
+import { computed } from "vue";
 import JseButton from "../atoms/JseButton.vue";
 import { useJseI18n } from "../../composables/useJseI18n";
 import {
   COMPOSITE_SCHEMA_KINDS,
+  listExtensionTypeOptions,
   PRIMITIVE_SCHEMA_KINDS,
   STRING_FORMAT_SCHEMA_KINDS,
-  type ArrayItemTypeKind,
-} from "../../utils/schema-type-kinds";
+} from "../../utils/schema-editor-types";
 
 defineProps<{
   currentKind?: string;
@@ -14,12 +15,14 @@ defineProps<{
 }>();
 
 const emit = defineEmits<{
-  select: [kind: ArrayItemTypeKind];
+  select: [kind: string];
 }>();
 
 const { t } = useJseI18n();
 
-function select(kind: ArrayItemTypeKind) {
+const extensionTypeOptions = computed(() => listExtensionTypeOptions());
+
+function select(kind: string) {
   emit("select", kind);
 }
 </script>
@@ -44,6 +47,15 @@ function select(kind: ArrayItemTypeKind) {
           @click="select(kind)"
         >
           {{ kind }}
+        </JseButton>
+        <JseButton
+          v-for="option in extensionTypeOptions"
+          :key="option.id"
+          type="button"
+          :class="{ 'jse-btn--active': currentKind === option.id }"
+          @click="select(option.id)"
+        >
+          {{ option.label }}
         </JseButton>
       </div>
     </div>

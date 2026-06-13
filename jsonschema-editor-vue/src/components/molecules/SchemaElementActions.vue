@@ -27,10 +27,9 @@ import {
 } from "../../utils/schema-document";
 import { getArrayItemsKind, suggestPropertyName, type SchemaPath } from "../../utils/schema-editor";
 import {
-  OBJECT_PROPERTY_KINDS,
-  SCHEMA_CHANGE_KINDS,
-  type ArrayItemTypeKind,
-} from "../../utils/schema-type-kinds";
+  listObjectPropertyTypeOptions,
+  listSchemaChangeTypeOptions,
+} from "../../utils/schema-editor-types";
 import { useJseI18n } from "../../composables/useJseI18n";
 
 const props = defineProps<{
@@ -45,6 +44,9 @@ const emit = defineEmits<{
 }>();
 
 const { t } = useJseI18n();
+
+const propertyTypeOptions = computed(() => listObjectPropertyTypeOptions());
+const schemaChangeTypeOptions = computed(() => listSchemaChangeTypeOptions());
 
 const compositionOperators = ["allOf", "anyOf", "oneOf"] as const;
 
@@ -181,7 +183,7 @@ function addBranchFromDef(operator: "allOf" | "anyOf" | "oneOf") {
   patch(addCompositionBranchRef(props.document, props.targetPath, operator, selectedDefRef.value));
 }
 
-function setItems(kind: ArrayItemTypeKind) {
+function setItems(kind: string) {
   const next = setArrayItemsInDocument(props.document, props.targetPath, kind);
   emit("update:document", next);
   emit("items-set", props.targetPath, kind);
@@ -215,12 +217,12 @@ function changeKind(kind: string) {
       <span class="jse-structure-editor__hint">{{ t("elementActions.type") }}</span>
       <div class="jse-structure-editor__buttons">
         <JseButton
-          v-for="kind in OBJECT_PROPERTY_KINDS"
-          :key="`def-${kind}`"
+          v-for="option in propertyTypeOptions"
+          :key="`def-${option.id}`"
           type="button"
-          @click="addDef(kind)"
+          @click="addDef(option.id)"
         >
-          + {{ kind }}
+          + {{ option.label }}
         </JseButton>
       </div>
     </div>
@@ -239,12 +241,12 @@ function changeKind(kind: string) {
       <span class="jse-structure-editor__hint">{{ t("elementActions.type") }}</span>
       <div class="jse-structure-editor__buttons">
         <JseButton
-          v-for="kind in OBJECT_PROPERTY_KINDS"
-          :key="kind"
+          v-for="option in propertyTypeOptions"
+          :key="option.id"
           type="button"
-          @click="addProperty(kind)"
+          @click="addProperty(option.id)"
         >
-          + {{ kind }}
+          + {{ option.label }}
         </JseButton>
       </div>
     </div>
@@ -289,12 +291,12 @@ function changeKind(kind: string) {
       <span class="jse-structure-editor__hint">{{ t("elementActions.changeType") }}</span>
       <div class="jse-structure-editor__buttons">
         <JseButton
-          v-for="kind in SCHEMA_CHANGE_KINDS"
-          :key="`change-${kind}`"
+          v-for="option in schemaChangeTypeOptions"
+          :key="`change-${option.id}`"
           type="button"
-          @click="changeKind(kind)"
+          @click="changeKind(option.id)"
         >
-          → {{ kind }}
+          → {{ option.label }}
         </JseButton>
       </div>
     </div>

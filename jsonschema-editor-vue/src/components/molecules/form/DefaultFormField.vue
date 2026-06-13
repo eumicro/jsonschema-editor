@@ -51,6 +51,7 @@ const isCheckbox = computed(() => inputType.value === "checkbox");
     :boolean="isCheckbox"
     :label="displayLabel"
     :description="description"
+    :scope="scope"
   >
     <JseSelect
       v-if="enumValues.length"

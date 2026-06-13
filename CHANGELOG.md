@@ -7,6 +7,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added
+
+- `@jsonschema-editor/vue`: JSON Schema validation for `JsonSchemaForm` via AJV (`required`, length, numeric bounds, `pattern`, `format`, …)
+- `@jsonschema-editor/vue`: Field-level error display with `validation` / `validationMode` props (`blur` default, `change` optional)
+- `@jsonschema-editor/vue`: Public API `useFormValidation`, `useFieldValidation`, and `validateFormData` helpers
+
 ## [0.1.3] - 2026-06-13
 
 ### Changed

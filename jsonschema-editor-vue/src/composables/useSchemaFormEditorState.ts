@@ -5,6 +5,7 @@ import { UiSchema } from "@jsonschema-editor/ui-schema/bridge";
 import type { UiElement, UiSchemaObject } from "@jsonschema-editor/ui-schema";
 import type { SchemaPath } from "../utils/schema-editor";
 import type { UiPath } from "../utils/ui-editor";
+import { syncUiSchemaWithSchema } from "../utils/ui-schema-sync.js";
 import { EDITOR_CONTEXT_KEY } from "../registry/renderer-registry";
 import { useJseI18n } from "./useJseI18n";
 
@@ -61,10 +62,11 @@ export function useSchemaFormEditorState(
   function updateDocument(next: SchemaDocument) {
     documentRef.value = next;
     emit("update:schema", next);
-    if (!uiManualEdit.value) {
-      const generated = UiSchema.generateForSchema(next.root, "#", (ref) => next.resolveRef(ref));
-      uiSchemaRef.value = generated;
-      emit("update:uiSchema", generated);
+    const syncedRoot = syncUiSchemaWithSchema(next, uiSchemaRef.value.root);
+    if (syncedRoot !== uiSchemaRef.value.root) {
+      const nextUi = new UiSchema(syncedRoot);
+      uiSchemaRef.value = nextUi;
+      emit("update:uiSchema", nextUi);
     }
   }
 

@@ -108,6 +108,16 @@ export const deMessages = {
 
   "form.fallbackLabel": "Feld",
   "form.oneOf.type": "Typ",
+  "form.validation.required": "Pflichtfeld.",
+  "form.validation.minLength": "Mindestens {limit} Zeichen erforderlich.",
+  "form.validation.maxLength": "Maximal {limit} Zeichen erlaubt.",
+  "form.validation.minimum": "Mindestens {limit}.",
+  "form.validation.maximum": "Maximal {limit}.",
+  "form.validation.pattern": "Ungültiges Format.",
+  "form.validation.format": "Ungültiges Format.",
+  "form.validation.type": "Ungültiger Wert.",
+  "form.validation.enum": "Bitte einen gültigen Wert wählen.",
+  "form.validation.invalid": "Ungültiger Wert.",
 
   "stepper.step": "Schritt {index}",
   "stepper.back": "Zurück",

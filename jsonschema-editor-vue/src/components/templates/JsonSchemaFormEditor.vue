@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { toRef } from "vue";
+import { registerDefaultControls } from "../../registry/register-defaults.js";
 import type { SchemaDocument } from "@jsonschema-editor/json-schema";
 import { UiSchema } from "@jsonschema-editor/ui-schema/bridge";
 import type { JseI18nOptions, JseLocale } from "../../i18n/types";
@@ -14,6 +15,7 @@ import {
   useJseI18n,
 } from "../../composables/useJseI18n";
 import { useSchemaFormEditorState } from "../../composables/useSchemaFormEditorState";
+import { setupJseVueExtensions, type JseVueExtension } from "../../registry/vue-extension";
 
 const props = defineProps<{
   schema: SchemaDocument;
@@ -22,6 +24,7 @@ const props = defineProps<{
   fallbackLocale?: JseLocale;
   messages?: JseI18nOptions["messages"];
   translate?: JseI18nOptions["translate"];
+  extensions?: JseVueExtension[];
 }>();
 
 const emit = defineEmits<{
@@ -30,6 +33,8 @@ const emit = defineEmits<{
 }>();
 
 setupJseI18n(() => resolveJseI18nOptions(props));
+setupJseVueExtensions(props.extensions);
+registerDefaultControls();
 const { t } = useJseI18n();
 
 const {

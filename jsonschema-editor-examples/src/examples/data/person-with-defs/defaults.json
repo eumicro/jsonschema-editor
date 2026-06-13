@@ -1,3 +1,6 @@
 {
-  "name": "Max Mustermann"
+  "name": "Max Mustermann",
+  "email": "max@example.com",
+  "website": "https://example.com",
+  "phone": "+491701234567"
 }

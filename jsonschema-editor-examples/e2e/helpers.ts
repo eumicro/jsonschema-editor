@@ -14,8 +14,9 @@ export async function openEditorMode(page: Page): Promise<void> {
   await page.getByRole("tab", { name: "Form-Editor" }).click();
 }
 
+/** Variant selector of the root oneOf field (excludes nested property selects). */
 export function oneOfSelect(page: Page) {
-  return page.locator(".jse-oneof-field select");
+  return page.locator(".jse-oneof-field > .jse-field").first().locator("select");
 }
 
 export async function readFormOutput(page: Page): Promise<Record<string, unknown>> {
