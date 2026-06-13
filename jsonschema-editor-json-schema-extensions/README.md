@@ -1,6 +1,6 @@
 # @jsonschema-editor/json-schema-extensions
 
-Format extensions for **email**, **url**, and **phone** on top of `@jsonschema-editor/json-schema`.
+Format extensions for **email**, **url**, and **phone**, plus **`x-values-source`** (static lists and API-backed selects) on top of `@jsonschema-editor/json-schema`.
 
 ## Installation
 
@@ -10,9 +10,37 @@ npm install @jsonschema-editor/json-schema-extensions @jsonschema-editor/json-sc
 
 Peer dependency: `@jsonschema-editor/json-schema`
 
-## Usage
+## Load schemas with extensions
 
-### Validators
+Custom attributes are ignored unless the extensions registry is used:
+
+```ts
+import { documentFromJSONWithExtensions } from "@jsonschema-editor/json-schema-extensions";
+
+const doc = documentFromJSONWithExtensions({
+  type: "object",
+  properties: {
+    email: { type: "string", format: "email" },
+    manager: {
+      type: "string",
+      title: "Manager",
+      "x-values-source": {
+        kind: "fetch",
+        url: "https://jsonplaceholder.typicode.com/users",
+        valueField: "id",
+        labelField: "name",
+      },
+    },
+  },
+});
+
+doc.root.getProperty("manager")?.getCustomAttribute("x-values-source");
+// { kind: "fetch", url: "...", valueField: "id", labelField: "name" }
+```
+
+Always pair this with `@jsonschema-editor/vue-extensions` in the UI so fetch/static selects render as dropdowns.
+
+## Validators
 
 ```ts
 import {
@@ -28,13 +56,13 @@ validatePhone("+49 170 1234567"); // true (whitespace stripped)
 validateFormatValue("phone", "+442079460123");
 ```
 
-### JSON Schema fragments
+## JSON Schema fragments
 
 ```ts
 import { createFormatSchemaFragment } from "@jsonschema-editor/json-schema-extensions";
 
 createFormatSchemaFragment("email");
-// { type: "string", format: "email", pattern: "...", x-format-extension: "email", ... }
+// { type: "string", format: "email", pattern: "...", "x-format-extension": "email", ... }
 ```
 
 | Extension id | JSON Schema `format` | Notes |
@@ -43,24 +71,81 @@ createFormatSchemaFragment("email");
 | `url` | `uri` | HTTP(S) only via URL parser |
 | `phone` | `phone` | Custom format + E.164-oriented `pattern` |
 
-### OOP model integration
+## OOP model integration
 
 ```ts
 import {
   createExtensionsRegistry,
   createStringSchemaWithFormat,
-  ObjectSchema,
+  createStaticValuesSourceSchema,
+  createFetchValuesSourceSchema,
 } from "@jsonschema-editor/json-schema-extensions";
-import { ObjectSchema as ObjectSchemaBase } from "@jsonschema-editor/json-schema";
+import { ObjectSchema } from "@jsonschema-editor/json-schema";
 
 const registry = createExtensionsRegistry();
-const person = new ObjectSchemaBase();
+const person = new ObjectSchema();
+
 person.setProperty("email", createStringSchemaWithFormat("email", registry), true);
+person.setProperty(
+  "role",
+  createStaticValuesSourceSchema(["Admin", "User"], registry),
+);
+person.setProperty(
+  "manager",
+  createFetchValuesSourceSchema("https://api.example.com/users", {
+    valueField: "id",
+    labelField: "displayName",
+  }, registry),
+);
 ```
 
-The custom attribute `x-format-extension` roundtrips when the same registry is used with `schemaFromJSON`.
+The custom attributes `x-format-extension` and `x-values-source` roundtrip when the same registry is used with `schemaFromJSON` / `documentFromJSONWithExtensions`.
 
-### AJV (runtime validation)
+## `x-values-source`
+
+Two kinds are supported:
+
+### Static list
+
+```json
+{
+  "type": "string",
+  "title": "Department",
+  "enum": ["Sales", "Engineering", "Support"],
+  "x-values-source": {
+    "kind": "static",
+    "values": ["Sales", "Engineering", "Support"]
+  }
+}
+```
+
+### Fetch from API
+
+```json
+{
+  "type": "string",
+  "title": "Manager",
+  "x-values-source": {
+    "kind": "fetch",
+    "url": "https://jsonplaceholder.typicode.com/users",
+    "valueField": "id",
+    "labelField": "name"
+  }
+}
+```
+
+For nested responses, set `itemsPath` (dot notation, e.g. `"data.items"`).
+
+```ts
+import { readValuesSourceConfig, isFetchValuesSource } from "@jsonschema-editor/json-schema-extensions";
+
+const config = readValuesSourceConfig(schemaNode);
+if (config && isFetchValuesSource(config)) {
+  console.log(config.url);
+}
+```
+
+## AJV (runtime validation)
 
 ```ts
 import Ajv from "ajv";

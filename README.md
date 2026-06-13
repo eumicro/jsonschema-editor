@@ -9,10 +9,10 @@ Three **standalone npm packages** — JSON Schema and UI Schema are intentionall
 | Project | Package | Responsibility |
 | --- | --- | --- |
 | [jsonschema-editor-json-schema](./jsonschema-editor-json-schema) | `@jsonschema-editor/json-schema` | Object-oriented **JSON Schema** model |
-| [jsonschema-editor-json-schema-extensions](./jsonschema-editor-json-schema-extensions) | `@jsonschema-editor/json-schema-extensions` | Format extensions (**email**, **url**, **phone**) |
+| [jsonschema-editor-json-schema-extensions](./jsonschema-editor-json-schema-extensions) | `@jsonschema-editor/json-schema-extensions` | Format extensions, `x-values-source`, AJV helpers |
 | [jsonschema-editor-ui-schema](./jsonschema-editor-ui-schema) | `@jsonschema-editor/ui-schema` | Object-oriented **UI Schema** model |
 | [jsonschema-editor-vue](./jsonschema-editor-vue) | `@jsonschema-editor/vue` | Vue form editor & form |
-| [jsonschema-editor-vue-extensions](./jsonschema-editor-vue-extensions) | `@jsonschema-editor/vue-extensions` | Custom form renderers (email, url, phone) |
+| [jsonschema-editor-vue-extensions](./jsonschema-editor-vue-extensions) | `@jsonschema-editor/vue-extensions` | Form renderers for formats & value sources |
 | [jsonschema-editor-examples](./jsonschema-editor-examples) | – | Local editor example (not published to npm) |
 
 ## Installation (npm)
@@ -26,21 +26,79 @@ npm install @jsonschema-editor/ui-schema
 
 # Vue 3 form editor (installs json-schema + ui-schema transitively)
 npm install @jsonschema-editor/vue vue
+
+# Optional: email/url/phone fields and select lists from APIs
+npm install @jsonschema-editor/json-schema-extensions @jsonschema-editor/vue-extensions
 ```
 
 Same with pnpm/yarn. **Node.js ≥ 20** is required.
 
-### Vue integration
+## End-to-end example (Vue + extensions)
+
+A minimal contact form with typed email fields, a static dropdown, and AJV validation on blur:
 
 ```ts
+// main.ts
 import { createApp } from "vue";
 import { install } from "@jsonschema-editor/vue";
+import { documentFromJSONWithExtensions } from "@jsonschema-editor/json-schema-extensions";
+import { registerDefaultVueExtensions } from "@jsonschema-editor/vue-extensions";
+import { UiSchema } from "@jsonschema-editor/ui-schema/bridge";
+import App from "./App.vue";
 import "@jsonschema-editor/vue/style.css";
+
+registerDefaultVueExtensions();
 
 const app = createApp(App);
 install(app);
 app.mount("#app");
 ```
+
+```vue
+<!-- App.vue -->
+<script setup lang="ts">
+import { ref } from "vue";
+import { JsonSchemaForm } from "@jsonschema-editor/vue";
+import { documentFromJSONWithExtensions } from "@jsonschema-editor/json-schema-extensions";
+import { UiSchema } from "@jsonschema-editor/ui-schema/bridge";
+
+const schemaJson = {
+  type: "object",
+  properties: {
+    name: { type: "string", title: "Name" },
+    email: { type: "string", format: "email", title: "Email" },
+    department: {
+      type: "string",
+      title: "Department",
+      "x-values-source": { kind: "static", values: ["Sales", "Engineering"] },
+    },
+  },
+  required: ["name", "email"],
+};
+
+const schema = documentFromJSONWithExtensions(schemaJson);
+const uiSchema = UiSchema.generateForSchema(schema.root);
+const data = ref({ name: "", email: "", department: "Sales" });
+
+function onSubmit({ valid }: { valid: boolean }) {
+  if (valid) console.log("Saved", data.value);
+}
+</script>
+
+<template>
+  <JsonSchemaForm
+    :schema="schema"
+    :ui-schema="uiSchema"
+    v-model="data"
+    validation-mode="blur"
+    @submit="onSubmit"
+  />
+</template>
+```
+
+Use `documentFromJSONWithExtensions()` whenever the schema contains `x-format-extension` or `x-values-source`. Plain `documentFromJSON()` ignores unregistered custom attributes.
+
+See the runnable demo in [jsonschema-editor-examples](./jsonschema-editor-examples) (`pnpm --filter jsonschema-editor-examples run dev`).
 
 ## Architecture
 
@@ -68,6 +126,7 @@ pnpm install
 pnpm run build
 pnpm run test
 pnpm --filter jsonschema-editor-examples run dev
+pnpm --filter jsonschema-editor-examples run test:e2e   # Playwright
 ```
 
 More details: [PUBLISHING.md](./PUBLISHING.md), [CHANGELOG.md](./CHANGELOG.md), [SECURITY.md](./SECURITY.md).
@@ -78,18 +137,26 @@ More details: [PUBLISHING.md](./PUBLISHING.md), [CHANGELOG.md](./CHANGELOG.md), 
 import {
   ObjectSchema,
   StringSchema,
-  SchemaFactory,
-  schemaFromJSON,
+  documentFromJSON,
 } from "@jsonschema-editor/json-schema";
 
+// Build programmatically
 const person = new ObjectSchema();
 person.setProperty("name", new StringSchema(), true);
+
+// Or load from JSON
+const doc = documentFromJSON({
+  type: "object",
+  properties: { name: { type: "string" } },
+  required: ["name"],
+});
+doc.root; // ObjectSchema
 ```
 
 ## UI Schema (standalone)
 
 ```ts
-import { Control, VerticalLayout, UiSchemaFactory } from "@jsonschema-editor/ui-schema";
+import { UiSchemaFactory } from "@jsonschema-editor/ui-schema";
 
 const factory = new UiSchemaFactory();
 const layout = factory.createVerticalLayout([

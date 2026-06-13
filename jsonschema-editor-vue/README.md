@@ -6,6 +6,9 @@ JSON Schema form editor and fillable form for **Vue 3**.
 
 ```bash
 npm install @jsonschema-editor/vue vue
+
+# Recommended with format fields and value-source selects
+npm install @jsonschema-editor/json-schema-extensions @jsonschema-editor/vue-extensions
 ```
 
 Peer dependency: `vue@^3.5.0`
@@ -20,25 +23,100 @@ import "@jsonschema-editor/vue/style.css";
 
 ## Quick start
 
+Components expect **OOP model objects** (`SchemaDocument`, `UiSchema`), not raw JSON. Load schemas with the extensions registry when using custom attributes:
+
 ```ts
+// main.ts
 import { createApp } from "vue";
-import { install, JsonSchemaFormEditor } from "@jsonschema-editor/vue";
+import { install } from "@jsonschema-editor/vue";
+import { registerDefaultVueExtensions } from "@jsonschema-editor/vue-extensions";
+import App from "./App.vue";
 import "@jsonschema-editor/vue/style.css";
 
-const app = createApp({ components: { JsonSchemaFormEditor } });
+registerDefaultVueExtensions();
+
+const app = createApp(App);
 install(app);
 app.mount("#app");
 ```
 
 ```vue
+<!-- ContactForm.vue -->
+<script setup lang="ts">
+import { ref } from "vue";
+import { JsonSchemaFormEditor } from "@jsonschema-editor/vue";
+import { documentFromJSONWithExtensions } from "@jsonschema-editor/json-schema-extensions";
+import { UiSchema } from "@jsonschema-editor/ui-schema/bridge";
+
+const schemaJson = {
+  type: "object",
+  properties: {
+    name: { type: "string", title: "Name" },
+    email: { type: "string", format: "email", title: "Email" },
+  },
+  required: ["name"],
+};
+
+const schema = ref(documentFromJSONWithExtensions(schemaJson));
+const uiSchema = ref(UiSchema.generateForSchema(schema.value.root));
+const data = ref({ name: "", email: "" });
+</script>
+
 <template>
   <JsonSchemaFormEditor
-    :schema="schemaJson"
-    :ui-schema="uiSchemaJson"
     v-model="data"
+    :schema="schema"
+    :ui-schema="uiSchema"
+    @update:schema="schema = $event"
+    @update:ui-schema="uiSchema = $event"
   />
 </template>
 ```
+
+Switch to `JsonSchemaForm` for a read-only fillable form with validation instead of the visual editor.
+
+## Fillable form with validation
+
+```vue
+<script setup lang="ts">
+import { ref } from "vue";
+import { JsonSchemaForm } from "@jsonschema-editor/vue";
+
+const formRef = ref<InstanceType<typeof JsonSchemaForm>>();
+
+function onSubmit({ valid }: { valid: boolean }) {
+  if (!valid) return;
+  // submit data.value
+}
+
+async function validateNow() {
+  const valid = formRef.value?.validate() ?? false;
+  console.log("Valid:", valid);
+}
+</script>
+
+<template>
+  <JsonSchemaForm
+    ref="formRef"
+    :schema="schema"
+    :ui-schema="uiSchema"
+    v-model="data"
+    validation
+    validation-mode="blur"
+    @submit="onSubmit"
+  />
+  <button type="button" @click="validateNow">Validate</button>
+</template>
+```
+
+| Prop | Default | Description |
+| --- | --- | --- |
+| `validation` | `true` | Enable AJV-based field validation |
+| `validationMode` | `"blur"` | `"blur"` or `"change"` |
+| `extensions` | – | Per-component `JseVueExtension[]` (alternative to global registration) |
+| `readonly` | `false` | Disable all inputs |
+
+Validation uses `ajv` + `ajv-formats` internally. Custom `phone` format validation is handled when `@jsonschema-editor/json-schema-extensions` is present.
 
 ## Exports
 
@@ -110,12 +188,34 @@ Register Vue components for schema fields via `registerVueExtension()` or the `e
 import {
   registerVueExtension,
   matchStringFormat,
+  matchCustomAttribute,
   matchPropertyName,
   type JseVueExtension,
 } from "@jsonschema-editor/vue";
+
+const ratingExtension: JseVueExtension = {
+  id: "star-rating",
+  formFields: [
+    {
+      id: "rating-field",
+      priority: 30,
+      match: matchPropertyName("rating"),
+      component: StarRatingField,
+    },
+  ],
+};
+
+registerVueExtension(ratingExtension);
 ```
 
-Matchers receive the schema node and a `FormFieldMatchContext` (`scope`, `propertyName`, `label`, `fieldSchema`, …). Higher `priority` wins. See `@jsonschema-editor/vue-extensions` for built-in `email`, `uri`, and `phone` renderers.
+Matchers receive the schema node and a `FormFieldMatchContext` (`scope`, `propertyName`, `label`, `fieldSchema`, …). Higher `priority` wins.
+
+Built-in renderers for `email`, `uri`, `phone`, and `x-values-source` are in `@jsonschema-editor/vue-extensions`:
+
+```ts
+import { registerDefaultVueExtensions } from "@jsonschema-editor/vue-extensions";
+registerDefaultVueExtensions();
+```
 
 ## Development
 
