@@ -16,6 +16,44 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 
 
+## [0.1.7] - 2026-06-13
+
+
+
+### Added
+
+
+
+- `@jsonschema-editor/json-schema-extensions`: **`x-computed`** — CEL expressions over root form data (`data` binding); helpers `sum()` / `list.sum()`; `evaluateComputedExpression`, `readComputedConfig`, schema factories for computed types
+
+- `@jsonschema-editor/vue-extensions`: **`ComputedFormField`** and **`ComputedAttributeControl`**; computed schema types (number, string, boolean, integer)
+
+- `@jsonschema-editor/json-schema`: **dynamic array model** — `supportsDynamicItems()`, `resolveItemSchema()`, `createDefaultItemValue()`, `canAddItem()` / `canRemoveItem()`; scope helpers (`buildArrayItemScope`, …); **`data-instance`** (`getValueAtPath`, `setValueAtPath`, `createEmptyDataForSchema`, …)
+
+- `@jsonschema-editor/vue`: **`ArrayFormField`** — add/remove list entries with `minItems` / `maxItems`; **`useFormData`** provide/inject for reliable nested form writes
+
+- `@jsonschema-editor/ui-schema`: array index resolution in `resolveSchemaAtScope`
+
+- Example app: **`array-list-qa`**, **`computed-cost-qa`**, **`computed-status-qa`**; G37 field **`vorsorgeStatus`** (computed)
+
+- Example app: E2E tests for array lists and computed fields (cost sum, status workflow)
+
+
+
+### Fixed
+
+
+
+- `@jsonschema-editor/json-schema`: `setValueAtPath` no longer fails on Vue reactive form data (`structuredClone` fallback via JSON clone)
+
+- `@jsonschema-editor/vue`: Stepper and Categorization panels render the correct fields when switching steps/tabs (stable Vue keys via scope)
+
+- `@jsonschema-editor/vue-extensions`: computed fields re-evaluate when form data changes through the injected root ref
+
+- `@jsonschema-editor/vue`: `NumberFormField` stores numeric values as `number`, not string
+
+
+
 ## [0.1.6] - 2026-06-13
 
 

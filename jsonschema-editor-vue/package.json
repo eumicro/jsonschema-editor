@@ -1,6 +1,6 @@
 {
   "name": "@jsonschema-editor/vue",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "JSON Schema form editor and fillable form for Vue 3",
   "type": "module",
   "license": "MIT",

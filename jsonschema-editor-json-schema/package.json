@@ -1,6 +1,6 @@
 {
   "name": "@jsonschema-editor/json-schema",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Object-oriented JSON Schema data model",
   "type": "module",
   "license": "MIT",
