@@ -45,7 +45,7 @@ const properties = computed(() => {
   <fieldset v-if="objectSchema" class="jse-group jse-object-field">
     <legend v-if="displayLabel">{{ displayLabel }}</legend>
     <SchemaFormFieldResolver
-      v-for="[name, propSchema] in properties"
+      v-for="[name] in properties"
       :key="name"
       v-model="rootData"
       :schema="schema"
