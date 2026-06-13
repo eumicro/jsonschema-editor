@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/eumicro/jsonschema-editor/actions/workflows/ci.yml/badge.svg)](https://github.com/eumicro/jsonschema-editor/actions/workflows/ci.yml)
 
-![Demo: Schema bearbeiten, UI anpassen, Formular testen](./docs/demo.gif)
+![Demo: Mehrsprachigkeit, Schema bearbeiten, UI anpassen, Formular testen](./docs/demo.gif)
 
 Drei **eigenständige npm-Pakete** – JSON Schema und UI Schema sind bewusst getrennt:
 

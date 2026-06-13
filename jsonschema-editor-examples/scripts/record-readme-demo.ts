@@ -1,5 +1,5 @@
 /**
- * README-Demo: Attribut anlegen → UI platzieren → Formular ausfüllen.
+ * README-Demo: Mehrsprachigkeit → Attribut anlegen → UI platzieren → Formular ausfüllen.
  *
  * Toolchain: Playwright (Screenshots) → gifenc (PNG-Frames → GIF)
  */
@@ -53,7 +53,9 @@ async function closeFloatingPanels(page: Page): Promise<void> {
   for (let attempt = 0; attempt < 4; attempt += 1) {
     const dialogs = page.getByRole("dialog");
     if ((await dialogs.count()) === 0) return;
-    const closeButton = dialogs.first().getByRole("button", { name: "Schließen" });
+    const closeButton = dialogs
+      .first()
+      .getByRole("button", { name: /^(Schließen|Close)$/ });
     if (await closeButton.count()) {
       await closeButton.evaluate((element) => {
         (element as HTMLButtonElement).click();
@@ -74,15 +76,39 @@ async function preparePage(page: Page): Promise<void> {
       }
     `,
   });
-  await page.locator(".app__example-select").selectOption("person-with-defs");
+  await page.locator("#app-example-select").selectOption("person-with-defs");
   await page.getByRole("tab", { name: "Form-Editor" }).click();
   await page.getByRole("tab", { name: "Schema", exact: true }).click();
+}
+
+async function demonstrateLanguageSwitch(page: Page): Promise<void> {
+  const schemaPanel = page.locator("#jse-editor-schema");
+  await schemaPanel.waitFor({ state: "visible" });
+  await snap(page, "i18n-de");
+
+  await page.locator("#app-locale-select").selectOption("en");
+  await page
+    .locator("#jse-editor-schema .jse-structure-editor__hint")
+    .filter({ hasText: "Click an element" })
+    .waitFor();
+  await snap(page, "i18n-en-editor");
+
+  await schemaPanel.getByRole("button", { name: "Edit attributes of Mensch" }).click();
+  await page.getByRole("dialog", { name: /Attributes – Mensch/ }).waitFor({ state: "visible" });
+  await snap(page, "i18n-en-attributes");
+  await closeFloatingPanels(page);
+
+  await page.locator("#app-locale-select").selectOption("de");
+  await page
+    .locator("#jse-editor-schema .jse-structure-editor__hint")
+    .filter({ hasText: "Klicken Sie ein Element" })
+    .waitFor();
+  await snap(page, "i18n-de-restored");
 }
 
 async function addSchemaProperty(page: Page): Promise<void> {
   const schemaPanel = page.locator("#jse-editor-schema");
 
-  await snap(page, "schema-start");
   await schemaPanel.getByRole("button", { name: "Element zu Mensch hinzufügen" }).click();
   await snap(page, "add-dialog");
 
@@ -187,6 +213,7 @@ async function runDemo(): Promise<string[]> {
 
   try {
     await preparePage(page);
+    await demonstrateLanguageSwitch(page);
     await addSchemaProperty(page);
     await placeInUiSchema(page);
     await fillForm(page);
