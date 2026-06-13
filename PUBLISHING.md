@@ -61,5 +61,6 @@ pnpm publish -r --access public
 | `@jsonschema-editor/json-schema-extensions` | `jsonschema-editor-json-schema-extensions` |
 | `@jsonschema-editor/ui-schema` | `jsonschema-editor-ui-schema` |
 | `@jsonschema-editor/vue` | `jsonschema-editor-vue` |
+| `@jsonschema-editor/vue-extensions` | `jsonschema-editor-vue-extensions` |
 
 The examples project is `private` and is not published.

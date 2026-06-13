@@ -1,6 +1,6 @@
 {
   "name": "@jsonschema-editor/vue-extensions",
-  "version": "0.1.0",
+  "version": "0.1.4",
   "description": "Vue form field renderers for JSON Schema format extensions (email, url, phone)",
   "type": "module",
   "license": "MIT",
