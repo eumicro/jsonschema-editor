@@ -2,33 +2,33 @@
 
 [![CI](https://github.com/eumicro/jsonschema-editor/actions/workflows/ci.yml/badge.svg)](https://github.com/eumicro/jsonschema-editor/actions/workflows/ci.yml)
 
-![Demo: Mehrsprachigkeit, Schema bearbeiten, UI anpassen, Formular testen](./docs/demo.gif)
+![Demo: i18n, edit schema, customize UI, test form](./docs/demo.gif)
 
-Drei **eigenständige npm-Pakete** – JSON Schema und UI Schema sind bewusst getrennt:
+Three **standalone npm packages** — JSON Schema and UI Schema are intentionally separate:
 
-| Projekt | Paket | Verantwortung |
+| Project | Package | Responsibility |
 | --- | --- | --- |
-| [jsonschema-editor-json-schema](./jsonschema-editor-json-schema) | `@jsonschema-editor/json-schema` | Objektorientiertes **JSON-Schema**-Modell |
-| [jsonschema-editor-ui-schema](./jsonschema-editor-ui-schema) | `@jsonschema-editor/ui-schema` | Objektorientiertes **UI-Schema**-Modell |
-| [jsonschema-editor-vue](./jsonschema-editor-vue) | `@jsonschema-editor/vue` | Vue Form-Editor & Formular |
-| [jsonschema-editor-examples](./jsonschema-editor-examples) | – | Lokales Editor-Beispiel (nicht auf npm) |
+| [jsonschema-editor-json-schema](./jsonschema-editor-json-schema) | `@jsonschema-editor/json-schema` | Object-oriented **JSON Schema** model |
+| [jsonschema-editor-ui-schema](./jsonschema-editor-ui-schema) | `@jsonschema-editor/ui-schema` | Object-oriented **UI Schema** model |
+| [jsonschema-editor-vue](./jsonschema-editor-vue) | `@jsonschema-editor/vue` | Vue form editor & form |
+| [jsonschema-editor-examples](./jsonschema-editor-examples) | – | Local editor example (not published to npm) |
 
 ## Installation (npm)
 
 ```bash
-# Nur JSON Schema
+# JSON Schema only
 npm install @jsonschema-editor/json-schema
 
-# UI Schema (Bridge optional mit JSON Schema)
+# UI Schema (bridge optional with JSON Schema)
 npm install @jsonschema-editor/ui-schema
 
-# Vue 3 Form-Editor (installiert json-schema + ui-schema transitiv)
+# Vue 3 form editor (installs json-schema + ui-schema transitively)
 npm install @jsonschema-editor/vue vue
 ```
 
-Mit pnpm/yarn analog. **Node.js ≥ 20** wird vorausgesetzt.
+Same with pnpm/yarn. **Node.js ≥ 20** is required.
 
-### Vue-Integration
+### Vue integration
 
 ```ts
 import { createApp } from "vue";
@@ -40,26 +40,26 @@ install(app);
 app.mount("#app");
 ```
 
-## Architektur
+## Architecture
 
 ```
 json-schema          ui-schema              vue
-(OOP SchemaNode)     (OOP UiElement)        (Komponenten)
+(OOP SchemaNode)     (OOP UiElement)        (components)
       │                    │                    │
       └──────── bridge ────┘                    │
            (optional)                           │
                 └───────────────────────────────┘
 ```
 
-- **Kein gemeinsames Core-Paket** – jedes Modell ist eigenständig.
-- Die **Bridge** (`@jsonschema-editor/ui-schema/bridge`) verbindet beide Welten optional:
+- **No shared core package** — each model is standalone.
+- The **bridge** (`@jsonschema-editor/ui-schema/bridge`) optionally connects both worlds:
   - `UiSchemaGenerator.generateForSchema()`
-  - `FormDefinition.fromJSON()` für kombinierte Dokumente
-  - `resolveSchemaAtScope()` delegiert an `SchemaNode.resolveAtScope()`
+  - `FormDefinition.fromJSON()` for combined documents
+  - `resolveSchemaAtScope()` delegates to `SchemaNode.resolveAtScope()`
 
-## Entwicklung (Monorepo)
+## Development (monorepo)
 
-Voraussetzungen: Node.js ≥ 20, [pnpm](https://pnpm.io/) ≥ 9.
+Prerequisites: Node.js ≥ 20, [pnpm](https://pnpm.io/) ≥ 9.
 
 ```bash
 pnpm install
@@ -68,9 +68,9 @@ pnpm run test
 pnpm --filter jsonschema-editor-examples run dev
 ```
 
-Weitere Details: [PUBLISHING.md](./PUBLISHING.md), [CHANGELOG.md](./CHANGELOG.md), [SECURITY.md](./SECURITY.md).
+More details: [PUBLISHING.md](./PUBLISHING.md), [CHANGELOG.md](./CHANGELOG.md), [SECURITY.md](./SECURITY.md).
 
-## JSON Schema (isoliert)
+## JSON Schema (standalone)
 
 ```ts
 import {
@@ -84,7 +84,7 @@ const person = new ObjectSchema();
 person.setProperty("name", new StringSchema(), true);
 ```
 
-## UI Schema (isoliert)
+## UI Schema (standalone)
 
 ```ts
 import { Control, VerticalLayout, UiSchemaFactory } from "@jsonschema-editor/ui-schema";
@@ -95,7 +95,7 @@ const layout = factory.createVerticalLayout([
 ]);
 ```
 
-## Bridge (beide zusammen)
+## Bridge (both together)
 
 ```ts
 import { ObjectSchema, StringSchema } from "@jsonschema-editor/json-schema";
@@ -106,6 +106,6 @@ schema.setProperty("title", new StringSchema(), true);
 const ui = UiSchema.generateForSchema(schema);
 ```
 
-## Lizenz
+## License
 
 [MIT](./LICENSE)

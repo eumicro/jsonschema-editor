@@ -1,23 +1,23 @@
-# Sicherheitsrichtlinie
+# Security Policy
 
-## Unterstützte Versionen
+## Supported Versions
 
-| Version | Unterstützt |
+| Version | Supported |
 | --- | --- |
-| 0.1.x | Ja |
+| 0.1.x | Yes |
 
-## Schwachstellen melden
+## Reporting a Vulnerability
 
-Bitte melden Sie Sicherheitslücken **nicht** als öffentliches GitHub Issue.
+Please **do not** report security vulnerabilities as a public GitHub issue.
 
-Senden Sie stattdessen eine E-Mail oder eine private Meldung an die Maintainer des Repositories
+Instead, send an email or private message to the maintainers of the repository
 [jsonschema-editor/jsonschema-editor](https://github.com/eumicro/jsonschema-editor).
 
-Bitte beschreiben Sie:
+Please include:
 
-- betroffenes Paket und Version
-- Schritte zur Reproduktion
-- mögliche Auswirkungen
-- ggf. einen Fix-Vorschlag
+- affected package and version
+- steps to reproduce
+- potential impact
+- a fix suggestion, if available
 
-Wir bestätigen den Eingang innerhalb von 5 Werktagen und informieren Sie über den weiteren Ablauf.
+We will acknowledge receipt within 5 business days and keep you informed of next steps.

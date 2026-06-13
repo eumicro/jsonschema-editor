@@ -1,7 +1,7 @@
 {
   "name": "@jsonschema-editor/ui-schema",
   "version": "0.1.2",
-  "description": "Objektorientiertes JSON-UI-Schema-Datenmodell",
+  "description": "Object-oriented JSON UI Schema data model",
   "type": "module",
   "license": "MIT",
   "author": "JSON Schema Editor Contributors",

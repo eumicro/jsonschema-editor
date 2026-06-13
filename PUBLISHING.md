@@ -1,50 +1,50 @@
 # Publishing
 
-Checkliste für Maintainer vor dem ersten Release und für Folge-Releases.
+Checklist for maintainers before the first release and for subsequent releases.
 
-## Einmalige Vorbereitung
+## One-time setup
 
-1. GitHub-Repository `eumicro/jsonschema-editor` anlegen und dieses Monorepo pushen
-2. npm-Organisation `@jsonschema-editor` anlegen (Scope ist derzeit **frei**)
+1. Create the GitHub repository `eumicro/jsonschema-editor` and push this monorepo
+2. Create the npm organization `@jsonschema-editor` (the scope is currently **available**)
 
-   **Voraussetzung – lokal einloggen:**
+   **Prerequisite — log in locally:**
 
    ```bash
    npm login --auth-type=web
    npm whoami
    ```
 
-   **Organisation (nur über die Website):**
+   **Organization (website only):**
 
-   1. https://www.npmjs.com/org/create öffnen
+   1. Open https://www.npmjs.com/org/create
    2. Name: `jsonschema-editor`
-   3. Plan: **Unlimited public packages** (kostenlos)
-   4. **Create** klicken
+   3. Plan: **Unlimited public packages** (free)
+   4. Click **Create**
 
-   **Verifizieren:**
+   **Verify:**
 
    ```bash
    npm org ls jsonschema-editor
    ```
 
-   Im Repo liegt `.npmrc` mit `access=public` für scoped Packages.
-3. GitHub Secret `NPM_TOKEN` in der **Environment „Dev“** hinterlegen
+   The repo includes `.npmrc` with `access=public` for scoped packages.
+3. Add the GitHub secret `NPM_TOKEN` in the **Dev** environment
 
    Repository → **Settings** → **Environments** → **Dev** → **Environment secrets** → `NPM_TOKEN`
 
-   Der Publish-Workflow (`.github/workflows/publish.yml`) nutzt `environment: Dev`.
-4. Optional: npm [Trusted Publishing](https://docs.npmjs.com/trusted-publishers) mit GitHub verknüpfen
+   The publish workflow (`.github/workflows/publish.yml`) uses `environment: Dev`.
+4. Optional: link npm [Trusted Publishing](https://docs.npmjs.com/trusted-publishers) with GitHub
 
-## Release-Ablauf
+## Release process
 
-1. Änderungen committen und nach `main` mergen
-2. Changeset anlegen: `pnpm changeset`
-3. Versionen und Changelog aktualisieren: `pnpm version-packages`
-4. Commit mit aktualisierten Versionen und CHANGELOG
-5. GitHub Release mit Tag `vX.Y.Z` erstellen (z. B. `v0.1.0`)
-6. Der Workflow `.github/workflows/publish.yml` publiziert automatisch auf npm
+1. Commit changes and merge to `main`
+2. Add a changeset: `pnpm changeset`
+3. Update versions and changelog: `pnpm version-packages`
+4. Commit with updated versions and CHANGELOG
+5. Create a GitHub release with tag `vX.Y.Z` (e.g. `v0.1.0`)
+6. The workflow `.github/workflows/publish.yml` publishes to npm automatically
 
-## Manuelles Publish (Fallback)
+## Manual publish (fallback)
 
 ```bash
 pnpm install
@@ -53,12 +53,12 @@ pnpm run test
 pnpm publish -r --access public
 ```
 
-## Pakete
+## Packages
 
-| Paket | Verzeichnis |
+| Package | Directory |
 | --- | --- |
 | `@jsonschema-editor/json-schema` | `jsonschema-editor-json-schema` |
 | `@jsonschema-editor/ui-schema` | `jsonschema-editor-ui-schema` |
 | `@jsonschema-editor/vue` | `jsonschema-editor-vue` |
 
-Das Examples-Projekt ist `private` und wird nicht veröffentlicht.
+The examples project is `private` and is not published.

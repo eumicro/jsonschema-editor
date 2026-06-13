@@ -1,13 +1,13 @@
 # @jsonschema-editor/ui-schema
 
-Eigenständiges, **streng objektorientiertes** UI-Schema-Datenmodell (JSON Forms-kompatibel).
+Standalone, **strictly object-oriented** UI schema data model (JSON Forms compatible).
 
-## Prinzipien
+## Principles
 
-- **Vererbung**: `UiElement` → `UiLayout` / `Control` / `Label`
-- **Kapselung**: `UiCustomAttributeCollection`, eigene `UiSchemaAttributeRegistry`
-- **Polymorphie**: `accept(visitor)`, `deepClone()`
-- **Fabrik**: `UiSchemaFactory`
+- **Inheritance**: `UiElement` → `UiLayout` / `Control` / `Label`
+- **Encapsulation**: `UiCustomAttributeCollection`, dedicated `UiSchemaAttributeRegistry`
+- **Polymorphism**: `accept(visitor)`, `deepClone()`
+- **Factory**: `UiSchemaFactory`
 
 ## Installation
 
@@ -15,20 +15,20 @@ Eigenständiges, **streng objektorientiertes** UI-Schema-Datenmodell (JSON Forms
 npm install @jsonschema-editor/ui-schema
 ```
 
-Optional für die Bridge:
+Optional for the bridge:
 
 ```bash
 npm install @jsonschema-editor/json-schema
 ```
 
-Entwicklung im Monorepo:
+Development in the monorepo:
 
 ```bash
 pnpm install
 pnpm run build
 ```
 
-## Isoliert (ohne JSON Schema)
+## Standalone (without JSON Schema)
 
 ```ts
 import { UiSchemaFactory } from "@jsonschema-editor/ui-schema";
@@ -39,7 +39,7 @@ const ui = factory.createVerticalLayout([
 ]);
 ```
 
-## Bridge (mit JSON Schema)
+## Bridge (with JSON Schema)
 
 ```ts
 import { ObjectSchema, StringSchema } from "@jsonschema-editor/json-schema";
@@ -52,7 +52,7 @@ const ui = UiSchema.generateForSchema(schema);
 const doc = FormDefinition.fromJSON(schema.toJSON(), ui.toJSON());
 ```
 
-## Kein JSON-Schema im Kern
+## No JSON Schema in the core
 
-Der Ordner `src/model/` importiert **nicht** aus `@jsonschema-editor/json-schema`.
-Die Kopplung liegt ausschließlich in `src/bridge/`.
+The `src/model/` folder does **not** import from `@jsonschema-editor/json-schema`.
+Coupling lives exclusively in `src/bridge/`.

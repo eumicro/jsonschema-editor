@@ -1,36 +1,45 @@
 # jsonschema-editor-examples
 
-Lauffähiges Beispielprojekt für den **JSON-Schema Form-Editor** und das ausfüllbare Formular.
+Runnable example project for the **JSON Schema form editor** and fillable form.
 
-## Voraussetzungen
+## Prerequisites
 
-Zuerst die Abhängigkeiten bauen:
+Build the dependencies first:
 
 ```bash
 cd ../jsonschema-editor-json-schema && npm install && npm run build
 cd ../jsonschema-editor-ui-schema && npm install && npm run build
 ```
 
-## Starten
+## Start
 
 ```bash
 npm install
 npm run dev
 ```
 
-Öffnet http://localhost:5173 mit:
+Opens http://localhost:5173 with:
 
-- **Form-Editor** – Schema/UI-Schema bearbeiten und Live-Vorschau
-- **Ausfüllbares Formular** – gleiches Schema als Formular mit JSON-Ausgabe
+- **Form editor** — edit schema/UI schema with live preview
+- **Fillable form** — same schema as a form with JSON output
 
-## Beispiel
+## Examples
 
-`src/examples/simple-composition.ts` – Person mit `allOf` (Basis) + `oneOf` (natürliche/juristische Person).
+Built-in scenarios are loaded from `src/examples/data/` (e.g. person with `$defs`, car configurator, compositions).
 
-## Abhängigkeiten
+## Record demo GIF
 
-| Paket | Rolle |
+```bash
+pnpm run dev   # in a separate terminal
+pnpm run demo:gif
+```
+
+Writes `../docs/demo.gif` for the repository README.
+
+## Dependencies
+
+| Package | Role |
 | --- | --- |
-| `@jsonschema-editor/json-schema` | OOP JSON-Schema-Modell |
-| `@jsonschema-editor/ui-schema` | OOP UI-Schema-Modell |
-| `@jsonschema-editor/vue` | Editor- & Formular-Komponenten |
+| `@jsonschema-editor/json-schema` | OOP JSON Schema model |
+| `@jsonschema-editor/ui-schema` | OOP UI Schema model |
+| `@jsonschema-editor/vue` | Editor & form components |

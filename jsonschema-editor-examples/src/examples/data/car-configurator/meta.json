@@ -1,4 +1,4 @@
 {
-  "label": "Auto-Konfigurator (komplex)",
-  "description": "Verschachtelte Unterobjekte mit <code>Stepper</code>/<code>Step</code> und <code>Categorization</code>/<code>Category</code>: <code>fahrzeug.modell</code> (oneOf), <code>fahrzeug.antrieb</code> (oneOf), <code>fahrzeug.lackierung</code> (anyOf), <code>bestellung.ausstattung</code> (oneOf) und <code>bestellung.finanzierung</code> (anyOf) – Definitionen in <code>$defs</code>."
+  "label": "Car configurator (complex)",
+  "description": "Nested sub-objects with <code>Stepper</code>/<code>Step</code> and <code>Categorization</code>/<code>Category</code>: <code>fahrzeug.modell</code> (oneOf), <code>fahrzeug.antrieb</code> (oneOf), <code>fahrzeug.lackierung</code> (anyOf), <code>bestellung.ausstattung</code> (oneOf), and <code>bestellung.finanzierung</code> (anyOf) — definitions in <code>$defs</code>."
 }

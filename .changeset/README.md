@@ -1,21 +1,21 @@
 # Changesets
 
-Änderungen für das nächste Release hier als Markdown-Datei anlegen:
+Add changes for the next release as a markdown file:
 
 ```bash
 pnpm changeset
 ```
 
-Versionen aktualisieren und Changelog generieren:
+Update versions and generate the changelog:
 
 ```bash
 pnpm version-packages
 ```
 
-Veröffentlichen (lokal, mit `NPM_TOKEN`):
+Publish locally (with `NPM_TOKEN`):
 
 ```bash
 pnpm release
 ```
 
-In CI wird bei GitHub Release automatisch publiziert.
+In CI, publishing runs automatically when a GitHub release is published.

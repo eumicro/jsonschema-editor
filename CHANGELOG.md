@@ -1,49 +1,49 @@
 # Changelog
 
-Alle wesentlichen Änderungen an den npm-Paketen werden in dieser Datei dokumentiert.
-Die Pakete `@jsonschema-editor/json-schema`, `@jsonschema-editor/ui-schema` und `@jsonschema-editor/vue` werden gemeinsam versioniert.
+All notable changes to the npm packages are documented in this file.
+The packages `@jsonschema-editor/json-schema`, `@jsonschema-editor/ui-schema`, and `@jsonschema-editor/vue` are versioned together.
 
-Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.1.0/).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [Unveröffentlicht]
+## [Unreleased]
 
 ## [0.1.2] - 2026-06-13
 
-### Hinzugefügt
+### Added
 
-- `@jsonschema-editor/vue`: Internationalisierung (i18n) mit eingebauten Texten für Deutsch und Englisch
-- `@jsonschema-editor/vue`: Props `locale`, `fallbackLocale`, `messages` und `translate` auf `JsonSchemaFormEditor` und `JsonSchemaForm`
-- `@jsonschema-editor/vue`: Public API `useJseI18n`, `createVueI18nAdapter`, `deMessages`, `enMessages` und typisierte Message-Keys
-- `@jsonschema-editor/vue`: Reaktiver Locale-Wechsel zur Laufzeit (Provide/Inject, ohne Pflicht-Peer `vue-i18n`)
+- `@jsonschema-editor/vue`: Internationalization (i18n) with built-in German and English strings
+- `@jsonschema-editor/vue`: `locale`, `fallbackLocale`, `messages`, and `translate` props on `JsonSchemaFormEditor` and `JsonSchemaForm`
+- `@jsonschema-editor/vue`: Public API `useJseI18n`, `createVueI18nAdapter`, `deMessages`, `enMessages`, and typed message keys
+- `@jsonschema-editor/vue`: Reactive runtime locale switching (provide/inject, no required `vue-i18n` peer)
 
-### Geändert
+### Changed
 
-- `@jsonschema-editor/vue`: Architektur-Refactoring – Composables für Editor-State, Schema-/UI-Attribut-Panels, Formular-Labels und Baum-Aktionen
-- `@jsonschema-editor/vue`: UI-Defaults in `createUiElement` über i18n-Keys statt fester deutscher Strings
-- `@jsonschema-editor/vue`: README um i18n-Dokumentation ergänzt
-- Beispielanwendung: Sprachwechsel-Dropdown (Deutsch/English) und lokalisierte App-Hülle
-- Repository-README: Demo-GIF ergänzt
+- `@jsonschema-editor/vue`: Architecture refactoring — composables for editor state, schema/UI attribute panels, form labels, and tree actions
+- `@jsonschema-editor/vue`: UI defaults in `createUiElement` via i18n keys instead of hard-coded German strings
+- `@jsonschema-editor/vue`: README extended with i18n documentation
+- Example app: language switch dropdown (German/English) and localized app shell
+- Repository README: demo GIF added
 
-### Sonstiges
+### Other
 
-- CI-Workflow: Typecheck-Schritt entfernt (Typecheck weiterhin lokal und im Vue-Build)
+- CI workflow: typecheck step removed (typecheck still runs locally and in the Vue build)
 
 ## [0.1.1] - 2026-06-12
 
-### Geändert
+### Changed
 
-- Publish-Workflow nutzt GitHub Environment `Dev` für `NPM_TOKEN`
-- Repository-Metadaten und Dokumentation auf `eumicro/jsonschema-editor` ausgerichtet
+- Publish workflow uses GitHub Environment `Dev` for `NPM_TOKEN`
+- Repository metadata and documentation aligned with `eumicro/jsonschema-editor`
 
 ## [0.1.0] - 2026-06-12
 
-### Hinzugefügt
+### Added
 
-- `@jsonschema-editor/json-schema`: Objektorientiertes JSON-Schema-Datenmodell
-- `@jsonschema-editor/ui-schema`: Objektorientiertes UI-Schema-Datenmodell inkl. Bridge
-- `@jsonschema-editor/vue`: Vue-3-Form-Editor und ausfüllbares Formular
+- `@jsonschema-editor/json-schema`: Object-oriented JSON Schema data model
+- `@jsonschema-editor/ui-schema`: Object-oriented UI Schema data model including bridge
+- `@jsonschema-editor/vue`: Vue 3 form editor and fillable form
 
-[Unveröffentlicht]: https://github.com/eumicro/jsonschema-editor/compare/0.1.2...HEAD
+[Unreleased]: https://github.com/eumicro/jsonschema-editor/compare/0.1.2...HEAD
 [0.1.2]: https://github.com/eumicro/jsonschema-editor/releases/tag/0.1.2
 [0.1.1]: https://github.com/eumicro/jsonschema-editor/releases/tag/0.1.1
 [0.1.0]: https://github.com/eumicro/jsonschema-editor/releases/tag/0.1.0

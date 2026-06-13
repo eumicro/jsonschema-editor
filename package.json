@@ -1,7 +1,7 @@
 {
   "name": "jsonschema-editor",
   "private": true,
-  "description": "Monorepo für @jsonschema-editor – JSON Schema, UI Schema und Vue Form-Editor",
+  "description": "Monorepo for @jsonschema-editor — JSON Schema, UI Schema, and Vue form editor",
   "scripts": {
     "build": "pnpm -r --filter @jsonschema-editor/json-schema --filter @jsonschema-editor/ui-schema --filter @jsonschema-editor/vue run build",
     "typecheck": "pnpm -r --filter @jsonschema-editor/json-schema --filter @jsonschema-editor/ui-schema --filter @jsonschema-editor/vue run typecheck",

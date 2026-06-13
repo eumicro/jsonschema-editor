@@ -1,4 +1,4 @@
 {
-  "label": "oneOf: Mensch / Maschine",
-  "description": "Zwei Varianten direkt im oneOf-Array – im Formular erscheint ein Dropdown."
+  "label": "oneOf: Human / Machine",
+  "description": "Two variants directly in the oneOf array — the form shows a dropdown."
 }

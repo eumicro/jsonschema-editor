@@ -1,6 +1,6 @@
 # @jsonschema-editor/vue
 
-JSON-Schema-Form-Editor und ausfüllbares Formular für **Vue 3**.
+JSON Schema form editor and fillable form for **Vue 3**.
 
 ## Installation
 
@@ -8,9 +8,9 @@ JSON-Schema-Form-Editor und ausfüllbares Formular für **Vue 3**.
 npm install @jsonschema-editor/vue vue
 ```
 
-Peer Dependency: `vue@^3.5.0`
+Peer dependency: `vue@^3.5.0`
 
-Die Pakete `@jsonschema-editor/json-schema` und `@jsonschema-editor/ui-schema` werden als Abhängigkeiten mitinstalliert.
+The packages `@jsonschema-editor/json-schema` and `@jsonschema-editor/ui-schema` are installed as dependencies.
 
 ## Styles
 
@@ -18,7 +18,7 @@ Die Pakete `@jsonschema-editor/json-schema` und `@jsonschema-editor/ui-schema` w
 import "@jsonschema-editor/vue/style.css";
 ```
 
-## Schnellstart
+## Quick start
 
 ```ts
 import { createApp } from "vue";
@@ -40,19 +40,19 @@ app.mount("#app");
 </template>
 ```
 
-## Exporte
+## Exports
 
-- `JsonSchemaForm` – ausfüllbares Formular
-- `JsonSchemaFormEditor` – visueller Schema-/UI-Editor
-- `ControlField`, `UiElementRenderer` – Bausteine für eigene Layouts
-- Composables und Registries für Erweiterungen
-- Re-Exporte aus `@jsonschema-editor/json-schema` (`SchemaDocument`, `documentFromJSON`, …)
+- `JsonSchemaForm` — fillable form
+- `JsonSchemaFormEditor` — visual schema/UI editor
+- `ControlField`, `UiElementRenderer` — building blocks for custom layouts
+- Composables and registries for extensions
+- Re-exports from `@jsonschema-editor/json-schema` (`SchemaDocument`, `documentFromJSON`, …)
 
-## Internationalisierung (i18n)
+## Internationalization (i18n)
 
-Die Bibliothek bringt eingebaute Texte für **Deutsch** (`de`, Standard) und **Englisch** (`en`) mit. Es gibt **keine** Pflicht-Peer-Dependency auf `vue-i18n` – Übersetzungen laufen über Provide/Inject.
+The library includes built-in strings for **German** (`de`, default) and **English** (`en`). There is **no** required peer dependency on `vue-i18n` — translations use provide/inject.
 
-### Locale und Messages überschreiben
+### Override locale and messages
 
 ```vue
 <JsonSchemaFormEditor
@@ -65,9 +65,9 @@ Die Bibliothek bringt eingebaute Texte für **Deutsch** (`de`, Standard) und **E
 />
 ```
 
-Gleiche Props stehen auf `JsonSchemaForm` zur Verfügung: `locale`, `fallbackLocale`, `messages`, `translate`.
+The same props are available on `JsonSchemaForm`: `locale`, `fallbackLocale`, `messages`, `translate`.
 
-### Integration mit vue-i18n
+### Integration with vue-i18n
 
 ```ts
 import { createI18n } from "vue-i18n";
@@ -80,19 +80,19 @@ const i18n = createI18n({ /* … */ });
 />
 ```
 
-Host-Keys können unter dem Präfix `jse.` liegen (z. B. `jse.editor.tabs.schema.label`) oder identisch zu den Paket-Keys sein.
+Host keys may use the `jse.` prefix (e.g. `jse.editor.tabs.schema.label`) or match the package keys exactly.
 
-### Formular-Labels aus dem UI-Schema
+### Form labels from the UI schema
 
-Im UI-Schema kann pro Control ein i18n-Key gesetzt werden (`element.i18n`). Die Auflösung erfolgt in dieser Reihenfolge:
+Each control in the UI schema can set an i18n key (`element.i18n`). Labels are resolved in this order:
 
-1. explizites `label` am Control
-2. `i18n`-Key → `t(key)` aus dem Editor-/Form-Kontext
-3. `title` aus dem JSON Schema
-4. Scope als Fallback
+1. explicit `label` on the control
+2. `i18n` key → `t(key)` from the editor/form context
+3. `title` from the JSON Schema
+4. scope as fallback
 5. `form.fallbackLabel`
 
-### API für eigene Erweiterungen
+### API for custom extensions
 
 ```ts
 import { useJseI18n, deMessages, enMessages, type JseMessageKey } from "@jsonschema-editor/vue";
@@ -100,9 +100,9 @@ import { useJseI18n, deMessages, enMessages, type JseMessageKey } from "@jsonsch
 const { t, locale } = useJseI18n();
 ```
 
-`useJseI18n()` funktioniert innerhalb von `JsonSchemaForm` / `JsonSchemaFormEditor` und deren Kindkomponenten. Message-Keys sind in `deMessages` / `enMessages` typisiert (`JseMessageKey`).
+`useJseI18n()` works inside `JsonSchemaForm` / `JsonSchemaFormEditor` and their child components. Message keys are typed in `deMessages` / `enMessages` (`JseMessageKey`).
 
-## Entwicklung
+## Development
 
 ```bash
 pnpm install
@@ -110,6 +110,6 @@ pnpm run build
 pnpm run typecheck
 ```
 
-## Lizenz
+## License
 
-MIT – siehe [LICENSE](../LICENSE) im Repository-Root.
+MIT — see [LICENSE](../LICENSE) in the repository root.

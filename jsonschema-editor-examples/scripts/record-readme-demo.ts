@@ -1,7 +1,7 @@
 /**
- * README-Demo: Mehrsprachigkeit → Attribut anlegen → UI platzieren → Formular ausfüllen.
+ * README demo: i18n → add attribute → place in UI → fill form.
  *
- * Toolchain: Playwright (Screenshots) → gifenc (PNG-Frames → GIF)
+ * Toolchain: Playwright (screenshots) → gifenc (PNG frames → GIF)
  */
 import { createRequire } from "node:module";
 import { mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
@@ -228,15 +228,15 @@ async function runDemo(): Promise<string[]> {
 }
 
 async function main(): Promise<void> {
-  console.log("Workflow-Demo aufnehmen …");
+  console.log("Recording workflow demo …");
   const frames = await runDemo();
 
-  console.log(`${frames.length} Frames → GIF …`);
+  console.log(`${frames.length} frames → GIF …`);
   mkdirSync(path.dirname(outputGif), { recursive: true });
   encodeGif(frames);
 
   rmSync(framesDir, { recursive: true, force: true });
-  console.log(`Fertig: ${outputGif}`);
+  console.log(`Done: ${outputGif}`);
 }
 
 main().catch((error: unknown) => {

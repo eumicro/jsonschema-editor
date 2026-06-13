@@ -1,14 +1,14 @@
 # @jsonschema-editor/json-schema
 
-Eigenständiges, **streng objektorientiertes** JSON-Schema-Datenmodell.
+Standalone, **strictly object-oriented** JSON Schema data model.
 
-## Prinzipien
+## Principles
 
-- **Vererbung**: `SchemaNode` → `LeafSchema` / `CompositeSchema` → konkrete Typen
-- **Kapselung**: `SchemaMetadata`, `CustomAttributeCollection`, `PropertyCollection`
-- **Polymorphie**: `accept(visitor)`, `deepClone()`, `resolveAtScope()`, `createDefaultValue()`
-- **Fabrik**: `SchemaFactory.fromJSON()` / `createObject()` …
-- **Template Method**: `toJSON()` ruft `writeTypeDefinition()` auf
+- **Inheritance**: `SchemaNode` → `LeafSchema` / `CompositeSchema` → concrete types
+- **Encapsulation**: `SchemaMetadata`, `CustomAttributeCollection`, `PropertyCollection`
+- **Polymorphism**: `accept(visitor)`, `deepClone()`, `resolveAtScope()`, `createDefaultValue()`
+- **Factory**: `SchemaFactory.fromJSON()` / `createObject()` …
+- **Template method**: `toJSON()` calls `writeTypeDefinition()`
 
 ## Installation
 
@@ -16,7 +16,7 @@ Eigenständiges, **streng objektorientiertes** JSON-Schema-Datenmodell.
 npm install @jsonschema-editor/json-schema
 ```
 
-Entwicklung im Monorepo:
+Development in the monorepo:
 
 ```bash
 pnpm install
@@ -24,7 +24,7 @@ pnpm run build
 pnpm test
 ```
 
-## Custom Attributes
+## Custom attributes
 
 ```ts
 import {
@@ -40,6 +40,6 @@ const field = new StringSchema(registry);
 field.setCustomAttribute("x-priority", "high");
 ```
 
-## Kein UI-Schema
+## No UI schema
 
-Dieses Paket kennt **kein** UI-Schema. Siehe `@jsonschema-editor/ui-schema`.
+This package does **not** know about UI schemas. See `@jsonschema-editor/ui-schema`.

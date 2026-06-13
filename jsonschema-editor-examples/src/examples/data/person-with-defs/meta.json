@@ -1,4 +1,4 @@
 {
-  "label": "$defs + oneOf: Mensch / Maschine",
-  "description": "Varianten in $defs definiert und per $ref in oneOf wiederverwendet."
+  "label": "$defs + oneOf: Human / Machine",
+  "description": "Variants defined in $defs and reused via $ref in oneOf."
 }

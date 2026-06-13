@@ -1,4 +1,4 @@
 {
   "label": "allOf + oneOf: Person",
-  "description": "Gemeinsame Basis (allOf) plus natürliche/juristische Variante (oneOf)."
+  "description": "Shared base (allOf) plus natural/legal person variant (oneOf)."
 }
