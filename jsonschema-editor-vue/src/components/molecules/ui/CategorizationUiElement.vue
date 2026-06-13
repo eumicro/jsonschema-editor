@@ -3,6 +3,7 @@ import { computed, ref } from "vue";
 import type { SchemaDocument, SchemaNode } from "@jsonschema-editor/json-schema";
 import { Category, Categorization } from "@jsonschema-editor/ui-schema";
 import JseTabs from "../../atoms/JseTabs.vue";
+import { useJseI18n } from "../../../composables/useJseI18n";
 import UiFormElementResolver from "./UiFormElementResolver.vue";
 
 const props = defineProps<{
@@ -14,6 +15,7 @@ const props = defineProps<{
 
 const data = defineModel<Record<string, unknown>>({ required: true });
 
+const { t } = useJseI18n();
 const activeTab = ref("0");
 
 const categories = computed(() =>
@@ -23,7 +25,7 @@ const categories = computed(() =>
 const tabs = computed(() =>
   categories.value.map((category, index) => ({
     id: String(index),
-    label: category.label ?? `Kategorie ${index + 1}`,
+    label: category.label ?? t("categorization.category", { index: index + 1 }),
   })),
 );
 

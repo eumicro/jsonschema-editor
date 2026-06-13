@@ -10,11 +10,13 @@ const props = defineProps<{
   schema: SchemaNode;
   scope: string;
   label?: string;
+  i18nKey?: string;
   readonly?: boolean;
 }>();
 
 const rootSchema = toRef(props, "schema");
 const labelRef = toRef(props, "label");
+const i18nKeyRef = toRef(props, "i18nKey");
 const rootData = defineModel<Record<string, unknown>>({ required: true });
 
 const { fieldSchema, value } = useScopedField(rootSchema, rootData, props.scope);
@@ -23,6 +25,7 @@ const { resolvedSchema, displayLabel, description } = useFormFieldLabel(
   props.scope,
   labelRef,
   fieldSchema,
+  i18nKeyRef,
 );
 
 const enumValues = computed(() => resolvedSchema.value?.enumValues ?? []);

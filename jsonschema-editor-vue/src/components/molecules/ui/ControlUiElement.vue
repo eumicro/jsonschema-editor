@@ -20,6 +20,7 @@ const data = defineModel<Record<string, unknown>>({ required: true });
     :document="document"
     :scope="element.scope"
     :label="element.label"
+    :i18n-key="element.i18n"
     :readonly="readonly"
   />
 </template>

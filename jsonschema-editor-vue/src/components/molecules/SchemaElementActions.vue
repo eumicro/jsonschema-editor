@@ -31,6 +31,7 @@ import {
   SCHEMA_CHANGE_KINDS,
   type ArrayItemTypeKind,
 } from "../../utils/schema-type-kinds";
+import { useJseI18n } from "../../composables/useJseI18n";
 
 const props = defineProps<{
   document: SchemaDocument;
@@ -42,6 +43,8 @@ const emit = defineEmits<{
   done: [];
   "items-set": [arrayPath: SchemaPath, kind: string];
 }>();
+
+const { t } = useJseI18n();
 
 const compositionOperators = ["allOf", "anyOf", "oneOf"] as const;
 
@@ -112,17 +115,17 @@ function addProperty(kind: string) {
 
   const name = newPropertyName.value.trim();
   if (!name) {
-    propertyNameError.value = "Bitte einen Feldnamen angeben.";
+    propertyNameError.value = t("validation.propertyNameRequired");
     return;
   }
   if (targetNode.value.getProperty(name)) {
-    propertyNameError.value = `Der Name „${name}“ existiert bereits.`;
+    propertyNameError.value = t("validation.propertyNameExists", { name });
     return;
   }
 
   const next = addObjectPropertyToDocument(props.document, props.targetPath, kind, name);
   if (next === props.document) {
-    propertyNameError.value = `Der Name „${name}“ existiert bereits.`;
+    propertyNameError.value = t("validation.propertyNameExists", { name });
     return;
   }
 
@@ -135,7 +138,7 @@ function addPropertyFromDef() {
 
   const name = newPropertyName.value.trim();
   if (!name) {
-    propertyNameError.value = "Bitte einen Feldnamen angeben.";
+    propertyNameError.value = t("validation.propertyNameRequired");
     return;
   }
 
@@ -146,7 +149,7 @@ function addPropertyFromDef() {
     name,
   );
   if (next === props.document) {
-    propertyNameError.value = `Der Name „${name}“ existiert bereits.`;
+    propertyNameError.value = t("validation.propertyNameExists", { name });
     return;
   }
 
@@ -157,11 +160,11 @@ function addPropertyFromDef() {
 function addDef(kind: string) {
   const name = newDefName.value.trim();
   if (!name) {
-    defNameError.value = "Bitte einen Definitionsnamen angeben.";
+    defNameError.value = t("validation.defNameRequired");
     return;
   }
   if (props.document.hasDef(name)) {
-    defNameError.value = `Definition „${name}“ existiert bereits.`;
+    defNameError.value = t("validation.defNameExists", { name });
     return;
   }
 
@@ -194,22 +197,22 @@ function changeKind(kind: string) {
 <template>
   <div class="jse-element-actions">
     <p class="jse-element-actions__target">
-      Ziel: <strong>{{ targetLabel }}</strong>
+      {{ t("elementActions.target") }} <strong>{{ targetLabel }}</strong>
       <span class="jse-element-actions__kind">({{ targetKindLabel }})</span>
     </p>
 
     <div v-if="isDefsContainer" class="jse-element-actions__section">
       <div class="jse-attribute-control">
-        <JseLabel>Definitionsname</JseLabel>
+        <JseLabel>{{ t("elementActions.defName") }}</JseLabel>
         <JseInput
           v-model="newDefName"
-          placeholder="z. B. Person"
+          :placeholder="t('elementActions.defNamePlaceholder')"
           @update:model-value="defNameError = ''"
         />
       </div>
       <p v-if="defNameError" class="jse-element-actions__error">{{ defNameError }}</p>
 
-      <span class="jse-structure-editor__hint">Typ:</span>
+      <span class="jse-structure-editor__hint">{{ t("elementActions.type") }}</span>
       <div class="jse-structure-editor__buttons">
         <JseButton
           v-for="kind in OBJECT_PROPERTY_KINDS"
@@ -224,16 +227,16 @@ function changeKind(kind: string) {
 
     <div v-if="canAddProperty" class="jse-element-actions__section">
       <div class="jse-attribute-control">
-        <JseLabel>Feldname</JseLabel>
+        <JseLabel>{{ t("elementActions.fieldName") }}</JseLabel>
         <JseInput
           v-model="newPropertyName"
-          placeholder="z. B. name"
+          :placeholder="t('elementActions.fieldNamePlaceholder')"
           @update:model-value="propertyNameError = ''"
         />
       </div>
       <p v-if="propertyNameError" class="jse-element-actions__error">{{ propertyNameError }}</p>
 
-      <span class="jse-structure-editor__hint">Typ:</span>
+      <span class="jse-structure-editor__hint">{{ t("elementActions.type") }}</span>
       <div class="jse-structure-editor__buttons">
         <JseButton
           v-for="kind in OBJECT_PROPERTY_KINDS"
@@ -247,13 +250,13 @@ function changeKind(kind: string) {
     </div>
 
     <div v-if="canUseDefRef" class="jse-element-actions__section">
-      <span class="jse-structure-editor__hint">Referenz ($ref):</span>
+      <span class="jse-structure-editor__hint">{{ t("elementActions.ref") }}</span>
       <JseSelect v-model="selectedDefRef" class="jse-field__input">
         <option v-for="name in availableDefs" :key="name" :value="name">{{ name }}</option>
       </JseSelect>
       <div class="jse-structure-editor__buttons">
         <JseButton v-if="canAddProperty" type="button" @click="addPropertyFromDef">
-          + $ref als Property
+          {{ t("elementActions.refAsProperty") }}
         </JseButton>
         <template v-if="canAddBranch">
           <JseButton
@@ -262,14 +265,14 @@ function changeKind(kind: string) {
             type="button"
             @click="addBranchFromDef(op)"
           >
-            + $ref in {{ op }}
+            {{ t("elementActions.refInComposition", { operator: op }) }}
           </JseButton>
         </template>
       </div>
     </div>
 
     <div v-if="canAddBranch" class="jse-element-actions__section">
-      <span class="jse-structure-editor__hint">Kompositions-Zweig:</span>
+      <span class="jse-structure-editor__hint">{{ t("elementActions.compositionBranch") }}</span>
       <div class="jse-structure-editor__buttons">
         <JseButton v-for="op in compositionOperators" :key="op" type="button" @click="addBranch(op)">
           + {{ op }}
@@ -278,12 +281,12 @@ function changeKind(kind: string) {
     </div>
 
     <div v-if="isArray" class="jse-element-actions__section">
-      <span class="jse-structure-editor__hint">Items-Typ festlegen:</span>
+      <span class="jse-structure-editor__hint">{{ t("elementActions.setItemsType") }}</span>
       <ArrayItemsTypeControl :current-kind="arrayItemsKind" @select="setItems" />
     </div>
 
     <div v-if="canChangeKind" class="jse-element-actions__section">
-      <span class="jse-structure-editor__hint">Typ ändern:</span>
+      <span class="jse-structure-editor__hint">{{ t("elementActions.changeType") }}</span>
       <div class="jse-structure-editor__buttons">
         <JseButton
           v-for="kind in SCHEMA_CHANGE_KINDS"

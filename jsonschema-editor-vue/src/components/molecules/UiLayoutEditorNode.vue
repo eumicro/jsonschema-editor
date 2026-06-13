@@ -12,6 +12,8 @@ import {
   type UiPath,
 } from "../../utils/ui-editor";
 import { canAcceptUiChildren, canDeleteUiElement } from "../../utils/ui-tree-actions";
+import { useJseI18n } from "../../composables/useJseI18n";
+import { useTreeNodeActionLabels } from "../../composables/useTreeNodeActionLabels";
 import UiLayoutDropZone from "../atoms/UiLayoutDropZone.vue";
 import JseTreeNodeActions from "./JseTreeNodeActions.vue";
 
@@ -47,6 +49,8 @@ const children = computed(() =>
 );
 const showAdd = computed(() => canAcceptUiChildren(element.value));
 const showDelete = computed(() => canDeleteUiElement(props.path));
+const { t } = useJseI18n();
+const { addLabel, editLabel, deleteLabel } = useTreeNodeActionLabels(label, "ui");
 const isDragging = computed(
   () => props.dragSourcePath !== null && uiPathKey(props.dragSourcePath) === pathKey.value,
 );
@@ -140,9 +144,9 @@ function onContainerDrop(event: DragEvent) {
         :show-add="showAdd"
         :show-edit="true"
         :show-delete="showDelete"
-        :add-label="`Element zu ${label} hinzufügen`"
-        :edit-label="`${label} bearbeiten`"
-        :delete-label="`${label} löschen`"
+        :add-label="addLabel"
+        :edit-label="editLabel"
+        :delete-label="deleteLabel"
         @add="emit('add', path, $event)"
         @edit="emit('edit', path, $event)"
         @delete="emit('delete', path)"
@@ -182,7 +186,7 @@ function onContainerDrop(event: DragEvent) {
       <UiLayoutDropZone
         v-if="children.length === 0 || dragSourcePath"
         :active="activeDropIndex === children.length && dragSourcePath !== null"
-        :label="children.length === 0 ? 'Element hier ablegen' : undefined"
+        :label="children.length === 0 ? t('layout.dropElement') : undefined"
         @dragover="onDropZoneDragOver(children.length, $event)"
         @dragleave="onDropZoneDragLeave"
         @drop="onDropZoneDrop(children.length, $event)"

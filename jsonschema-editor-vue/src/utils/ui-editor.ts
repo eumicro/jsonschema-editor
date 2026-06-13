@@ -11,6 +11,10 @@ import {
   type UiElement,
 } from "@jsonschema-editor/ui-schema";
 import { buildPropertyScope } from "@jsonschema-editor/ui-schema";
+import { createTranslator } from "../i18n/createTranslator.js";
+import type { TranslateFn } from "../i18n/types.js";
+
+const defaultTranslate = createTranslator().t;
 
 export type UiPath = number[];
 
@@ -233,25 +237,29 @@ export function createUiElement(
     | "Category"
     | "Stepper"
     | "Step",
-  options?: { scope?: string; label?: string; text?: string },
+  options?: { scope?: string; label?: string; text?: string; translate?: TranslateFn },
 ): UiElement {
+  const t = options?.translate ?? defaultTranslate;
   switch (kind) {
     case "Control":
-      return new Control(options?.scope ?? "#/properties/field", options?.label ?? "Feld");
+      return new Control(
+        options?.scope ?? "#/properties/field",
+        options?.label ?? t("uiDefaults.controlLabel"),
+      );
     case "Group":
-      return new Group(options?.label ?? "Gruppe");
+      return new Group(options?.label ?? t("uiDefaults.groupLabel"));
     case "HorizontalLayout":
       return new HorizontalLayout();
     case "Label":
-      return new Label(options?.text ?? "Beschriftung");
+      return new Label(options?.text ?? t("uiDefaults.labelText"));
     case "Categorization":
       return new Categorization();
     case "Category":
-      return new Category(options?.label ?? "Kategorie");
+      return new Category(options?.label ?? t("uiDefaults.categoryLabel"));
     case "Stepper":
       return new Stepper();
     case "Step":
-      return new Step(options?.label ?? "Schritt");
+      return new Step(options?.label ?? t("uiDefaults.stepLabel"));
     default:
       return new VerticalLayout();
   }
@@ -273,13 +281,19 @@ export function changeUiLayoutKind(
   path: UiPath,
   kind: UiLayoutKind,
   groupLabel?: string,
+  translate?: TranslateFn,
 ): UiElement {
   const element = getUiElementAt(root, path);
   if (!isLayoutElement(element)) return root;
 
   const replacement = createUiElement(
     kind,
-    kind === "Group" ? { label: groupLabel ?? (element instanceof Group ? element.label : undefined) } : undefined,
+    kind === "Group"
+      ? {
+          label: groupLabel ?? (element instanceof Group ? element.label : undefined),
+          translate,
+        }
+      : { translate },
   );
 
   for (const child of element.elements) {

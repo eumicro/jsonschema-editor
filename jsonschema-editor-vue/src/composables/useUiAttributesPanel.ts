@@ -14,6 +14,7 @@ import {
   listUiAttributeFields,
   patchUiAttribute,
 } from "../utils/ui-attributes";
+import { useJseI18n } from "./useJseI18n";
 
 export interface UiAttributesPanelEmits {
   (event: "update:root", root: UiElement): void;
@@ -24,6 +25,8 @@ export function useUiAttributesPanel(
   selectedPath: Ref<UiPath>,
   emit: UiAttributesPanelEmits,
 ) {
+  const { t } = useJseI18n();
+
   const selectedElement = computed(() => {
     try {
       return getUiElementAt(root.value, selectedPath.value);
@@ -61,7 +64,7 @@ export function useUiAttributesPanel(
       kind === "Group" && selectedElement.value instanceof Group
         ? selectedElement.value.label
         : undefined;
-    patch(changeUiLayoutKind(root.value, selectedPath.value, kind, groupLabel));
+    patch(changeUiLayoutKind(root.value, selectedPath.value, kind, groupLabel, t));
   }
 
   return {

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import JseIconButton from "../atoms/JseIconButton.vue";
+import { useJseI18n } from "../../composables/useJseI18n";
 
 defineProps<{
   showAdd?: boolean;
@@ -15,6 +16,8 @@ defineEmits<{
   edit: [event: MouseEvent];
   delete: [];
 }>();
+
+const { t } = useJseI18n();
 </script>
 
 <template>
@@ -22,14 +25,14 @@ defineEmits<{
     <JseIconButton
       v-if="showAdd"
       variant="primary"
-      :label="addLabel ?? 'Element hinzufügen'"
+      :label="addLabel ?? t('tree.actions.add')"
       @click.stop="$emit('add', $event)"
     >
       +
     </JseIconButton>
     <JseIconButton
       v-if="showEdit"
-      :label="editLabel ?? 'Attribute bearbeiten'"
+      :label="editLabel ?? t('tree.actions.edit')"
       @click.stop="$emit('edit', $event)"
     >
       <svg
@@ -47,7 +50,7 @@ defineEmits<{
     <JseIconButton
       v-if="showDelete"
       variant="danger"
-      :label="deleteLabel ?? 'Element löschen'"
+      :label="deleteLabel ?? t('tree.actions.delete')"
       @click.stop="$emit('delete')"
     >
       <svg

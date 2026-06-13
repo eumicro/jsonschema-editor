@@ -3,6 +3,7 @@ import { computed, ref } from "vue";
 import type { SchemaDocument, SchemaNode } from "@jsonschema-editor/json-schema";
 import { Step, Stepper } from "@jsonschema-editor/ui-schema";
 import JseButton from "../../atoms/JseButton.vue";
+import { useJseI18n } from "../../../composables/useJseI18n";
 import UiFormElementResolver from "./UiFormElementResolver.vue";
 
 const props = defineProps<{
@@ -14,6 +15,7 @@ const props = defineProps<{
 
 const data = defineModel<Record<string, unknown>>({ required: true });
 
+const { t } = useJseI18n();
 const activeStep = ref(0);
 
 const steps = computed(() =>
@@ -60,7 +62,7 @@ function nextStep() {
           @click="goToStep(index)"
         >
           <span class="jse-stepper__step-number">{{ index + 1 }}</span>
-          <span class="jse-stepper__step-label">{{ step.label ?? `Schritt ${index + 1}` }}</span>
+          <span class="jse-stepper__step-label">{{ step.label ?? t("stepper.step", { index: index + 1 }) }}</span>
         </button>
       </li>
     </ol>
@@ -79,10 +81,10 @@ function nextStep() {
 
     <div v-if="steps.length > 1" class="jse-stepper__nav">
       <JseButton type="button" :disabled="isFirst || readonly" @click="previousStep">
-        Zurück
+        {{ t("stepper.back") }}
       </JseButton>
       <JseButton type="button" :disabled="isLast || readonly" @click="nextStep">
-        Weiter
+        {{ t("stepper.next") }}
       </JseButton>
     </div>
   </div>

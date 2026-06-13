@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useJseI18n } from "../../composables/useJseI18n";
+
 defineProps<{
   active?: boolean;
   label?: string;
@@ -9,6 +11,8 @@ defineEmits<{
   dragleave: [];
   drop: [event: DragEvent];
 }>();
+
+const { t } = useJseI18n();
 </script>
 
 <template>
@@ -20,6 +24,6 @@ defineEmits<{
     @dragleave="$emit('dragleave')"
     @drop.prevent="$emit('drop', $event)"
   >
-    <span v-if="active" class="jse-layout-dropzone__label">{{ label ?? "Hier ablegen" }}</span>
+    <span v-if="active" class="jse-layout-dropzone__label">{{ label ?? t("layout.dropHere") }}</span>
   </div>
 </template>

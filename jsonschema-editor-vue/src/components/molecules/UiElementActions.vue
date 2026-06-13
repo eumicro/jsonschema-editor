@@ -10,6 +10,7 @@ import {
   insertUiElement,
   type UiPath,
 } from "../../utils/ui-editor";
+import { useJseI18n } from "../../composables/useJseI18n";
 
 const props = defineProps<{
   root: UiElement;
@@ -20,6 +21,8 @@ const emit = defineEmits<{
   "update:root": [root: UiElement];
   done: [];
 }>();
+
+const { t } = useJseI18n();
 
 const targetElement = computed(() => getUiElementAt(props.root, props.targetPath));
 const targetLabel = computed(() => getUiElementLabel(targetElement.value));
@@ -37,7 +40,7 @@ function addElement(
     | "Stepper"
     | "Step",
 ) {
-  const element = createUiElement(kind);
+  const element = createUiElement(kind, { translate: t });
   emit("update:root", insertUiElement(props.root, insertParentPath.value, element));
   emit("done");
 }
@@ -46,22 +49,22 @@ function addElement(
 <template>
   <div class="jse-element-actions">
     <p class="jse-element-actions__target">
-      Ziel: <strong>{{ targetLabel }}</strong>
+      {{ t("elementActions.target") }} <strong>{{ targetLabel }}</strong>
       <span class="jse-element-actions__kind">({{ targetElement.elementKind }})</span>
     </p>
 
     <div class="jse-element-actions__section">
-      <span class="jse-structure-editor__hint">UI-Element hinzufügen:</span>
+      <span class="jse-structure-editor__hint">{{ t("elementActions.addUiElement") }}</span>
       <div class="jse-structure-editor__buttons">
-        <JseButton type="button" @click="addElement('Control')">+ Control</JseButton>
-        <JseButton type="button" @click="addElement('Group')">+ Group</JseButton>
-        <JseButton type="button" @click="addElement('VerticalLayout')">+ VerticalLayout</JseButton>
-        <JseButton type="button" @click="addElement('HorizontalLayout')">+ HorizontalLayout</JseButton>
-        <JseButton type="button" @click="addElement('Label')">+ Label</JseButton>
-        <JseButton type="button" @click="addElement('Categorization')">+ Categorization</JseButton>
-        <JseButton type="button" @click="addElement('Category')">+ Category</JseButton>
-        <JseButton type="button" @click="addElement('Stepper')">+ Stepper</JseButton>
-        <JseButton type="button" @click="addElement('Step')">+ Step</JseButton>
+        <JseButton type="button" @click="addElement('Control')">{{ t("elementActions.addKind", { kind: "Control" }) }}</JseButton>
+        <JseButton type="button" @click="addElement('Group')">{{ t("elementActions.addKind", { kind: "Group" }) }}</JseButton>
+        <JseButton type="button" @click="addElement('VerticalLayout')">{{ t("elementActions.addKind", { kind: "VerticalLayout" }) }}</JseButton>
+        <JseButton type="button" @click="addElement('HorizontalLayout')">{{ t("elementActions.addKind", { kind: "HorizontalLayout" }) }}</JseButton>
+        <JseButton type="button" @click="addElement('Label')">{{ t("elementActions.addKind", { kind: "Label" }) }}</JseButton>
+        <JseButton type="button" @click="addElement('Categorization')">{{ t("elementActions.addKind", { kind: "Categorization" }) }}</JseButton>
+        <JseButton type="button" @click="addElement('Category')">{{ t("elementActions.addKind", { kind: "Category" }) }}</JseButton>
+        <JseButton type="button" @click="addElement('Stepper')">{{ t("elementActions.addKind", { kind: "Stepper" }) }}</JseButton>
+        <JseButton type="button" @click="addElement('Step')">{{ t("elementActions.addKind", { kind: "Step" }) }}</JseButton>
       </div>
     </div>
   </div>

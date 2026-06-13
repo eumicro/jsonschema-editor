@@ -16,6 +16,7 @@ import {
   uiPathKey,
   type UiPath,
 } from "../../utils/ui-editor";
+import { useJseI18n } from "../../composables/useJseI18n";
 
 const props = defineProps<{
   root: UiElement;
@@ -26,6 +27,8 @@ const emit = defineEmits<{
   "update:root": [root: UiElement];
   "update:selectedPath": [path: UiPath];
 }>();
+
+const { t } = useJseI18n();
 
 const viewMode = ref<"tree" | "layout">("layout");
 const expandedKeys = ref(new Set<string>(["root"]));
@@ -41,9 +44,9 @@ const attributesPanelTitle = computed(() => {
   try {
     const element = getUiElementAt(props.root, attributesTargetPath.value);
     const label = getUiElementLabel(element);
-    return `UI – ${label}`;
+    return t("uiStructure.attributesTitle", { label });
   } catch {
-    return "UI bearbeiten";
+    return t("uiStructure.attributesFallback");
   }
 });
 
@@ -52,7 +55,7 @@ const selectedLabel = computed(() => {
     const element = getUiElementAt(props.root, props.selectedPath);
     return getUiElementLabel(element);
   } catch {
-    return "Kein Element ausgewählt";
+    return t("uiStructure.noSelection");
   }
 });
 
@@ -154,7 +157,7 @@ function onTreeDrop(targetPath: UiPath, sourcePath: UiPath) {
 
 <template>
   <div class="jse-structure-editor">
-    <div class="jse-structure-editor__view-toggle" role="tablist" aria-label="UI-Schema Ansicht">
+    <div class="jse-structure-editor__view-toggle" role="tablist" :aria-label="t('uiStructure.viewToggleAria')">
       <button
         type="button"
         role="tab"
@@ -163,7 +166,7 @@ function onTreeDrop(targetPath: UiPath, sourcePath: UiPath) {
         :aria-selected="viewMode === 'layout'"
         @click="viewMode = 'layout'"
       >
-        Layout-Editor
+        {{ t("uiStructure.viewLayout") }}
       </button>
       <button
         type="button"
@@ -173,18 +176,16 @@ function onTreeDrop(targetPath: UiPath, sourcePath: UiPath) {
         :aria-selected="viewMode === 'tree'"
         @click="viewMode = 'tree'"
       >
-        Baumansicht
+        {{ t("uiStructure.viewTree") }}
       </button>
     </div>
 
     <p class="jse-structure-editor__hint jse-structure-editor__hint--top">
       <template v-if="viewMode === 'layout'">
-        Felder und Gruppen per Drag &amp; Drop anordnen – auch zwischen Objekten und deren
-        Unterelementen. Ganze Gruppen verschieben alle enthaltenen Schema-Felder mit.
+        {{ t("uiStructure.hintLayout") }}
       </template>
       <template v-else>
-        Hierarchie als Baum. Elemente per Drag &amp; Drop sortieren oder in andere Layouts
-        verschieben. + fügt hinzu, Stift bearbeitet Eigenschaften.
+        {{ t("uiStructure.hintTree") }}
       </template>
     </p>
 
@@ -203,7 +204,7 @@ function onTreeDrop(targetPath: UiPath, sourcePath: UiPath) {
       v-else
       class="jse-structure-editor__tree"
       role="tree"
-      aria-label="UI-Struktur"
+      :aria-label="t('uiStructure.treeAria')"
       @dragend="onDragEnd"
     >
       <UiTreeNode
@@ -223,11 +224,11 @@ function onTreeDrop(targetPath: UiPath, sourcePath: UiPath) {
     </div>
 
     <div class="jse-structure-editor__status" aria-live="polite">
-      <span class="jse-structure-editor__status-label">Ausgewählt:</span>
+      <span class="jse-structure-editor__status-label">{{ t("uiStructure.selected") }}</span>
       <span class="jse-structure-editor__status-name">{{ selectedLabel }}</span>
     </div>
 
-    <JseFloatingPanel ref="addPanelRef" v-model="addDialogOpen" title="UI-Element hinzufügen">
+    <JseFloatingPanel ref="addPanelRef" v-model="addDialogOpen" :title="t('uiStructure.addElement')">
       <UiElementActions
         :root="root"
         :target-path="addTargetPath"

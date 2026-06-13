@@ -6,6 +6,7 @@ import { buildPropertyScope, scopeToPath } from "@jsonschema-editor/ui-schema";
 import { resolveCompositionAtScope } from "@jsonschema-editor/ui-schema/bridge";
 import { createEmptyDataForSchema, getValueAtPath, setValueAtPath } from "../../../utils/data-path";
 import JseLabel from "../../atoms/JseLabel.vue";
+import { useJseI18n } from "../../../composables/useJseI18n";
 import JseSelect from "../../atoms/JseSelect.vue";
 import SchemaFormFieldResolver from "./SchemaFormFieldResolver.vue";
 
@@ -18,6 +19,8 @@ const props = defineProps<{
 }>();
 
 const data = defineModel<Record<string, unknown>>({ required: true });
+
+const { t } = useJseI18n();
 
 const rootSchema = computed(() => props.document?.root ?? props.schema);
 const dataPath = computed(() => scopeToPath(props.scope));
@@ -145,7 +148,7 @@ function onVariantChange(raw: string | number) {
     <legend v-if="label">{{ label }}</legend>
 
     <div v-if="branches.length > 1" class="jse-field">
-      <JseLabel>Typ</JseLabel>
+      <JseLabel>{{ t("form.oneOf.type") }}</JseLabel>
       <JseSelect
         :model-value="selectedIndex"
         class="jse-field__input"

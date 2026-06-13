@@ -16,6 +16,7 @@ import {
   tryGetNodeAtPath,
 } from "../../utils/schema-document";
 import { schemaPathKey, type SchemaPath } from "../../utils/schema-editor";
+import { useJseI18n } from "../../composables/useJseI18n";
 
 const props = defineProps<{
   document: SchemaDocument;
@@ -26,6 +27,8 @@ const emit = defineEmits<{
   "update:document": [document: SchemaDocument];
   "update:selectedPath": [path: SchemaPath];
 }>();
+
+const { t } = useJseI18n();
 
 const expandedKeys = ref(new Set<string>(["root", DEFS_SEGMENT]));
 const addDialogOpen = ref(false);
@@ -57,7 +60,7 @@ watch(
 
 const selectedLabel = computed(() => {
   const node = tryGetNodeAtPath(props.document, props.selectedPath);
-  if (!node) return "Kein Element ausgewählt";
+  if (!node) return t("schemaStructure.noSelection");
   return getDocumentNodeLabel(node, props.selectedPath);
 });
 
@@ -68,9 +71,9 @@ const selectedKind = computed(() => {
 
 const attributesPanelTitle = computed(() => {
   const node = tryGetNodeAtPath(props.document, attributesTargetPath.value);
-  if (!node) return "Attribute";
+  if (!node) return t("schemaStructure.attributesFallback");
   const label = getDocumentNodeLabel(node, attributesTargetPath.value);
-  return `Attribute – ${label}`;
+  return t("schemaStructure.attributesTitle", { label });
 });
 
 function pathsOverlap(deletedPath: SchemaPath, targetPath: SchemaPath): boolean {
@@ -160,14 +163,13 @@ function onAttributesPathChange(path: SchemaPath) {
 <template>
   <div class="jse-structure-editor">
     <p class="jse-structure-editor__hint jse-structure-editor__hint--top">
-      Klicken Sie ein Element an, um es auszuwählen. Mit
-      <strong>+</strong> fügen Sie Kinder hinzu, mit dem Stift bearbeiten Sie Attribute.
+      {{ t("schemaStructure.hint") }}
     </p>
 
     <div
       class="jse-structure-editor__tree"
       role="tree"
-      aria-label="Schema-Struktur"
+      :aria-label="t('schemaStructure.treeAria')"
     >
       <SchemaTreeNode
         :document="document"
@@ -194,12 +196,12 @@ function onAttributesPathChange(path: SchemaPath) {
     </div>
 
     <div class="jse-structure-editor__status" aria-live="polite">
-      <span class="jse-structure-editor__status-label">Ausgewählt:</span>
+      <span class="jse-structure-editor__status-label">{{ t("schemaStructure.selected") }}</span>
       <span v-if="selectedKind" class="jse-tree-node__kind">{{ selectedKind }}</span>
       <span class="jse-structure-editor__status-name">{{ selectedLabel }}</span>
     </div>
 
-    <JseFloatingPanel ref="addPanelRef" v-model="addDialogOpen" title="Element hinzufügen">
+    <JseFloatingPanel ref="addPanelRef" v-model="addDialogOpen" :title="t('schemaStructure.addElement')">
       <SchemaElementActions
         :document="document"
         :target-path="addTargetPath"

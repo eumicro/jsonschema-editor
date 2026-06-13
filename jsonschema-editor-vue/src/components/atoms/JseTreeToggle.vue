@@ -1,10 +1,14 @@
 <script setup lang="ts">
+import { useJseI18n } from "../../composables/useJseI18n";
+
 defineProps<{
   expanded?: boolean;
   hasChildren?: boolean;
 }>();
 
 defineEmits<{ toggle: [] }>();
+
+const { t } = useJseI18n();
 </script>
 
 <template>
@@ -12,7 +16,7 @@ defineEmits<{ toggle: [] }>();
     v-if="hasChildren"
     type="button"
     class="jse-tree-node__toggle"
-    :aria-label="expanded ? 'Einklappen' : 'Ausklappen'"
+    :aria-label="expanded ? t('tree.toggle.collapse') : t('tree.toggle.expand')"
     :aria-expanded="hasChildren ? expanded : undefined"
     @click.stop="$emit('toggle')"
   >

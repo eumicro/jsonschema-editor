@@ -5,6 +5,7 @@ import { DEFS_SEGMENT, listDocumentChildren } from "../../../utils/schema-docume
 import { schemaPathKey, type SchemaPath } from "../../../utils/schema-editor";
 import JseTreeToggle from "../../atoms/JseTreeToggle.vue";
 import JseTreeNodeActions from "../JseTreeNodeActions.vue";
+import { useJseI18n } from "../../../composables/useJseI18n";
 import SchemaTreeNode from "./SchemaTreeNode.vue";
 
 const props = defineProps<{
@@ -20,6 +21,8 @@ const emit = defineEmits<{
   edit: [path: SchemaPath, event: MouseEvent];
   delete: [path: SchemaPath];
 }>();
+
+const { t } = useJseI18n();
 
 const defsPath = [DEFS_SEGMENT] as SchemaPath;
 const defsChildren = computed(() => listDocumentChildren(props.document, defsPath));
@@ -41,12 +44,12 @@ const defsSelected = computed(() => schemaPathKey(props.selectedPath) === DEFS_S
         @toggle="emit('toggle', defsPath)"
       />
       <span class="jse-tree-node__kind">$defs</span>
-      <span class="jse-tree-node__label">Definitionen</span>
+      <span class="jse-tree-node__label">{{ t("schemaStructure.defs.label") }}</span>
       <JseTreeNodeActions
         :show-add="true"
         :show-edit="false"
         :show-delete="false"
-        add-label="Definition hinzufügen"
+        :add-label="t('schemaStructure.defs.addDefinition')"
         @add="emit('add', defsPath, $event)"
       />
     </div>

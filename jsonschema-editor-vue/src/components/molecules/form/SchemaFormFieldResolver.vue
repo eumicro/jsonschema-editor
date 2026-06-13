@@ -12,6 +12,7 @@ const props = defineProps<{
   document?: SchemaDocument;
   scope: string;
   label?: string;
+  i18nKey?: string;
   readonly?: boolean;
 }>();
 
@@ -38,6 +39,7 @@ const resolvedComponent = computed(() => {
     :document="document"
     :scope="scope"
     :label="label"
+    :i18n-key="i18nKey"
     :readonly="readonly"
   />
 </template>

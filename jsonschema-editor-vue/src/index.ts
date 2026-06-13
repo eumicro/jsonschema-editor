@@ -20,6 +20,8 @@ export * from "./composables/useFormFieldLabel";
 export * from "./composables/useRegistries";
 export * from "./composables/useEditorContext";
 export * from "./composables/useSchemaFormEditorState";
+export * from "./composables/useJseI18n";
+export * from "./i18n";
 export * from "./registry/type-registry";
 export * from "./registry/attribute-control-registry";
 export * from "./registry/registries";

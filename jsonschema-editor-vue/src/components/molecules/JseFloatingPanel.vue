@@ -2,6 +2,7 @@
 import { computed, onBeforeUnmount, watch } from "vue";
 import { useFloatingPanel } from "../../composables/useFloatingPanel";
 import JseIconButton from "../atoms/JseIconButton.vue";
+import { useJseI18n } from "../../composables/useJseI18n";
 
 const props = withDefaults(
   defineProps<{
@@ -21,6 +22,8 @@ const props = withDefaults(
 );
 
 const emit = defineEmits<{ "update:modelValue": [open: boolean] }>();
+
+const { t } = useJseI18n();
 
 const panel = useFloatingPanel({
   initialX: props.initialX,
@@ -100,12 +103,12 @@ defineExpose({ anchorNear, show: panel.show });
         <span class="jse-floating-panel__title">{{ title }}</span>
         <div class="jse-floating-panel__controls">
           <JseIconButton
-            :label="panel.minimized.value ? 'Vergrößern' : 'Verkleinern'"
+            :label="panel.minimized.value ? t('panel.maximize') : t('panel.minimize')"
             @click.stop="panel.toggleMinimized()"
           >
             {{ panel.minimized.value ? "□" : "−" }}
           </JseIconButton>
-          <JseIconButton label="Schließen" @click.stop="close">×</JseIconButton>
+          <JseIconButton :label="t('panel.close')" @click.stop="close">×</JseIconButton>
         </div>
       </header>
 

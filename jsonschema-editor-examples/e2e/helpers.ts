@@ -3,7 +3,7 @@ import type { Page } from "@playwright/test";
 import type { ExampleId } from "../src/examples/catalog";
 
 export async function selectExample(page: Page, id: ExampleId): Promise<void> {
-  await page.locator(".app__example-select").selectOption(id);
+  await page.locator("#app-example-select").selectOption(id);
 }
 
 export async function openFormMode(page: Page): Promise<void> {

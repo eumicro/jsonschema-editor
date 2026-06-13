@@ -6,21 +6,9 @@ import type { UiElement, UiSchemaObject } from "@jsonschema-editor/ui-schema";
 import type { SchemaPath } from "../utils/schema-editor";
 import type { UiPath } from "../utils/ui-editor";
 import { EDITOR_CONTEXT_KEY } from "../registry/renderer-registry";
+import { useJseI18n } from "./useJseI18n";
 
 export type EditorTab = "schema" | "ui";
-
-export const EDITOR_TABS = [
-  {
-    id: "schema" as const,
-    label: "Schema",
-    description: "Datenstruktur, Typen und Validierung definieren.",
-  },
-  {
-    id: "ui" as const,
-    label: "Schema-UI",
-    description: "Layout, Gruppierung und Darstellung des Formulars anpassen.",
-  },
-];
 
 export interface SchemaFormEditorEmits {
   (event: "update:schema", schema: SchemaDocument): void;
@@ -32,6 +20,21 @@ export function useSchemaFormEditorState(
   uiSchema: Ref<UiSchema>,
   emit: SchemaFormEditorEmits,
 ) {
+  const { t } = useJseI18n();
+
+  const editorTabs = computed(() => [
+    {
+      id: "schema" as const,
+      label: t("editor.tabs.schema.label"),
+      description: t("editor.tabs.schema.description"),
+    },
+    {
+      id: "ui" as const,
+      label: t("editor.tabs.ui.label"),
+      description: t("editor.tabs.ui.description"),
+    },
+  ]);
+
   const editorTab = ref<EditorTab>("schema");
   const selectedSchemaPath = ref<SchemaPath>([]);
   const selectedUiPath = ref<UiPath>([]);
@@ -124,6 +127,7 @@ export function useSchemaFormEditorState(
 
   return {
     editorTab,
+    editorTabs,
     selectedSchemaPath,
     selectedUiPath,
     uiManualEdit,

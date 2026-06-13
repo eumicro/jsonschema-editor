@@ -12,6 +12,7 @@ import {
   listDocumentChildren,
 } from "../../../utils/schema-document";
 import { schemaPathKey, type SchemaPath } from "../../../utils/schema-editor";
+import { useTreeNodeActionLabels } from "../../../composables/useTreeNodeActionLabels";
 import JseTreeToggle from "../../atoms/JseTreeToggle.vue";
 import JseTreeNodeActions from "../JseTreeNodeActions.vue";
 
@@ -47,6 +48,7 @@ const isExpanded = computed(
 const hasChildren = computed(() => children.value.length > 0);
 const showAdd = computed(() => node.value !== undefined && canAcceptSchemaChildren(node.value));
 const showDelete = computed(() => canDeleteDocumentNode(props.path));
+const { addLabel, editLabel, deleteLabel } = useTreeNodeActionLabels(label, "schema");
 </script>
 
 <template>
@@ -73,9 +75,9 @@ const showDelete = computed(() => canDeleteDocumentNode(props.path));
         :show-add="showAdd"
         :show-edit="true"
         :show-delete="showDelete"
-        :add-label="`Element zu ${label} hinzufügen`"
-        :edit-label="`Attribute von ${label} bearbeiten`"
-        :delete-label="`${label} löschen`"
+        :add-label="addLabel"
+        :edit-label="editLabel"
+        :delete-label="deleteLabel"
         @add="emit('add', path, $event)"
         @edit="emit('edit', path, $event)"
         @delete="emit('delete', path)"

@@ -11,6 +11,7 @@ import {
   type UiPath,
 } from "../../../utils/ui-editor";
 import { canAcceptUiChildren, canDeleteUiElement } from "../../../utils/ui-tree-actions";
+import { useTreeNodeActionLabels } from "../../../composables/useTreeNodeActionLabels";
 import JseTreeToggle from "../../atoms/JseTreeToggle.vue";
 import JseTreeNodeActions from "../JseTreeNodeActions.vue";
 
@@ -49,6 +50,7 @@ const isLayout = computed(() => isLayoutElement(element.value));
 const isDragOver = ref(false);
 const showAdd = computed(() => canAcceptUiChildren(element.value));
 const showDelete = computed(() => canDeleteUiElement(props.path));
+const { addLabel, editLabel, deleteLabel } = useTreeNodeActionLabels(label, "ui");
 
 function onDragStart(event: DragEvent) {
   emit("dragStart", props.path);
@@ -104,9 +106,9 @@ function onDrop(event: DragEvent) {
         :show-add="showAdd"
         :show-edit="true"
         :show-delete="showDelete"
-        :add-label="`Element zu ${label} hinzufügen`"
-        :edit-label="`${label} bearbeiten`"
-        :delete-label="`${label} löschen`"
+        :add-label="addLabel"
+        :edit-label="editLabel"
+        :delete-label="deleteLabel"
         @add="emit('add', path, $event)"
         @edit="emit('edit', path, $event)"
         @delete="emit('delete', path)"

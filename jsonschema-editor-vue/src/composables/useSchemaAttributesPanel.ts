@@ -24,6 +24,7 @@ import {
   patchSchemaAttribute,
 } from "../utils/schema-attributes";
 import type { ArrayItemTypeKind } from "../utils/schema-type-kinds";
+import { useJseI18n } from "./useJseI18n";
 
 export interface SchemaAttributesPanelEmits {
   (event: "update:document", document: SchemaDocument): void;
@@ -35,6 +36,7 @@ export function useSchemaAttributesPanel(
   selectedPath: Ref<SchemaPath>,
   emit: SchemaAttributesPanelEmits,
 ) {
+  const { t } = useJseI18n();
   const propertyNameInput = ref("");
   const propertyNameError = ref("");
   const selectedDefRef = ref("");
@@ -118,7 +120,7 @@ export function useSchemaAttributesPanel(
       const trimmed = propertyNameInput.value.trim();
       if (!trimmed) {
         propertyNameInput.value = propertyName.value;
-        propertyNameError.value = "Name darf nicht leer sein.";
+        propertyNameError.value = t("validation.nameEmpty");
         return;
       }
       if (trimmed === propertyName.value) {
@@ -127,7 +129,7 @@ export function useSchemaAttributesPanel(
       }
       const next = renameDefinition(document.value, propertyName.value, trimmed);
       if (next === document.value) {
-        propertyNameError.value = `Definition „${trimmed}“ existiert bereits.`;
+        propertyNameError.value = t("validation.defNameExists", { name: trimmed });
         return;
       }
       propertyNameError.value = "";
@@ -144,7 +146,7 @@ export function useSchemaAttributesPanel(
     const trimmed = propertyNameInput.value.trim();
     if (!trimmed) {
       propertyNameInput.value = propertyName.value;
-      propertyNameError.value = "Feldname darf nicht leer sein.";
+      propertyNameError.value = t("validation.fieldNameEmpty");
       return;
     }
     if (trimmed === propertyName.value) {
@@ -152,7 +154,7 @@ export function useSchemaAttributesPanel(
       return;
     }
     if (parentObject.value.getProperty(trimmed)) {
-      propertyNameError.value = `Der Name „${trimmed}“ existiert bereits.`;
+      propertyNameError.value = t("validation.propertyNameExists", { name: trimmed });
       return;
     }
 
@@ -163,7 +165,7 @@ export function useSchemaAttributesPanel(
       trimmed,
     );
     if (next === document.value) {
-      propertyNameError.value = `Der Name „${trimmed}“ existiert bereits.`;
+      propertyNameError.value = t("validation.propertyNameExists", { name: trimmed });
       return;
     }
 

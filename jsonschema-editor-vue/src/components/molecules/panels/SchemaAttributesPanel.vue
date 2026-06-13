@@ -7,6 +7,7 @@ import JseFormField from "../JseFormField.vue";
 import JseSelect from "../../atoms/JseSelect.vue";
 import ArrayItemsTypeControl from "../ArrayItemsTypeControl.vue";
 import AttributeControlResolver from "../attributes/AttributeControlResolver.vue";
+import { useJseI18n } from "../../../composables/useJseI18n";
 import { useSchemaAttributesPanel } from "../../../composables/useSchemaAttributesPanel";
 import type { SchemaPath } from "../../../utils/schema-editor";
 
@@ -19,6 +20,8 @@ const emit = defineEmits<{
   "update:document": [document: SchemaDocument];
   "update:selectedPath": [path: SchemaPath];
 }>();
+
+const { t } = useJseI18n();
 
 const {
   propertyNameInput,
@@ -46,10 +49,13 @@ const {
 
 <template>
   <div class="jse-attributes-panel">
-    <JseFormField v-if="showPropertyName" :label="isDefRoot ? 'Definitionsname' : 'Feldname'">
+    <JseFormField
+      v-if="showPropertyName"
+      :label="isDefRoot ? t('schemaAttributes.defName') : t('schemaAttributes.fieldName')"
+    >
       <JseInput
         :model-value="propertyNameInput"
-        :placeholder="isDefRoot ? 'z. B. Person' : 'JSON-Property-Name'"
+        :placeholder="isDefRoot ? t('schemaAttributes.defNamePlaceholder') : t('schemaAttributes.fieldNamePlaceholder')"
         @update:model-value="(value) => { propertyNameInput = String(value); propertyNameError = ''; }"
         @blur="commitPropertyRename"
         @keydown.enter="($event.target as HTMLInputElement).blur()"
@@ -57,7 +63,7 @@ const {
       <p v-if="propertyNameError" class="jse-element-actions__error">{{ propertyNameError }}</p>
     </JseFormField>
 
-    <JseFormField v-if="isRefNode" label="Referenz ($ref)">
+    <JseFormField v-if="isRefNode" :label="t('schemaAttributes.ref')">
       <JseSelect
         :model-value="selectedDefRef"
         class="jse-field__input"
@@ -74,17 +80,21 @@ const {
       :key="field.name"
       :node="selectedNode"
       :attribute-name="field.name"
-      :label="field.label"
+      :label="t(field.labelKey)"
       mode="schema"
       :model-value="readAttribute(field.name)"
       @update:model-value="updateAttribute(field.name, $event)"
     />
 
-    <JseFormField v-if="parentObject && propertyName && !isDefRoot" boolean label="Pflichtfeld (required)">
+    <JseFormField
+      v-if="parentObject && propertyName && !isDefRoot"
+      boolean
+      :label="t('schemaAttributes.required')"
+    >
       <JseCheckbox :model-value="isRequired" @update:model-value="setRequired($event)" />
     </JseFormField>
 
-    <JseFormField v-if="showItemsTypeControl" label="Items-Typ">
+    <JseFormField v-if="showItemsTypeControl" :label="t('schemaAttributes.itemsType')">
       <ArrayItemsTypeControl compact :current-kind="itemsTypeKind" @select="setItemsType" />
     </JseFormField>
   </div>

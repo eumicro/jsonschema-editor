@@ -11,29 +11,29 @@ import type { SchemaPath } from "./schema-editor";
 
 export interface SchemaAttributeField {
   name: string;
-  label: string;
+  labelKey: string;
 }
 
 const COMMON_ATTRIBUTES: readonly SchemaAttributeField[] = [
-  { name: "title", label: "Titel" },
-  { name: "description", label: "Beschreibung" },
+  { name: "title", labelKey: "schemaAttributes.title" },
+  { name: "description", labelKey: "schemaAttributes.description" },
 ];
 
 const STRING_ATTRIBUTES: readonly SchemaAttributeField[] = [
-  { name: "minLength", label: "minLength" },
-  { name: "maxLength", label: "maxLength" },
-  { name: "pattern", label: "pattern" },
-  { name: "format", label: "format" },
+  { name: "minLength", labelKey: "schemaAttributes.minLength" },
+  { name: "maxLength", labelKey: "schemaAttributes.maxLength" },
+  { name: "pattern", labelKey: "schemaAttributes.pattern" },
+  { name: "format", labelKey: "schemaAttributes.format" },
 ];
 
 const NUMERIC_ATTRIBUTES: readonly SchemaAttributeField[] = [
-  { name: "minimum", label: "minimum" },
-  { name: "maximum", label: "maximum" },
+  { name: "minimum", labelKey: "schemaAttributes.minimum" },
+  { name: "maximum", labelKey: "schemaAttributes.maximum" },
 ];
 
 const ARRAY_ATTRIBUTES: readonly SchemaAttributeField[] = [
-  { name: "minItems", label: "minItems" },
-  { name: "maxItems", label: "maxItems" },
+  { name: "minItems", labelKey: "schemaAttributes.minItems" },
+  { name: "maxItems", labelKey: "schemaAttributes.maxItems" },
 ];
 
 export function listSchemaAttributeFields(node: SchemaNode): SchemaAttributeField[] {

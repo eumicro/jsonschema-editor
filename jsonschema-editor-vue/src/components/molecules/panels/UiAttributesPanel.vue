@@ -4,6 +4,7 @@ import type { UiElement } from "@jsonschema-editor/ui-schema";
 import JseButton from "../../atoms/JseButton.vue";
 import JseFormField from "../JseFormField.vue";
 import AttributeControlResolver from "../attributes/AttributeControlResolver.vue";
+import { useJseI18n } from "../../../composables/useJseI18n";
 import { useUiAttributesPanel } from "../../../composables/useUiAttributesPanel";
 import type { UiPath } from "../../../utils/ui-editor";
 
@@ -15,6 +16,8 @@ const props = defineProps<{
 const emit = defineEmits<{
   "update:root": [root: UiElement];
 }>();
+
+const { t } = useJseI18n();
 
 const {
   selectedElement,
@@ -31,10 +34,10 @@ const {
 <template>
   <div class="jse-attributes-panel">
     <p v-if="selectedPath.length === 0" class="jse-structure-editor__hint">
-      Root-Layout: {{ getUiElementLabel(selectedElement) }}
+      {{ t("uiAttributes.rootLayout", { label: getUiElementLabel(selectedElement) }) }}
     </p>
 
-    <JseFormField v-if="isLayout" label="Layout-Typ">
+    <JseFormField v-if="isLayout" :label="t('uiAttributes.layoutType')">
       <div class="jse-structure-editor__buttons">
         <JseButton
           type="button"
@@ -65,7 +68,7 @@ const {
       :key="field.name"
       :node="selectedElement"
       :attribute-name="field.name"
-      :label="field.label"
+      :label="t(field.labelKey)"
       mode="ui"
       :model-value="readAttribute(field.name)"
       @update:model-value="updateAttribute(field.name, $event)"

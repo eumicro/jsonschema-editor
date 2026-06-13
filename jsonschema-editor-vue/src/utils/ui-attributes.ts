@@ -14,19 +14,21 @@ import {
 
 export interface UiAttributeField {
   name: string;
-  label: string;
+  labelKey: string;
 }
 
 const CONTROL_ATTRIBUTES: readonly UiAttributeField[] = [
-  { name: "scope", label: "scope" },
-  { name: "label", label: "label" },
+  { name: "scope", labelKey: "uiAttributes.scope" },
+  { name: "label", labelKey: "uiAttributes.label" },
 ];
 
 const GROUP_ATTRIBUTES: readonly UiAttributeField[] = [
-  { name: "label", label: "Gruppen-Label" },
+  { name: "label", labelKey: "uiAttributes.groupLabel" },
 ];
 
-const LABEL_ATTRIBUTES: readonly UiAttributeField[] = [{ name: "text", label: "Text" }];
+const LABEL_ATTRIBUTES: readonly UiAttributeField[] = [
+  { name: "text", labelKey: "uiAttributes.text" },
+];
 
 export function listUiAttributeFields(element: UiElement): UiAttributeField[] {
   if (element instanceof Control) return [...CONTROL_ATTRIBUTES];
