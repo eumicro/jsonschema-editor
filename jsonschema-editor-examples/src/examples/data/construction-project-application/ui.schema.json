@@ -1,0 +1,305 @@
+{
+  "type": "Stepper",
+  "elements": [
+    {
+      "type": "Step",
+      "label": "Antrag",
+      "elements": [
+        {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                { "type": "Control", "scope": "#/properties/antrag/properties/antragsnummer" },
+                { "type": "Control", "scope": "#/properties/antrag/properties/antragsdatum" }
+              ]
+            },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                { "type": "Control", "scope": "#/properties/antrag/properties/verfahrensart" },
+                { "type": "Control", "scope": "#/properties/antrag/properties/bauvorhabenBezeichnung" }
+              ]
+            },
+            { "type": "Control", "scope": "#/properties/antragsStatus", "label": "Bearbeitungsstand" },
+            {
+              "type": "Group",
+              "label": "Bauherr",
+              "elements": [
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    { "type": "Control", "scope": "#/properties/bauherr/properties/name" },
+                    { "type": "Control", "scope": "#/properties/bauherr/properties/ansprechpartner" }
+                  ]
+                },
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    { "type": "Control", "scope": "#/properties/bauherr/properties/email" },
+                    { "type": "Control", "scope": "#/properties/bauherr/properties/telefon" }
+                  ]
+                },
+                { "type": "Control", "scope": "#/properties/bauherr/properties/steuerId" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Step",
+      "label": "Grundstück",
+      "elements": [
+        {
+          "type": "Group",
+          "label": "Lage & Flurstück",
+          "elements": [
+            { "type": "Control", "scope": "#/properties/grundstueck/properties/adresse" },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                { "type": "Control", "scope": "#/properties/grundstueck/properties/gemarkung" },
+                { "type": "Control", "scope": "#/properties/grundstueck/properties/flurstueck" }
+              ]
+            },
+            { "type": "Control", "scope": "#/properties/grundstueck/properties/grundstuecksflaecheQm" },
+            {
+              "type": "Control",
+              "scope": "#/properties/grundstueck/properties/grundstueckKarte",
+              "label": "Grundstücksgrenze (Karte)"
+            },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                { "type": "Control", "scope": "#/properties/grundstueck/properties/denkmalschutz" },
+                { "type": "Control", "scope": "#/properties/grundstueck/properties/altlastenVerdacht" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Step",
+      "label": "Vorhaben",
+      "elements": [
+        {
+          "type": "Group",
+          "label": "Art des Vorhabens",
+          "elements": [
+            { "type": "Control", "scope": "#/properties/vorhaben", "label": "Vorhabenart" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Step",
+      "label": "Nutzung",
+      "elements": [
+        {
+          "type": "Categorization",
+          "elements": [
+            {
+              "type": "Category",
+              "label": "Nutzungsart",
+              "elements": [
+                { "type": "Control", "scope": "#/properties/nutzung", "label": "Nutzung" }
+              ]
+            },
+            {
+              "type": "Category",
+              "label": "Gebäude",
+              "elements": [
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    { "type": "Control", "scope": "#/properties/gebaeude/properties/geschosse" },
+                    { "type": "Control", "scope": "#/properties/gebaeude/properties/firstHoeheM" }
+                  ]
+                },
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    { "type": "Control", "scope": "#/properties/gebaeude/properties/stellplaetze" },
+                    { "type": "Control", "scope": "#/properties/gebaeude/properties/barrierefrei" }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Step",
+      "label": "Gewerke",
+      "elements": [
+        {
+          "type": "Group",
+          "label": "Leistungspakete",
+          "elements": [{ "type": "Control", "scope": "#/properties/gewerke" }]
+        }
+      ]
+    },
+    {
+      "type": "Step",
+      "label": "Baustelle",
+      "elements": [
+        {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/baustelle/properties/zufahrtKarte",
+              "label": "Baustellenzufahrt (Karte)"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/baustelle/properties/baustellenbereich",
+              "label": "Baustellenverkehr (Karte)"
+            },
+            {
+              "type": "Group",
+              "label": "Einrichtung & Zeiten",
+              "elements": [
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/baustelle/properties/baustelleneinrichtung/properties/container"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/baustelle/properties/baustelleneinrichtung/properties/kran"
+                    }
+                  ]
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/baustelle/properties/baustelleneinrichtung/properties/materialLagerflaecheQm"
+                },
+                { "type": "Control", "scope": "#/properties/baustelle/properties/arbeitszeiten" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Step",
+      "label": "Umwelt",
+      "elements": [
+        {
+          "type": "Categorization",
+          "elements": [
+            {
+              "type": "Category",
+              "label": "Lärmschutz",
+              "elements": [
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    { "type": "Control", "scope": "#/properties/umwelt/properties/laerm/properties/laermempfindlich" },
+                    { "type": "Control", "scope": "#/properties/umwelt/properties/laerm/properties/nachtarbeit" }
+                  ]
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/umwelt/properties/laerm/properties/schallschutzMassnahmen"
+                }
+              ]
+            },
+            {
+              "type": "Category",
+              "label": "Abfall",
+              "elements": [
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    { "type": "Control", "scope": "#/properties/umwelt/properties/abfall/properties/bautrocknung" },
+                    { "type": "Control", "scope": "#/properties/umwelt/properties/abfall/properties/asbestVerdacht" }
+                  ]
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/umwelt/properties/abfall/properties/entsorgungskonzept"
+                }
+              ]
+            },
+            {
+              "type": "Category",
+              "label": "Nachbarn",
+              "elements": [
+                { "type": "Control", "scope": "#/properties/umwelt/properties/nachbarn" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Step",
+      "label": "Kalkulation",
+      "elements": [
+        {
+          "type": "Group",
+          "label": "Automatische Auswertung",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                { "type": "Control", "scope": "#/properties/kalkulation/properties/baukostenSumme" },
+                { "type": "Control", "scope": "#/properties/kalkulation/properties/geschaetzteFlaecheQm" }
+              ]
+            },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                { "type": "Control", "scope": "#/properties/kalkulation/properties/co2SchaetzungKg" },
+                { "type": "Control", "scope": "#/properties/kalkulation/properties/vollstaendigkeitProzent" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Step",
+      "label": "Einreichung",
+      "elements": [
+        {
+          "type": "Group",
+          "label": "Unterlagen & Freigabe",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                { "type": "Control", "scope": "#/properties/einreichung/properties/lageplanVorhanden" },
+                { "type": "Control", "scope": "#/properties/einreichung/properties/statikVorhanden" }
+              ]
+            },
+            { "type": "Control", "scope": "#/properties/einreichung/properties/energieNachweisVorhanden" },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                { "type": "Control", "scope": "#/properties/einreichung/properties/bauherrBestaetigt" },
+                { "type": "Control", "scope": "#/properties/einreichung/properties/architektBestaetigt" }
+              ]
+            },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                { "type": "Control", "scope": "#/properties/einreichung/properties/einreichungsDatum" },
+                { "type": "Control", "scope": "#/properties/einreichung/properties/sachbearbeiter" }
+              ]
+            },
+            { "type": "Control", "scope": "#/properties/einreichung/properties/interneNotiz" }
+          ]
+        }
+      ]
+    }
+  ]
+}

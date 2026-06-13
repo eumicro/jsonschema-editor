@@ -95,7 +95,7 @@ const uiSchema = UiSchema.fromJSON(uiSchemaJson);`,
     ],
     tryHeading: "Direkt ausprobieren",
     tryBody:
-      "In den Einsatzszenarien finden Sie fertige Schema-/UI-Paare — von G37-Vorsorge über Schadensmeldung und Speditionsauftrag bis Fahrzeugbestellung. Formular testen, Schema bearbeiten und JSON live mitverfolgen.",
+      "In den Einsatzszenarien finden Sie fertige Schema-/UI-Paare — von G37-Vorsorge über Schadensmeldung, Speditionsauftrag und Bauprojekt-Anmeldung bis Fahrzeugbestellung. Formular testen, Schema bearbeiten und JSON live mitverfolgen.",
     tryCta: "Zu den Szenarien",
   },
   en: {
@@ -162,7 +162,7 @@ const uiSchema = UiSchema.fromJSON(uiSchemaJson);`,
     ],
     tryHeading: "Try it now",
     tryBody:
-      "The use-case scenarios include ready-made schema/UI pairs — from G37 screening, insurance claims, and freight orders to vehicle configuration. Test the form, edit the schema, and watch JSON update live.",
+      "The use-case scenarios include ready-made schema/UI pairs — from G37 screening, insurance claims, freight orders, and building permit applications to vehicle configuration. Test the form, edit the schema, and watch JSON update live.",
     tryCta: "Browse scenarios",
   },
 } as const satisfies Record<JseLocale, GetStartedContent>;

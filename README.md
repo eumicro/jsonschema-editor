@@ -2,6 +2,8 @@
 
 [![CI](https://github.com/eumicro/jsonschema-editor/actions/workflows/ci.yml/badge.svg)](https://github.com/eumicro/jsonschema-editor/actions/workflows/ci.yml)
 
+**Live demo (GitHub Pages):** [eumicro.github.io/jsonschema-editor](https://eumicro.github.io/jsonschema-editor/) — Get started guide and curated scenarios.
+
 ![Demo: G37 Bildschirm-Vorsorge — vollständiger Stepper-Durchlauf](./docs/demo.gif)
 
 Three **standalone npm packages** — JSON Schema and UI Schema are intentionally separate:
@@ -100,7 +102,7 @@ Use `documentFromJSONWithExtensions()` whenever the schema contains `x-format-ex
 
 See the runnable demo in [jsonschema-editor-examples](./jsonschema-editor-examples) (`pnpm --filter jsonschema-editor-examples run dev`).
 
-**Live demo (GitHub Pages):** [eumicro.github.io/jsonschema-editor](https://eumicro.github.io/jsonschema-editor/) — Get started guide and curated scenarios (G37, vehicle order, …). Deployed automatically from `main` via [`.github/workflows/pages.yml`](./.github/workflows/pages.yml).
+
 
 ## Architecture
 

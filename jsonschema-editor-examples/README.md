@@ -39,6 +39,7 @@ The landing page shows **curated use-case scenarios** grouped by domain (occupat
 | G37 screen-work preventive exam | `occupational-health-g37` | Occupational health from intake to employer notification |
 | Insurance claim | `insurance-claim` | Multi-step claim with damage type, witnesses, map, computed status |
 | Freight order | `logistics-freight-order` | Pickup/delivery route, cargo lines, service oneOf, freight calculation |
+| Building permit | `construction-project-application` | Plot/site maps, dual oneOf, trade packages, cost/CO₂ calculation |
 | Vehicle order | `car-configurator` | Multi-step configuration with model, equipment, financing |
 | Grant application | `computed-status-qa` | Application workflow with automatic processing status |
 | Cost estimate | `computed-cost-qa` | Line items with automatic total |

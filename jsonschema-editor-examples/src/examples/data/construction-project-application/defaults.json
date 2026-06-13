@@ -1,0 +1,162 @@
+{
+  "antrag": {
+    "antragsnummer": "BA-2026-004821",
+    "antragsdatum": "2026-06-12",
+    "verfahrensart": "Bauantrag",
+    "bauvorhabenBezeichnung": "Neubau Mehrfamilienhaus mit Gewerbeeinheit EG"
+  },
+  "bauherr": {
+    "name": "Wohnbau Prenzlauer Berg GmbH",
+    "ansprechpartner": "Dr. Elena Hartmann",
+    "email": "projekte@wohnbau-pb.example.de",
+    "telefon": "+49 30 44556677",
+    "steuerId": "DE298765432"
+  },
+  "grundstueck": {
+    "adresse": "Stargarder Straße 78, 10437 Berlin",
+    "gemarkung": "Prenzlauer Berg",
+    "flurstueck": "456/7",
+    "grundstuecksflaecheQm": 620,
+    "grundstueckKarte": {
+      "type": "GeometryCollection",
+      "geometries": [
+        {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [13.4182, 52.5415],
+              [13.4188, 52.5415],
+              [13.4188, 52.5419],
+              [13.4182, 52.5419],
+              [13.4182, 52.5415]
+            ]
+          ]
+        }
+      ]
+    },
+    "denkmalschutz": false,
+    "altlastenVerdacht": false
+  },
+  "vorhaben": {
+    "typ": "neubau",
+    "bruttogrundflaeche": 1850,
+    "wohneinheiten": 12,
+    "massivbauweise": "Hybrid"
+  },
+  "nutzung": {
+    "typ": "gemischt",
+    "wohnanteilProzent": 75,
+    "gewerbeanteilProzent": 25,
+    "mischnutzungImErdgeschoss": true
+  },
+  "gebaeude": {
+    "geschosse": 5,
+    "firstHoeheM": 17.2,
+    "stellplaetze": 8,
+    "barrierefrei": true
+  },
+  "gewerke": [
+    {
+      "bezeichnung": "Erdarbeiten",
+      "beschreibung": "Baugrube, Gründung, Kanalanschluss",
+      "kostenEur": 285000,
+      "beginn": "2026-09-01",
+      "ende": "2026-11-15",
+      "subunternehmer": "Tiefbau Nord GmbH"
+    },
+    {
+      "bezeichnung": "Rohbau",
+      "beschreibung": "Massivbau mit Holz-Hybrid-Decken",
+      "kostenEur": 1240000,
+      "beginn": "2026-11-01",
+      "ende": "2027-06-30"
+    },
+    {
+      "bezeichnung": "Haustechnik",
+      "beschreibung": "HLS, Elektro, Aufzug",
+      "kostenEur": 620000,
+      "beginn": "2027-03-01",
+      "ende": "2027-09-30"
+    },
+    {
+      "bezeichnung": "Außenanlagen",
+      "beschreibung": "Hof, Spielbereich, Begrünung",
+      "kostenEur": 95000,
+      "beginn": "2027-08-01",
+      "ende": "2027-10-31"
+    }
+  ],
+  "baustelle": {
+    "zufahrtKarte": {
+      "type": "GeometryCollection",
+      "geometries": [
+        {
+          "type": "Point",
+          "coordinates": [13.4184, 52.5416]
+        }
+      ]
+    },
+    "baustellenbereich": {
+      "type": "GeometryCollection",
+      "geometries": [
+        {
+          "type": "LineString",
+          "coordinates": [
+            [13.4180, 52.5414],
+            [13.4184, 52.5416],
+            [13.4187, 52.5418]
+          ]
+        }
+      ]
+    },
+    "baustelleneinrichtung": {
+      "container": true,
+      "kran": true,
+      "materialLagerflaecheQm": 120
+    },
+    "arbeitszeiten": "Mo–Fr 07:00–18:00, Sa 08:00–14:00"
+  },
+  "umwelt": {
+    "laerm": {
+      "laermempfindlich": true,
+      "schallschutzMassnahmen": "Lärmkapselung Kran, Ruhezeiten lt. Baustellenordnung",
+      "nachtarbeit": false
+    },
+    "abfall": {
+      "bautrocknung": false,
+      "asbestVerdacht": false,
+      "entsorgungskonzept": "Getrennte Entsorgung Bauschutt / Holz / Metalle über zertifizierten Entsorger"
+    },
+    "nachbarn": [
+      {
+        "name": "Familie Krüger",
+        "adresse": "Stargarder Straße 76, 10437 Berlin",
+        "benachrichtigt": true,
+        "einwendung": false
+      },
+      {
+        "name": "Café Morgenrot",
+        "adresse": "Stargarder Straße 80, 10437 Berlin",
+        "benachrichtigt": true,
+        "einwendung": false
+      }
+    ]
+  },
+  "kalkulation": {
+    "baukostenSumme": 2240000,
+    "geschaetzteFlaecheQm": 1850,
+    "co2SchaetzungKg": 111000,
+    "vollstaendigkeitProzent": 100
+  },
+  "einreichung": {
+    "lageplanVorhanden": true,
+    "statikVorhanden": true,
+    "energieNachweisVorhanden": true,
+    "bauherrBestaetigt": true,
+    "architektBestaetigt": true,
+    "einreichungsDatum": "2026-06-12",
+    "sachbearbeiter": "Sabine Keller",
+    "interneNotiz": "Mischnutzung EG — Prüfung Gewerbeanteil durch Fachamt."
+  },
+  "antragsStatus": "EINGEREICHT"
+}

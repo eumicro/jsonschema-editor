@@ -49,6 +49,10 @@ import logisticsFreightOrderDefaults from "./data/logistics-freight-order/defaul
 import logisticsFreightOrderMeta from "./data/logistics-freight-order/meta.json";
 import logisticsFreightOrderSchema from "./data/logistics-freight-order/schema.json";
 import logisticsFreightOrderUi from "./data/logistics-freight-order/ui.schema.json";
+import constructionProjectApplicationDefaults from "./data/construction-project-application/defaults.json";
+import constructionProjectApplicationMeta from "./data/construction-project-application/meta.json";
+import constructionProjectApplicationSchema from "./data/construction-project-application/schema.json";
+import constructionProjectApplicationUi from "./data/construction-project-application/ui.schema.json";
 
 export type ExampleId =
   | "person-one-of"
@@ -58,6 +62,7 @@ export type ExampleId =
   | "occupational-health-g37"
   | "insurance-claim"
   | "logistics-freight-order"
+  | "construction-project-application"
   | "geometry-qa"
   | "field-extensions-qa"
   | "computed-cost-qa"
@@ -146,6 +151,13 @@ export const exampleManifests: ExampleManifest[] = [
     logisticsFreightOrderSchema as unknown as JsonSchemaObject,
     logisticsFreightOrderUi as unknown as UiSchemaObject,
     logisticsFreightOrderDefaults,
+  ),
+  manifest(
+    "construction-project-application",
+    constructionProjectApplicationMeta as ExampleMetaSource,
+    constructionProjectApplicationSchema as unknown as JsonSchemaObject,
+    constructionProjectApplicationUi as unknown as UiSchemaObject,
+    constructionProjectApplicationDefaults,
   ),
   manifest(
     "car-configurator",

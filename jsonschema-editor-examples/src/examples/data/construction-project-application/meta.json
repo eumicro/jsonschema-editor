@@ -1,0 +1,7 @@
+{
+  "label": "Bauprojekt-Anmeldung",
+  "tagline": "Genehmigungsverfahren von Antrag bis Einreichung — Grundstück, Vorhaben, Gewerke",
+  "description": "Umfassender Bauantrags-Workflow: Bauherr und Antrag, Grundstück mit Flurstückskarte, Vorhabenart (Neubau/Umbau/Abbruch) und Nutzung per oneOf, Gewerke- und Nachbarschaftslisten, Baustellenzufahrt und -bereich auf der Karte, Umweltangaben, automatische Kosten-/Flächen-/CO₂-Kalkulation sowie Bearbeitungsstand.",
+  "category": "Anträge & Prozesse",
+  "visibility": "public"
+}
