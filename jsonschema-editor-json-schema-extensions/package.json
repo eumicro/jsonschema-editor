@@ -1,6 +1,6 @@
 {
   "name": "@jsonschema-editor/json-schema-extensions",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Format and geometry extensions for JSON Schema (email, url, phone, x-geometry) with validators and schema helpers",
   "type": "module",
   "license": "MIT",
