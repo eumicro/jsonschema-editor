@@ -1,0 +1,145 @@
+{
+  "type": "Stepper",
+  "elements": [
+    {
+      "type": "Step",
+      "label": "Vorgang",
+      "elements": [
+        {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                { "type": "Control", "scope": "#/properties/vorgang/properties/schadennummer" },
+                { "type": "Control", "scope": "#/properties/vorgang/properties/meldedatum" }
+              ]
+            },
+            { "type": "Control", "scope": "#/properties/bearbeitungsStatus", "label": "Bearbeitungsstand" },
+            {
+              "type": "Group",
+              "label": "Versicherungsnehmer",
+              "elements": [
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    { "type": "Control", "scope": "#/properties/versicherungsnehmer/properties/vorname" },
+                    { "type": "Control", "scope": "#/properties/versicherungsnehmer/properties/nachname" }
+                  ]
+                },
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    { "type": "Control", "scope": "#/properties/versicherungsnehmer/properties/email" },
+                    { "type": "Control", "scope": "#/properties/versicherungsnehmer/properties/telefon" }
+                  ]
+                },
+                { "type": "Control", "scope": "#/properties/versicherungsnehmer/properties/policennummer" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Step",
+      "label": "Schadenfall",
+      "elements": [
+        {
+          "type": "Group",
+          "label": "Zeit & Ort",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                { "type": "Control", "scope": "#/properties/schadenfall/properties/schadenDatum" },
+                { "type": "Control", "scope": "#/properties/schadenfall/properties/schadenzeit" }
+              ]
+            },
+            { "type": "Control", "scope": "#/properties/schadenfall/properties/adresse" },
+            {
+              "type": "Control",
+              "scope": "#/properties/schadenfall/properties/schadenortKarte",
+              "label": "Schadenort (Karte)"
+            }
+          ]
+        },
+        {
+          "type": "Group",
+          "label": "Hergang",
+          "elements": [
+            { "type": "Control", "scope": "#/properties/schadenfall/properties/schilderung" },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                { "type": "Control", "scope": "#/properties/schadenfall/properties/polizeiAufgenommen" },
+                { "type": "Control", "scope": "#/properties/schadenfall/properties/polizeiAktenzeichen" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Step",
+      "label": "Schadendetails",
+      "elements": [
+        {
+          "type": "Group",
+          "label": "Art des Schadens",
+          "elements": [
+            { "type": "Control", "scope": "#/properties/schadendetails/properties/art", "label": "Schadenart" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Step",
+      "label": "Beteiligte",
+      "elements": [
+        {
+          "type": "Group",
+          "label": "Zeugen & Dritte",
+          "elements": [
+            { "type": "Control", "scope": "#/properties/beteiligte/properties/zeugen" },
+            {
+              "type": "Group",
+              "label": "Gegnerische Partei",
+              "elements": [
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    { "type": "Control", "scope": "#/properties/beteiligte/properties/gegnerischePartei/properties/name" },
+                    { "type": "Control", "scope": "#/properties/beteiligte/properties/gegnerischePartei/properties/kontakt" }
+                  ]
+                },
+                { "type": "Control", "scope": "#/properties/beteiligte/properties/gegnerischePartei/properties/versicherung" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Step",
+      "label": "Abschluss",
+      "elements": [
+        {
+          "type": "Group",
+          "label": "Unterlagen & Erklärungen",
+          "elements": [
+            { "type": "Control", "scope": "#/properties/abschluss/properties/fotosVorhanden" },
+            { "type": "Control", "scope": "#/properties/abschluss/properties/iban" },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                { "type": "Control", "scope": "#/properties/abschluss/properties/datenschutzEinwilligung" },
+                { "type": "Control", "scope": "#/properties/abschluss/properties/wahrheitsgemasseAngaben" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

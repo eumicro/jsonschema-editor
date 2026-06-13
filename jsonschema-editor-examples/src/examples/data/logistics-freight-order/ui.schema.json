@@ -1,0 +1,212 @@
+{
+  "type": "Stepper",
+  "elements": [
+    {
+      "type": "Step",
+      "label": "Auftrag",
+      "elements": [
+        {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                { "type": "Control", "scope": "#/properties/auftrag/properties/auftragsnummer" },
+                { "type": "Control", "scope": "#/properties/auftrag/properties/auftragsdatum" }
+              ]
+            },
+            { "type": "Control", "scope": "#/properties/auftrag/properties/kundenreferenz" },
+            { "type": "Control", "scope": "#/properties/auftragsStatus", "label": "Auftragsstatus" },
+            {
+              "type": "Group",
+              "label": "Auftraggeber",
+              "elements": [
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    { "type": "Control", "scope": "#/properties/auftraggeber/properties/firma" },
+                    { "type": "Control", "scope": "#/properties/auftraggeber/properties/rechnungskonto" }
+                  ]
+                },
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    { "type": "Control", "scope": "#/properties/auftraggeber/properties/ansprechpartner" },
+                    { "type": "Control", "scope": "#/properties/auftraggeber/properties/telefon" }
+                  ]
+                },
+                { "type": "Control", "scope": "#/properties/auftraggeber/properties/email" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Step",
+      "label": "Abholung",
+      "elements": [
+        {
+          "type": "Group",
+          "label": "Abholung & Ladestelle",
+          "elements": [
+            { "type": "Control", "scope": "#/properties/abholung/properties/adresse" },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                { "type": "Control", "scope": "#/properties/abholung/properties/abholDatum" },
+                { "type": "Control", "scope": "#/properties/abholung/properties/ladestelle" }
+              ]
+            },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                { "type": "Control", "scope": "#/properties/abholung/properties/zeitfensterVon" },
+                { "type": "Control", "scope": "#/properties/abholung/properties/zeitfensterBis" }
+              ]
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/abholung/properties/standortKarte",
+              "label": "Abholort (Karte)"
+            },
+            { "type": "Control", "scope": "#/properties/abholung/properties/hinweise" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Step",
+      "label": "Zustellung",
+      "elements": [
+        {
+          "type": "Group",
+          "label": "Zustellung & Empfänger",
+          "elements": [
+            { "type": "Control", "scope": "#/properties/zustellung/properties/adresse" },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                { "type": "Control", "scope": "#/properties/zustellung/properties/zustellDatum" },
+                { "type": "Control", "scope": "#/properties/zustellung/properties/avisierungErforderlich" }
+              ]
+            },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                { "type": "Control", "scope": "#/properties/zustellung/properties/zeitfensterVon" },
+                { "type": "Control", "scope": "#/properties/zustellung/properties/zeitfensterBis" }
+              ]
+            },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                { "type": "Control", "scope": "#/properties/zustellung/properties/empfaenger" },
+                { "type": "Control", "scope": "#/properties/zustellung/properties/empfaengerTelefon" }
+              ]
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/zustellung/properties/standortKarte",
+              "label": "Zustellort (Karte)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Step",
+      "label": "Sendung",
+      "elements": [
+        {
+          "type": "Group",
+          "label": "Leistung & Ladung",
+          "elements": [
+            { "type": "Control", "scope": "#/properties/sendung/properties/leistungsart", "label": "Leistungsart" },
+            { "type": "Control", "scope": "#/properties/sendung/properties/positionen" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Step",
+      "label": "Fahrzeug",
+      "elements": [
+        {
+          "type": "Categorization",
+          "elements": [
+            {
+              "type": "Category",
+              "label": "Fahrzeug",
+              "elements": [
+                { "type": "Control", "scope": "#/properties/fahrzeug/properties/fahrzeugklasse" },
+                { "type": "Control", "scope": "#/properties/fahrzeug/properties/besonderheiten" }
+              ]
+            },
+            {
+              "type": "Category",
+              "label": "Zusatzleistungen",
+              "elements": [
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    { "type": "Control", "scope": "#/properties/fahrzeug/properties/zusatzleistungen/properties/hebebuehne" },
+                    { "type": "Control", "scope": "#/properties/fahrzeug/properties/zusatzleistungen/properties/fixierung" }
+                  ]
+                },
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    { "type": "Control", "scope": "#/properties/fahrzeug/properties/zusatzleistungen/properties/zweiFahrer" },
+                    { "type": "Control", "scope": "#/properties/fahrzeug/properties/zusatzleistungen/properties/adrAusstattung" }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Step",
+      "label": "Kalkulation",
+      "elements": [
+        {
+          "type": "Group",
+          "label": "Automatische Kalkulation",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                { "type": "Control", "scope": "#/properties/kalkulation/properties/gesamtGewichtKg" },
+                { "type": "Control", "scope": "#/properties/kalkulation/properties/gesamtVolumenM3" }
+              ]
+            },
+            { "type": "Control", "scope": "#/properties/kalkulation/properties/frachtkostenSchaetzung" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Step",
+      "label": "Freigabe",
+      "elements": [
+        {
+          "type": "Group",
+          "label": "Disposition",
+          "elements": [
+            { "type": "Control", "scope": "#/properties/freigabe/properties/disponent" },
+            { "type": "Control", "scope": "#/properties/freigabe/properties/interneNotiz" },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                { "type": "Control", "scope": "#/properties/freigabe/properties/freigegeben" },
+                { "type": "Control", "scope": "#/properties/freigabe/properties/bestaetigungAuftraggeber" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

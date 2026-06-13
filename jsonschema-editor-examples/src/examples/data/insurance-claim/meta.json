@@ -1,0 +1,7 @@
+{
+  "label": "Schadensmeldung",
+  "tagline": "Versicherungsfall von Meldung bis Unterlagen — mit Schadenart und Karte",
+  "description": "Typischer Schadenfall für Versicherung und Assistance: Versicherungsnehmer, Schadenort auf der Karte, Schadenart (Kfz, Hausrat, Haftpflicht) per oneOf, Zeugenliste und automatischer Bearbeitungsstand.",
+  "category": "Versicherung & Service",
+  "visibility": "public"
+}

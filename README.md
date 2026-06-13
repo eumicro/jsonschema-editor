@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/eumicro/jsonschema-editor/actions/workflows/ci.yml/badge.svg)](https://github.com/eumicro/jsonschema-editor/actions/workflows/ci.yml)
 
-![Demo: i18n, edit schema, customize UI, test form](./docs/demo.gif)
+![Demo: G37 Bildschirm-Vorsorge — vollständiger Stepper-Durchlauf](./docs/demo.gif)
 
 Three **standalone npm packages** — JSON Schema and UI Schema are intentionally separate:
 

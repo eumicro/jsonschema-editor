@@ -1,5 +1,5 @@
 /**
- * README demo: i18n → add attribute → place in UI → fill form.
+ * README demo: complete G37 occupational-health walkthrough (all Stepper steps).
  *
  * Toolchain: Playwright (screenshots) → gifenc (PNG frames → GIF)
  */
@@ -24,12 +24,20 @@ const repoRoot = path.resolve(examplesRoot, "..");
 const outputGif = path.join(repoRoot, "docs", "demo.gif");
 const framesDir = path.join(examplesRoot, "scripts", ".demo-frames");
 
-const VIEWPORT = { width: 1100, height: 640 };
+const VIEWPORT = { width: 1200, height: 760 };
 const BASE_URL = process.env.DEMO_BASE_URL ?? "http://localhost:5173";
-const FRAME_DELAY_MS = 840;
-const PROPERTY_NAME = "notiz";
-const PROPERTY_TITLE = "Notiz";
-const PROPERTY_VALUE = "Wichtige Anmerkung";
+const FRAME_DELAY_MS = 900;
+
+const G37_STEPS = [
+  { label: "Aufnahme", slug: "aufnahme" },
+  { label: "Vorgeschichte", slug: "vorgeschichte" },
+  { label: "Anamnese", slug: "anamnese" },
+  { label: "Untersuchung", slug: "untersuchung" },
+  { label: "Beurteilung", slug: "beurteilung" },
+  { label: "Beratung", slug: "beratung" },
+  { label: "Mitteilung", slug: "mitteilung" },
+  { label: "Attest", slug: "attest" },
+] as const;
 
 let frameCounter = 0;
 
@@ -42,146 +50,72 @@ async function snap(page: Page, label: string): Promise<void> {
   await page.screenshot({ path: framePath, type: "png", animations: "disabled" });
 }
 
-async function panelClick(page: Page, dialogName: string | RegExp, buttonName: string | RegExp): Promise<void> {
-  const button = page.getByRole("dialog", { name: dialogName }).getByRole("button", { name: buttonName });
-  await button.evaluate((element) => {
-    (element as HTMLButtonElement).click();
-  });
-}
-
-async function closeFloatingPanels(page: Page): Promise<void> {
-  for (let attempt = 0; attempt < 4; attempt += 1) {
-    const dialogs = page.getByRole("dialog");
-    if ((await dialogs.count()) === 0) return;
-    const closeButton = dialogs
-      .first()
-      .getByRole("button", { name: /^(Schließen|Close)$/ });
-    if (await closeButton.count()) {
-      await closeButton.evaluate((element) => {
-        (element as HTMLButtonElement).click();
-      });
-    } else {
-      await page.keyboard.press("Escape");
-    }
-    await pause(120);
-  }
+async function waitForActiveStep(page: Page, stepLabel: string): Promise<void> {
+  await page
+    .locator(".jse-stepper__step-indicator--active")
+    .filter({ hasText: stepLabel })
+    .waitFor({ state: "visible" });
 }
 
 async function preparePage(page: Page): Promise<void> {
   await page.goto(BASE_URL, { waitUntil: "domcontentloaded" });
   await page.addStyleTag({
     content: `
-      .app__lead, .app__workflow, .app__example-desc, .app__form-hint, .app__output-details {
+      .app__hero, .app__scenario-desc, .app__nav-item-tagline {
         display: none !important;
       }
     `,
   });
-  await page.locator("#app-example-select").selectOption("person-with-defs");
-  await page.getByRole("tab", { name: "Form-Editor" }).click();
-  await page.getByRole("tab", { name: "Schema", exact: true }).click();
+
+  await page.locator("#app-example-select").selectOption("occupational-health-g37");
+  await page.getByRole("tab", { name: "Formular testen" }).click();
+  await page.locator(".jse-stepper").waitFor({ state: "visible" });
+  await waitForActiveStep(page, "Aufnahme");
 }
 
-async function demonstrateLanguageSwitch(page: Page): Promise<void> {
-  const schemaPanel = page.locator("#jse-editor-schema");
-  await schemaPanel.waitFor({ state: "visible" });
-  await snap(page, "i18n-de");
+async function highlightStep(page: Page, step: (typeof G37_STEPS)[number]): Promise<void> {
+  if (step.label === "Aufnahme") {
+    await page.locator(".jse-geometry-map").scrollIntoViewIfNeeded();
+    await pause(350);
+    return;
+  }
 
-  await page.locator("#app-locale-select").selectOption("en");
-  await page
-    .locator("#jse-editor-schema .jse-structure-editor__hint")
-    .filter({ hasText: "Click an element" })
-    .waitFor();
-  await snap(page, "i18n-en-editor");
+  if (step.label === "Anamnese") {
+    await page.getByRole("tab", { name: "Arbeitsplatz" }).click();
+    await pause(250);
+    return;
+  }
 
-  await schemaPanel.getByRole("button", { name: "Edit attributes of Mensch" }).click();
-  await page.getByRole("dialog", { name: /Attributes – Mensch/ }).waitFor({ state: "visible" });
-  await snap(page, "i18n-en-attributes");
-  await closeFloatingPanels(page);
+  if (step.label === "Untersuchung") {
+    await page.getByText("Sehschärfe Ferne").scrollIntoViewIfNeeded();
+    await pause(250);
+    return;
+  }
 
-  await page.locator("#app-locale-select").selectOption("de");
-  await page
-    .locator("#jse-editor-schema .jse-structure-editor__hint")
-    .filter({ hasText: "Klicken Sie ein Element" })
-    .waitFor();
-  await snap(page, "i18n-de-restored");
+  if (step.label === "Mitteilung") {
+    await page.getByText("Beurteilungskategorie").scrollIntoViewIfNeeded();
+    await pause(250);
+  }
 }
 
-async function addSchemaProperty(page: Page): Promise<void> {
-  const schemaPanel = page.locator("#jse-editor-schema");
+async function walkThroughG37(page: Page): Promise<void> {
+  await snap(page, "g37-overview");
 
-  await schemaPanel.getByRole("button", { name: "Element zu Mensch hinzufügen" }).click();
-  await snap(page, "add-dialog");
+  for (let index = 0; index < G37_STEPS.length; index += 1) {
+    const step = G37_STEPS[index];
 
-  const addPanel = page.getByRole("dialog", { name: "Element hinzufügen" });
-  await addPanel.getByPlaceholder("z. B. name").fill(PROPERTY_NAME);
-  await snap(page, "add-name");
-  await panelClick(page, "Element hinzufügen", "+ string");
-  await snap(page, "add-created");
-  await closeFloatingPanels(page);
-  await schemaPanel.getByText(PROPERTY_NAME, { exact: true }).waitFor();
-  await snap(page, "schema-done");
-}
+    if (index > 0) {
+      await page.getByRole("button", { name: "Weiter" }).click();
+      await waitForActiveStep(page, step.label);
+    }
 
-async function placeInUiSchema(page: Page): Promise<void> {
-  await page.locator("#jse-editor-tab-ui").click();
-  await page.locator("#jse-editor-ui .jse-layout-editor").waitFor({ state: "visible" });
-  await snap(page, "ui-tab");
+    await highlightStep(page, step);
+    await snap(page, `g37-${step.slug}`);
+    await pause(350);
+  }
 
-  const uiPanel = page.locator("#jse-editor-ui");
-  await page.locator('[aria-label="Element zu VerticalLayout hinzufügen"]').evaluate((element) => {
-    (element as HTMLButtonElement).click();
-  });
-
-  await panelClick(page, "UI-Element hinzufügen", "+ Control");
-  await snap(page, "ui-control-added");
-
-  const newControl = uiPanel.locator(".jse-layout-block--control").filter({ hasText: "Feld" }).last();
-  await newControl.locator('[aria-label="Feld bearbeiten"]').evaluate((element) => {
-    (element as HTMLButtonElement).click();
-  });
-
-  const uiAttrPanel = page.getByRole("dialog", { name: "UI – Feld" });
-  await uiAttrPanel
-    .locator(".jse-attribute-control")
-    .filter({ hasText: "scope" })
-    .locator("input")
-    .fill(`#/$defs/Mensch/properties/${PROPERTY_NAME}`);
-  await uiAttrPanel
-    .locator(".jse-attribute-control")
-    .filter({ hasText: "label" })
-    .locator("input")
-    .fill(PROPERTY_TITLE);
-  await snap(page, "ui-scope-set");
-  await page.getByRole("button", { name: "Schließen" }).click({ force: true });
-  await snap(page, "ui-layout");
-
-  const emailControl = uiPanel
-    .locator(".jse-layout-block--control")
-    .filter({ hasText: PROPERTY_TITLE })
-    .first();
-  await emailControl.dragTo(uiPanel.locator(".jse-layout-dropzone").first());
-  await snap(page, "ui-placed");
-  await snap(page, "ui-done");
-}
-
-async function fillForm(page: Page): Promise<void> {
-  await page.getByRole("tab", { name: "Ausfüllbares Formular" }).click();
-  await snap(page, "form-tab");
-
-  const oneOfSelect = page.locator(".jse-oneof-field select").first();
-  await oneOfSelect.selectOption("0");
-  await snap(page, "form-mensch");
-
-  const emailInput = page
-    .locator(".jse-field")
-    .filter({ has: page.locator(".jse-field__label", { hasText: PROPERTY_TITLE }) })
-    .locator("input")
-    .first();
-  await emailInput.click();
-  await emailInput.fill(PROPERTY_VALUE);
-  await snap(page, "form-filled");
-  await pause(500);
-  await snap(page, "form-end");
+  await pause(600);
+  await snap(page, "g37-complete");
 }
 
 function encodeGif(framePaths: string[]): void {
@@ -213,10 +147,7 @@ async function runDemo(): Promise<string[]> {
 
   try {
     await preparePage(page);
-    await demonstrateLanguageSwitch(page);
-    await addSchemaProperty(page);
-    await placeInUiSchema(page);
-    await fillForm(page);
+    await walkThroughG37(page);
   } finally {
     await browser.close();
   }
@@ -228,7 +159,7 @@ async function runDemo(): Promise<string[]> {
 }
 
 async function main(): Promise<void> {
-  console.log("Recording workflow demo …");
+  console.log("Recording G37 walkthrough demo …");
   const frames = await runDemo();
 
   console.log(`${frames.length} frames → GIF …`);

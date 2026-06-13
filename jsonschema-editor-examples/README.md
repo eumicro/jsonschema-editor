@@ -37,6 +37,8 @@ The landing page shows **curated use-case scenarios** grouped by domain (occupat
 | Scenario | ID | Typical use |
 | --- | --- | --- |
 | G37 screen-work preventive exam | `occupational-health-g37` | Occupational health from intake to employer notification |
+| Insurance claim | `insurance-claim` | Multi-step claim with damage type, witnesses, map, computed status |
+| Freight order | `logistics-freight-order` | Pickup/delivery route, cargo lines, service oneOf, freight calculation |
 | Vehicle order | `car-configurator` | Multi-step configuration with model, equipment, financing |
 | Grant application | `computed-status-qa` | Application workflow with automatic processing status |
 | Cost estimate | `computed-cost-qa` | Line items with automatic total |
@@ -81,7 +83,7 @@ pnpm --filter jsonschema-editor-examples run dev   # separate terminal
 pnpm --filter jsonschema-editor-examples run demo:gif
 ```
 
-Writes `../docs/demo.gif` for the repository README.
+Writes `../docs/demo.gif` for the repository README (complete G37 stepper walkthrough).
 
 ## Dependencies
 

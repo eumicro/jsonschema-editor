@@ -1,0 +1,7 @@
+{
+  "label": "Speditionsauftrag",
+  "tagline": "Transport von Abholung bis Disposition — Route, Ladung, Kalkulation",
+  "description": "Umfassender Logistik-Workflow: Auftraggeber, Abhol- und Zustellort mit Karte, Sendungspositionen, Leistungsart (Standard/Express/Kühlkette), Fahrzeugbedarf, automatische Gewichts- und Frachtkostenkalkulation sowie Dispositionsstatus.",
+  "category": "Logistik & Transport",
+  "visibility": "public"
+}

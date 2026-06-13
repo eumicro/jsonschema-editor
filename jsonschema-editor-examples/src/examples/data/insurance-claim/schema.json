@@ -1,0 +1,271 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Schadensmeldung",
+  "description": "Schadenfall melden — für Kfz-, Hausrat- und Haftpflichtschäden",
+  "type": "object",
+  "properties": {
+    "vorgang": {
+      "type": "object",
+      "title": "Vorgang",
+      "required": ["schadennummer", "meldedatum"],
+      "properties": {
+        "schadennummer": {
+          "type": "string",
+          "title": "Schadennummer",
+          "description": "Interne Vorgangsnummer / Schaden-ID"
+        },
+        "meldedatum": {
+          "type": "string",
+          "format": "date",
+          "title": "Meldedatum"
+        }
+      }
+    },
+    "versicherungsnehmer": {
+      "type": "object",
+      "title": "Versicherungsnehmer",
+      "required": ["nachname", "email", "policennummer"],
+      "properties": {
+        "vorname": { "type": "string", "title": "Vorname" },
+        "nachname": { "type": "string", "title": "Nachname" },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "title": "E-Mail",
+          "description": "Für Rückfragen und Statusmitteilungen"
+        },
+        "telefon": {
+          "type": "string",
+          "format": "phone",
+          "title": "Telefon",
+          "description": "Erreichbarkeit tagsüber"
+        },
+        "policennummer": {
+          "type": "string",
+          "title": "Policennummer",
+          "description": "Nummer aus dem Versicherungsschein"
+        }
+      }
+    },
+    "schadenfall": {
+      "type": "object",
+      "title": "Schadenfall",
+      "required": ["schadenDatum", "adresse", "schilderung"],
+      "properties": {
+        "schadenDatum": {
+          "type": "string",
+          "format": "date",
+          "title": "Schadentag"
+        },
+        "schadenzeit": {
+          "type": "string",
+          "title": "Ungefähre Uhrzeit",
+          "description": "z. B. 14:30"
+        },
+        "adresse": {
+          "type": "string",
+          "title": "Schadenort (Adresse)",
+          "description": "Straße, PLZ Ort"
+        },
+        "schadenortKarte": {
+          "type": "object",
+          "title": "Schadenort (Karte)",
+          "description": "Unfall- oder Ereignisort auf der Karte",
+          "x-geometry": {
+            "styleUrl": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+            "point": true,
+            "line": false,
+            "polygon": false,
+            "maxObjects": 1
+          }
+        },
+        "schilderung": {
+          "type": "string",
+          "title": "Schilderung des Hergangs",
+          "description": "Was ist passiert?"
+        },
+        "polizeiAufgenommen": {
+          "type": "boolean",
+          "title": "Polizeilich aufgenommen"
+        },
+        "polizeiAktenzeichen": {
+          "type": "string",
+          "title": "Polizei-Aktenzeichen",
+          "description": "Falls polizeilich erfasst"
+        }
+      }
+    },
+    "schadendetails": {
+      "type": "object",
+      "title": "Schadendetails",
+      "required": ["art"],
+      "properties": {
+        "art": {
+          "title": "Schadenart",
+          "description": "Je nach Police unterschiedliche Pflichtfelder",
+          "oneOf": [
+            { "$ref": "#/$defs/SchadenKfz" },
+            { "$ref": "#/$defs/SchadenHausrat" },
+            { "$ref": "#/$defs/SchadenHaftpflicht" }
+          ]
+        }
+      }
+    },
+    "beteiligte": {
+      "type": "object",
+      "title": "Beteiligte",
+      "properties": {
+        "zeugen": {
+          "type": "array",
+          "title": "Zeugen",
+          "items": {
+            "type": "object",
+            "title": "Zeuge",
+            "required": ["name"],
+            "properties": {
+              "name": { "type": "string", "title": "Name" },
+              "telefon": { "type": "string", "format": "phone", "title": "Telefon" },
+              "aussageKurz": { "type": "string", "title": "Kurznotiz" }
+            }
+          }
+        },
+        "gegnerischePartei": {
+          "type": "object",
+          "title": "Gegnerische Partei (optional)",
+          "properties": {
+            "name": { "type": "string", "title": "Name / Kennzeichen" },
+            "versicherung": { "type": "string", "title": "Versicherung" },
+            "kontakt": { "type": "string", "format": "phone", "title": "Kontakt" }
+          }
+        }
+      }
+    },
+    "abschluss": {
+      "type": "object",
+      "title": "Abschluss",
+      "properties": {
+        "fotosVorhanden": {
+          "type": "boolean",
+          "title": "Fotos / Belege liegen vor"
+        },
+        "iban": {
+          "type": "string",
+          "title": "IBAN für Erstattung",
+          "description": "Optional, falls Auszahlung gewünscht"
+        },
+        "datenschutzEinwilligung": {
+          "type": "boolean",
+          "title": "Einwilligung zur Datenverarbeitung"
+        },
+        "wahrheitsgemasseAngaben": {
+          "type": "boolean",
+          "title": "Angaben sind wahrheitsgemäß"
+        }
+      }
+    },
+    "bearbeitungsStatus": {
+      "type": "string",
+      "title": "Bearbeitungsstand",
+      "description": "Wird automatisch aus dem Formularfortschritt abgeleitet",
+      "enum": ["NEU", "GEMELDET", "SCHADEN_BESCHRIEBEN", "UNTERLAGEN_OFFEN", "EINGEGANGEN"],
+      "x-computed": {
+        "expression": "!has(data.vorgang.meldedatum) || data.vorgang.meldedatum == '' ? 'NEU' : (!has(data.schadenfall.schadenDatum) || data.schadenfall.schadenDatum == '') ? 'GEMELDET' : (!has(data.schadendetails.art) || !has(data.schadendetails.art.typ)) ? 'SCHADEN_BESCHRIEBEN' : (!data.abschluss.datenschutzEinwilligung || !data.abschluss.wahrheitsgemasseAngaben) ? 'UNTERLAGEN_OFFEN' : 'EINGEGANGEN'"
+      }
+    }
+  },
+  "$defs": {
+    "SchadenKfz": {
+      "type": "object",
+      "title": "Kfz-Schaden",
+      "required": ["typ", "kennzeichen", "fahrbereit"],
+      "properties": {
+        "typ": { "type": "string", "const": "kfz", "title": "Art" },
+        "kennzeichen": { "type": "string", "title": "Kennzeichen" },
+        "fahrzeugart": {
+          "type": "string",
+          "title": "Fahrzeugart",
+          "enum": ["PKW", "Transporter", "Motorrad", "Anhänger"]
+        },
+        "fahrtzweck": {
+          "type": "string",
+          "title": "Fahrtzweck",
+          "enum": ["Privat", "Dienst", "Arbeitsweg"]
+        },
+        "beschaedigung": {
+          "type": "string",
+          "title": "Schwere der Beschädigung",
+          "enum": ["leicht", "mittel", "Totalschaden"]
+        },
+        "fahrbereit": {
+          "type": "boolean",
+          "title": "Fahrzeug noch fahrbereit"
+        },
+        "mietwagenErforderlich": {
+          "type": "boolean",
+          "title": "Mietwagen erforderlich"
+        }
+      }
+    },
+    "SchadenHausrat": {
+      "type": "object",
+      "title": "Hausrat-Schaden",
+      "required": ["typ", "ursache"],
+      "properties": {
+        "typ": { "type": "string", "const": "hausrat", "title": "Art" },
+        "ursache": {
+          "type": "string",
+          "title": "Schadenursache",
+          "enum": ["Wasser", "Feuer", "Einbruch", "Sturm", "Sonstiges"]
+        },
+        "betroffeneRaeume": {
+          "type": "string",
+          "title": "Betroffene Räume",
+          "description": "z. B. Küche, Wohnzimmer"
+        },
+        "gegenstaende": {
+          "type": "array",
+          "title": "Beschädigte Gegenstände",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["bezeichnung"],
+            "properties": {
+              "bezeichnung": { "type": "string", "title": "Bezeichnung" },
+              "anschaffungsjahr": { "type": "integer", "title": "Anschaffungsjahr" },
+              "geschaetzterWert": { "type": "number", "title": "Geschätzter Wert (EUR)" }
+            }
+          }
+        }
+      }
+    },
+    "SchadenHaftpflicht": {
+      "type": "object",
+      "title": "Haftpflicht-Schaden",
+      "required": ["typ", "gegenstand"],
+      "properties": {
+        "typ": { "type": "string", "const": "haftpflicht", "title": "Art" },
+        "gegenstand": {
+          "type": "string",
+          "title": "Was wurde beschädigt?",
+          "description": "Sache oder Anlage eines Dritten"
+        },
+        "personenSchaden": {
+          "type": "boolean",
+          "title": "Personenschaden"
+        },
+        "verletztePerson": {
+          "type": "string",
+          "title": "Verletzte Person (Name)"
+        },
+        "aerztlichBehandelt": {
+          "type": "boolean",
+          "title": "Ärztlich behandelt"
+        },
+        "geschaetzteHoehe": {
+          "type": "number",
+          "title": "Geschätzte Schadenhöhe (EUR)"
+        }
+      }
+    }
+  }
+}

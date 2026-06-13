@@ -18,10 +18,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
-- Example app: curated **practice scenario gallery** (6 public use cases by category); internal examples hidden from browsing but kept for E2E; practice-oriented labels and schema titles throughout
+- Example app: curated **practice scenario gallery** (8 public use cases by category); internal examples hidden from browsing but kept for E2E; practice-oriented labels and schema titles throughout
 - Example app: **workshop layout** inspired by declarative form tools — sidebar scenario navigation, hero intro, underline tabs (Form / Editor / JSON), split view with live form data panel
 - Example app: **Get started** subpage (`#/get-started`) with install steps, architecture overview, and link back to scenarios
 - Example app: deployable to **GitHub Pages** via `.github/workflows/pages.yml` (live demo at `/jsonschema-editor/` on `github.io`)
+
+### Added
+
+- Example app: public scenario **`insurance-claim`** (Schadensmeldung) for Versicherung & Service — Stepper, oneOf (Kfz/Hausrat/Haftpflicht), Zeugenliste, Schadenort-Karte, x-computed Bearbeitungsstand
+- Example app: public scenario **`logistics-freight-order`** (Speditionsauftrag) for Logistik & Transport — 7-step workflow, dual map (pickup/delivery), cargo list, oneOf service level, categorization, triple x-computed (weight/volume/freight)
 
 ### Fixed
 

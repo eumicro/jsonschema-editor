@@ -1,0 +1,62 @@
+{
+  "vorgang": {
+    "schadennummer": "SCH-2026-00891",
+    "meldedatum": "2026-06-12"
+  },
+  "versicherungsnehmer": {
+    "vorname": "Martin",
+    "nachname": "Schulze",
+    "email": "martin.schulze@example.de",
+    "telefon": "+49 40 12345678",
+    "policennummer": "KH-DE-7845123"
+  },
+  "schadenfall": {
+    "schadenDatum": "2026-06-10",
+    "schadenzeit": "17:45",
+    "adresse": "Reeperbahn 1, 20359 Hamburg",
+    "schadenortKarte": {
+      "type": "GeometryCollection",
+      "geometries": [
+        {
+          "type": "Point",
+          "coordinates": [9.9625, 53.5495]
+        }
+      ]
+    },
+    "schilderung": "Beim Ausparken aus einer Lücke touchierte ein anderer Pkw die vordere Stoßstange. Leichte Kratzer, kein Personenschaden.",
+    "polizeiAufgenommen": false,
+    "polizeiAktenzeichen": ""
+  },
+  "schadendetails": {
+    "art": {
+      "typ": "kfz",
+      "kennzeichen": "HH-MS 4821",
+      "fahrzeugart": "PKW",
+      "fahrtzweck": "Privat",
+      "beschaedigung": "leicht",
+      "fahrbereit": true,
+      "mietwagenErforderlich": false
+    }
+  },
+  "beteiligte": {
+    "zeugen": [
+      {
+        "name": "Lisa Berger",
+        "telefon": "+49 170 9988776",
+        "aussageKurz": "Stand an der Ecke, hat den Vorgang gesehen."
+      }
+    ],
+    "gegnerischePartei": {
+      "name": "HH-AB 1234",
+      "versicherung": "Beispiel Versicherung AG",
+      "kontakt": "+49 171 5544332"
+    }
+  },
+  "abschluss": {
+    "fotosVorhanden": true,
+    "iban": "DE89370400440532013000",
+    "datenschutzEinwilligung": true,
+    "wahrheitsgemasseAngaben": true
+  },
+  "bearbeitungsStatus": "EINGEGANGEN"
+}

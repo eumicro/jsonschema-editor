@@ -1,0 +1,260 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Speditionsauftrag",
+  "description": "Nationaler Transportauftrag mit Abholung, Zustellung und Frachtkalkulation",
+  "type": "object",
+  "properties": {
+    "auftrag": {
+      "type": "object",
+      "title": "Auftrag",
+      "required": ["auftragsnummer", "auftragsdatum"],
+      "properties": {
+        "auftragsnummer": {
+          "type": "string",
+          "title": "Auftragsnummer",
+          "description": "Interne Transport-ID"
+        },
+        "auftragsdatum": {
+          "type": "string",
+          "format": "date",
+          "title": "Auftragsdatum"
+        },
+        "kundenreferenz": {
+          "type": "string",
+          "title": "Kundenreferenz",
+          "description": "Bestell- oder Projektnummer des Auftraggebers"
+        }
+      }
+    },
+    "auftraggeber": {
+      "type": "object",
+      "title": "Auftraggeber",
+      "required": ["firma", "ansprechpartner", "email"],
+      "properties": {
+        "firma": { "type": "string", "title": "Firma" },
+        "ansprechpartner": { "type": "string", "title": "Ansprechpartner" },
+        "email": { "type": "string", "format": "email", "title": "E-Mail" },
+        "telefon": { "type": "string", "format": "phone", "title": "Telefon" },
+        "rechnungskonto": {
+          "type": "string",
+          "title": "Rechnungskonto",
+          "enum": ["Standard 30 Tage", "Standard 14 Tage", "Vorkasse"],
+          "x-values-source": {
+            "kind": "static",
+            "values": ["Standard 30 Tage", "Standard 14 Tage", "Vorkasse"]
+          }
+        }
+      }
+    },
+    "abholung": {
+      "type": "object",
+      "title": "Abholung",
+      "required": ["adresse", "abholDatum", "zeitfensterVon", "zeitfensterBis"],
+      "properties": {
+        "adresse": { "type": "string", "title": "Abholadresse" },
+        "abholDatum": { "type": "string", "format": "date", "title": "Abholdatum" },
+        "zeitfensterVon": { "type": "string", "title": "Zeitfenster von", "description": "HH:MM" },
+        "zeitfensterBis": { "type": "string", "title": "Zeitfenster bis", "description": "HH:MM" },
+        "ladestelle": {
+          "type": "string",
+          "title": "Ladestelle",
+          "enum": ["Rampe", "Tor", "Ebenerdig", "Kran erforderlich"]
+        },
+        "standortKarte": {
+          "type": "object",
+          "title": "Abholort (Karte)",
+          "x-geometry": {
+            "styleUrl": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+            "point": true,
+            "line": false,
+            "polygon": false,
+            "maxObjects": 1
+          }
+        },
+        "hinweise": { "type": "string", "title": "Hinweise für Fahrer" }
+      }
+    },
+    "zustellung": {
+      "type": "object",
+      "title": "Zustellung",
+      "required": ["adresse", "zustellDatum", "zeitfensterVon", "zeitfensterBis"],
+      "properties": {
+        "adresse": { "type": "string", "title": "Zustelladresse" },
+        "zustellDatum": { "type": "string", "format": "date", "title": "Zustelldatum" },
+        "zeitfensterVon": { "type": "string", "title": "Zeitfenster von" },
+        "zeitfensterBis": { "type": "string", "title": "Zeitfenster bis" },
+        "empfaenger": { "type": "string", "title": "Empfänger vor Ort" },
+        "empfaengerTelefon": { "type": "string", "format": "phone", "title": "Telefon Empfänger" },
+        "standortKarte": {
+          "type": "object",
+          "title": "Zustellort (Karte)",
+          "x-geometry": {
+            "styleUrl": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+            "point": true,
+            "line": false,
+            "polygon": false,
+            "maxObjects": 1
+          }
+        },
+        "avisierungErforderlich": {
+          "type": "boolean",
+          "title": "Avisierung vor Zustellung"
+        }
+      }
+    },
+    "sendung": {
+      "type": "object",
+      "title": "Sendung",
+      "required": ["leistungsart", "positionen"],
+      "properties": {
+        "leistungsart": {
+          "title": "Leistungsart",
+          "oneOf": [
+            { "$ref": "#/$defs/LeistungStandard" },
+            { "$ref": "#/$defs/LeistungExpress" },
+            { "$ref": "#/$defs/LeistungKuehlkette" }
+          ]
+        },
+        "positionen": {
+          "type": "array",
+          "title": "Sendungspositionen",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "title": "Position",
+            "required": ["bezeichnung", "anzahl", "gewichtKg"],
+            "properties": {
+              "bezeichnung": { "type": "string", "title": "Bezeichnung / Inhalt" },
+              "anzahl": { "type": "integer", "title": "Anzahl Packstücke", "minimum": 1 },
+              "gewichtKg": { "type": "number", "title": "Gewicht pro Packstück (kg)" },
+              "volumenM3": { "type": "number", "title": "Volumen pro Packstück (m³)" },
+              "stapelbar": { "type": "boolean", "title": "Stapelbar" },
+              "gefahrgut": {
+                "type": "object",
+                "title": "Gefahrgut",
+                "properties": {
+                  "enthaeltGefahrgut": { "type": "boolean", "title": "Enthält Gefahrgut" },
+                  "adrKlasse": {
+                    "type": "string",
+                    "title": "ADR-Klasse",
+                    "enum": ["Klasse 2", "Klasse 3", "Klasse 8", "Klasse 9"]
+                  },
+                  "unNummer": { "type": "string", "title": "UN-Nummer" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "fahrzeug": {
+      "type": "object",
+      "title": "Fahrzeug & Handling",
+      "properties": {
+        "fahrzeugklasse": {
+          "type": "string",
+          "title": "Fahrzeugklasse",
+          "enum": ["Sprinter", "7,5 t", "12 t", "Sattelzug"]
+        },
+        "zusatzleistungen": {
+          "type": "object",
+          "title": "Zusatzleistungen",
+          "properties": {
+            "hebebuehne": { "type": "boolean", "title": "Hebebühne" },
+            "fixierung": { "type": "boolean", "title": "Zurrgurte / Fixierung" },
+            "zweiFahrer": { "type": "boolean", "title": "Zwei-Fahrer-Besatzung" },
+            "adrAusstattung": { "type": "boolean", "title": "ADR-Ausstattung erforderlich" }
+          }
+        },
+        "besonderheiten": { "type": "string", "title": "Besonderheiten" }
+      }
+    },
+    "kalkulation": {
+      "type": "object",
+      "title": "Kalkulation",
+      "properties": {
+        "gesamtGewichtKg": {
+          "type": "number",
+          "title": "Gesamtgewicht (kg)",
+          "description": "Summe aller Positionen (Gewicht × Anzahl)",
+          "x-computed": {
+            "expression": "data.sendung.positionen.map(p, double(p.gewichtKg) * double(p.anzahl)).sum()"
+          }
+        },
+        "gesamtVolumenM3": {
+          "type": "number",
+          "title": "Gesamtvolumen (m³)",
+          "x-computed": {
+            "expression": "data.sendung.positionen.map(p, double(p.volumenM3) * double(p.anzahl)).sum()"
+          }
+        },
+        "frachtkostenSchaetzung": {
+          "type": "number",
+          "title": "Frachtkosten-Schätzung (EUR)",
+          "description": "Vereinfachte Schätzung aus Gewicht und Leistungsart",
+          "x-computed": {
+            "expression": "data.sendung.positionen.map(p, double(p.gewichtKg) * double(p.anzahl)).sum() * (has(data.sendung.leistungsart.typ) && data.sendung.leistungsart.typ == 'express' ? 1.35 : has(data.sendung.leistungsart.typ) && data.sendung.leistungsart.typ == 'kuehlkette' ? 1.55 : 0.95)"
+          }
+        }
+      }
+    },
+    "freigabe": {
+      "type": "object",
+      "title": "Freigabe",
+      "properties": {
+        "disponent": { "type": "string", "title": "Disponent" },
+        "interneNotiz": { "type": "string", "title": "Interne Notiz" },
+        "freigegeben": { "type": "boolean", "title": "Zur Disposition freigegeben" },
+        "bestaetigungAuftraggeber": {
+          "type": "boolean",
+          "title": "Auftraggeber bestätigt Auftragsdaten"
+        }
+      }
+    },
+    "auftragsStatus": {
+      "type": "string",
+      "title": "Auftragsstatus",
+      "description": "Automatisch aus dem Bearbeitungsfortschritt",
+      "enum": ["NEU", "AUFTRAG_ERFASST", "ROUTE_GEPLANT", "LADUNG_ERFASST", "KALKULIERT", "FREIGEGEBEN"],
+      "x-computed": {
+        "expression": "!has(data.auftrag.auftragsdatum) || data.auftrag.auftragsdatum == '' ? 'NEU' : (!has(data.abholung.abholDatum) || data.abholung.abholDatum == '') ? 'AUFTRAG_ERFASST' : (!has(data.zustellung.zustellDatum) || data.zustellung.zustellDatum == '') ? 'ROUTE_GEPLANT' : (!has(data.sendung.leistungsart) || !has(data.sendung.leistungsart.typ)) ? 'LADUNG_ERFASST' : (!has(data.kalkulation.gesamtGewichtKg) || double(data.kalkulation.gesamtGewichtKg) <= 0.0) ? 'LADUNG_ERFASST' : (!data.freigabe.freigegeben || !data.freigabe.bestaetigungAuftraggeber) ? 'KALKULIERT' : 'FREIGEGEBEN'"
+      }
+    }
+  },
+  "$defs": {
+    "LeistungStandard": {
+      "type": "object",
+      "title": "Standard",
+      "required": ["typ", "maxLaufzeitTage"],
+      "properties": {
+        "typ": { "type": "string", "const": "standard", "title": "Art" },
+        "maxLaufzeitTage": { "type": "integer", "title": "Max. Laufzeit (Tage)", "enum": [1, 2, 3] }
+      }
+    },
+    "LeistungExpress": {
+      "type": "object",
+      "title": "Express",
+      "required": ["typ", "zustellungBis"],
+      "properties": {
+        "typ": { "type": "string", "const": "express", "title": "Art" },
+        "zustellungBis": {
+          "type": "string",
+          "format": "date",
+          "title": "Zustellung spätestens am"
+        },
+        "festZustelltermin": { "type": "boolean", "title": "Fixtermin verbindlich" }
+      }
+    },
+    "LeistungKuehlkette": {
+      "type": "object",
+      "title": "Kühlkette",
+      "required": ["typ", "minTempC", "maxTempC"],
+      "properties": {
+        "typ": { "type": "string", "const": "kuehlkette", "title": "Art" },
+        "minTempC": { "type": "number", "title": "Min. Temperatur (°C)" },
+        "maxTempC": { "type": "number", "title": "Max. Temperatur (°C)" },
+        "protokollPflicht": { "type": "boolean", "title": "Temperaturprotokoll erforderlich" }
+      }
+    }
+  }
+}

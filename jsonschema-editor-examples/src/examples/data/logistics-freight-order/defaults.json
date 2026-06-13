@@ -1,0 +1,112 @@
+{
+  "auftrag": {
+    "auftragsnummer": "TR-2026-10482",
+    "auftragsdatum": "2026-06-12",
+    "kundenreferenz": "PO-77821"
+  },
+  "auftraggeber": {
+    "firma": "Nordsee Maschinenbau GmbH",
+    "ansprechpartner": "Sandra Vogt",
+    "email": "logistik@nordsee-mb.example.de",
+    "telefon": "+49 421 55667788",
+    "rechnungskonto": "Standard 30 Tage"
+  },
+  "abholung": {
+    "adresse": "Industriestraße 12, 28195 Bremen",
+    "abholDatum": "2026-06-14",
+    "zeitfensterVon": "08:00",
+    "zeitfensterBis": "12:00",
+    "ladestelle": "Rampe",
+    "standortKarte": {
+      "type": "GeometryCollection",
+      "geometries": [
+        {
+          "type": "Point",
+          "coordinates": [8.8017, 53.0793]
+        }
+      ]
+    },
+    "hinweise": "Anmeldung 30 Min. vor Ankunft an Tor 3."
+  },
+  "zustellung": {
+    "adresse": "Werk München-Nord, Ingolstädter Straße 45, 80807 München",
+    "zustellDatum": "2026-06-15",
+    "zeitfensterVon": "13:00",
+    "zeitfensterBis": "17:00",
+    "empfaenger": "Lager München — Herr Klein",
+    "empfaengerTelefon": "+49 89 33445566",
+    "standortKarte": {
+      "type": "GeometryCollection",
+      "geometries": [
+        {
+          "type": "Point",
+          "coordinates": [11.582, 48.176]
+        }
+      ]
+    },
+    "avisierungErforderlich": true
+  },
+  "sendung": {
+    "leistungsart": {
+      "typ": "express",
+      "zustellungBis": "2026-06-15",
+      "festZustelltermin": true
+    },
+    "positionen": [
+      {
+        "bezeichnung": "Getriebegehäuse (verpackt)",
+        "anzahl": 2,
+        "gewichtKg": 420,
+        "volumenM3": 0.85,
+        "stapelbar": false,
+        "gefahrgut": {
+          "enthaeltGefahrgut": false
+        }
+      },
+      {
+        "bezeichnung": "Ersatzwellen in Holzkiste",
+        "anzahl": 4,
+        "gewichtKg": 95,
+        "volumenM3": 0.35,
+        "stapelbar": true,
+        "gefahrgut": {
+          "enthaeltGefahrgut": false
+        }
+      },
+      {
+        "bezeichnung": "Hydrauliköl-Kanister (ADR)",
+        "anzahl": 1,
+        "gewichtKg": 25,
+        "volumenM3": 0.04,
+        "stapelbar": false,
+        "gefahrgut": {
+          "enthaeltGefahrgut": true,
+          "adrKlasse": "Klasse 3",
+          "unNummer": "UN 1263"
+        }
+      }
+    ]
+  },
+  "fahrzeug": {
+    "fahrzeugklasse": "12 t",
+    "zusatzleistungen": {
+      "hebebuehne": true,
+      "fixierung": true,
+      "zweiFahrer": false,
+      "adrAusstattung": true
+    },
+    "besonderheiten": "Schwerlast: Getriebegehäuse mit 2t-Hebezeug entladen."
+  },
+  "kalkulation": {
+    "gesamtGewichtKg": 1220,
+    "gesamtVolumenM3": 3.14,
+    "frachtkostenSchaetzung": 1647
+  },
+  "freigabe": {
+    "disponent": "Thomas Richter",
+    "interneNotiz": "Express — Fahrzeug bis 14.06. 18:00 disponieren.",
+    "freigegeben": true,
+    "bestaetigungAuftraggeber": true
+  },
+  "auftragsStatus": "FREIGEGEBEN"
+}

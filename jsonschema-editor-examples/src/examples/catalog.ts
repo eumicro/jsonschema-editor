@@ -41,6 +41,14 @@ import geometryQaDefaults from "./data/geometry-qa/defaults.json";
 import geometryQaMeta from "./data/geometry-qa/meta.json";
 import geometryQaSchema from "./data/geometry-qa/schema.json";
 import geometryQaUi from "./data/geometry-qa/ui.schema.json";
+import insuranceClaimDefaults from "./data/insurance-claim/defaults.json";
+import insuranceClaimMeta from "./data/insurance-claim/meta.json";
+import insuranceClaimSchema from "./data/insurance-claim/schema.json";
+import insuranceClaimUi from "./data/insurance-claim/ui.schema.json";
+import logisticsFreightOrderDefaults from "./data/logistics-freight-order/defaults.json";
+import logisticsFreightOrderMeta from "./data/logistics-freight-order/meta.json";
+import logisticsFreightOrderSchema from "./data/logistics-freight-order/schema.json";
+import logisticsFreightOrderUi from "./data/logistics-freight-order/ui.schema.json";
 
 export type ExampleId =
   | "person-one-of"
@@ -48,6 +56,8 @@ export type ExampleId =
   | "simple-composition"
   | "car-configurator"
   | "occupational-health-g37"
+  | "insurance-claim"
+  | "logistics-freight-order"
   | "geometry-qa"
   | "field-extensions-qa"
   | "computed-cost-qa"
@@ -58,6 +68,8 @@ export type ExampleVisibility = "public" | "internal";
 
 export type ExampleCategory =
   | "Gesundheit & Arbeitsschutz"
+  | "Versicherung & Service"
+  | "Logistik & Transport"
   | "Vertrieb & Konfiguration"
   | "Anträge & Prozesse"
   | "Stammdaten"
@@ -86,6 +98,8 @@ export interface ExampleManifest {
 /** Display order of categories in the example gallery. */
 export const exampleCategoryOrder: ExampleCategory[] = [
   "Gesundheit & Arbeitsschutz",
+  "Versicherung & Service",
+  "Logistik & Transport",
   "Vertrieb & Konfiguration",
   "Anträge & Prozesse",
   "Stammdaten",
@@ -118,6 +132,20 @@ export const exampleManifests: ExampleManifest[] = [
     occupationalHealthG37Schema as unknown as JsonSchemaObject,
     occupationalHealthG37Ui as unknown as UiSchemaObject,
     occupationalHealthG37Defaults,
+  ),
+  manifest(
+    "insurance-claim",
+    insuranceClaimMeta as ExampleMetaSource,
+    insuranceClaimSchema as unknown as JsonSchemaObject,
+    insuranceClaimUi as unknown as UiSchemaObject,
+    insuranceClaimDefaults,
+  ),
+  manifest(
+    "logistics-freight-order",
+    logisticsFreightOrderMeta as ExampleMetaSource,
+    logisticsFreightOrderSchema as unknown as JsonSchemaObject,
+    logisticsFreightOrderUi as unknown as UiSchemaObject,
+    logisticsFreightOrderDefaults,
   ),
   manifest(
     "car-configurator",
