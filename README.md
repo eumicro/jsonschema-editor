@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/eumicro/jsonschema-editor/actions/workflows/ci.yml/badge.svg)](https://github.com/eumicro/jsonschema-editor/actions/workflows/ci.yml)
 
-**Live demo (GitHub Pages):** [eumicro.github.io/jsonschema-editor](https://eumicro.github.io/jsonschema-editor/) — Get started guide and curated scenarios.
+**Live demo:** [jsonschema-editor.cloudapplication.net](https://jsonschema-editor.cloudapplication.net/) — Get started guide and curated scenarios (GitHub Pages).
 
 ![Demo: G37 Bildschirm-Vorsorge — vollständiger Stepper-Durchlauf](./docs/demo.gif)
 

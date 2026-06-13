@@ -23,10 +23,10 @@ Opens http://localhost:5173 with:
 - **Edit schema** — adjust schema and UI layout with live preview
 - **Test form** — fill the form and inspect JSON output
 
-**GitHub Pages:** After enabling Pages (*Settings → Pages → Build and deployment: GitHub Actions*), pushes to `main` publish the site at `https://<user>.github.io/jsonschema-editor/`. Local production preview:
+**GitHub Pages:** After enabling Pages (*Settings → Pages → Build and deployment: GitHub Actions*) and configuring the custom domain, pushes to `main` publish the site at [jsonschema-editor.cloudapplication.net](https://jsonschema-editor.cloudapplication.net/). Local production preview:
 
 ```bash
-VITE_BASE_PATH=/jsonschema-editor/ pnpm run build
+pnpm run build
 pnpm run preview
 ```
 

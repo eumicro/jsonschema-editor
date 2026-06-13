@@ -12,7 +12,7 @@ export const operator = {
 export const projectLinks = {
   repository: "https://github.com/eumicro/jsonschema-editor",
   issues: "https://github.com/eumicro/jsonschema-editor/issues",
-  demo: "https://eumicro.github.io/jsonschema-editor/",
+  demo: "https://jsonschema-editor.cloudapplication.net/",
 } as const;
 
 export type LegalSubsection = {

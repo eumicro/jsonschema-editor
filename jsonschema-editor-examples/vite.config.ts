@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { resolve } from "node:path";
 
-/** Set to `/repo-name/` for GitHub Pages project sites (see .github/workflows/pages.yml). */
+/** Defaults to `/` for custom domain; override with `VITE_BASE_PATH` if needed. */
 const base = process.env.VITE_BASE_PATH ?? "/";
 
 export default defineConfig({

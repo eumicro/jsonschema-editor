@@ -39,7 +39,8 @@ jobs:
       - name: Build examples site
         working-directory: jsonschema-editor-examples
         env:
-          VITE_BASE_PATH: /jsonschema-editor/
+          # Root base path for custom domain (jsonschema-editor.cloudapplication.net).
+          VITE_BASE_PATH: /
         run: pnpm run build
 
       - name: Upload Pages artifact
