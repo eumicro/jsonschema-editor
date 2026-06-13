@@ -3,6 +3,7 @@ import { Control, Group, Step, Stepper, VerticalLayout } from "@jsonschema-edito
 import {
   canMoveUiElementTo,
   getUiElementAt,
+  isLayoutElement,
   moveUiElementTo,
 } from "../../jsonschema-editor-vue/src/utils/ui-editor.ts";
 
@@ -27,9 +28,13 @@ describe("moveUiElementTo", () => {
 
     const next = moveUiElementTo(stepper, from, toParent, 0);
     const layoutPath = [0, 0, 0, 2];
-    expect(getUiElementAt(next, layoutPath).elements).toHaveLength(1);
+    const layout = getUiElementAt(next, layoutPath);
+    expect(isLayoutElement(layout)).toBe(true);
+    if (isLayoutElement(layout)) expect(layout.elements).toHaveLength(1);
     expect(getUiElementAt(next, [...layoutPath, 0])).toMatchObject({ scope: "#/nachname" });
-    expect(getUiElementAt(next, [0, 0, 0]).elements).toHaveLength(3);
+    const groupAfter = getUiElementAt(next, [0, 0, 0]);
+    expect(isLayoutElement(groupAfter)).toBe(true);
+    if (isLayoutElement(groupAfter)) expect(groupAfter.elements).toHaveLength(3);
   });
 
   it("moves a control into a vertical layout at G37 paths", () => {
@@ -58,7 +63,9 @@ describe("moveUiElementTo", () => {
 
     const next = moveUiElementTo(stepper, from, toParent, 0);
     const layoutPath = [0, 0, 3, 5];
-    expect(getUiElementAt(next, layoutPath).elements).toHaveLength(1);
+    const layout = getUiElementAt(next, layoutPath);
+    expect(isLayoutElement(layout)).toBe(true);
+    if (isLayoutElement(layout)) expect(layout.elements).toHaveLength(1);
     expect(getUiElementAt(next, [...layoutPath, 0])).toMatchObject({ scope: "#/nachname" });
   });
 });
