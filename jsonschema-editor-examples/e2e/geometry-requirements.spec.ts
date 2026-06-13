@@ -99,7 +99,7 @@ test.describe("Geometry-Anforderungen (Browser)", () => {
     const before = readBetriebsgelaende(await readFormOutput(page));
     const beforeRing = JSON.stringify(before.geometries[0]?.coordinates);
 
-    await page.getByRole("button", { name: "Bearbeiten" }).click();
+    await page.getByRole("button", { name: "Bearbeiten", exact: true }).click();
     const map = page.locator(".jse-geometry-map.leaflet-container");
     await map.scrollIntoViewIfNeeded();
     const vertex = map.locator(".leaflet-marker-pane .leaflet-marker-icon").first();

@@ -22,7 +22,7 @@ test.describe("Auto-Konfigurator (verschachtelt)", () => {
 
   test("Modell oneOf: SUV → Limousine wechselt Unterfelder", async ({ page }) => {
     await expect(page.locator(".jse-stepper__step-indicator--active")).toContainText("Fahrzeug");
-    await expect(page.getByRole("tab", { name: "Modell (oneOf)" })).toBeVisible();
+    await expect(page.getByRole("tab", { name: "Modell" })).toBeVisible();
 
     const modellSelect = page.locator(".jse-stepper__panel .jse-oneof-field").first().locator("select");
     await expect(modellSelect).toHaveValue("1");
@@ -48,7 +48,7 @@ test.describe("Auto-Konfigurator (verschachtelt)", () => {
     page.on("pageerror", (error) => errors.push(error.message));
 
     await openEditorMode(page);
-    await page.getByRole("button", { name: "Element zu Auto-Konfigurator hinzufügen" }).click();
+    await page.getByRole("button", { name: "Element zu Fahrzeugbestellung hinzufügen" }).click();
     const dialog = page.getByRole("dialog", { name: "Element hinzufügen" });
     await dialog.getByPlaceholder("z. B. name").fill("extra");
     await dialog.getByRole("button", { name: "+ string", exact: true }).click();

@@ -19,20 +19,23 @@ pnpm --filter jsonschema-editor-examples run dev
 
 Opens http://localhost:5173 with:
 
-- **Form editor** — edit schema/UI schema with live preview
-- **Fillable form** — same schema as a form with JSON output
+- **Edit schema** — adjust schema and UI layout with live preview
+- **Test form** — fill the form and inspect JSON output
 
-## Built-in examples
+The landing page shows **curated use-case scenarios** grouped by domain (occupational health, vehicle orders, applications, master data). Internal examples remain available for automated tests via the hidden example selector.
 
-| Example | ID | Demonstrates |
+## Public scenarios
+
+| Scenario | ID | Typical use |
 | --- | --- | --- |
-| oneOf: Human / Machine | `person-one-of` | Inline `oneOf` branches, type switch in the form |
-| $defs + oneOf | `person-with-defs` | `$ref` to `$defs`, format fields (email/url/phone), static & API selects |
-| allOf + oneOf | `simple-composition` | Schema compositions |
-| Car configurator | `car-configurator` | Nested `oneOf`/`anyOf`, Stepper + Categorization UI layout |
-| G37 occupational health | `occupational-health-g37` | DGUV screen-work exam: deep `$defs`, program & assessment `oneOf`, vision screening, supplementary workup |
+| G37 screen-work preventive exam | `occupational-health-g37` | Occupational health from intake to employer notification |
+| Vehicle order | `car-configurator` | Multi-step configuration with model, equipment, financing |
+| Grant application | `computed-status-qa` | Application workflow with automatic processing status |
+| Cost estimate | `computed-cost-qa` | Line items with automatic total |
+| Contact person | `person-with-defs` | Person or asset with email, phone, selects |
+| Customer contact | `field-extensions-qa` | CRM contact with read-only system fields |
 
-Example data lives in `src/examples/data/<id>/` (`schema.json`, `ui.schema.json`, `defaults.json`).
+Example data lives in `src/examples/data/<id>/` (`schema.json`, `ui.schema.json`, `defaults.json`, `meta.json`).
 
 ### Loading pattern (important)
 
@@ -61,7 +64,7 @@ registerDefaultVueExtensions();
 pnpm --filter jsonschema-editor-examples run test:e2e
 ```
 
-Playwright starts its own dev server in CI mode. Tests cover the editor, extensions, validation, `$defs`, and the car configurator Stepper layout.
+Playwright starts its own dev server in CI mode. Tests cover the editor, extensions, validation, geometry, computed fields, and curated scenarios.
 
 ## Record demo GIF
 

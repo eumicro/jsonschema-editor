@@ -27,7 +27,7 @@ test.describe("Form-Editor", () => {
     const panel = page.getByRole("dialog", { name: /Attribute – Mensch/ });
     await expect(panel).toBeVisible();
     await expect(panel.getByPlaceholder("z. B. Person")).toHaveValue("Mensch");
-    await expect(panel.getByRole("textbox").nth(1)).toHaveValue("Mensch");
+    await expect(panel.getByRole("textbox").nth(1)).toHaveValue("Person");
 
     await page.getByRole("button", { name: "Schließen" }).click();
     await expect(panel).toHaveCount(0);

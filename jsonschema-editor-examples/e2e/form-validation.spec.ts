@@ -27,7 +27,7 @@ test.describe("Formular-Validierung", () => {
   });
 
   test("Ungültige E-Mail nach Blur", async ({ page }) => {
-    const emailField = fieldByLabel(page, /^Email/);
+    const emailField = fieldByLabel(page, /^E-Mail/);
     const input = emailField.locator("input");
 
     await input.fill("not-an-email");

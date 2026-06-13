@@ -62,7 +62,7 @@ test.describe("x-computed (CEL)", () => {
 
     const panel = page.locator(".jse-stepper__panel");
     const statusField = panel.locator(".jse-field").filter({
-      has: page.locator(".jse-field__label", { hasText: "Status" }),
+      has: page.locator(".jse-field__label", { hasText: "Bearbeitungsstand" }),
     });
     await expect(statusField.locator("input")).toHaveValue("NEU");
 
@@ -83,7 +83,7 @@ test.describe("x-computed (CEL)", () => {
     const panel = () => page.locator(".jse-stepper__panel");
     const statusField = () =>
       panel().locator(".jse-field").filter({
-        has: page.locator(".jse-field__label", { hasText: "Status" }),
+        has: page.locator(".jse-field__label", { hasText: "Bearbeitungsstand" }),
       });
 
     await panel().locator(".jse-field").filter({

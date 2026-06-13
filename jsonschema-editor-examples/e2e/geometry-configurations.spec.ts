@@ -13,7 +13,7 @@ type GeometryScenario = {
 
 const scenarios: GeometryScenario[] = [
   {
-    title: "Nur Punkt",
+    title: "Standort markieren",
     point: true,
     line: false,
     polygon: false,
@@ -22,7 +22,7 @@ const scenarios: GeometryScenario[] = [
     hiddenDrawButtons: ["Linie zeichnen", "Polygon zeichnen"],
   },
   {
-    title: "Nur Linie",
+    title: "Route erfassen",
     point: false,
     line: true,
     polygon: false,
@@ -31,7 +31,7 @@ const scenarios: GeometryScenario[] = [
     hiddenDrawButtons: ["Punkt setzen", "Polygon zeichnen"],
   },
   {
-    title: "Nur Polygon",
+    title: "Einsatzgebiet abgrenzen",
     point: false,
     line: false,
     polygon: true,
@@ -40,7 +40,7 @@ const scenarios: GeometryScenario[] = [
     hiddenDrawButtons: ["Punkt setzen", "Linie zeichnen"],
   },
   {
-    title: "Punkt + Linie",
+    title: "Standort und Route",
     point: true,
     line: true,
     polygon: false,
@@ -49,7 +49,7 @@ const scenarios: GeometryScenario[] = [
     hiddenDrawButtons: ["Polygon zeichnen"],
   },
   {
-    title: "Punkt + Polygon",
+    title: "Standort und Gebiet",
     point: true,
     line: false,
     polygon: true,
@@ -58,7 +58,7 @@ const scenarios: GeometryScenario[] = [
     hiddenDrawButtons: ["Linie zeichnen"],
   },
   {
-    title: "Linie + Polygon",
+    title: "Route und Gebiet",
     point: false,
     line: true,
     polygon: true,
@@ -67,7 +67,7 @@ const scenarios: GeometryScenario[] = [
     hiddenDrawButtons: ["Punkt setzen"],
   },
   {
-    title: "Alle Typen",
+    title: "Gesamtplanung",
     point: true,
     line: true,
     polygon: true,
@@ -76,7 +76,7 @@ const scenarios: GeometryScenario[] = [
     hiddenDrawButtons: [],
   },
   {
-    title: "Polygon 1–3",
+    title: "Mehrere Gebiete",
     point: false,
     line: false,
     polygon: true,
@@ -85,7 +85,7 @@ const scenarios: GeometryScenario[] = [
     hiddenDrawButtons: ["Punkt setzen", "Linie zeichnen"],
   },
   {
-    title: "Exakt 2",
+    title: "Zwei Kartenelemente",
     point: true,
     line: true,
     polygon: true,
@@ -148,12 +148,12 @@ test.describe("Geometry-Konfigurationen (Browser)", () => {
     await panel.getByText("exactObjects").locator("..").locator("input").fill("2");
 
     await openFormMode(page);
-    const field = fieldByTitle(page, "Nur Punkt");
+    const field = fieldByTitle(page, "Standort markieren");
     await expect(field.getByText(/0 \/ exakt 2 Geometrie\(n\)/)).toBeVisible();
   });
 
-  test("Formular: Mindestanzahl verhindert Löschen (Polygon 1–3)", async ({ page }) => {
-    const field = fieldByTitle(page, "Polygon 1–3");
+  test("Formular: Mindestanzahl verhindert Löschen (Mehrere Gebiete)", async ({ page }) => {
+    const field = fieldByTitle(page, "Mehrere Gebiete");
     await field.scrollIntoViewIfNeeded();
     const map = field.locator(".jse-geometry-map.leaflet-container");
 

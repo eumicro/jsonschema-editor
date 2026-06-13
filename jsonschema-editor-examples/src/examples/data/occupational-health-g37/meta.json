@@ -1,4 +1,7 @@
 {
-  "label": "G37 occupational health exam (complex)",
-  "description": "Vollständiges DGUV-G37-Beispiel: Vorgeschichte, Anamnese inkl. Arbeitseinweisung, Siebtest (Kategorien a–d), Beurteilung, Beratung, Mitteilung an den Arbeitgeber und Attest. <code>Stepper</code>, <code>Categorization</code>, <code>HorizontalLayout</code>, <code>oneOf</code> und Kartenfeld — Stress-Test für arbeitsmedizinische Formulare."
+  "label": "G37 Bildschirm-Vorsorge",
+  "tagline": "Vorsorge am Bildschirmarbeitsplatz — vollständiger G37-Ablauf",
+  "description": "Arbeitsmedizinische Vorsorge von Vorgeschichte und Anamnese über Siebtest und Beurteilung bis zur Mitteilung an den Arbeitgeber — inklusive Betriebsgelände auf der Karte.",
+  "category": "Gesundheit & Arbeitsschutz",
+  "visibility": "public"
 }

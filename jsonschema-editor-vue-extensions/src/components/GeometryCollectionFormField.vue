@@ -51,6 +51,7 @@ const mapInstance = shallowRef<L.Map | null>(null);
 const featureGroup = shallowRef<L.FeatureGroup | null>(null);
 const mapError = ref<string | null>(null);
 let suppressValueReload = false;
+let mapInitializing = false;
 const objectCount = computed(() => {
   const current = value.value;
   return isGeometryCollection(current) ? current.geometries.length : 0;
@@ -111,9 +112,9 @@ function attachLayerSyncEvents(layer: L.Layer): void {
   layer.on("pm:markerdragend", onLayerGeometryChange);
 }
 
-function enableGeomanForLayer(layer: L.Layer): void {
-  if (layer instanceof L.LayerGroup) {
-    layer.eachLayer(enableGeomanForLayer);
+function enableGeomanForLayer(layer: L.Layer, attachSync = true): void {
+  if (isNestedLayerGroup(layer)) {
+    layer.eachLayer((child) => enableGeomanForLayer(child, attachSync));
     return;
   }
 
@@ -127,32 +128,79 @@ function enableGeomanForLayer(layer: L.Layer): void {
     pm.enable({
       allowSelfIntersection: false,
     });
-    attachLayerSyncEvents(layer);
+    if (attachSync) attachLayerSyncEvents(layer);
   }
 }
 
-function enableGeomanForGroup(group: L.FeatureGroup): void {
-  group.eachLayer(enableGeomanForLayer);
+function enableGeomanForGroup(group: L.FeatureGroup, attachSync = true): void {
+  group.eachLayer((layer) => enableGeomanForLayer(layer, attachSync));
+}
+
+function attachSyncEventsForGroup(group: L.FeatureGroup): void {
+  group.eachLayer((layer) => {
+    if (isNestedLayerGroup(layer)) {
+      attachSyncEventsForGroup(layer as L.FeatureGroup);
+      return;
+    }
+    attachLayerSyncEvents(layer);
+  });
+}
+
+function isNestedLayerGroup(layer: L.Layer): layer is L.LayerGroup {
+  return (
+    typeof (layer as L.LayerGroup).eachLayer === "function" &&
+    typeof (layer as L.LayerGroup).getLayers === "function" &&
+    typeof (layer as L.Marker).getLatLng !== "function"
+  );
+}
+
+function geometryFromLayer(layer: L.Layer): GeoJsonGeometry | undefined {
+  const toGeoJSON = (layer as L.Layer & { toGeoJSON?: () => GeoJSON.Feature }).toGeoJSON;
+  if (typeof toGeoJSON !== "function") return undefined;
+
+  const geo = toGeoJSON.call(layer);
+  if (!geo.geometry || geo.geometry.type === "GeometryCollection") return undefined;
+
+  switch (geo.geometry.type) {
+    case "Point":
+    case "MultiPoint":
+    case "LineString":
+    case "MultiLineString":
+    case "Polygon":
+    case "MultiPolygon":
+      return geo.geometry as GeoJsonGeometry;
+    default:
+      return undefined;
+  }
 }
 
 function geometriesFromGroup(group: L.FeatureGroup): GeoJsonGeometry[] {
   const geometries: GeoJsonGeometry[] = [];
   group.eachLayer((layer) => {
-    if (!(layer instanceof L.Marker || layer instanceof L.Polyline || layer instanceof L.Polygon))
+    if (isNestedLayerGroup(layer)) {
+      geometries.push(...geometriesFromGroup(layer as L.FeatureGroup));
       return;
-    const geo = (layer as L.Marker | L.Polyline | L.Polygon).toGeoJSON() as GeoJSON.Feature;
-    if (geo.geometry) {
-      geometries.push(geo.geometry as GeoJsonGeometry);
     }
+    const geometry = geometryFromLayer(layer);
+    if (geometry) geometries.push(geometry);
   });
   return geometries;
 }
 
 function syncValueFromMap(): void {
-  if (!featureGroup.value) return;
+  if (!featureGroup.value || mapInitializing) return;
+  const extracted = geometriesFromGroup(featureGroup.value);
+  if (
+    extracted.length === 0 &&
+    featureGroup.value.getLayers().length > 0 &&
+    isGeometryCollection(value.value) &&
+    value.value.geometries.length > 0
+  ) {
+    return;
+  }
   const next: GeoJsonGeometryCollection = {
     type: "GeometryCollection",
-    geometries: geometriesFromGroup(featureGroup.value),
+    geometries: extracted,
   };
   suppressValueReload = true;
   value.value = next;
@@ -194,7 +242,7 @@ function loadCollectionOnMap(
   }
 
   if (!props.readonly) {
-    enableGeomanForGroup(group);
+    enableGeomanForGroup(group, !mapInitializing);
     const config = geometryConfig.value;
     if (config) {
       updateRemovalPolicy(group, config);
@@ -363,40 +411,46 @@ function initMap(config: NormalizedGeometryConfig): void {
   const initialBounds = boundsForCollection(collection);
   const fallbackCenter: L.LatLngExpression = [53.0061937, 7.4118535];
 
-  const map = L.map(mapContainer.value, {
-    center: initialBounds?.getCenter() ?? fallbackCenter,
-    zoom: initialBounds ? 17 : 14,
-    preferCanvas: false,
-  });
+  mapInitializing = true;
+  try {
+    const map = L.map(mapContainer.value, {
+      center: initialBounds?.getCenter() ?? fallbackCenter,
+      zoom: initialBounds ? 17 : 14,
+      preferCanvas: false,
+    });
 
-  L.tileLayer(config.styleUrl, {
-    maxZoom: 19,
-    attribution: "&copy; OpenStreetMap contributors",
-  }).addTo(map);
+    L.tileLayer(config.styleUrl, {
+      maxZoom: 19,
+      attribution: "&copy; OpenStreetMap contributors",
+    }).addTo(map);
 
-  const group = L.featureGroup().addTo(map);
+    const group = L.featureGroup().addTo(map);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  (map as any).pm.setGlobalOptions({ layerGroup: group });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (map as any).pm.setGlobalOptions({ layerGroup: group });
 
-  loadCollectionOnMap(map, group, collection);
-  lastValidCollection = cloneCollection(collection);
+    loadCollectionOnMap(map, group, collection);
+    lastValidCollection = cloneCollection(collection);
 
-  if (!props.readonly) {
-    applyDrawControls(map, config);
-    attachMapEvents(map, group, config);
-  }
-
-  mapInstance.value = map;
-  featureGroup.value = group;
-
-  void nextTick().then(() => {
-    map.invalidateSize();
-    const bounds = boundsForCollection(collection);
-    if (bounds) {
-      map.fitBounds(bounds.pad(0.2));
+    if (!props.readonly) {
+      applyDrawControls(map, config);
+      attachMapEvents(map, group, config);
+      attachSyncEventsForGroup(group);
     }
-  });
+
+    mapInstance.value = map;
+    featureGroup.value = group;
+
+    void nextTick().then(() => {
+      map.invalidateSize();
+      const bounds = boundsForCollection(collection);
+      if (bounds) {
+        map.fitBounds(bounds.pad(0.2));
+      }
+    });
+  } finally {
+    mapInitializing = false;
+  }
 }
 
 function destroyMap(): void {
@@ -438,12 +492,13 @@ watch(
 watch(
   () => value.value,
   (next) => {
-    if (suppressValueReload) return;
+    if (suppressValueReload || mapInitializing) return;
     const map = mapInstance.value;
     const group = featureGroup.value;
     if (!map || !group || !isGeometryCollection(next)) return;
 
     const current = geometriesFromGroup(group);
+    if (current.length === next.geometries.length) return;
     if (JSON.stringify(current) === JSON.stringify(next.geometries)) return;
     loadCollectionOnMap(map, group, next);
   },

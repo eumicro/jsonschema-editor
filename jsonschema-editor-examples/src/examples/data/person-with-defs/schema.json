@@ -7,8 +7,8 @@
       "$ref": "#/$defs/Maschine"
     }
   ],
-  "title": "Person",
-  "description": "Wähle zwischen Mensch und Maschine (Definitionen in $defs)",
+  "title": "Ansprechpartner",
+  "description": "Erfassen Sie eine Person oder ein zugeordnetes Betriebsmittel mit Kontaktdaten",
   "$defs": {
     "Mensch": {
       "type": "object",
@@ -16,30 +16,30 @@
         "name": {
           "type": "string",
           "title": "Name",
-          "description": "Full name"
+          "description": "Vollständiger Name"
         },
         "email": {
           "type": "string",
           "format": "email",
-          "title": "Email",
-          "description": "Contact email address"
+          "title": "E-Mail",
+          "description": "Geschäftliche E-Mail-Adresse"
         },
         "website": {
           "type": "string",
           "format": "uri",
           "title": "Website",
-          "description": "Personal or company website (HTTPS)"
+          "description": "Website der Abteilung oder des Unternehmens"
         },
         "phone": {
           "type": "string",
           "format": "phone",
-          "title": "Phone",
-          "description": "International phone number"
+          "title": "Telefon",
+          "description": "Telefonnummer mit Ländervorwahl"
         },
         "abteilung": {
           "type": "string",
           "title": "Abteilung",
-          "description": "Auswahl aus einer festen Liste",
+          "description": "Zuständige Abteilung",
           "enum": ["Vertrieb", "Entwicklung", "Support"],
           "x-values-source": {
             "kind": "static",
@@ -48,8 +48,8 @@
         },
         "manager": {
           "type": "string",
-          "title": "Manager (API)",
-          "description": "Auswahl aus externem API-Endpunkt",
+          "title": "Vorgesetzter",
+          "description": "Auswahl aus der Mitarbeiterliste",
           "x-values-source": {
             "kind": "fetch",
             "url": "https://jsonplaceholder.typicode.com/users",
@@ -61,8 +61,8 @@
       "required": [
         "name"
       ],
-      "title": "Mensch",
-      "description": "Natural person with contact details"
+      "title": "Person",
+      "description": "Natürliche Person mit Kontaktdaten"
     },
     "Maschine": {
       "type": "object",
@@ -76,8 +76,8 @@
       "required": [
         "nummer"
       ],
-      "title": "Maschine",
-      "description": "Technisches Gerät mit Seriennummer"
+      "title": "Betriebsmittel",
+      "description": "Gerät oder Anlage mit Inventarnummer"
     }
   }
 }

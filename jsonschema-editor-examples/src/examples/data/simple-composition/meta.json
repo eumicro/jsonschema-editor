@@ -1,4 +1,7 @@
 {
-  "label": "allOf + oneOf: Person",
-  "description": "Shared base (allOf) plus natural/legal person variant (oneOf)."
+  "label": "Auftraggeber erfassen",
+  "tagline": "Privatperson oder Unternehmen mit gemeinsamen Pflichtfeldern",
+  "description": "Internes Beispiel: gemeinsame Stammdaten mit unterschiedlichen Varianten für Privat- und Geschäftskunden.",
+  "category": "Stammdaten",
+  "visibility": "internal"
 }

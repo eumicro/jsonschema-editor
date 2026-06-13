@@ -54,100 +54,151 @@ export type ExampleId =
   | "computed-status-qa"
   | "array-list-qa";
 
+export type ExampleVisibility = "public" | "internal";
+
+export type ExampleCategory =
+  | "Gesundheit & Arbeitsschutz"
+  | "Vertrieb & Konfiguration"
+  | "Anträge & Prozesse"
+  | "Stammdaten"
+  | "Standort & Planung";
+
+interface ExampleMetaSource {
+  label: string;
+  tagline: string;
+  description: string;
+  category: ExampleCategory;
+  visibility: ExampleVisibility;
+}
+
 export interface ExampleManifest {
   id: ExampleId;
   label: string;
+  tagline: string;
   description: string;
+  category: ExampleCategory;
+  visibility: ExampleVisibility;
   schema: JsonSchemaObject;
   uiSchema: UiSchemaObject;
   defaults: Record<string, unknown>;
 }
 
+/** Display order of categories in the example gallery. */
+export const exampleCategoryOrder: ExampleCategory[] = [
+  "Gesundheit & Arbeitsschutz",
+  "Vertrieb & Konfiguration",
+  "Anträge & Prozesse",
+  "Stammdaten",
+];
+
+function manifest(
+  id: ExampleId,
+  meta: ExampleMetaSource,
+  schema: JsonSchemaObject,
+  uiSchema: UiSchemaObject,
+  defaults: Record<string, unknown>,
+): ExampleManifest {
+  return {
+    id,
+    label: meta.label,
+    tagline: meta.tagline,
+    description: meta.description,
+    category: meta.category,
+    visibility: meta.visibility,
+    schema,
+    uiSchema,
+    defaults,
+  };
+}
+
 export const exampleManifests: ExampleManifest[] = [
-  {
-    id: "person-one-of",
-    label: personOneOfMeta.label,
-    description: personOneOfMeta.description,
-    schema: personOneOfSchema as unknown as JsonSchemaObject,
-    uiSchema: personOneOfUi as unknown as UiSchemaObject,
-    defaults: personOneOfDefaults,
-  },
-  {
-    id: "person-with-defs",
-    label: personWithDefsMeta.label,
-    description: personWithDefsMeta.description,
-    schema: personWithDefsSchema as unknown as JsonSchemaObject,
-    uiSchema: personWithDefsUi as unknown as UiSchemaObject,
-    defaults: personWithDefsDefaults,
-  },
-  {
-    id: "simple-composition",
-    label: simpleCompositionMeta.label,
-    description: simpleCompositionMeta.description,
-    schema: simpleCompositionSchema as unknown as JsonSchemaObject,
-    uiSchema: simpleCompositionUi as unknown as UiSchemaObject,
-    defaults: simpleCompositionDefaults,
-  },
-  {
-    id: "car-configurator",
-    label: carConfiguratorMeta.label,
-    description: carConfiguratorMeta.description,
-    schema: carConfiguratorSchema as unknown as JsonSchemaObject,
-    uiSchema: carConfiguratorUi as unknown as UiSchemaObject,
-    defaults: carConfiguratorDefaults,
-  },
-  {
-    id: "occupational-health-g37",
-    label: occupationalHealthG37Meta.label,
-    description: occupationalHealthG37Meta.description,
-    schema: occupationalHealthG37Schema as unknown as JsonSchemaObject,
-    uiSchema: occupationalHealthG37Ui as unknown as UiSchemaObject,
-    defaults: occupationalHealthG37Defaults,
-  },
-  {
-    id: "geometry-qa",
-    label: geometryQaMeta.label,
-    description: geometryQaMeta.description,
-    schema: geometryQaSchema as unknown as JsonSchemaObject,
-    uiSchema: geometryQaUi as unknown as UiSchemaObject,
-    defaults: geometryQaDefaults,
-  },
-  {
-    id: "field-extensions-qa",
-    label: fieldExtensionsQaMeta.label,
-    description: fieldExtensionsQaMeta.description,
-    schema: fieldExtensionsQaSchema as unknown as JsonSchemaObject,
-    uiSchema: fieldExtensionsQaUi as unknown as UiSchemaObject,
-    defaults: fieldExtensionsQaDefaults,
-  },
-  {
-    id: "computed-cost-qa",
-    label: computedCostQaMeta.label,
-    description: computedCostQaMeta.description,
-    schema: computedCostQaSchema as unknown as JsonSchemaObject,
-    uiSchema: computedCostQaUi as unknown as UiSchemaObject,
-    defaults: computedCostQaDefaults,
-  },
-  {
-    id: "computed-status-qa",
-    label: computedStatusQaMeta.label,
-    description: computedStatusQaMeta.description,
-    schema: computedStatusQaSchema as unknown as JsonSchemaObject,
-    uiSchema: computedStatusQaUi as unknown as UiSchemaObject,
-    defaults: computedStatusQaDefaults,
-  },
-  {
-    id: "array-list-qa",
-    label: arrayListQaMeta.label,
-    description: arrayListQaMeta.description,
-    schema: arrayListQaSchema as unknown as JsonSchemaObject,
-    uiSchema: arrayListQaUi as unknown as UiSchemaObject,
-    defaults: arrayListQaDefaults,
-  },
+  manifest(
+    "occupational-health-g37",
+    occupationalHealthG37Meta as ExampleMetaSource,
+    occupationalHealthG37Schema as unknown as JsonSchemaObject,
+    occupationalHealthG37Ui as unknown as UiSchemaObject,
+    occupationalHealthG37Defaults,
+  ),
+  manifest(
+    "car-configurator",
+    carConfiguratorMeta as ExampleMetaSource,
+    carConfiguratorSchema as unknown as JsonSchemaObject,
+    carConfiguratorUi as unknown as UiSchemaObject,
+    carConfiguratorDefaults,
+  ),
+  manifest(
+    "computed-status-qa",
+    computedStatusQaMeta as ExampleMetaSource,
+    computedStatusQaSchema as unknown as JsonSchemaObject,
+    computedStatusQaUi as unknown as UiSchemaObject,
+    computedStatusQaDefaults,
+  ),
+  manifest(
+    "computed-cost-qa",
+    computedCostQaMeta as ExampleMetaSource,
+    computedCostQaSchema as unknown as JsonSchemaObject,
+    computedCostQaUi as unknown as UiSchemaObject,
+    computedCostQaDefaults,
+  ),
+  manifest(
+    "person-with-defs",
+    personWithDefsMeta as ExampleMetaSource,
+    personWithDefsSchema as unknown as JsonSchemaObject,
+    personWithDefsUi as unknown as UiSchemaObject,
+    personWithDefsDefaults,
+  ),
+  manifest(
+    "field-extensions-qa",
+    fieldExtensionsQaMeta as ExampleMetaSource,
+    fieldExtensionsQaSchema as unknown as JsonSchemaObject,
+    fieldExtensionsQaUi as unknown as UiSchemaObject,
+    fieldExtensionsQaDefaults,
+  ),
+  manifest(
+    "person-one-of",
+    personOneOfMeta as ExampleMetaSource,
+    personOneOfSchema as unknown as JsonSchemaObject,
+    personOneOfUi as unknown as UiSchemaObject,
+    personOneOfDefaults,
+  ),
+  manifest(
+    "simple-composition",
+    simpleCompositionMeta as ExampleMetaSource,
+    simpleCompositionSchema as unknown as JsonSchemaObject,
+    simpleCompositionUi as unknown as UiSchemaObject,
+    simpleCompositionDefaults,
+  ),
+  manifest(
+    "array-list-qa",
+    arrayListQaMeta as ExampleMetaSource,
+    arrayListQaSchema as unknown as JsonSchemaObject,
+    arrayListQaUi as unknown as UiSchemaObject,
+    arrayListQaDefaults,
+  ),
+  manifest(
+    "geometry-qa",
+    geometryQaMeta as ExampleMetaSource,
+    geometryQaSchema as unknown as JsonSchemaObject,
+    geometryQaUi as unknown as UiSchemaObject,
+    geometryQaDefaults,
+  ),
 ];
 
 export const exampleCatalog: Record<ExampleId, ExampleManifest> = Object.fromEntries(
-  exampleManifests.map((manifest) => [manifest.id, manifest]),
+  exampleManifests.map((entry) => [entry.id, entry]),
 ) as Record<ExampleId, ExampleManifest>;
 
-export const defaultExampleId: ExampleId = "car-configurator";
+export const publicExampleManifests: ExampleManifest[] = exampleManifests.filter(
+  (entry) => entry.visibility === "public",
+);
+
+export const examplesByCategory: Record<ExampleCategory, ExampleManifest[]> =
+  exampleCategoryOrder.reduce(
+    (acc, category) => {
+      acc[category] = publicExampleManifests.filter((entry) => entry.category === category);
+      return acc;
+    },
+    {} as Record<ExampleCategory, ExampleManifest[]>,
+  );
+
+export const defaultExampleId: ExampleId = "occupational-health-g37";

@@ -10,7 +10,7 @@
           "elements": [
             {
               "type": "Category",
-              "label": "Modell (oneOf)",
+              "label": "Modell",
               "elements": [
                 {
                   "type": "Control",
@@ -21,7 +21,7 @@
             },
             {
               "type": "Category",
-              "label": "Antrieb (oneOf)",
+              "label": "Antrieb",
               "elements": [
                 {
                   "type": "Control",
@@ -32,7 +32,7 @@
             },
             {
               "type": "Category",
-              "label": "Lackierung (anyOf)",
+              "label": "Lackierung",
               "elements": [
                 {
                   "type": "Control",
@@ -80,7 +80,7 @@
           "elements": [
             {
               "type": "Category",
-              "label": "Ausstattung (oneOf)",
+              "label": "Ausstattung",
               "elements": [
                 {
                   "type": "Control",
@@ -91,7 +91,7 @@
             },
             {
               "type": "Category",
-              "label": "Finanzierung (anyOf)",
+              "label": "Finanzierung",
               "elements": [
                 {
                   "type": "Control",

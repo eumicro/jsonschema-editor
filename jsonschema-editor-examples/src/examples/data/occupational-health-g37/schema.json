@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "G37 – Arbeitsmedizinische Vorsorge (Bildschirmarbeit)",
-  "description": "DGUV-Grundsatz G37: Angebotsvorsorge für Bildschirmarbeitsplätze inkl. Siebtest und Ergänzungsuntersuchung",
+  "title": "G37 Bildschirm-Vorsorge",
+  "description": "Arbeitsmedizinische Vorsorge am Bildschirmarbeitsplatz nach DGUV G37",
   "type": "object",
   "required": [
     "aktenzeichen",

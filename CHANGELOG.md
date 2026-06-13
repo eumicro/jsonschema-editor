@@ -16,6 +16,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 
 
+### Changed
+
+- Example app: curated **practice scenario gallery** (6 public use cases by category); internal examples hidden from browsing but kept for E2E; practice-oriented labels and schema titles throughout
+- Example app: **workshop layout** inspired by declarative form tools — sidebar scenario navigation, hero intro, underline tabs (Form / Editor / JSON), split view with live form data panel
+- Example app: **Get started** subpage (`#/get-started`) with install steps, architecture overview, and link back to scenarios
+
+### Fixed
+
+- `@jsonschema-editor/vue-extensions`: geometry map no longer clears default `GeometryCollection` values during map initialization (race between value watcher, Geoman sync, and layer reload)
+
+
+
 ## [0.1.7] - 2026-06-13
 
 

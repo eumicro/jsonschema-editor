@@ -1,4 +1,7 @@
 {
-  "label": "Computed QA (Antragsstatus)",
-  "description": "x-computed: Workflow-Status aus Stepper-Daten per CEL."
+  "label": "Förderantrag",
+  "tagline": "Antrag mit Bearbeitungsstatus — Fortschritt ohne manuelles Nachpflegen",
+  "description": "Mehrstufiger Antrag mit automatisch ermitteltem Bearbeitungsstand — ideal für Förder-, Genehmigungs- oder Serviceprozesse.",
+  "category": "Anträge & Prozesse",
+  "visibility": "public"
 }
