@@ -81,6 +81,23 @@
 .jse-layout--horizontal {
   flex-direction: row;
   flex-wrap: wrap;
+  align-items: stretch;
+}
+
+.jse-layout--horizontal > * {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.jse-layout--horizontal > .jse-field {
+  margin-bottom: 0;
+}
+
+.jse-layout--horizontal .jse-field__input,
+.jse-layout--horizontal .jse-select,
+.jse-layout--horizontal textarea.jse-field__input {
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .jse-label {
@@ -832,15 +849,30 @@
   flex-direction: row;
   flex-wrap: wrap;
   align-items: stretch;
+  width: 100%;
 }
 
 .jse-layout-editor__stack--horizontal > .jse-layout-block {
-  flex: 1 1 10rem;
+  flex: 1 1 0;
   min-width: 0;
+}
+
+.jse-layout-editor__stack--horizontal > .jse-layout-dropzone {
+  flex: 0 0 0.35rem;
+  min-width: 0.35rem;
+  max-width: 0.35rem;
+  align-self: stretch;
 }
 
 .jse-layout-editor--dragging .jse-layout-dropzone {
   min-height: 1.25rem;
+}
+
+.jse-layout-editor--dragging .jse-layout-editor__stack--horizontal > .jse-layout-dropzone {
+  min-height: unset;
+  min-width: 1.25rem;
+  max-width: none;
+  flex: 0 0 1.25rem;
 }
 
 .jse-layout-editor--dragging .jse-layout-editor__stack {
