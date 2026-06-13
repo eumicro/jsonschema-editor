@@ -12,6 +12,9 @@ export class ObjectSchema extends CompositeSchema {
 
   private readonly propertyCollection = new PropertyCollection();
   private _additionalProperties: boolean | SchemaNode = true;
+  private _if?: JsonSchemaObject;
+  private _then?: JsonSchemaObject;
+  private _else?: JsonSchemaObject;
 
   constructor(
     registry?: JsonSchemaAttributeRegistry,
@@ -91,6 +94,10 @@ export class ObjectSchema extends CompositeSchema {
       node._additionalProperties = factory.fromJSON(json.additionalProperties);
     }
 
+    if (json.if && typeof json.if === "object") node._if = json.if;
+    if (json.then && typeof json.then === "object") node._then = json.then;
+    if (json.else && typeof json.else === "object") node._else = json.else;
+
     return node;
   }
 
@@ -111,6 +118,9 @@ export class ObjectSchema extends CompositeSchema {
       this._additionalProperties === true || this._additionalProperties === false
         ? this._additionalProperties
         : this._additionalProperties.deepClone();
+    copy._if = this._if ? { ...this._if } : undefined;
+    copy._then = this._then ? { ...this._then } : undefined;
+    copy._else = this._else ? { ...this._else } : undefined;
     return copy;
   }
 
@@ -139,6 +149,10 @@ export class ObjectSchema extends CompositeSchema {
     } else if (this._additionalProperties !== true) {
       json.additionalProperties = this._additionalProperties.toJSON();
     }
+
+    if (this._if) json.if = { ...this._if };
+    if (this._then) json.then = { ...this._then };
+    if (this._else) json.else = { ...this._else };
   }
 
   protected resolvePathImpl(segments: readonly string[]): SchemaNode | undefined {

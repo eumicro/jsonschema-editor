@@ -22,7 +22,7 @@ test.describe("Vue-Extensions", () => {
     const dialog = page.getByRole("dialog", { name: "Element hinzufügen" });
     await expect(dialog).toBeVisible();
 
-    for (const typeLabel of ["email", "url", "phone", "select-list", "select-api"]) {
+    for (const typeLabel of ["email", "url", "phone", "select-list", "select-api", "geometry-collection"]) {
       await expect(dialog.getByRole("button", { name: `+ ${typeLabel}`, exact: true })).toBeVisible();
     }
 

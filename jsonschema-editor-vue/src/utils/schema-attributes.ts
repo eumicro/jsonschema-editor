@@ -47,6 +47,12 @@ export function listSchemaAttributeFields(node: SchemaNode): SchemaAttributeFiel
     fields.push(...ARRAY_ATTRIBUTES);
   }
 
+  for (const name of node.listCustomAttributeNames()) {
+    if (!fields.some((field) => field.name === name)) {
+      fields.push({ name, labelKey: `schemaAttributes.${name}` });
+    }
+  }
+
   return fields;
 }
 

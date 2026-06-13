@@ -1,0 +1,422 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "G37 – Arbeitsmedizinische Vorsorge (Bildschirmarbeit)",
+  "description": "DGUV-Grundsatz G37: Angebotsvorsorge für Bildschirmarbeitsplätze inkl. Siebtest und Ergänzungsuntersuchung",
+  "type": "object",
+  "required": [
+    "aktenzeichen",
+    "untersuchungsdatum",
+    "untersuchter",
+    "arbeitgeber",
+    "programm",
+    "anamnese",
+    "beurteilung",
+    "attest"
+  ],
+  "properties": {
+    "aktenzeichen": {
+      "type": "string",
+      "title": "Aktenzeichen",
+      "description": "Interne Vorsorgeakte / Praxisnummer"
+    },
+    "untersuchungsdatum": {
+      "type": "string",
+      "format": "date",
+      "title": "Untersuchungsdatum"
+    },
+    "untersuchter": {
+      "$ref": "#/$defs/Untersuchter"
+    },
+    "arbeitgeber": {
+      "$ref": "#/$defs/Arbeitgeber"
+    },
+    "programm": {
+      "title": "Untersuchungsprogramm",
+      "description": "oneOf: Erst-, Nach- oder Ergänzungsuntersuchung nach G37",
+      "oneOf": [
+        { "$ref": "#/$defs/ProgrammErst" },
+        { "$ref": "#/$defs/ProgrammNach" },
+        { "$ref": "#/$defs/ProgrammErgaenzung" }
+      ]
+    },
+    "anamnese": {
+      "$ref": "#/$defs/Anamnese"
+    },
+    "beurteilung": {
+      "title": "Arbeitsmedizinische Beurteilung",
+      "description": "oneOf: Ergebnis für Arbeitgeber (ohne Diagnosen)",
+      "oneOf": [
+        { "$ref": "#/$defs/BeurteilungKeineBedenken" },
+        { "$ref": "#/$defs/BeurteilungMitEmpfehlungen" },
+        { "$ref": "#/$defs/BeurteilungErgaenzungNoetig" }
+      ]
+    },
+    "attest": {
+      "$ref": "#/$defs/Attest"
+    }
+  },
+  "$defs": {
+    "Untersuchter": {
+      "type": "object",
+      "title": "Untersuchte Person",
+      "required": ["personalnummer", "nachname", "vorname", "geburtsdatum", "geschlecht"],
+      "properties": {
+        "personalnummer": { "type": "string", "title": "Personalnummer" },
+        "nachname": { "type": "string", "title": "Nachname" },
+        "vorname": { "type": "string", "title": "Vorname" },
+        "geburtsdatum": { "type": "string", "format": "date", "title": "Geburtsdatum" },
+        "geschlecht": {
+          "type": "string",
+          "title": "Geschlecht",
+          "enum": ["weiblich", "männlich", "divers", "unbekannt"]
+        },
+        "versichertennummer": {
+          "type": "string",
+          "title": "Krankenversichertennummer",
+          "description": "Optional, nur für interne Dokumentation"
+        }
+      }
+    },
+    "Arbeitgeber": {
+      "type": "object",
+      "title": "Arbeitgeber / Betrieb",
+      "required": ["firma", "standort", "taetigkeit"],
+      "properties": {
+        "firma": { "type": "string", "title": "Firma" },
+        "standort": { "type": "string", "title": "Standort / Abteilung" },
+        "taetigkeit": { "type": "string", "title": "Tätigkeit (Kurzbeschreibung)" },
+        "vorgesetzter": { "type": "string", "title": "Ansprechpartner HR" },
+        "kontaktEmail": { "type": "string", "format": "email", "title": "Kontakt E-Mail" },
+        "betriebsgelaende": {
+          "type": "object",
+          "title": "Betriebsgelände",
+          "description": "OGC Simple Features als GeoJSON GeometryCollection (Karte)",
+          "x-geometry": {
+            "styleUrl": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+            "point": false,
+            "line": false,
+            "polygon": true,
+            "maxObjects": 1
+          }
+        }
+      }
+    },
+    "Anamnese": {
+      "type": "object",
+      "title": "Anamnese",
+      "required": ["allgemein", "arbeit"],
+      "properties": {
+        "allgemein": {
+          "type": "object",
+          "title": "Allgemeine Anamnese",
+          "required": ["beschwerdenFreitext"],
+          "properties": {
+            "beschwerdenFreitext": {
+              "type": "string",
+              "title": "Aktuelle Beschwerden",
+              "description": "Freitext laut G37 3.1.1"
+            },
+            "augenbeschwerden": { "type": "boolean", "title": "Augenbeschwerden / Augenerkrankungen" },
+            "bewegungsapparat": { "type": "boolean", "title": "Beschwerden Bewegungsapparat" },
+            "neurologisch": { "type": "boolean", "title": "Neurologische Störungen" },
+            "stoffwechsel": { "type": "boolean", "title": "Stoffwechselerkrankungen (z. B. Diabetes)" },
+            "bluthochdruck": { "type": "boolean", "title": "Bluthochdruck" },
+            "medikation": { "type": "string", "title": "Dauermedikation" },
+            "sehhilfeVorhanden": { "type": "boolean", "title": "Sehhilfe vorhanden" },
+            "sehhilfeArt": {
+              "type": "string",
+              "title": "Art der Sehhilfe",
+              "enum": ["Brille", "Kontaktlinsen", "Bildschirmarbeitsplatzbrille", "Keine"]
+            }
+          },
+          "if": {
+            "properties": { "sehhilfeVorhanden": { "const": true } },
+            "required": ["sehhilfeVorhanden"]
+          },
+          "then": {
+            "required": ["sehhilfeArt"]
+          }
+        },
+        "arbeit": {
+          "type": "object",
+          "title": "Arbeitsanamnese",
+          "required": ["arbeitsplatz", "bildschirmStundenProTag"],
+          "properties": {
+            "arbeitsplatz": { "type": "string", "title": "Arbeitsplatz / Raum" },
+            "arbeitsaufgabe": { "type": "string", "title": "Arbeitsaufgabe" },
+            "bildschirmStundenProTag": {
+              "type": "number",
+              "title": "Bildschirmzeit (h/Tag)",
+              "minimum": 0,
+              "maximum": 16
+            },
+            "pausenRegelung": { "type": "boolean", "title": "Regelmäßige Bildschirmpausen" },
+            "beleuchtungOk": { "type": "boolean", "title": "Beleuchtung am Arbeitsplatz ausreichend" },
+            "blendfrei": { "type": "boolean", "title": "Blendfreie Bildschirmplatzierung" },
+            "abstandCm": {
+              "type": "integer",
+              "title": "Abstand Augen – Bildschirm (cm)",
+              "minimum": 30,
+              "maximum": 120
+            },
+            "farbsehenErforderlich": {
+              "type": "boolean",
+              "title": "Farbunterscheidungsvermögen für Tätigkeit erforderlich"
+            }
+          }
+        }
+      }
+    },
+    "SiebtestFern": {
+      "type": "object",
+      "title": "Sehschärfe Ferne",
+      "required": ["rechts", "links", "beidauge"],
+      "properties": {
+        "rechts": { "type": "number", "title": "Rechts", "minimum": 0, "maximum": 2 },
+        "links": { "type": "number", "title": "Links", "minimum": 0, "maximum": 2 },
+        "beidauge": { "type": "number", "title": "Beidäugig", "minimum": 0, "maximum": 2 },
+        "mitSehhilfe": { "type": "boolean", "title": "Mit Sehhilfe geprüft" },
+        "grenzwertErreicht": {
+          "type": "boolean",
+          "title": "Mindestanforderung ≥ 0,8 erreicht",
+          "description": "G37 Tabelle 1: 0,8/0,8"
+        }
+      }
+    },
+    "SiebtestNaehe": {
+      "type": "object",
+      "title": "Sehschärfe Nähe (arbeitsplatzbezogen)",
+      "required": ["entfernungCm", "rechts", "links"],
+      "properties": {
+        "entfernungCm": {
+          "type": "integer",
+          "title": "Prüfentfernung (cm)",
+          "enum": [33, 55, 70]
+        },
+        "rechts": { "type": "number", "title": "Rechts", "minimum": 0, "maximum": 2 },
+        "links": { "type": "number", "title": "Links", "minimum": 0, "maximum": 2 },
+        "mitSehhilfe": { "type": "boolean", "title": "Mit Arbeitsplatz-Sehhilfe geprüft" },
+        "grenzwertErreicht": { "type": "boolean", "title": "Mindestanforderung ≥ 0,8 erreicht" }
+      }
+    },
+    "SiebtestWeitere": {
+      "type": "object",
+      "title": "Weitere Siebtest-Merkmale",
+      "required": ["stereopsis", "phorie", "gesichtsfeld"],
+      "properties": {
+        "stereopsis": {
+          "type": "string",
+          "title": "Stereopsis (räumliches Sehen)",
+          "enum": ["regelrecht", "auffällig", "nicht geprüft"]
+        },
+        "phorie": {
+          "type": "string",
+          "title": "Phorie / Augenstellung",
+          "enum": ["regelrecht", "auffällig", "nicht geprüft"]
+        },
+        "gesichtsfeld": {
+          "type": "string",
+          "title": "Zentrales Gesichtsfeld",
+          "enum": ["regelrecht", "auffällig", "nicht geprüft"]
+        },
+        "farbensinn": {
+          "type": "string",
+          "title": "Farbensinn",
+          "enum": ["regelrecht", "auffällig", "nicht erforderlich", "nicht geprüft"]
+        },
+        "gesichtsfeldGrund": {
+          "type": "string",
+          "title": "Grund der Gesichtsfeldprüfung",
+          "enum": ["Alter ≥ 50", "Beschwerden", "Routine Erstuntersuchung", "Nicht geprüft"]
+        }
+      }
+    },
+    "SiebtestVoll": {
+      "type": "object",
+      "title": "Siebtest",
+      "required": ["ferne", "naehe", "weitere"],
+      "properties": {
+        "ferne": { "$ref": "#/$defs/SiebtestFern" },
+        "naehe": { "$ref": "#/$defs/SiebtestNaehe" },
+        "weitere": { "$ref": "#/$defs/SiebtestWeitere" }
+      }
+    },
+    "SiebtestNach": {
+      "type": "object",
+      "title": "Siebtest (Nachuntersuchung)",
+      "required": ["ferne", "naehe"],
+      "properties": {
+        "ferne": { "$ref": "#/$defs/SiebtestFern" },
+        "naehe": { "$ref": "#/$defs/SiebtestNaehe" }
+      }
+    },
+    "ErgaenzungDetail": {
+      "type": "object",
+      "title": "Ergänzungsuntersuchung (augendiagnostisch)",
+      "required": [
+        "refraktion",
+        "binokular",
+        "peripheresGesichtsfeld",
+        "organbefund",
+        "augeninnendruck"
+      ],
+      "properties": {
+        "refraktion": {
+          "type": "object",
+          "title": "Refraktion & Sehschärfe",
+          "required": ["ferneKorrigiert", "naeheKorrigiert"],
+          "properties": {
+            "ferneKorrigiert": { "type": "number", "title": "Sehschärfe Ferne korrigiert", "minimum": 0, "maximum": 2 },
+            "naeheKorrigiert": { "type": "number", "title": "Sehschärfe Nähe korrigiert", "minimum": 0, "maximum": 2 },
+            "akkommodationGeprueft": { "type": "boolean", "title": "Akkommodation / Latente Fehlsichtigkeit geprüft" }
+          }
+        },
+        "binokular": {
+          "type": "object",
+          "title": "Beidäugiges Sehen",
+          "required": ["simultansehen", "fusion", "stereosehen"],
+          "properties": {
+            "simultansehen": { "type": "string", "title": "Simultansehen", "enum": ["regelrecht", "auffällig"] },
+            "fusion": { "type": "string", "title": "Fusion", "enum": ["regelrecht", "auffällig"] },
+            "stereosehen": { "type": "string", "title": "Stereosehen", "enum": ["regelrecht", "auffällig"] }
+          }
+        },
+        "peripheresGesichtsfeld": {
+          "type": "string",
+          "title": "Peripheres & zentrales Gesichtsfeld",
+          "enum": ["regelrecht", "auffällig"]
+        },
+        "farbensinnAnomalquotient": {
+          "type": "number",
+          "title": "Farbensinn – Anomalquotient",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "organbefund": {
+          "type": "string",
+          "title": "Organbefund aller Augenabschnitte",
+          "description": "Kurztext, vertraulich – nicht an Arbeitgeber"
+        },
+        "augeninnendruck": {
+          "type": "object",
+          "title": "Augeninnendruck",
+          "required": ["gemessen", "wertMmHg"],
+          "properties": {
+            "gemessen": { "type": "boolean", "title": "Messung durchgeführt" },
+            "wertMmHg": { "type": "number", "title": "IOP (mmHg)", "minimum": 5, "maximum": 60 },
+            "grund": {
+              "type": "string",
+              "title": "Indikation",
+              "enum": ["Alter > 40", "Verdacht", "Routine"]
+            }
+          }
+        },
+        "zusatzuntersuchungen": {
+          "type": "string",
+          "title": "Weitere augenärztliche Untersuchungen",
+          "description": "Bei Verdacht im Hinblick auf Arbeitsplatz / Aufgabe"
+        }
+      }
+    },
+    "ProgrammErst": {
+      "type": "object",
+      "title": "Erstuntersuchung",
+      "required": ["art", "siebtest"],
+      "properties": {
+        "art": { "type": "string", "const": "erst", "title": "Programm" },
+        "siebtest": { "$ref": "#/$defs/SiebtestVoll" }
+      }
+    },
+    "ProgrammNach": {
+      "type": "object",
+      "title": "Nachuntersuchung",
+      "required": ["art", "letzteUntersuchung", "siebtest"],
+      "properties": {
+        "art": { "type": "string", "const": "nach", "title": "Programm" },
+        "letzteUntersuchung": {
+          "type": "string",
+          "format": "date",
+          "title": "Datum der letzten G37-Untersuchung"
+        },
+        "siebtest": { "$ref": "#/$defs/SiebtestNach" }
+      }
+    },
+    "ProgrammErgaenzung": {
+      "type": "object",
+      "title": "Ergänzungsuntersuchung",
+      "required": ["art", "ausloeser", "siebtest", "detailuntersuchung"],
+      "properties": {
+        "art": { "type": "string", "const": "ergaenzung", "title": "Programm" },
+        "ausloeser": {
+          "type": "string",
+          "title": "Anlass der Ergänzungsuntersuchung",
+          "enum": [
+            "Auffälliger Siebtest",
+            "Beschwerden",
+            "Neue Sehhilfe",
+            "Tätigkeitswechsel",
+            "Arbeitgeberantrag"
+          ]
+        },
+        "siebtest": { "$ref": "#/$defs/SiebtestVoll" },
+        "detailuntersuchung": { "$ref": "#/$defs/ErgaenzungDetail" }
+      }
+    },
+    "BeurteilungKeineBedenken": {
+      "type": "object",
+      "title": "Keine Bedenken",
+      "required": ["ergebnis", "naechsteUntersuchung"],
+      "properties": {
+        "ergebnis": { "type": "string", "const": "keine_bedenken", "title": "Ergebnis" },
+        "naechsteUntersuchung": {
+          "type": "string",
+          "format": "date",
+          "title": "Empfohlene nächste Nachuntersuchung"
+        },
+        "beratungErgonomic": { "type": "boolean", "title": "Ergonomieberatung durchgeführt" }
+      }
+    },
+    "BeurteilungMitEmpfehlungen": {
+      "type": "object",
+      "title": "Bedenken mit Empfehlungen",
+      "required": ["ergebnis", "empfehlungen", "naechsteUntersuchung"],
+      "properties": {
+        "ergebnis": { "type": "string", "const": "empfehlungen", "title": "Ergebnis" },
+        "empfehlungen": {
+          "type": "string",
+          "title": "Empfehlungen (nicht-diagnostisch)",
+          "description": "z. B. Bildschirmbrille, Augenarzt, ergonomische Anpassung"
+        },
+        "bildschirmbrilleEmpfohlen": { "type": "boolean", "title": "Bildschirmarbeitsplatzbrille empfohlen" },
+        "augenarztUeberweisung": { "type": "boolean", "title": "Überweisung Augenarzt empfohlen" },
+        "naechsteUntersuchung": { "type": "string", "format": "date", "title": "Nächste Nachuntersuchung" }
+      }
+    },
+    "BeurteilungErgaenzungNoetig": {
+      "type": "object",
+      "title": "Ergänzungsuntersuchung erforderlich",
+      "required": ["ergebnis", "frist"],
+      "properties": {
+        "ergebnis": { "type": "string", "const": "ergaenzung_erforderlich", "title": "Ergebnis" },
+        "frist": { "type": "string", "format": "date", "title": "Frist für Ergänzungsuntersuchung" },
+        "hinweisArbeitgeber": {
+          "type": "string",
+          "title": "Hinweis an Arbeitgeber (ohne Befunddetails)",
+          "description": "Nur Verfahrenshinweis, keine Diagnosen"
+        }
+      }
+    },
+    "Attest": {
+      "type": "object",
+      "title": "Attestierung",
+      "required": ["arztName", "arztNummer", "ort", "datum"],
+      "properties": {
+        "arztName": { "type": "string", "title": "Name des ermächtigten Arztes" },
+        "arztNummer": { "type": "string", "title": "Betriebsnummer / LANR" },
+        "ort": { "type": "string", "title": "Ort" },
+        "datum": { "type": "string", "format": "date", "title": "Datum der Ausstellung" },
+        "unterschriftErteilt": { "type": "boolean", "title": "Formular vollständig ausgestellt" }
+      }
+    }
+  }
+}

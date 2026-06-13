@@ -23,7 +23,12 @@ const rootData = defineModel<Record<string, unknown>>({ required: true });
 const typeRegistry = useSchemaFormTypeRegistry();
 const { fieldSchema } = useScopedField(rootSchema, rootData, props.scope, documentRef);
 
-const oneOfComposition = computed(() => resolveCompositionAtScope(props.schema, props.scope));
+const oneOfComposition = computed(() => {
+  const resolveRef = documentRef.value
+    ? (ref: string) => documentRef.value!.resolveRef(ref)
+    : undefined;
+  return resolveCompositionAtScope(props.schema, props.scope, resolveRef);
+});
 
 const matchContext = computed(() =>
   createFormFieldMatchContext({

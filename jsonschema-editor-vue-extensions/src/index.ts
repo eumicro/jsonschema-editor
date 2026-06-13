@@ -1,8 +1,10 @@
-export {
-  registerDefaultVueExtensions,
-  formatFieldsExtension,
-  ExtendedFormatFormField,
-  valuesSourceExtension,
-  ValuesSourceFormField,
-} from "./register.js";
+export {
+  registerDefaultVueExtensions,
+  formatFieldsExtension,
+  ExtendedFormatFormField,
+  valuesSourceExtension,
+  ValuesSourceFormField,
+  geometryExtension,
+  GeometryCollectionFormField,
+} from "./register.js";
 

@@ -45,6 +45,24 @@ export type {
 } from "./values-source.js";
 
 export {
+  GEOMETRY_ATTRIBUTE,
+  DEFAULT_GEOMETRY_STYLE_URL,
+  createEmptyGeometryCollection,
+  createGeometryCollectionSchema,
+  isGeometryCollection,
+  isGeometryExtensionConfig,
+  normalizeGeometryConfig,
+  readGeometryConfig,
+  validateGeometryCollection,
+} from "./geometry.js";
+export type {
+  GeometryExtensionConfig,
+  GeoJsonGeometry,
+  GeoJsonGeometryCollection,
+  NormalizedGeometryConfig,
+} from "./geometry.js";
+
+export {
   registerAjvFormats,
   compileFormatValidator,
   type RegisterAjvFormatsOptions,

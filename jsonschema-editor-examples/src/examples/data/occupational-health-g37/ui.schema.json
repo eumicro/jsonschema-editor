@@ -1,0 +1,131 @@
+{
+  "type": "Stepper",
+  "elements": [
+    {
+      "type": "Step",
+      "label": "Aufnahme",
+      "elements": [
+        {
+          "type": "VerticalLayout",
+          "elements": [
+            { "type": "Control", "scope": "#/properties/aktenzeichen", "label": "Aktenzeichen" },
+            { "type": "Control", "scope": "#/properties/untersuchungsdatum", "label": "Untersuchungsdatum" },
+            {
+              "type": "Group",
+              "label": "Untersuchte Person",
+              "elements": [
+                { "type": "Control", "scope": "#/properties/untersuchter/properties/personalnummer" },
+                { "type": "Control", "scope": "#/properties/untersuchter/properties/nachname" },
+                { "type": "Control", "scope": "#/properties/untersuchter/properties/vorname" },
+                { "type": "Control", "scope": "#/properties/untersuchter/properties/geburtsdatum" },
+                { "type": "Control", "scope": "#/properties/untersuchter/properties/geschlecht" },
+                { "type": "Control", "scope": "#/properties/untersuchter/properties/versichertennummer" }
+              ]
+            },
+            {
+              "type": "Group",
+              "label": "Arbeitgeber",
+              "elements": [
+                { "type": "Control", "scope": "#/properties/arbeitgeber/properties/firma" },
+                { "type": "Control", "scope": "#/properties/arbeitgeber/properties/standort" },
+                { "type": "Control", "scope": "#/properties/arbeitgeber/properties/taetigkeit" },
+                { "type": "Control", "scope": "#/properties/arbeitgeber/properties/vorgesetzter" },
+                { "type": "Control", "scope": "#/properties/arbeitgeber/properties/kontaktEmail" },
+                { "type": "Control", "scope": "#/properties/arbeitgeber/properties/betriebsgelaende", "label": "Betriebsgelände (Karte)" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Step",
+      "label": "Anamnese",
+      "elements": [
+        {
+          "type": "Categorization",
+          "elements": [
+            {
+              "type": "Category",
+              "label": "Allgemein",
+              "elements": [
+                { "type": "Control", "scope": "#/properties/anamnese/properties/allgemein/properties/beschwerdenFreitext" },
+                { "type": "Control", "scope": "#/properties/anamnese/properties/allgemein/properties/augenbeschwerden" },
+                { "type": "Control", "scope": "#/properties/anamnese/properties/allgemein/properties/bewegungsapparat" },
+                { "type": "Control", "scope": "#/properties/anamnese/properties/allgemein/properties/neurologisch" },
+                { "type": "Control", "scope": "#/properties/anamnese/properties/allgemein/properties/stoffwechsel" },
+                { "type": "Control", "scope": "#/properties/anamnese/properties/allgemein/properties/bluthochdruck" },
+                { "type": "Control", "scope": "#/properties/anamnese/properties/allgemein/properties/medikation" },
+                { "type": "Control", "scope": "#/properties/anamnese/properties/allgemein/properties/sehhilfeVorhanden" },
+                { "type": "Control", "scope": "#/properties/anamnese/properties/allgemein/properties/sehhilfeArt" }
+              ]
+            },
+            {
+              "type": "Category",
+              "label": "Arbeitsplatz",
+              "elements": [
+                { "type": "Control", "scope": "#/properties/anamnese/properties/arbeit/properties/arbeitsplatz" },
+                { "type": "Control", "scope": "#/properties/anamnese/properties/arbeit/properties/arbeitsaufgabe" },
+                { "type": "Control", "scope": "#/properties/anamnese/properties/arbeit/properties/bildschirmStundenProTag" },
+                { "type": "Control", "scope": "#/properties/anamnese/properties/arbeit/properties/pausenRegelung" },
+                { "type": "Control", "scope": "#/properties/anamnese/properties/arbeit/properties/beleuchtungOk" },
+                { "type": "Control", "scope": "#/properties/anamnese/properties/arbeit/properties/blendfrei" },
+                { "type": "Control", "scope": "#/properties/anamnese/properties/arbeit/properties/abstandCm" },
+                { "type": "Control", "scope": "#/properties/anamnese/properties/arbeit/properties/farbsehenErforderlich" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Step",
+      "label": "Untersuchung",
+      "elements": [
+        {
+          "type": "Categorization",
+          "elements": [
+            {
+              "type": "Category",
+              "label": "Programm (oneOf)",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/programm",
+                  "label": "Erst- / Nach- / Ergänzungsuntersuchung"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Step",
+      "label": "Beurteilung",
+      "elements": [
+        {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/beurteilung",
+              "label": "Arbeitsmedizinisches Ergebnis"
+            },
+            {
+              "type": "Group",
+              "label": "Attest",
+              "elements": [
+                { "type": "Control", "scope": "#/properties/attest/properties/arztName" },
+                { "type": "Control", "scope": "#/properties/attest/properties/arztNummer" },
+                { "type": "Control", "scope": "#/properties/attest/properties/ort" },
+                { "type": "Control", "scope": "#/properties/attest/properties/datum" },
+                { "type": "Control", "scope": "#/properties/attest/properties/unterschriftErteilt" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

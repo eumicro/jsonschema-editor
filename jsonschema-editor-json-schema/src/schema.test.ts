@@ -145,4 +145,27 @@ describe("SchemaNode", () => {
     const resolved = root.resolveAtScope("#/properties/name");
     expect(resolved?.title).toBe("Name");
   });
+
+  it("roundtrips if/then/else on object schemas", () => {
+    const json = {
+      type: "object",
+      properties: {
+        sehhilfeVorhanden: { type: "boolean" },
+        sehhilfeArt: { type: "string", enum: ["Brille", "Kontaktlinsen"] },
+      },
+      if: {
+        properties: { sehhilfeVorhanden: { const: true } },
+        required: ["sehhilfeVorhanden"],
+      },
+      then: {
+        required: ["sehhilfeArt"],
+      },
+    };
+
+    const restored = schemaFromJSON(json) as ObjectSchema;
+    expect(restored.toJSON()).toMatchObject({
+      if: json.if,
+      then: json.then,
+    });
+  });
 });

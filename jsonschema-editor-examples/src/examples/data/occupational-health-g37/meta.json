@@ -1,0 +1,4 @@
+{
+  "label": "G37 occupational health exam (complex)",
+  "description": "DGUV G37 screen-work preventive examination: <code>$defs</code>, nested <code>oneOf</code> (exam program &amp; assessment), <code>Stepper</code>/<code>Categorization</code>, vision screening thresholds, and supplementary ophthalmologic workup — stress test for real-world occupational medicine forms."
+}

@@ -83,6 +83,7 @@ export const enMessages = {
   "schemaAttributes.maxItems": "maxItems",
   "schemaAttributes.minItems": "minItems",
   "schemaAttributes.maximum": "maximum",
+  "schemaAttributes.x-geometry": "Geometry (map)",
 
   "uiAttributes.rootLayout": "Root layout: {label}",
   "uiAttributes.layoutType": "Layout type",

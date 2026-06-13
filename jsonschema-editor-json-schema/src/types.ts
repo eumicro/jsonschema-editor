@@ -34,6 +34,9 @@ export interface JsonSchemaObject {
   allOf?: JsonSchemaObject[];
   anyOf?: JsonSchemaObject[];
   oneOf?: JsonSchemaObject[];
+  if?: JsonSchemaObject;
+  then?: JsonSchemaObject;
+  else?: JsonSchemaObject;
   $defs?: Record<string, JsonSchemaObject>;
   definitions?: Record<string, JsonSchemaObject>;
   [key: string]: unknown;

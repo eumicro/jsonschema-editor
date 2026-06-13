@@ -95,18 +95,4 @@ export class UiSchemaGenerator {
   }
 }
 
-export function resolveSchemaAtScope(
-  rootSchema: SchemaNode,
-  scope: string,
-  resolveRef?: (ref: string) => SchemaNode | undefined,
-): SchemaNode | undefined {
-  let node = rootSchema.resolveAtScope(scope);
-  if (!node) return undefined;
-  if (node instanceof RefSchema && resolveRef) {
-    const resolved = resolveRef(node.ref);
-    if (resolved) node = resolved;
-  }
-  return node;
-}
-
 export { Control, VerticalLayout } from "../model/index.js";

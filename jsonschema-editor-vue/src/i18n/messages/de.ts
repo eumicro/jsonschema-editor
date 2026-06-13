@@ -83,6 +83,7 @@ export const deMessages = {
   "schemaAttributes.maximum": "maximum",
   "schemaAttributes.minItems": "minItems",
   "schemaAttributes.maxItems": "maxItems",
+  "schemaAttributes.x-geometry": "Geometrie (Karte)",
 
   "uiAttributes.rootLayout": "Root-Layout: {label}",
   "uiAttributes.layoutType": "Layout-Typ",

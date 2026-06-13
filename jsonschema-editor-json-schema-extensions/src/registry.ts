@@ -11,6 +11,7 @@ import {
 } from "@jsonschema-editor/json-schema";
 import { emailExtension, phoneExtension, urlExtension } from "./formats/index.js";
 import type { FormatExtensionId, JsonSchemaFormatExtension } from "./types.js";
+import { isGeometryExtensionConfig } from "./geometry.js";
 import { isValuesSourceConfig } from "./values-source.js";
 
 export const jsonSchemaFormatExtensions: readonly JsonSchemaFormatExtension[] = [
@@ -97,6 +98,14 @@ export function createExtensionsRegistry(
       name: "x-values-source",
       defaultValue: undefined,
       deserialize: (raw) => (isValuesSourceConfig(raw) ? raw : undefined),
+      serialize: (value) => value,
+    });
+  }
+  if (!base.isRegistered("x-geometry")) {
+    base.register({
+      name: "x-geometry",
+      defaultValue: undefined,
+      deserialize: (raw) => (isGeometryExtensionConfig(raw) ? raw : undefined),
       serialize: (value) => value,
     });
   }

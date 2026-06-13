@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, toRef } from "vue";
-import type { SchemaNode } from "@jsonschema-editor/json-schema";
+import type { SchemaDocument, SchemaNode } from "@jsonschema-editor/json-schema";
 import { StringSchema } from "@jsonschema-editor/json-schema";
 import {
   JseInput,
@@ -11,6 +11,7 @@ import {
 
 const props = defineProps<{
   schema: SchemaNode;
+  document?: SchemaDocument;
   scope: string;
   label?: string;
   i18nKey?: string;
@@ -18,11 +19,12 @@ const props = defineProps<{
 }>();
 
 const rootSchema = toRef(props, "schema");
+const documentRef = toRef(props, "document");
 const labelRef = toRef(props, "label");
 const i18nKeyRef = toRef(props, "i18nKey");
 const rootData = defineModel<Record<string, unknown>>({ required: true });
 
-const { fieldSchema, value } = useScopedField(rootSchema, rootData, props.scope);
+const { fieldSchema, value } = useScopedField(rootSchema, rootData, props.scope, documentRef);
 const { resolvedSchema, displayLabel, description } = useFormFieldLabel(
   rootSchema,
   props.scope,

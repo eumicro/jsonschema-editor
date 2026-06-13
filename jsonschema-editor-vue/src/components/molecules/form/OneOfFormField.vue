@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
-import type { SchemaDocument, SchemaNode } from "@jsonschema-editor/json-schema";
-import { ObjectSchema } from "@jsonschema-editor/json-schema";
+import type { SchemaDocument, SchemaNode, ObjectSchema } from "@jsonschema-editor/json-schema";
 import { buildPropertyScope, scopeToPath } from "@jsonschema-editor/ui-schema";
 import { resolveCompositionAtScope } from "@jsonschema-editor/ui-schema/bridge";
 import { createEmptyDataForSchema, getValueAtPath, setValueAtPath } from "../../../utils/data-path";
@@ -25,7 +24,12 @@ const { t } = useJseI18n();
 const rootSchema = computed(() => props.document?.root ?? props.schema);
 const dataPath = computed(() => scopeToPath(props.scope));
 
-const composition = computed(() => resolveCompositionAtScope(rootSchema.value, props.scope));
+const composition = computed(() => {
+  const resolveRef = props.document
+    ? (ref: string) => props.document!.resolveRef(ref)
+    : undefined;
+  return resolveCompositionAtScope(rootSchema.value, props.scope, resolveRef);
+});
 
 const branches = computed(() => {
   const comp = composition.value;
@@ -42,9 +46,13 @@ const branchLabels = computed(() =>
 
 const selectedIndex = ref(0);
 
+function isObjectSchemaNode(node: SchemaNode): node is ObjectSchema {
+  return node.nodeKind === "object";
+}
+
 function branchPropertyKeys(branch: SchemaNode): string[] {
   const resolved = props.document ? props.document.resolveNode(branch) : branch;
-  if (!(resolved instanceof ObjectSchema)) return [];
+  if (!isObjectSchemaNode(resolved)) return [];
   return [...resolved.properties.keys()];
 }
 
@@ -64,7 +72,7 @@ function readBranchData(formData: Record<string, unknown>): Record<string, unkno
 function inferSelectedIndex(branchRecord: Record<string, unknown>): number {
   for (let i = 0; i < branches.value.length; i++) {
     const resolved = resolvedBranch(i);
-    if (!(resolved instanceof ObjectSchema)) continue;
+    if (!isObjectSchemaNode(resolved)) continue;
 
     const constProps = [...resolved.properties.entries()].filter(
       ([, prop]) => prop.constValue !== undefined,
@@ -109,8 +117,11 @@ const activeBranch = computed(() => {
 
 const activeBranchProperties = computed(() => {
   const branch = activeBranch.value;
-  if (!(branch instanceof ObjectSchema)) return [];
-  return [...branch.properties.entries()];
+  if (!branch || !isObjectSchemaNode(branch)) return [];
+  return [...branch.properties.entries()].filter(([, propSchema]) => {
+    if (branches.value.length > 1 && propSchema.constValue !== undefined) return false;
+    return true;
+  });
 });
 
 function writeBranchData(next: Record<string, unknown>) {
@@ -162,13 +173,12 @@ function onVariantChange(raw: string | number) {
     </div>
 
     <SchemaFormFieldResolver
-      v-for="[name, propSchema] in activeBranchProperties"
+      v-for="[name] in activeBranchProperties"
       :key="`${selectedIndex}-${name}`"
       v-model="data"
-      :schema="activeBranch"
+      :schema="rootSchema"
       :document="document"
       :scope="buildPropertyScope(scope, name)"
-      :label="propSchema.title ?? name"
       :readonly="readonly"
     />
   </fieldset>

@@ -34,6 +34,7 @@ import BooleanFormField from "../components/molecules/form/BooleanFormField.vue"
 import DefaultFormField from "../components/molecules/form/DefaultFormField.vue";
 import EnumFormField from "../components/molecules/form/EnumFormField.vue";
 import NumberFormField from "../components/molecules/form/NumberFormField.vue";
+import ObjectFormField from "../components/molecules/form/ObjectFormField.vue";
 import StringFormField from "../components/molecules/form/StringFormField.vue";
 
 import BooleanAttributeControl from "../components/molecules/attributes/BooleanAttributeControl.vue";
@@ -70,6 +71,8 @@ function registerSchemaFormTypes(): void {
       20,
       "schema-form-enum",
     )
+    .registerInstanceOf(ObjectSchema, ObjectFormField, { id: "schema-form-object", priority: 18 })
+    .registerKind("object", ObjectFormField, 18, "schema-form-object-kind")
     .registerInstanceOf(StringSchema, StringFormField, { id: "schema-form-string" })
     .registerInstanceOf(NumberSchema, NumberFormField, { id: "schema-form-number" })
     .registerInstanceOf(IntegerSchema, NumberFormField, { id: "schema-form-integer" })

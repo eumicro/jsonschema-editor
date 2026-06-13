@@ -5,6 +5,7 @@ import {
   compileFormatValidator,
   createExtensionsRegistry,
   createFormatSchemaFragment,
+  createGeometryCollectionSchema,
   createStaticValuesSourceSchema,
   createStringSchemaWithFormat,
   documentFromJSONWithExtensions,
@@ -13,11 +14,13 @@ import {
   getFormatExtensionByFormat,
   phoneExtension,
   readValuesSourceConfig,
+  readGeometryConfig,
   registerAjvFormats,
   schemaFromJSONWithExtensions,
   urlExtension,
   validateEmail,
   validateFormatValue,
+  validateGeometryCollection,
   validatePhone,
   validateUrl,
 } from "./index.js";
@@ -112,6 +115,85 @@ describe("ValuesSourceExtension", () => {
       kind: "static",
       values: ["Admin", "User"],
     });
+  });
+});
+
+describe("GeometryExtension", () => {
+  const registry = createExtensionsRegistry();
+
+  it("creates geometry collection schema with x-geometry config", () => {
+    const schema = createGeometryCollectionSchema(
+      { polygon: true, point: false, line: false, maxObjects: 1 },
+      registry,
+    );
+    expect(schema.getCustomAttribute("x-geometry")).toEqual({
+      styleUrl: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      point: false,
+      line: false,
+      polygon: true,
+      minObjects: 0,
+      maxObjects: 1,
+    });
+  });
+
+  it("roundtrips x-geometry through documentFromJSONWithExtensions", () => {
+    const json = {
+      type: "object",
+      properties: {
+        site: {
+          type: "object",
+          title: "Site",
+          "x-geometry": {
+            styleUrl: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+            polygon: true,
+            maxObjects: 2,
+          },
+        },
+      },
+    };
+    const document = documentFromJSONWithExtensions(json, registry);
+    const site = document.root.getProperty("site");
+    expect(readGeometryConfig(site!)).toMatchObject({ polygon: true, maxObjects: 2 });
+  });
+
+  it("validates geometry collections against allowed types and counts", () => {
+    const config = { point: false, line: false, polygon: true, maxObjects: 1 };
+    expect(
+      validateGeometryCollection(
+        {
+          type: "GeometryCollection",
+          geometries: [{ type: "Polygon", coordinates: [[[0, 0], [1, 0], [1, 1], [0, 0]]] }],
+        },
+        config,
+      ),
+    ).toBe(true);
+    expect(
+      validateGeometryCollection(
+        {
+          type: "GeometryCollection",
+          geometries: [{ type: "Point", coordinates: [0, 0] }],
+        },
+        config,
+      ),
+    ).toBe(false);
+    expect(
+      validateGeometryCollection(
+        { type: "GeometryCollection", geometries: [] },
+        { polygon: true, minObjects: 1, maxObjects: 2 },
+      ),
+    ).toBe(false);
+    expect(
+      validateGeometryCollection(
+        {
+          type: "GeometryCollection",
+          geometries: [
+            { type: "Point", coordinates: [0, 0] },
+            { type: "Point", coordinates: [1, 1] },
+          ],
+        },
+        { point: true, exactObjects: 2 },
+      ),
+    ).toBe(true);
   });
 });
 

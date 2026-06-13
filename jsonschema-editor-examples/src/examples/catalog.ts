@@ -5,6 +5,10 @@ import carConfiguratorDefaults from "./data/car-configurator/defaults.json";
 import carConfiguratorMeta from "./data/car-configurator/meta.json";
 import carConfiguratorSchema from "./data/car-configurator/schema.json";
 import carConfiguratorUi from "./data/car-configurator/ui.schema.json";
+import occupationalHealthG37Defaults from "./data/occupational-health-g37/defaults.json";
+import occupationalHealthG37Meta from "./data/occupational-health-g37/meta.json";
+import occupationalHealthG37Schema from "./data/occupational-health-g37/schema.json";
+import occupationalHealthG37Ui from "./data/occupational-health-g37/ui.schema.json";
 import personOneOfDefaults from "./data/person-one-of/defaults.json";
 import personOneOfMeta from "./data/person-one-of/meta.json";
 import personOneOfSchema from "./data/person-one-of/schema.json";
@@ -17,12 +21,18 @@ import simpleCompositionDefaults from "./data/simple-composition/defaults.json";
 import simpleCompositionMeta from "./data/simple-composition/meta.json";
 import simpleCompositionSchema from "./data/simple-composition/schema.json";
 import simpleCompositionUi from "./data/simple-composition/ui.schema.json";
+import geometryQaDefaults from "./data/geometry-qa/defaults.json";
+import geometryQaMeta from "./data/geometry-qa/meta.json";
+import geometryQaSchema from "./data/geometry-qa/schema.json";
+import geometryQaUi from "./data/geometry-qa/ui.schema.json";
 
 export type ExampleId =
   | "person-one-of"
   | "person-with-defs"
   | "simple-composition"
-  | "car-configurator";
+  | "car-configurator"
+  | "occupational-health-g37"
+  | "geometry-qa";
 
 export interface ExampleManifest {
   id: ExampleId;
@@ -65,6 +75,22 @@ export const exampleManifests: ExampleManifest[] = [
     schema: carConfiguratorSchema as unknown as JsonSchemaObject,
     uiSchema: carConfiguratorUi as unknown as UiSchemaObject,
     defaults: carConfiguratorDefaults,
+  },
+  {
+    id: "occupational-health-g37",
+    label: occupationalHealthG37Meta.label,
+    description: occupationalHealthG37Meta.description,
+    schema: occupationalHealthG37Schema as unknown as JsonSchemaObject,
+    uiSchema: occupationalHealthG37Ui as unknown as UiSchemaObject,
+    defaults: occupationalHealthG37Defaults,
+  },
+  {
+    id: "geometry-qa",
+    label: geometryQaMeta.label,
+    description: geometryQaMeta.description,
+    schema: geometryQaSchema as unknown as JsonSchemaObject,
+    uiSchema: geometryQaUi as unknown as UiSchemaObject,
+    defaults: geometryQaDefaults,
   },
 ];
 

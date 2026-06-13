@@ -1,0 +1,38 @@
+[
+  {
+    "section": "form-labels",
+    "message": "13 labels, 0 with root title fallback"
+  },
+  {
+    "section": "form-step1",
+    "message": "13 fields visible on Aufnahme"
+  },
+  {
+    "section": "form-anamnese",
+    "message": "Tabs: Form-Editor, Ausfüllbares Formular, Allgemein, Arbeitsplatz"
+  },
+  {
+    "section": "form-untersuchung",
+    "message": "oneOf blocks: 1, total fields: 16"
+  },
+  {
+    "section": "form-program",
+    "message": "Nachuntersuchung: 17 fields"
+  },
+  {
+    "section": "form-program",
+    "message": "Ergänzungsuntersuchung: 30 fields"
+  },
+  {
+    "section": "form-program",
+    "message": "Erstuntersuchung: 16 fields"
+  },
+  {
+    "section": "form-beurteilung",
+    "message": "Options: Keine Bedenken, Bedenken mit Empfehlungen, Ergänzungsuntersuchung erforderlich"
+  },
+  {
+    "section": "console",
+    "message": "No page errors"
+  }
+]

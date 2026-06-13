@@ -117,6 +117,10 @@ export abstract class SchemaNode {
     return this.customAttributes.delete(name);
   }
 
+  listCustomAttributeNames(): string[] {
+    return this.customAttributes.listNames();
+  }
+
   protected applyTypeFrom(json: JsonSchemaObject): void {
     this.typeVariants.applyFrom(json);
   }

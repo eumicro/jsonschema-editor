@@ -1,0 +1,99 @@
+{
+  "aktenzeichen": "G37-2026-0042",
+  "untersuchungsdatum": "2026-06-12",
+  "untersuchter": {
+    "personalnummer": "P-78421",
+    "nachname": "Krämer",
+    "vorname": "Sabine",
+    "geburtsdatum": "1988-03-15",
+    "geschlecht": "weiblich",
+    "versichertennummer": "A123456789"
+  },
+  "arbeitgeber": {
+    "firma": "Muster GmbH IT-Services",
+    "standort": "Zum Wäldchen 3, 26909 Neulehe",
+    "taetigkeit": "Softwareentwicklerin, 6 h Bildschirmarbeit täglich",
+    "vorgesetzter": "Thomas Weber",
+    "kontaktEmail": "hr@muster-gmbh.de",
+    "betriebsgelaende": {
+      "type": "GeometryCollection",
+      "geometries": [
+        {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [7.4117331, 53.0061106],
+              [7.4119795, 53.0061106],
+              [7.4119795, 53.0063452],
+              [7.4117331, 53.0063452],
+              [7.4117331, 53.0061106]
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "programm": {
+    "art": "erst",
+    "siebtest": {
+      "ferne": {
+        "rechts": 1.0,
+        "links": 1.0,
+        "beidauge": 1.0,
+        "mitSehhilfe": false,
+        "grenzwertErreicht": true
+      },
+      "naehe": {
+        "entfernungCm": 55,
+        "rechts": 0.9,
+        "links": 1.0,
+        "mitSehhilfe": false,
+        "grenzwertErreicht": true
+      },
+      "weitere": {
+        "stereopsis": "regelrecht",
+        "phorie": "regelrecht",
+        "gesichtsfeld": "regelrecht",
+        "farbensinn": "nicht erforderlich",
+        "gesichtsfeldGrund": "Routine Erstuntersuchung"
+      }
+    }
+  },
+  "anamnese": {
+    "allgemein": {
+      "beschwerdenFreitext": "Gelegentliche trockene Augen am Nachmittag, keine Vorerkrankungen.",
+      "augenbeschwerden": true,
+      "bewegungsapparat": false,
+      "neurologisch": false,
+      "stoffwechsel": false,
+      "bluthochdruck": false,
+      "medikation": "Keine",
+      "sehhilfeVorhanden": true,
+      "sehhilfeArt": "Brille"
+    },
+    "arbeit": {
+      "arbeitsplatz": "Open-Space, Fensterplatz",
+      "arbeitsaufgabe": "Programmierung, Code-Reviews, Teams-Meetings",
+      "bildschirmStundenProTag": 6,
+      "pausenRegelung": true,
+      "beleuchtungOk": true,
+      "blendfrei": true,
+      "abstandCm": 65,
+      "farbsehenErforderlich": false
+    }
+  },
+  "beurteilung": {
+    "ergebnis": "empfehlungen",
+    "empfehlungen": "Regelmäßige Bildschirmpausen; ggf. künstliche Tränenflüssigkeit; ergonomische Kontrolle in 12 Monaten.",
+    "bildschirmbrilleEmpfohlen": false,
+    "augenarztUeberweisung": false,
+    "naechsteUntersuchung": "2028-06-12"
+  },
+  "attest": {
+    "arztName": "Dr. med. Julia Hoffmann",
+    "arztNummer": "123456789",
+    "ort": "Berlin",
+    "datum": "2026-06-12",
+    "unterschriftErteilt": true
+  }
+}

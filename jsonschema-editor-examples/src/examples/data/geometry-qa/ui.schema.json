@@ -1,0 +1,14 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    { "type": "Control", "scope": "#/properties/pointOnly" },
+    { "type": "Control", "scope": "#/properties/lineOnly" },
+    { "type": "Control", "scope": "#/properties/polygonOnly" },
+    { "type": "Control", "scope": "#/properties/pointLine" },
+    { "type": "Control", "scope": "#/properties/pointPolygon" },
+    { "type": "Control", "scope": "#/properties/linePolygon" },
+    { "type": "Control", "scope": "#/properties/allTypes" },
+    { "type": "Control", "scope": "#/properties/rangeOneThree" },
+    { "type": "Control", "scope": "#/properties/exactTwo" }
+  ]
+}

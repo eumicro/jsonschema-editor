@@ -27,6 +27,9 @@ const RESERVED_KEYS = new Set([
   "allOf",
   "anyOf",
   "oneOf",
+  "if",
+  "then",
+  "else",
 ]);
 
 export class JsonSchemaAttributeRegistry {

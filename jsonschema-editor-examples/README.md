@@ -30,6 +30,7 @@ Opens http://localhost:5173 with:
 | $defs + oneOf | `person-with-defs` | `$ref` to `$defs`, format fields (email/url/phone), static & API selects |
 | allOf + oneOf | `simple-composition` | Schema compositions |
 | Car configurator | `car-configurator` | Nested `oneOf`/`anyOf`, Stepper + Categorization UI layout |
+| G37 occupational health | `occupational-health-g37` | DGUV screen-work exam: deep `$defs`, program & assessment `oneOf`, vision screening, supplementary workup |
 
 Example data lives in `src/examples/data/<id>/` (`schema.json`, `ui.schema.json`, `defaults.json`).
 

@@ -30,6 +30,10 @@ export class CustomAttributeCollection {
     return this.values.entries();
   }
 
+  listNames(): string[] {
+    return [...this.values.keys()];
+  }
+
   applyFrom(json: JsonSchemaObject): void {
     this.values.clear();
     for (const [key, value] of this.registry.readCustomAttributes(json)) {

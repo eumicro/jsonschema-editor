@@ -47,6 +47,10 @@
     "prepublishOnly": "pnpm run build",
     "typecheck": "vue-tsc -p tsconfig.json --noEmit"
   },
+  "dependencies": {
+    "@geoman-io/leaflet-geoman-free": "^2.18.3",
+    "leaflet": "^1.9.4"
+  },
   "peerDependencies": {
     "@jsonschema-editor/json-schema": "workspace:*",
     "@jsonschema-editor/json-schema-extensions": "workspace:*",
@@ -57,6 +61,7 @@
     "@jsonschema-editor/json-schema": "workspace:*",
     "@jsonschema-editor/json-schema-extensions": "workspace:*",
     "@jsonschema-editor/vue": "workspace:*",
+    "@types/leaflet": "^1.9.17",
     "@vitejs/plugin-vue": "^5.2.4",
     "typescript": "^5.8.3",
     "vite": "^6.3.5",

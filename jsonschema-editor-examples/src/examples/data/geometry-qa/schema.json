@@ -1,0 +1,98 @@
+{
+  "type": "object",
+  "title": "Geometry QA",
+  "description": "x-geometry combinations for map editing QA",
+  "properties": {
+    "pointOnly": {
+      "type": "object",
+      "title": "Nur Punkt",
+      "x-geometry": {
+        "point": true,
+        "line": false,
+        "polygon": false,
+        "maxObjects": 1
+      }
+    },
+    "lineOnly": {
+      "type": "object",
+      "title": "Nur Linie",
+      "x-geometry": {
+        "point": false,
+        "line": true,
+        "polygon": false,
+        "maxObjects": 2
+      }
+    },
+    "polygonOnly": {
+      "type": "object",
+      "title": "Nur Polygon",
+      "x-geometry": {
+        "point": false,
+        "line": false,
+        "polygon": true,
+        "maxObjects": 1
+      }
+    },
+    "pointLine": {
+      "type": "object",
+      "title": "Punkt + Linie",
+      "x-geometry": {
+        "point": true,
+        "line": true,
+        "polygon": false,
+        "maxObjects": 3
+      }
+    },
+    "pointPolygon": {
+      "type": "object",
+      "title": "Punkt + Polygon",
+      "x-geometry": {
+        "point": true,
+        "line": false,
+        "polygon": true,
+        "maxObjects": 2
+      }
+    },
+    "linePolygon": {
+      "type": "object",
+      "title": "Linie + Polygon",
+      "x-geometry": {
+        "point": false,
+        "line": true,
+        "polygon": true,
+        "maxObjects": 2
+      }
+    },
+    "allTypes": {
+      "type": "object",
+      "title": "Alle Typen",
+      "x-geometry": {
+        "point": true,
+        "line": true,
+        "polygon": true,
+        "maxObjects": 5
+      }
+    },
+    "rangeOneThree": {
+      "type": "object",
+      "title": "Polygon 1–3",
+      "x-geometry": {
+        "point": false,
+        "line": false,
+        "polygon": true,
+        "minObjects": 1,
+        "maxObjects": 3
+      }
+    },
+    "exactTwo": {
+      "type": "object",
+      "title": "Exakt 2",
+      "x-geometry": {
+        "point": true,
+        "line": true,
+        "polygon": true,
+        "exactObjects": 2
+      }
+    }
+  }
+}

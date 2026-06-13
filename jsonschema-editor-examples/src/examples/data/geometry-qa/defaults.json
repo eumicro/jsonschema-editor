@@ -1,0 +1,27 @@
+{
+  "pointOnly": { "type": "GeometryCollection", "geometries": [] },
+  "lineOnly": { "type": "GeometryCollection", "geometries": [] },
+  "polygonOnly": { "type": "GeometryCollection", "geometries": [] },
+  "pointLine": { "type": "GeometryCollection", "geometries": [] },
+  "pointPolygon": { "type": "GeometryCollection", "geometries": [] },
+  "linePolygon": { "type": "GeometryCollection", "geometries": [] },
+  "allTypes": { "type": "GeometryCollection", "geometries": [] },
+  "rangeOneThree": {
+    "type": "GeometryCollection",
+    "geometries": [
+      {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [7.4117331, 53.0061106],
+            [7.4119795, 53.0061106],
+            [7.4119795, 53.0063452],
+            [7.4117331, 53.0063452],
+            [7.4117331, 53.0061106]
+          ]
+        ]
+      }
+    ]
+  },
+  "exactTwo": { "type": "GeometryCollection", "geometries": [] }
+}
