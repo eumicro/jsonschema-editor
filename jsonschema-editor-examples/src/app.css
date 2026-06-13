@@ -49,6 +49,7 @@ body {
   border-bottom: 1px solid var(--app-border);
 }
 
+
 .app__topbar-start {
   display: flex;
   align-items: center;
@@ -124,6 +125,7 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  flex-shrink: 0;
 }
 
 .app__locale-label {
@@ -329,6 +331,7 @@ body {
 .app__view-tab:hover {
   color: var(--app-text);
 }
+
 
 .app__view-tab:focus-visible {
   outline: 2px solid var(--app-accent);
