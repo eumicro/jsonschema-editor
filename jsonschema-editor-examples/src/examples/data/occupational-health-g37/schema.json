@@ -6,11 +6,14 @@
   "required": [
     "aktenzeichen",
     "untersuchungsdatum",
+    "vorgeschichte",
     "untersuchter",
     "arbeitgeber",
     "programm",
     "anamnese",
     "beurteilung",
+    "beratung",
+    "mitteilungArbeitgeber",
     "attest"
   ],
   "properties": {
@@ -32,6 +35,9 @@
       "type": "string",
       "format": "date",
       "title": "Untersuchungsdatum"
+    },
+    "vorgeschichte": {
+      "$ref": "#/$defs/Vorgeschichte"
     },
     "untersuchter": {
       "$ref": "#/$defs/Untersuchter"
@@ -59,6 +65,12 @@
         { "$ref": "#/$defs/BeurteilungMitEmpfehlungen" },
         { "$ref": "#/$defs/BeurteilungErgaenzungNoetig" }
       ]
+    },
+    "beratung": {
+      "$ref": "#/$defs/Beratung"
+    },
+    "mitteilungArbeitgeber": {
+      "$ref": "#/$defs/MitteilungArbeitgeber"
     },
     "attest": {
       "$ref": "#/$defs/Attest"
@@ -153,6 +165,16 @@
           "properties": {
             "arbeitsplatz": { "type": "string", "title": "Arbeitsplatz / Raum" },
             "arbeitsaufgabe": { "type": "string", "title": "Arbeitsaufgabe" },
+            "arbeitseinweisungErfolgt": {
+              "type": "boolean",
+              "title": "Arbeitseinweisung / Einweisung am Bildschirmplatz erfolgt"
+            },
+            "arbeitszeitStundenWoche": {
+              "type": "number",
+              "title": "Arbeitszeit (h/Woche)",
+              "minimum": 1,
+              "maximum": 60
+            },
             "bildschirmStundenProTag": {
               "type": "number",
               "title": "Bildschirmzeit (h/Tag)",
@@ -232,6 +254,17 @@
           "type": "string",
           "title": "Farbensinn",
           "enum": ["regelrecht", "auffällig", "nicht erforderlich", "nicht geprüft"]
+        },
+        "ergebnisKategorie": {
+          "type": "string",
+          "title": "Ergebnis Siebtest (G37 Beurteilungsschema)",
+          "description": "a) Sehschärfe ok · b) Sehschärfe nicht ok · c) weitere Merkmale ok · d) weitere Merkmale auffällig",
+          "enum": [
+            "a_sehschaerfe_erfüllt",
+            "b_sehschaerfe_nicht_erfüllt",
+            "c_weitere_merkmale_erfüllt",
+            "d_weitere_merkmale_auffaellig"
+          ]
         },
         "gesichtsfeldGrund": {
           "type": "string",
@@ -324,6 +357,18 @@
           "type": "string",
           "title": "Weitere augenärztliche Untersuchungen",
           "description": "Bei Verdacht im Hinblick auf Arbeitsplatz / Aufgabe"
+        },
+        "augenarzt": {
+          "type": "object",
+          "title": "Augenärztliche Ergänzungsuntersuchung",
+          "properties": {
+            "name": { "type": "string", "title": "Name des Augenarztes" },
+            "datum": { "type": "string", "format": "date", "title": "Datum der Untersuchung" },
+            "bescheinigungErhalten": {
+              "type": "boolean",
+              "title": "Augenärztliche Beurteilung liegt vor (vertraulich)"
+            }
+          }
         }
       }
     },
@@ -425,6 +470,88 @@
         "ort": { "type": "string", "title": "Ort" },
         "datum": { "type": "string", "format": "date", "title": "Datum der Ausstellung" },
         "unterschriftErteilt": { "type": "boolean", "title": "Formular vollständig ausgestellt" }
+      }
+    },
+    "Vorgeschichte": {
+      "type": "object",
+      "title": "Vorgeschichte & Einwilligungen",
+      "description": "G37 3.1.1 Feststellung der Vorgeschichte",
+      "required": ["einwilligungDatenverarbeitung", "einwilligungMitteilungArbeitgeber"],
+      "properties": {
+        "fruehereVorsorge": {
+          "type": "boolean",
+          "title": "Frühere G37-/Bildschirmvorsorge durchgeführt"
+        },
+        "letzteVorsorgeDatum": {
+          "type": "string",
+          "format": "date",
+          "title": "Datum der letzten Vorsorge"
+        },
+        "relevanteVorerkrankungen": {
+          "type": "string",
+          "title": "Relevante Vorerkrankungen / Vorgeschichte"
+        },
+        "einwilligungDatenverarbeitung": {
+          "type": "boolean",
+          "title": "Einwilligung zur Verarbeitung der Untersuchungsdaten"
+        },
+        "einwilligungMitteilungArbeitgeber": {
+          "type": "boolean",
+          "title": "Einwilligung Mitteilung an Arbeitgeber (ohne Diagnosen)"
+        }
+      },
+      "if": {
+        "properties": { "fruehereVorsorge": { "const": true } },
+        "required": ["fruehereVorsorge"]
+      },
+      "then": {
+        "required": ["letzteVorsorgeDatum"]
+      }
+    },
+    "Beratung": {
+      "type": "object",
+      "title": "Arbeitsmedizinische Beratung",
+      "description": "G37 Abschnitt 2.2 Beratung",
+      "required": ["durchgefuehrt"],
+      "properties": {
+        "durchgefuehrt": { "type": "boolean", "title": "Beratung durchgeführt" },
+        "ergonomie": { "type": "boolean", "title": "Ergonomie / Arbeitsplatzgestaltung" },
+        "bildschirmPausen": { "type": "boolean", "title": "Bildschirmpausen" },
+        "sehhilfen": { "type": "boolean", "title": "Sehhilfen / Bildschirmarbeitsplatzbrille" },
+        "arbeitsorganisation": { "type": "boolean", "title": "Arbeitsorganisation / Arbeitszeit" },
+        "sonstiges": { "type": "string", "title": "Weitere Beratungsthemen" }
+      }
+    },
+    "MitteilungArbeitgeber": {
+      "type": "object",
+      "title": "Mitteilung an den Arbeitgeber",
+      "description": "Arbeitsmedizinische Bescheinigung ohne Diagnosen (G37 3.3)",
+      "required": ["bedenkenKategorie", "zusammenfassung"],
+      "properties": {
+        "bedenkenKategorie": {
+          "type": "string",
+          "title": "Beurteilungskategorie",
+          "enum": [
+            "keine_bedenken",
+            "keine_unter_voraussetzungen",
+            "befristete_bedenken",
+            "dauernde_bedenken"
+          ]
+        },
+        "zusammenfassung": {
+          "type": "string",
+          "title": "Zusammenfassung für den Arbeitgeber"
+        },
+        "naechsteUntersuchungMonate": {
+          "type": "integer",
+          "title": "Empfohlene Frist nächste Nachuntersuchung (Monate)",
+          "description": "36 Monate ab 40 Jahren, sonst 60 Monate",
+          "enum": [36, 60]
+        },
+        "vorzeitigeNachuntersuchung": {
+          "type": "boolean",
+          "title": "Vorzeitige Nachuntersuchung empfohlen"
+        }
       }
     }
   }

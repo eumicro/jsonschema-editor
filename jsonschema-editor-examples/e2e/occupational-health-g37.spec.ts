@@ -1,6 +1,14 @@
 import { expect, test } from "@playwright/test";
 import { openFormMode, readFormOutput, selectExample } from "./helpers";
 
+const STEP_COUNT = 8;
+
+async function goToStep(page: import("@playwright/test").Page, stepIndex: number) {
+  for (let i = 0; i < stepIndex; i++) {
+    await page.getByRole("button", { name: "Weiter" }).click();
+  }
+}
+
 test.describe("G37 Arbeitsmedizin", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
@@ -8,9 +16,9 @@ test.describe("G37 Arbeitsmedizin", () => {
     await openFormMode(page);
   });
 
-  test("lädt Stepper mit vier Schritten und Default-Daten", async ({ page }) => {
+  test("lädt Stepper mit acht Schritten und Default-Daten", async ({ page }) => {
     await expect(page.locator(".jse-stepper")).toBeVisible();
-    await expect(page.locator(".jse-stepper__step-indicator")).toHaveCount(4);
+    await expect(page.locator(".jse-stepper__step-indicator")).toHaveCount(STEP_COUNT);
     await expect(page.locator(".jse-stepper__step-indicator--active")).toContainText("Aufnahme");
 
     await expect(page.locator(".jse-field").filter({ hasText: /^Nachname/ })).toBeVisible();
@@ -21,8 +29,14 @@ test.describe("G37 Arbeitsmedizin", () => {
       nachname: "Krämer",
       vorname: "Sabine",
     });
+    expect(output.vorgeschichte).toMatchObject({
+      fruehereVorsorge: true,
+      einwilligungDatenverarbeitung: true,
+    });
     expect(output.programm).toMatchObject({ art: "erst" });
     expect(output.beurteilung).toMatchObject({ ergebnis: "empfehlungen" });
+    expect(output.beratung).toMatchObject({ durchgefuehrt: true });
+    expect(output.mitteilungArbeitgeber).toMatchObject({ bedenkenKategorie: "keine_bedenken" });
     const arbeitgeber = output.arbeitgeber as Record<string, unknown>;
     expect(arbeitgeber.betriebsgelaende).toMatchObject({
       type: "GeometryCollection",
@@ -66,18 +80,28 @@ test.describe("G37 Arbeitsmedizin", () => {
       .toBe(0);
   });
 
+  test("Vorgeschichte: Einwilligungen und frühere Vorsorge", async ({ page }) => {
+    await goToStep(page, 1);
+    await expect(page.locator(".jse-stepper__step-indicator--active")).toContainText("Vorgeschichte");
+    await expect(page.getByText("Frühere G37-/Bildschirmvorsorge durchgeführt")).toBeVisible();
+    await expect(page.getByText("Einwilligung zur Verarbeitung der Untersuchungsdaten")).toBeVisible();
+  });
+
   test("Anamnese: Categorization-Tabs und Untersuchungsschritt", async ({ page }) => {
-    await page.getByRole("button", { name: "Weiter" }).click();
+    await goToStep(page, 2);
     await expect(page.getByRole("tab", { name: "Allgemein" })).toBeVisible();
     await expect(page.getByRole("tab", { name: "Arbeitsplatz" })).toBeVisible();
+    await page.getByRole("tab", { name: "Arbeitsplatz" }).click();
+    await expect(page.getByText("Arbeitseinweisung / Einweisung am Bildschirmplatz erfolgt")).toBeVisible();
 
-    await page.getByRole("button", { name: "Weiter" }).click();
+    await goToStep(page, 1);
     await expect(page.locator(".jse-stepper__step-indicator--active")).toContainText("Untersuchung");
     await expect(
       page.getByRole("group", { name: "Erst- / Nach- / Ergänzungsuntersuchung" }).getByText("Typ"),
     ).toBeVisible();
 
-    await page.getByRole("button", { name: "Weiter" }).click();
+    await goToStep(page, 4);
+    await expect(page.locator(".jse-stepper__step-indicator--active")).toContainText("Attest");
     const output = await readFormOutput(page);
     expect(output.attest).toMatchObject({
       arztName: "Dr. med. Julia Hoffmann",
@@ -85,9 +109,18 @@ test.describe("G37 Arbeitsmedizin", () => {
     });
   });
 
+  test("Beratung und Mitteilung: G37-Abschnitte sichtbar", async ({ page }) => {
+    await goToStep(page, 5);
+    await expect(page.locator(".jse-stepper__step-indicator--active")).toContainText("Beratung");
+    await expect(page.getByText("Beratung durchgeführt")).toBeVisible();
+
+    await page.getByRole("button", { name: "Weiter" }).click();
+    await expect(page.locator(".jse-stepper__step-indicator--active")).toContainText("Mitteilung");
+    await expect(page.getByText("Beurteilungskategorie")).toBeVisible();
+  });
+
   test("Programm oneOf: Wechsel zu Ergänzungsuntersuchung zeigt Detailblock", async ({ page }) => {
-    await page.getByRole("button", { name: "Weiter" }).click();
-    await page.getByRole("button", { name: "Weiter" }).click();
+    await goToStep(page, 3);
 
     const programSelect = page
       .getByRole("group", { name: "Erst- / Nach- / Ergänzungsuntersuchung" })
@@ -109,12 +142,12 @@ test.describe("G37 Arbeitsmedizin", () => {
   });
 
   test("Untersuchung: Siebtest rendert verschachtelte Felder, kein [object Object]", async ({ page }) => {
-    await page.getByRole("button", { name: "Weiter" }).click();
-    await page.getByRole("button", { name: "Weiter" }).click();
+    await goToStep(page, 3);
 
     await expect(page.locator(".jse-stepper__panel")).not.toContainText("[object Object]");
     await expect(page.getByText("Sehschärfe Ferne")).toBeVisible();
     await expect(page.getByText("Sehschärfe Nähe (arbeitsplatzbezogen)")).toBeVisible();
+    await expect(page.getByText("Ergebnis Siebtest (G37 Beurteilungsschema)")).toBeVisible();
     await expect(page.locator(".jse-stepper__panel .jse-field")).not.toHaveCount(3);
   });
 });

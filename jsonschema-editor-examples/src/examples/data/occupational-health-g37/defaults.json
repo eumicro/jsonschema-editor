@@ -1,6 +1,13 @@
 {
   "aktenzeichen": "G37-2026-0042",
   "untersuchungsdatum": "2026-06-12",
+  "vorgeschichte": {
+    "fruehereVorsorge": true,
+    "letzteVorsorgeDatum": "2023-06-10",
+    "relevanteVorerkrankungen": "Keine relevanten augenärztlichen Vorerkrankungen.",
+    "einwilligungDatenverarbeitung": true,
+    "einwilligungMitteilungArbeitgeber": true
+  },
   "untersuchter": {
     "personalnummer": "P-78421",
     "nachname": "Krämer",
@@ -55,6 +62,7 @@
         "phorie": "regelrecht",
         "gesichtsfeld": "regelrecht",
         "farbensinn": "nicht erforderlich",
+        "ergebnisKategorie": "a_sehschaerfe_erfüllt",
         "gesichtsfeldGrund": "Routine Erstuntersuchung"
       }
     }
@@ -74,6 +82,8 @@
     "arbeit": {
       "arbeitsplatz": "Open-Space, Fensterplatz",
       "arbeitsaufgabe": "Programmierung, Code-Reviews, Teams-Meetings",
+      "arbeitseinweisungErfolgt": true,
+      "arbeitszeitStundenWoche": 38,
       "bildschirmStundenProTag": 6,
       "pausenRegelung": true,
       "beleuchtungOk": true,
@@ -88,6 +98,20 @@
     "bildschirmbrilleEmpfohlen": false,
     "augenarztUeberweisung": false,
     "naechsteUntersuchung": "2028-06-12"
+  },
+  "beratung": {
+    "durchgefuehrt": true,
+    "ergonomie": true,
+    "bildschirmPausen": true,
+    "sehhilfen": true,
+    "arbeitsorganisation": false,
+    "sonstiges": "Regelmäßige Pausen und ausreichende Beleuchtung am Arbeitsplatz empfohlen."
+  },
+  "mitteilungArbeitgeber": {
+    "bedenkenKategorie": "keine_bedenken",
+    "zusammenfassung": "Keine Bedenken gegen die Bildschirmarbeit. Nächste Vorsorge in 36 Monaten empfohlen.",
+    "naechsteUntersuchungMonate": 36,
+    "vorzeitigeNachuntersuchung": false
   },
   "attest": {
     "arztName": "Dr. med. Julia Hoffmann",
