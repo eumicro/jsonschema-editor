@@ -689,3 +689,134 @@ body {
     gap: 0.35rem;
   }
 }
+
+/* Legal / imprint */
+.legal-page {
+  flex: 1;
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 3rem;
+}
+
+.legal-page__header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.legal-page__title {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.65rem, 3vw, 2.1rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.legal-page__meta {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--app-muted);
+}
+
+.legal-page__note {
+  margin: 0.75rem auto 0;
+  max-width: 36rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--app-muted);
+}
+
+.legal-page__section {
+  margin-bottom: 2rem;
+  padding: 1.25rem 1.35rem;
+  background: var(--app-surface);
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius);
+  box-shadow: var(--app-shadow);
+}
+
+.legal-page__section-title {
+  margin: 0 0 1rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--app-accent-hover);
+}
+
+.legal-page__subsection {
+  margin-top: 1.25rem;
+}
+
+.legal-page__subsection-title {
+  margin: 0 0 0.65rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.legal-page__paragraph {
+  margin: 0 0 0.75rem;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--app-text);
+}
+
+.legal-page__paragraph:last-child {
+  margin-bottom: 0;
+}
+
+.legal-page__list {
+  margin: 0 0 0.75rem;
+  padding-left: 1.25rem;
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.legal-page__list li + li {
+  margin-top: 0.35rem;
+}
+
+.legal-page__link {
+  color: var(--app-accent-hover);
+  word-break: break-all;
+}
+
+.legal-page__link:hover {
+  text-decoration: underline;
+}
+
+.legal-page__link:focus-visible {
+  outline: 2px solid var(--app-accent);
+  outline-offset: 2px;
+}
+
+/* Site footer */
+.app__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem 1.25rem;
+  margin-top: auto;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--app-border);
+  background: var(--app-surface);
+  font-size: 0.825rem;
+  color: var(--app-muted);
+}
+
+.app__footer-copy {
+  margin: 0;
+}
+
+.app__footer-link {
+  color: var(--app-accent-hover);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.app__footer-link:hover {
+  text-decoration: underline;
+}
+
+.app__footer-link:focus-visible {
+  outline: 2px solid var(--app-accent);
+  outline-offset: 2px;
+}

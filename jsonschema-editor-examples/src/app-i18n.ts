@@ -6,6 +6,9 @@ const appUi = {
     brandSuffix: "Editor",
     navGetStarted: "Erste Schritte",
     navExamples: "Szenarien",
+    navImprint: "Impressum",
+    footerImprint: "Impressum & Datenschutz",
+    footerCopyright: "© Eugen Lange",
     topNavAria: "Hauptnavigation",
     tagline: "Praxisformulare aus JSON Schema",
     subtitle:
@@ -39,6 +42,9 @@ const appUi = {
     brandSuffix: "Editor",
     navGetStarted: "Get started",
     navExamples: "Examples",
+    navImprint: "Legal notice",
+    footerImprint: "Legal notice & privacy",
+    footerCopyright: "© Eugen Lange",
     topNavAria: "Main navigation",
     tagline: "Real-world forms from JSON Schema",
     subtitle: "Pick a scenario, edit schema and UI, test the form — all in one workspace.",
@@ -73,6 +79,9 @@ const appUi = {
     brandSuffix: string;
     navGetStarted: string;
     navExamples: string;
+    navImprint: string;
+    footerImprint: string;
+    footerCopyright: string;
     topNavAria: string;
     tagline: string;
     subtitle: string;

@@ -15,6 +15,7 @@ import { loadExampleFromJson } from "./examples/load-example";
 import { appUiFor, categoryLabelFor, fallbackLocaleFor, localeOptions } from "./app-i18n";
 import { navigateToPage, pageFromHash, type AppPage } from "./app-routing";
 import GetStartedPage from "./GetStartedPage.vue";
+import ImprintPage from "./ImprintPage.vue";
 
 type WorkspaceMode = "form" | "editor" | "json";
 type JsonPane = "schema" | "ui" | "data";
@@ -54,6 +55,10 @@ function syncPageFromHash() {
 
 function openGetStarted() {
   navigateToPage("get-started");
+}
+
+function openImprint() {
+  navigateToPage("imprint");
 }
 
 function openExamples() {
@@ -111,6 +116,15 @@ onUnmounted(() => {
           >
             {{ ui.navExamples }}
           </a>
+          <a
+            href="#/imprint"
+            class="app__topnav-link"
+            :class="{ 'app__topnav-link--active': activePage === 'imprint' }"
+            :aria-current="activePage === 'imprint' ? 'page' : undefined"
+            @click.prevent="openImprint"
+          >
+            {{ ui.navImprint }}
+          </a>
         </nav>
       </div>
       <div class="app__topbar-actions">
@@ -135,6 +149,8 @@ onUnmounted(() => {
       :locale="locale"
       @open-examples="openExamples"
     />
+
+    <ImprintPage v-else-if="activePage === 'imprint'" :locale="locale" />
 
     <div v-else class="app__workspace">
       <aside class="app__sidebar" :aria-label="ui.scenariosHeading">
@@ -296,5 +312,17 @@ onUnmounted(() => {
         </section>
       </main>
     </div>
+
+    <footer class="app__footer">
+      <p class="app__footer-copy">{{ ui.footerCopyright }}</p>
+      <a
+        href="#/imprint"
+        class="app__footer-link"
+        :aria-current="activePage === 'imprint' ? 'page' : undefined"
+        @click.prevent="openImprint"
+      >
+        {{ ui.footerImprint }}
+      </a>
+    </footer>
   </div>
 </template>

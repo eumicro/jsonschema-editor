@@ -1,11 +1,15 @@
-export type AppPage = "examples" | "get-started";
+export type AppPage = "examples" | "get-started" | "imprint";
 
 export function pageFromHash(hash = window.location.hash): AppPage {
-  return hash === "#/get-started" ? "get-started" : "examples";
+  if (hash === "#/get-started") return "get-started";
+  if (hash === "#/imprint") return "imprint";
+  return "examples";
 }
 
 export function hashForPage(page: AppPage): string {
-  return page === "get-started" ? "#/get-started" : "#/";
+  if (page === "get-started") return "#/get-started";
+  if (page === "imprint") return "#/imprint";
+  return "#/";
 }
 
 export function navigateToPage(page: AppPage): void {
