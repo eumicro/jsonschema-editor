@@ -8,10 +8,12 @@ import {
   getUiElementLabel,
   isLayoutElement,
   listUiChildren,
+  parseUiPathKey,
   uiPathKey,
   type UiPath,
 } from "../../utils/ui-editor";
 import { canAcceptUiChildren, canDeleteUiElement } from "../../utils/ui-tree-actions";
+import { resolveStackInsertIndex, setActiveLayoutDragSourcePath, getActiveLayoutDragSourcePath } from "../../utils/ui-layout-drag";
 import { useJseI18n } from "../../composables/useJseI18n";
 import { useTreeNodeActionLabels } from "../../composables/useTreeNodeActionLabels";
 import UiLayoutDropZone from "../atoms/UiLayoutDropZone.vue";
@@ -33,7 +35,7 @@ const emit = defineEmits<{
   edit: [path: UiPath, event: MouseEvent];
   delete: [path: UiPath];
   dragStart: [path: UiPath];
-  dropAt: [parentPath: UiPath, insertIndex: number];
+  dropAt: [parentPath: UiPath, insertIndex: number, event?: DragEvent];
 }>();
 
 const activeDropIndex = ref<number | null>(null);
@@ -73,19 +75,81 @@ const blockClass = computed(() => {
   return "jse-layout-block--default";
 });
 
-function canDropAt(insertIndex: number): boolean {
-  if (!props.dragSourcePath) return false;
-  return canMoveUiElementTo(props.root, props.dragSourcePath, props.path, insertIndex);
+function resolveDragSourcePath(event?: DragEvent): UiPath | null {
+  if (props.dragSourcePath) return props.dragSourcePath;
+  const activePath = getActiveLayoutDragSourcePath(parseUiPathKey);
+  if (activePath) return activePath;
+  const key = event?.dataTransfer?.getData("text/plain");
+  return key ? parseUiPathKey(key) : null;
+}
+
+function canDropAt(insertIndex: number, event?: DragEvent): boolean {
+  const sourcePath = resolveDragSourcePath(event);
+  if (!sourcePath) return false;
+  return canMoveUiElementTo(props.root, sourcePath, props.path, insertIndex);
 }
 
 function onDragStart(event: DragEvent) {
   emit("dragStart", props.path);
+  setActiveLayoutDragSourcePath(props.path, uiPathKey);
   event.dataTransfer?.setData("text/plain", pathKey.value);
-  event.dataTransfer!.effectAllowed = "move";
+  if (event.dataTransfer) event.dataTransfer.effectAllowed = "move";
+}
+
+function onLayoutDragEnter(event: DragEvent) {
+  if (!isLayout.value) return;
+  if (!resolveDragSourcePath(event)) return;
+  event.preventDefault();
+}
+
+function onLayoutDragOver(event: DragEvent) {
+  if (!isLayout.value) return;
+  event.stopPropagation();
+  const stack = (event.currentTarget as HTMLElement).querySelector(":scope > .jse-layout-editor__stack");
+  if (!(stack instanceof HTMLElement)) return;
+  const insertIndex = resolveStackInsertIndex(stack, event.clientY);
+  if (!canDropAt(insertIndex, event)) return;
+  event.preventDefault();
+  activeDropIndex.value = insertIndex;
+}
+
+function onLayoutDrop(event: DragEvent) {
+  if (!isLayout.value) return;
+  event.stopPropagation();
+  const stack = (event.currentTarget as HTMLElement).querySelector(":scope > .jse-layout-editor__stack");
+  if (!(stack instanceof HTMLElement)) return;
+  event.preventDefault();
+  const insertIndex = resolveStackInsertIndex(stack, event.clientY);
+  activeDropIndex.value = null;
+  if (!canDropAt(insertIndex, event)) return;
+  emit("dropAt", props.path, insertIndex, event);
+}
+
+function onStackDragOver(event: DragEvent) {
+  if (!isLayout.value) return;
+  const stack = event.currentTarget;
+  if (!(stack instanceof HTMLElement)) return;
+  const insertIndex = resolveStackInsertIndex(stack, event.clientY);
+  if (!canDropAt(insertIndex, event)) return;
+  event.preventDefault();
+  event.stopPropagation();
+  activeDropIndex.value = insertIndex;
+}
+
+function onStackDrop(event: DragEvent) {
+  if (!isLayout.value) return;
+  const stack = event.currentTarget;
+  if (!(stack instanceof HTMLElement)) return;
+  event.preventDefault();
+  event.stopPropagation();
+  const insertIndex = resolveStackInsertIndex(stack, event.clientY);
+  activeDropIndex.value = null;
+  if (!canDropAt(insertIndex, event)) return;
+  emit("dropAt", props.path, insertIndex, event);
 }
 
 function onDropZoneDragOver(insertIndex: number, event: DragEvent) {
-  if (!canDropAt(insertIndex)) return;
+  if (!canDropAt(insertIndex, event)) return;
   event.preventDefault();
   activeDropIndex.value = insertIndex;
 }
@@ -95,27 +159,11 @@ function onDropZoneDragLeave() {
 }
 
 function onDropZoneDrop(insertIndex: number, event: DragEvent) {
-  event.stopPropagation();
-  activeDropIndex.value = null;
-  if (!canDropAt(insertIndex)) return;
-  emit("dropAt", props.path, insertIndex);
-}
-
-function onContainerDragOver(event: DragEvent) {
-  if (!isLayout.value || !props.dragSourcePath) return;
-  const insertIndex = children.value.length;
-  if (!canDropAt(insertIndex)) return;
   event.preventDefault();
-  activeDropIndex.value = insertIndex;
-}
-
-function onContainerDrop(event: DragEvent) {
-  if (!isLayout.value) return;
   event.stopPropagation();
-  const insertIndex = children.value.length;
   activeDropIndex.value = null;
-  if (!canDropAt(insertIndex)) return;
-  emit("dropAt", props.path, insertIndex);
+  if (!canDropAt(insertIndex, event)) return;
+  emit("dropAt", props.path, insertIndex, event);
 }
 </script>
 
@@ -130,12 +178,21 @@ function onContainerDrop(event: DragEvent) {
       },
     ]"
     :data-ui-path="pathKey"
-    :draggable="path.length > 0"
     @click.stop="emit('select', path)"
-    @dragstart="onDragStart"
-    @dragend="activeDropIndex = null"
+    @dragenter="onLayoutDragEnter"
+    @dragover="onLayoutDragOver"
+    @drop="onLayoutDrop"
   >
     <header class="jse-layout-block__header">
+      <span
+        v-if="path.length > 0"
+        class="jse-layout-block__drag-handle"
+        draggable="true"
+        role="presentation"
+        aria-hidden="true"
+        @dragstart.stop="onDragStart"
+        @dragend.stop="activeDropIndex = null"
+      >⠿</span>
       <span class="jse-tree-node__kind">{{ element.elementKind }}</span>
       <span class="jse-layout-block__title">{{ label }}</span>
       <span v-if="scopeHint" class="jse-tree-node__meta">{{ scopeHint }}</span>
@@ -157,9 +214,9 @@ function onContainerDrop(event: DragEvent) {
       v-if="isLayout"
       class="jse-layout-editor__stack"
       :class="{ 'jse-layout-editor__stack--horizontal': isHorizontal }"
-      @dragover="onContainerDragOver"
+      @dragover="onStackDragOver"
       @dragleave="onDropZoneDragLeave"
-      @drop="onContainerDrop"
+      @drop="onStackDrop"
     >
       <template v-for="(childPath, index) in children" :key="uiPathKey(childPath)">
         <UiLayoutDropZone
@@ -179,7 +236,7 @@ function onContainerDrop(event: DragEvent) {
           @edit="(childPath, event) => emit('edit', childPath, event)"
           @delete="emit('delete', $event)"
           @drag-start="emit('dragStart', $event)"
-          @drop-at="(parentPath, insertIndex) => emit('dropAt', parentPath, insertIndex)"
+          @drop-at="(parentPath, insertIndex, event) => emit('dropAt', parentPath, insertIndex, event)"
         />
       </template>
 

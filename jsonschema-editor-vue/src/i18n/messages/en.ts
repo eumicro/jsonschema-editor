@@ -24,7 +24,7 @@ export const enMessages = {
   "uiStructure.viewLayout": "Layout editor",
   "uiStructure.viewTree": "Tree view",
   "uiStructure.hintLayout":
-    "Arrange fields and groups via drag & drop — including between objects and nested elements. Moving a group moves all contained schema fields.",
+    "Drag from the grip (⠿) onto layouts, groups, or drop zones — including nested vertical layouts.",
   "uiStructure.hintTree":
     "Hierarchy as a tree. Sort elements via drag & drop or move them into other layouts. + adds, pencil edits properties.",
   "uiStructure.treeAria": "UI structure",

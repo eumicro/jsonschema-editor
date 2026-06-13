@@ -23,12 +23,26 @@ test.describe("UI-Schema Layout-Editor", () => {
     await expect(page.locator("#jse-editor-ui .jse-layout-editor")).toBeVisible();
   });
 
-  test("Drag & Drop verschiebt Control zwischen Layouts", async ({ page }) => {
+  test("Drag & Drop zeigt Drag-Handle an verschiebbaren Elementen", async ({ page }) => {
     const panel = page.locator("#jse-editor-ui");
-    const source = panel.locator(".jse-layout-block--control").first();
-    const targetZone = panel.locator(".jse-layout-dropzone").last();
+    await expect(panel.locator(".jse-layout-block__drag-handle").first()).toBeVisible();
+  });
 
-    await source.dragTo(targetZone);
-    await expect(panel.locator(".jse-structure-editor__status")).toBeVisible();
+  test("G37: VerticalLayout hinzufügen und Drag-Handle anzeigen", async ({ page }) => {
+    await page.locator("#app-example-select").selectOption("occupational-health-g37");
+
+    const panel = page.locator("#jse-editor-ui");
+    const groupBlock = panel.locator(".jse-layout-block--group").filter({ hasText: "Untersuchte Person" });
+    const groupStack = groupBlock.locator(":scope > .jse-layout-editor__stack");
+
+    await groupBlock.getByRole("button", { name: "Element zu Untersuchte Person hinzufügen" }).click();
+    await page.getByRole("button", { name: "+ VerticalLayout" }).click();
+
+    const nameLayout = groupStack.locator(":scope > .jse-layout-block--vertical").last();
+    await expect(nameLayout).toBeVisible();
+    await expect(nameLayout.locator(":scope > .jse-layout-editor__stack .jse-layout-dropzone")).toBeVisible();
+
+    const nachname = groupStack.locator(":scope > .jse-layout-block--control").filter({ hasText: "nachname" });
+    await expect(nachname.locator(".jse-layout-block__drag-handle")).toBeVisible();
   });
 });

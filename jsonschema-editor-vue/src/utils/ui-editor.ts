@@ -22,6 +22,11 @@ export function uiPathKey(path: UiPath): string {
   return path.length ? path.join(".") : "root";
 }
 
+export function parseUiPathKey(key: string): UiPath {
+  if (!key || key === "root") return [];
+  return key.split(".").map((segment) => Number.parseInt(segment, 10));
+}
+
 export function isLayoutElement(
   element: UiElement,
 ): element is VerticalLayout | HorizontalLayout | Group | Categorization | Category | Stepper | Step {

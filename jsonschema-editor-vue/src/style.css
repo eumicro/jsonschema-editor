@@ -794,12 +794,25 @@
   flex-wrap: wrap;
   padding: 0.45rem 0.55rem;
   border-bottom: 1px solid #f1f5f9;
+}
+
+.jse-layout-block__drag-handle {
   cursor: grab;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  line-height: 1;
+  padding: 0.1rem 0.2rem;
+  user-select: none;
+  touch-action: none;
+}
+
+.jse-layout-block--dragging .jse-layout-block__drag-handle {
+  cursor: grabbing;
 }
 
 .jse-layout-block--control .jse-layout-block__header {
   border-bottom: none;
-  cursor: grab;
+  cursor: default;
 }
 
 .jse-layout-block__title {
@@ -824,6 +837,14 @@
 .jse-layout-editor__stack--horizontal > .jse-layout-block {
   flex: 1 1 10rem;
   min-width: 0;
+}
+
+.jse-layout-editor--dragging .jse-layout-dropzone {
+  min-height: 1.25rem;
+}
+
+.jse-layout-editor--dragging .jse-layout-editor__stack {
+  min-height: 3rem;
 }
 
 .jse-layout-dropzone {

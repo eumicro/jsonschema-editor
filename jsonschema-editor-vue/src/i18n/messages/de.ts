@@ -24,7 +24,7 @@ export const deMessages = {
   "uiStructure.viewLayout": "Layout-Editor",
   "uiStructure.viewTree": "Baumansicht",
   "uiStructure.hintLayout":
-    "Felder und Gruppen per Drag & Drop anordnen – auch zwischen Objekten und deren Unterelementen. Ganze Gruppen verschieben alle enthaltenen Schema-Felder mit.",
+    "Am Griff (⠿) ziehen und auf Layouts, Gruppen oder Einfügezonen ablegen – auch in verschachtelte VerticalLayouts.",
   "uiStructure.hintTree":
     "Hierarchie als Baum. Elemente per Drag & Drop sortieren oder in andere Layouts verschieben. + fügt hinzu, Stift bearbeitet Eigenschaften.",
   "uiStructure.treeAria": "UI-Struktur",
