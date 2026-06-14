@@ -1,7 +1,6 @@
 /**
- * README demo: complete G37 occupational-health walkthrough (all Stepper steps).
- *
- * Toolchain: Playwright (screenshots) → gifenc (PNG frames → GIF)
+ * README demo: Schadensmeldung (Geometry, oneOf, x-file, x-computed) and
+ * Förderantrag (CEL status workflow). Playwright → gifenc.
  */
 import { createRequire } from "node:module";
 import { mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
@@ -24,20 +23,20 @@ const repoRoot = path.resolve(examplesRoot, "..");
 const outputGif = path.join(repoRoot, "docs", "demo.gif");
 const framesDir = path.join(examplesRoot, "scripts", ".demo-frames");
 
-const VIEWPORT = { width: 1200, height: 760 };
+const VIEWPORT = {
+  width: Number(process.env.DEMO_WIDTH ?? 1920),
+  height: Number(process.env.DEMO_HEIGHT ?? 1080),
+};
 const BASE_URL = process.env.DEMO_BASE_URL ?? "http://localhost:5173";
-const FRAME_DELAY_MS = 900;
 
-const G37_STEPS = [
-  { label: "Aufnahme", slug: "aufnahme" },
-  { label: "Vorgeschichte", slug: "vorgeschichte" },
-  { label: "Anamnese", slug: "anamnese" },
-  { label: "Untersuchung", slug: "untersuchung" },
-  { label: "Beurteilung", slug: "beurteilung" },
-  { label: "Beratung", slug: "beratung" },
-  { label: "Mitteilung", slug: "mitteilung" },
-  { label: "Attest", slug: "attest" },
-] as const;
+/** Delay between GIF frames — slower = calmer playback. */
+const FRAME_DELAY_MS = 1500;
+const PAUSE = {
+  short: 700,
+  medium: 1200,
+  long: 2200,
+  map: 3200,
+} as const;
 
 let frameCounter = 0;
 
@@ -50,13 +49,6 @@ async function snap(page: Page, label: string): Promise<void> {
   await page.screenshot({ path: framePath, type: "png", animations: "disabled" });
 }
 
-async function waitForActiveStep(page: Page, stepLabel: string): Promise<void> {
-  await page
-    .locator(".jse-stepper__step-indicator--active")
-    .filter({ hasText: stepLabel })
-    .waitFor({ state: "visible" });
-}
-
 async function preparePage(page: Page): Promise<void> {
   await page.goto(BASE_URL, { waitUntil: "domcontentloaded" });
   await page.addStyleTag({
@@ -66,56 +58,130 @@ async function preparePage(page: Page): Promise<void> {
       }
     `,
   });
-
-  await page.locator("#app-example-select").selectOption("occupational-health-g37");
   await page.getByRole("tab", { name: "Formular testen" }).click();
-  await page.locator(".jse-stepper").waitFor({ state: "visible" });
-  await waitForActiveStep(page, "Aufnahme");
 }
 
-async function highlightStep(page: Page, step: (typeof G37_STEPS)[number]): Promise<void> {
-  if (step.label === "Aufnahme") {
-    await page.locator(".jse-geometry-map").scrollIntoViewIfNeeded();
-    await pause(350);
-    return;
-  }
+async function selectScenario(page: Page, exampleId: string, heading: string): Promise<void> {
+  await page.locator("#app-example-select").waitFor({ state: "attached" });
+  await page.locator("#app-example-select").selectOption(exampleId);
+  await page.getByRole("heading", { name: heading }).waitFor({ state: "visible", timeout: 15_000 });
+  await page.locator(".jse-stepper__step-button").first().waitFor({ state: "visible", timeout: 15_000 });
+  await pause(PAUSE.long);
+}
 
-  if (step.label === "Anamnese") {
-    await page.getByRole("tab", { name: "Arbeitsplatz" }).click();
-    await pause(250);
-    return;
-  }
+async function waitForActiveStep(page: Page, stepLabel: string): Promise<void> {
+  await page
+    .locator(".jse-stepper__step-indicator--active .jse-stepper__step-label")
+    .filter({ hasText: stepLabel })
+    .waitFor({ state: "visible", timeout: 15_000 });
+}
 
-  if (step.label === "Untersuchung") {
-    await page.getByText("Sehschärfe Ferne").scrollIntoViewIfNeeded();
-    await pause(250);
-    return;
-  }
+async function goToStep(page: Page, stepLabel: string): Promise<void> {
+  await page
+    .locator(".jse-stepper__step-button")
+    .filter({ hasText: stepLabel })
+    .click();
+  await waitForActiveStep(page, stepLabel);
+  await pause(PAUSE.medium);
+}
 
-  if (step.label === "Mitteilung") {
-    await page.getByText("Beurteilungskategorie").scrollIntoViewIfNeeded();
-    await pause(250);
+function panel(page: Page) {
+  return page.locator(".jse-stepper__panel");
+}
+
+function statusField(page: Page) {
+  return panel(page).locator(".jse-field").filter({
+    has: page.locator(".jse-field__label", { hasText: "Bearbeitungsstand" }),
+  });
+}
+
+async function recordInsuranceClaim(page: Page): Promise<void> {
+  await selectScenario(page, "insurance-claim", "Schadensmeldung");
+  await waitForActiveStep(page, "Vorgang");
+  await pause(PAUSE.short);
+  await snap(page, "claim-vorgang");
+
+  await goToStep(page, "Schadenfall");
+  await page.locator(".jse-geometry-map").scrollIntoViewIfNeeded();
+  await page.locator(".jse-geometry-map .leaflet-tile-pane img").first().waitFor({
+    state: "visible",
+    timeout: 12_000,
+  }).catch(() => undefined);
+  await pause(PAUSE.map);
+  await snap(page, "claim-geometry");
+
+  await goToStep(page, "Schadendetails");
+  await page.locator(".jse-oneof-field select, .jse-field select").first().waitFor({ state: "visible" });
+  await pause(PAUSE.long);
+  await snap(page, "claim-oneof");
+
+  await goToStep(page, "Abschluss");
+  await page.locator(".jse-file-field__name", { hasText: "schadensfall-1.png" }).waitFor({
+    state: "visible",
+    timeout: 15_000,
+  });
+  await page.locator(".jse-file-field__thumb-image").waitFor({ state: "visible", timeout: 10_000 });
+  await pause(PAUSE.long);
+  await snap(page, "claim-files");
+
+  const previewBtn = page.locator(".jse-file-field__icon-btn").first();
+  if (await previewBtn.isVisible()) {
+    await previewBtn.click();
+    await page.locator(".jse-file-gallery").waitFor({ state: "visible" });
+    await pause(PAUSE.long);
+    await snap(page, "claim-gallery");
+    await page.getByRole("button", { name: "Close gallery" }).click();
+    await pause(PAUSE.short);
   }
 }
 
-async function walkThroughG37(page: Page): Promise<void> {
-  await snap(page, "g37-overview");
+async function recordFoerderantrag(page: Page): Promise<void> {
+  await selectScenario(page, "computed-status-qa", "Förderantrag");
+  await expectStatus(page, "NEU");
+  await pause(PAUSE.long);
+  await snap(page, "grant-start");
 
-  for (let index = 0; index < G37_STEPS.length; index += 1) {
-    const step = G37_STEPS[index];
+  const dateField = panel(page).locator(".jse-field").filter({
+    has: page.locator(".jse-field__label", { hasText: "Antragsdatum" }),
+  });
+  await dateField.locator("input").fill("2026-06-01");
+  await pause(PAUSE.medium);
+  await expectStatus(page, "ANTRAG_ANGELEGT");
+  await snap(page, "grant-date");
 
-    if (index > 0) {
-      await page.getByRole("button", { name: "Weiter" }).click();
-      await waitForActiveStep(page, step.label);
-    }
+  await goToStep(page, "Auftragsdaten");
+  await panel(page).locator(".jse-field").filter({
+    has: page.locator(".jse-field__label", { hasText: "Adresse zum Antrag" }),
+  }).locator("input").fill("Musterstraße 1, Neulehe");
+  await pause(PAUSE.medium);
+  await expectStatus(page, "BEREIT_ZUR_DURCHFUEHRUNG");
+  await snap(page, "grant-address");
 
-    await highlightStep(page, step);
-    await snap(page, `g37-${step.slug}`);
-    await pause(350);
+  await goToStep(page, "Durchführung");
+  await panel(page).locator(".jse-field").filter({
+    has: page.locator(".jse-field__label", { hasText: "Datum der Durchführung" }),
+  }).locator("input").fill("2026-07-15");
+  await pause(PAUSE.medium);
+  await expectStatus(page, "DURCHGEFUEHRT");
+  await snap(page, "grant-execution");
+
+  await goToStep(page, "Abrechnung");
+  await panel(page).locator(".jse-field").filter({
+    has: page.locator(".jse-field__label", { hasText: "Rechnung beglichen" }),
+  }).locator("input[type=checkbox]").check();
+  await pause(PAUSE.medium);
+  await expectStatus(page, "ERLEDIGT");
+  await pause(PAUSE.long);
+  await snap(page, "grant-done");
+}
+
+async function expectStatus(page: Page, value: string): Promise<void> {
+  await statusField(page).locator("input").waitFor({ state: "visible" });
+  const input = statusField(page).locator("input");
+  for (let attempt = 0; attempt < 20; attempt += 1) {
+    if ((await input.inputValue()) === value) return;
+    await pause(150);
   }
-
-  await pause(600);
-  await snap(page, "g37-complete");
 }
 
 function encodeGif(framePaths: string[]): void {
@@ -147,7 +213,11 @@ async function runDemo(): Promise<string[]> {
 
   try {
     await preparePage(page);
-    await walkThroughG37(page);
+    await snap(page, "intro");
+    await pause(PAUSE.medium);
+    await recordInsuranceClaim(page);
+    await pause(PAUSE.medium);
+    await recordFoerderantrag(page);
   } finally {
     await browser.close();
   }
@@ -159,7 +229,7 @@ async function runDemo(): Promise<string[]> {
 }
 
 async function main(): Promise<void> {
-  console.log("Recording G37 walkthrough demo …");
+  console.log("Recording README demo (Schadensmeldung + Förderantrag) …");
   const frames = await runDemo();
 
   console.log(`${frames.length} frames → GIF …`);

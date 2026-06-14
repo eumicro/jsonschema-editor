@@ -4,7 +4,7 @@
 
 **Live demo:** [jsonschema-editor.cloudapplication.net](https://jsonschema-editor.cloudapplication.net/) — Get started guide and curated scenarios (GitHub Pages).
 
-![Demo: G37 Bildschirm-Vorsorge — vollständiger Stepper-Durchlauf](./docs/demo.gif)
+![Demo: Geo-Map, File-Upload and Computed Field (Common expression Language)](./docs/demo.gif)
 
 Three **standalone npm packages** — JSON Schema and UI Schema are intentionally separate:
 

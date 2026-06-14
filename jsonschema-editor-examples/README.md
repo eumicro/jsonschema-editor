@@ -84,7 +84,7 @@ pnpm --filter jsonschema-editor-examples run dev   # separate terminal
 pnpm --filter jsonschema-editor-examples run demo:gif
 ```
 
-Writes `../docs/demo.gif` for the repository README (complete G37 stepper walkthrough).
+Writes `../docs/demo.gif` for the repository README (Schadensmeldung + Förderantrag).
 
 ## Dependencies
 
