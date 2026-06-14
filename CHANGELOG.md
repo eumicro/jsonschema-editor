@@ -16,22 +16,38 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 
 
-### Changed
+## [0.1.8] - 2026-06-14
 
-- Example app: curated **practice scenario gallery** (9 public use cases by category); internal examples hidden from browsing but kept for E2E; practice-oriented labels and schema titles throughout
-- Example app: **workshop layout** inspired by declarative form tools — sidebar scenario navigation, hero intro, underline tabs (Form / Editor / JSON), split view with live form data panel
-- Example app: **Get started** subpage (`#/get-started`) with install steps, architecture overview, and link back to scenarios
-- Example app: deployable to **GitHub Pages** via `.github/workflows/pages.yml` (live demo at [jsonschema-editor.cloudapplication.net](https://jsonschema-editor.cloudapplication.net/))
+
 
 ### Added
 
-- Example app: public scenario **`insurance-claim`** (Schadensmeldung) for Versicherung & Service — Stepper, oneOf (Kfz/Hausrat/Haftpflicht), Zeugenliste, Schadenort-Karte, x-computed Bearbeitungsstand
-- Example app: public scenario **`logistics-freight-order`** (Speditionsauftrag) for Logistik & Transport — 7-step workflow, dual map (pickup/delivery), cargo list, oneOf service level, categorization, triple x-computed (weight/volume/freight)
-- Example app: public scenario **`construction-project-application`** (Bauprojekt-Anmeldung) for Anträge & Prozesse — 9-step permit workflow, triple map (plot polygon, site access point, traffic line), dual oneOf (project type + usage), trade and neighbor lists, quadruple x-computed plus status
+- `@jsonschema-editor/json-schema-extensions`: **`x-file`** — single and multiple file upload fields (`FileDescriptor`, `FileFieldProvider`, `createSingleFileSchema` / `createMultipleFileSchema`, accept/maxSize/maxFiles validation)
+- `@jsonschema-editor/vue-extensions`: **`FileFieldFormField`**, **`FileGalleryDialog`**, **`FileAttributeControl`**; in-memory demo provider with **`seed()`** for preloaded demo files; schema types **`file`** / **`file-list`**
+- `@jsonschema-editor/vue`: **`phone`** format registered in form validation AJV (via json-schema-extensions)
+- Example app: **`#/imprint`** page (Impressum & Datenschutz, DE/EN)
+- Example app: custom domain **[jsonschema-editor.cloudapplication.net](https://jsonschema-editor.cloudapplication.net/)** (`public/CNAME`, Pages base path `/`)
+- Example app: public scenario **`insurance-claim`** (Schadensmeldung) — Stepper, oneOf (Kfz/Hausrat/Haftpflicht), Zeugenliste, Schadenort-Karte, **`schadenfotos`** file array with demo image, x-computed Bearbeitungsstand
+- Example app: public scenario **`logistics-freight-order`** (Speditionsauftrag) — 7-step workflow, dual map, cargo list, oneOf service level, triple x-computed
+- Example app: public scenario **`construction-project-application`** (Bauprojekt-Anmeldung) — 9-step permit workflow, triple map, dual oneOf, quadruple x-computed
+- Example app: **`#/get-started`** subpage with install steps and architecture overview
+- Example app: internal **`file-qa`** scenario; E2E tests for file upload and Schadensmeldung attachments
+
+
+
+### Changed
+
+- Example app: curated **practice scenario gallery** (public use cases by category); internal examples hidden from sidebar but kept for E2E
+- Example app: **workshop layout** — sidebar navigation, hero intro, underline tabs (Form / Editor / JSON), live form data panel
+- Example app: deployable to **GitHub Pages** via `.github/workflows/pages.yml`
+
+
 
 ### Fixed
 
-- `@jsonschema-editor/vue-extensions`: geometry map no longer clears default `GeometryCollection` values during map initialization (race between value watcher, Geoman sync, and layer reload)
+- `@jsonschema-editor/vue-extensions`: file upload no longer drops selected files when clearing the native input (copy `FileList` before reset)
+- `@jsonschema-editor/json-schema-extensions`: MIME type inference from file extension when the browser reports `application/octet-stream` (`resolveUploadMimeType`, `matchesFileAccept`)
+- `@jsonschema-editor/vue-extensions`: geometry map no longer clears default `GeometryCollection` values during map initialization
 
 
 
