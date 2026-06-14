@@ -14,6 +14,7 @@ import type { FormatExtensionId, JsonSchemaFormatExtension } from "./types.js";
 import { isComputedExtensionConfig } from "./computed.js";
 import { isGeometryExtensionConfig } from "./geometry.js";
 import { isValuesSourceConfig } from "./values-source.js";
+import { isFileExtensionConfig } from "./file.js";
 import { registerFieldFlagAttributes } from "./field-flags.js";
 
 export const jsonSchemaFormatExtensions: readonly JsonSchemaFormatExtension[] = [
@@ -116,6 +117,14 @@ export function createExtensionsRegistry(
       name: "x-computed",
       defaultValue: undefined,
       deserialize: (raw) => (isComputedExtensionConfig(raw) ? raw : undefined),
+      serialize: (value) => value,
+    });
+  }
+  if (!base.isRegistered("x-file")) {
+    base.register({
+      name: "x-file",
+      defaultValue: undefined,
+      deserialize: (raw) => (isFileExtensionConfig(raw) ? raw : undefined),
       serialize: (value) => value,
     });
   }

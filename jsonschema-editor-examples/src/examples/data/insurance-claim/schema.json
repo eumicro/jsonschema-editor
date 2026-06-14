@@ -148,6 +148,27 @@
           "type": "boolean",
           "title": "Fotos / Belege liegen vor"
         },
+        "schadenfotos": {
+          "type": "array",
+          "title": "Schadenfotos & Belege",
+          "description": "Fotos vom Schaden, Rechnungen oder Polizeiberichte hochladen",
+          "x-file": {
+            "multiple": true,
+            "accept": ["image/*", "application/pdf"],
+            "maxFiles": 8,
+            "maxSize": 10485760
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" },
+              "mimeType": { "type": "string" },
+              "size": { "type": "integer", "minimum": 0 }
+            },
+            "required": ["id", "name", "mimeType", "size"]
+          }
+        },
         "iban": {
           "type": "string",
           "title": "IBAN für Erstattung",

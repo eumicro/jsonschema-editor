@@ -4,6 +4,10 @@ import type { SchemaDocument } from "@jsonschema-editor/json-schema";
 import type { UiSchema } from "@jsonschema-editor/ui-schema/bridge";
 import { JsonSchemaForm, JsonSchemaFormEditor, type JseLocale } from "@jsonschema-editor/vue";
 import {
+  createInMemoryFileFieldProvider,
+  provideFileFieldProvider,
+} from "@jsonschema-editor/vue-extensions";
+import {
   defaultExampleId,
   exampleCatalog,
   exampleCategoryOrder,
@@ -11,6 +15,7 @@ import {
   examplesByCategory,
   type ExampleId,
 } from "./examples/catalog";
+import { seedDemoFilesForExample } from "./examples/demo-file-seeds";
 import { loadExampleFromJson } from "./examples/load-example";
 import { appUiFor, categoryLabelFor, fallbackLocaleFor, localeOptions } from "./app-i18n";
 import { navigateToPage, pageFromHash, type AppPage } from "./app-routing";
@@ -21,6 +26,9 @@ type WorkspaceMode = "form" | "editor" | "json";
 type JsonPane = "schema" | "ui" | "data";
 
 const initial = loadExampleFromJson(exampleCatalog[defaultExampleId]);
+
+const fileProvider = createInMemoryFileFieldProvider();
+provideFileFieldProvider(fileProvider);
 
 const activePage = ref<AppPage>(pageFromHash());
 const activeExampleId = ref<ExampleId>(defaultExampleId);
@@ -65,8 +73,9 @@ function openExamples() {
   navigateToPage("examples");
 }
 
-function loadExample(id: ExampleId) {
+async function loadExample(id: ExampleId) {
   const loaded = loadExampleFromJson(exampleCatalog[id]);
+  await seedDemoFilesForExample(fileProvider, id);
   schema.value = loaded.schema;
   uiSchema.value = loaded.uiSchema;
   formData.value = loaded.defaults;
@@ -77,7 +86,9 @@ function selectExample(id: ExampleId) {
   activeExampleId.value = id;
 }
 
-watch(activeExampleId, (id) => loadExample(id));
+watch(activeExampleId, (id) => {
+  void loadExample(id);
+});
 
 onMounted(() => {
   syncPageFromHash();

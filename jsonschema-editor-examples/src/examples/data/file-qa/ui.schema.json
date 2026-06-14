@@ -1,0 +1,7 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    { "type": "Control", "scope": "#/properties/avatar" },
+    { "type": "Control", "scope": "#/properties/anhaenge" }
+  ]
+}

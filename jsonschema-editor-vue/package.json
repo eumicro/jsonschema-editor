@@ -54,6 +54,7 @@
   },
   "dependencies": {
     "@jsonschema-editor/json-schema": "workspace:*",
+    "@jsonschema-editor/json-schema-extensions": "workspace:*",
     "@jsonschema-editor/ui-schema": "workspace:*",
     "ajv": "^8.20.0",
     "ajv-formats": "^3.0.1"

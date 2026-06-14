@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Datei-Upload QA",
+  "type": "object",
+  "properties": {
+    "avatar": {
+      "type": "object",
+      "title": "Profilbild",
+      "description": "Einzelnes Bild",
+      "x-file": {
+        "multiple": false,
+        "accept": ["image/*"],
+        "maxSize": 5242880
+      },
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "mimeType": { "type": "string" },
+        "size": { "type": "integer", "minimum": 0 }
+      },
+      "required": ["id", "name", "mimeType", "size"]
+    },
+    "anhaenge": {
+      "type": "array",
+      "title": "Anhänge",
+      "description": "Mehrere Bilder mit Galerie-Vorschau",
+      "x-file": {
+        "multiple": true,
+        "accept": ["image/*"],
+        "maxFiles": 6,
+        "maxSize": 5242880
+      },
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "mimeType": { "type": "string" },
+          "size": { "type": "integer", "minimum": 0 }
+        },
+        "required": ["id", "name", "mimeType", "size"]
+      }
+    }
+  }
+}

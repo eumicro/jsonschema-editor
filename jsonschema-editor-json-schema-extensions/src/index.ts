@@ -96,3 +96,26 @@ export {
   normalizeComputedValue,
 } from "./computed-cel.js";
 export type { ComputedEvaluationResult } from "./computed-cel.js";
+
+export {
+  FILE_ATTRIBUTE,
+  createMultipleFileSchema,
+  createSingleFileSchema,
+  isFileDescriptor,
+  isFileExtensionConfig,
+  isPreviewableMimeType,
+  guessMimeTypeFromFileName,
+  matchesFileAccept,
+  normalizeFileConfig,
+  readFileConfig,
+  resolveUploadMimeType,
+  validateFileDescriptor,
+  validateFileFieldValue,
+} from "./file.js";
+export type {
+  FileDescriptor,
+  FileExtensionConfig,
+  FileFieldContext,
+  FileFieldProvider,
+  NormalizedFileConfig,
+} from "./file.js";

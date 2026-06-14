@@ -1,8 +1,9 @@
-import type { Page } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
 
 import type { ExampleId } from "../src/examples/catalog";
 
 export async function selectExample(page: Page, id: ExampleId): Promise<void> {
+  await page.locator("#app-example-select").waitFor({ state: "attached" });
   await page.locator("#app-example-select").selectOption(id);
 }
 
@@ -12,6 +13,18 @@ export async function openFormMode(page: Page): Promise<void> {
 
 export async function openEditorMode(page: Page): Promise<void> {
   await page.getByRole("tab", { name: "Schema bearbeiten" }).click();
+}
+
+/** Upload via the visible button so the browser fires change on the file input. */
+export async function uploadToFileField(
+  page: Page,
+  field: Locator,
+  files: string | string[],
+): Promise<void> {
+  const fileChooserPromise = page.waitForEvent("filechooser");
+  await field.getByRole("button", { name: /Add files|Choose file/i }).click();
+  const fileChooser = await fileChooserPromise;
+  await fileChooser.setFiles(files);
 }
 
 /** Variant selector of the root oneOf field (excludes nested property selects). */

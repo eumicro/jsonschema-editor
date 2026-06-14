@@ -27,6 +27,13 @@ import {
   isFieldHidden,
   evaluateComputedExpression,
   readComputedConfig,
+  createSingleFileSchema,
+  createMultipleFileSchema,
+  readFileConfig,
+  validateFileDescriptor,
+  validateFileFieldValue,
+  matchesFileAccept,
+  resolveUploadMimeType,
 } from "./index.js";
 
 describe("format validators", () => {
@@ -249,6 +256,68 @@ describe("Computed extensions", () => {
     );
     const total = doc.root.getProperty("total");
     expect(readComputedConfig(total)?.expression).toBe("double(data.a) + double(data.b)");
+  });
+});
+
+describe("FileExtension", () => {
+  const registry = createExtensionsRegistry();
+
+  it("creates single and multiple file schemas with x-file config", () => {
+    const single = createSingleFileSchema({ accept: ["image/*"] }, registry);
+    expect(single.getCustomAttribute("x-file")).toMatchObject({
+      multiple: false,
+      accept: ["image/*"],
+    });
+
+    const multiple = createMultipleFileSchema({ maxFiles: 3 }, registry);
+    expect(multiple.getCustomAttribute("x-file")).toMatchObject({
+      multiple: true,
+      maxFiles: 3,
+    });
+  });
+
+  it("roundtrips x-file through documentFromJSONWithExtensions", () => {
+    const doc = documentFromJSONWithExtensions(
+      {
+        type: "object",
+        properties: {
+          photo: {
+            type: "object",
+            "x-file": { multiple: false, accept: ["image/png"] },
+            properties: {
+              id: { type: "string" },
+              name: { type: "string" },
+              mimeType: { type: "string" },
+              size: { type: "integer" },
+            },
+          },
+        },
+      },
+      registry,
+    );
+    const photo = doc.root.getProperty("photo");
+    expect(readFileConfig(photo!)).toMatchObject({ accept: ["image/png"] });
+  });
+
+  it("validates file descriptors and field values", () => {
+    const descriptor = {
+      id: "abc",
+      name: "photo.png",
+      mimeType: "image/png",
+      size: 1200,
+    };
+    expect(validateFileDescriptor(descriptor)).toBe(true);
+    expect(validateFileFieldValue(descriptor, { multiple: false })).toBe(true);
+    expect(validateFileFieldValue([descriptor], { multiple: true, maxFiles: 2 })).toBe(true);
+    expect(matchesFileAccept(descriptor, ["image/*"])).toBe(true);
+    expect(matchesFileAccept(descriptor, ["application/pdf"])).toBe(false);
+    expect(
+      matchesFileAccept(
+        { name: "photo.png", mimeType: "application/octet-stream" },
+        ["image/*"],
+      ),
+    ).toBe(true);
+    expect(resolveUploadMimeType("photo.png", "")).toBe("image/png");
   });
 });
 

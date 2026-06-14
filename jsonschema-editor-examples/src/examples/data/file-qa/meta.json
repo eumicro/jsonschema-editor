@@ -1,0 +1,7 @@
+{
+  "label": "Datei-Upload (QA)",
+  "tagline": "Einzel- und Mehrfach-Upload mit Vorschau-Galerie",
+  "description": "Internes QA-Szenario für x-file: Einzelbild, Bildergalerie, FileFieldProvider-Schnittstelle.",
+  "category": "Stammdaten",
+  "visibility": "internal"
+}

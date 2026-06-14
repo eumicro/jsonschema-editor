@@ -87,6 +87,7 @@ export const enMessages = {
   "schemaAttributes.x-read-only": "Read-only (x-read-only)",
   "schemaAttributes.x-hidden": "Hidden (x-hidden)",
   "schemaAttributes.x-computed": "Computed (CEL, x-computed)",
+  "schemaAttributes.x-file": "File upload (x-file)",
   "schemaAttributes.bulkFieldExtensions": "Field extensions (bulk)",
   "schemaAttributes.bulkFieldExtensionsHint":
     "Applies the attribute to this object and all nested fields.",

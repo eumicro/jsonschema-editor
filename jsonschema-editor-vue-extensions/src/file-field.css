@@ -1,0 +1,236 @@
+.jse-file-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.jse-file-field__input {
+  display: none;
+}
+
+.jse-file-field__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: 0.75rem;
+}
+
+.jse-file-field__item {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr) auto;
+  gap: 0.65rem;
+  align-items: center;
+  padding: 0.65rem;
+  border: 1px solid var(--jse-border, #e2e8f0);
+  border-radius: 0.5rem;
+  background: var(--jse-surface, #fff);
+}
+
+.jse-file-field__preview {
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 0.375rem;
+  overflow: hidden;
+  background: var(--jse-bg, #f8fafc);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jse-file-field__thumb-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.jse-file-field__thumb-fallback {
+  color: var(--jse-muted, #64748b);
+}
+
+.jse-file-field__meta {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.jse-file-field__name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.jse-file-field__size {
+  font-size: 0.75rem;
+  color: var(--jse-muted, #64748b);
+}
+
+.jse-file-field__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.jse-file-field__icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--jse-border, #e2e8f0);
+  border-radius: 0.375rem;
+  background: #fff;
+  color: var(--jse-text, #0f172a);
+  cursor: pointer;
+}
+
+.jse-file-field__icon-btn:hover {
+  background: var(--jse-bg, #f8fafc);
+}
+
+.jse-file-field__icon-btn--danger {
+  color: #b91c1c;
+}
+
+.jse-file-field__upload-btn {
+  align-self: flex-start;
+  padding: 0.5rem 0.85rem;
+  border: 1px dashed var(--jse-border, #cbd5e1);
+  border-radius: 0.5rem;
+  background: var(--jse-bg, #f8fafc);
+  font: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.jse-file-field__upload-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.jse-file-field__error {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: #b91c1c;
+}
+
+.jse-file-gallery {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgb(15 23 42 / 72%);
+}
+
+.jse-file-gallery__panel {
+  width: min(960px, 100%);
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: #fff;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.jse-file-gallery__header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.jse-file-gallery__title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.jse-file-gallery__counter {
+  font-size: 0.8125rem;
+  color: #64748b;
+}
+
+.jse-file-gallery__actions {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.jse-file-gallery__icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.375rem;
+  background: #fff;
+  cursor: pointer;
+}
+
+.jse-file-gallery__icon-btn--danger {
+  color: #b91c1c;
+}
+
+.jse-file-gallery__stage {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 320px;
+  padding: 0 0.5rem;
+  background: #0f172a;
+}
+
+.jse-file-gallery__image {
+  max-width: 100%;
+  max-height: 60vh;
+  margin: 0 auto;
+  display: block;
+  object-fit: contain;
+}
+
+.jse-file-gallery__nav {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: none;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 12%);
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.jse-file-gallery__thumbs {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem 1rem;
+  overflow-x: auto;
+}
+
+.jse-file-gallery__thumb {
+  width: 4rem;
+  height: 4rem;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 0.375rem;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.jse-file-gallery__thumb--active {
+  border-color: #0d9488;
+}
+
+.jse-file-gallery__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

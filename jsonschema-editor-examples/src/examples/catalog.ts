@@ -53,6 +53,10 @@ import constructionProjectApplicationDefaults from "./data/construction-project-
 import constructionProjectApplicationMeta from "./data/construction-project-application/meta.json";
 import constructionProjectApplicationSchema from "./data/construction-project-application/schema.json";
 import constructionProjectApplicationUi from "./data/construction-project-application/ui.schema.json";
+import fileQaDefaults from "./data/file-qa/defaults.json";
+import fileQaMeta from "./data/file-qa/meta.json";
+import fileQaSchema from "./data/file-qa/schema.json";
+import fileQaUi from "./data/file-qa/ui.schema.json";
 
 export type ExampleId =
   | "person-one-of"
@@ -67,7 +71,8 @@ export type ExampleId =
   | "field-extensions-qa"
   | "computed-cost-qa"
   | "computed-status-qa"
-  | "array-list-qa";
+  | "array-list-qa"
+  | "file-qa";
 
 export type ExampleVisibility = "public" | "internal";
 
@@ -221,6 +226,13 @@ export const exampleManifests: ExampleManifest[] = [
     geometryQaSchema as unknown as JsonSchemaObject,
     geometryQaUi as unknown as UiSchemaObject,
     geometryQaDefaults,
+  ),
+  manifest(
+    "file-qa",
+    fileQaMeta as ExampleMetaSource,
+    fileQaSchema as unknown as JsonSchemaObject,
+    fileQaUi as unknown as UiSchemaObject,
+    fileQaDefaults,
   ),
 ];
 

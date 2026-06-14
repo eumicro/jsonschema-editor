@@ -129,6 +129,11 @@
           "label": "Unterlagen & Erklärungen",
           "elements": [
             { "type": "Control", "scope": "#/properties/abschluss/properties/fotosVorhanden" },
+            {
+              "type": "Control",
+              "scope": "#/properties/abschluss/properties/schadenfotos",
+              "label": "Schadenfotos & Belege"
+            },
             { "type": "Control", "scope": "#/properties/abschluss/properties/iban" },
             {
               "type": "HorizontalLayout",

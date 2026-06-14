@@ -54,6 +54,14 @@
   },
   "abschluss": {
     "fotosVorhanden": true,
+    "schadenfotos": [
+      {
+        "id": "insurance-claim-schadensfall-1",
+        "name": "schadensfall-1.png",
+        "mimeType": "image/png",
+        "size": 2990194
+      }
+    ],
     "iban": "DE89370400440532013000",
     "datenschutzEinwilligung": true,
     "wahrheitsgemasseAngaben": true
