@@ -62,5 +62,7 @@ pnpm publish -r --access public
 | `@jsonschema-editor/ui-schema` | `jsonschema-editor-ui-schema` |
 | `@jsonschema-editor/vue` | `jsonschema-editor-vue` |
 | `@jsonschema-editor/vue-extensions` | `jsonschema-editor-vue-extensions` |
+| `@jsonschema-editor/react` | `jsonschema-editor-react` |
+| `@jsonschema-editor/react-extensions` | `jsonschema-editor-react-extensions` |
 
-The examples project is `private` and is not published.
+The example apps (`jsonschema-editor-examples`, `jsonschema-editor-examples-react`) are `private` and are not published.

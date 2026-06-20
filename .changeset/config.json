@@ -6,12 +6,14 @@
     [
       "@jsonschema-editor/json-schema",
       "@jsonschema-editor/ui-schema",
-      "@jsonschema-editor/vue"
+      "@jsonschema-editor/vue",
+      "@jsonschema-editor/react",
+      "@jsonschema-editor/react-extensions"
     ]
   ],
   "linked": [],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["jsonschema-editor-examples"]
+  "ignore": ["jsonschema-editor-examples", "jsonschema-editor-examples-react"]
 }

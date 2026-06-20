@@ -4,4 +4,7 @@ packages:
   - "jsonschema-editor-ui-schema"
   - "jsonschema-editor-vue"
   - "jsonschema-editor-vue-extensions"
+  - "jsonschema-editor-react"
+  - "jsonschema-editor-react-extensions"
   - "jsonschema-editor-examples"
+  - "jsonschema-editor-examples-react"

@@ -1,0 +1,27 @@
+.app__react-badge {
+  margin-left: 0.5rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #0f766e;
+  background: var(--app-accent-soft);
+  vertical-align: middle;
+}
+
+.app__react-notice {
+  margin: 0 0 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid #99f6e4;
+  border-radius: var(--app-radius);
+  background: #f0fdfa;
+  color: #115e59;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.app__react-notice strong {
+  font-weight: 700;
+}

@@ -130,7 +130,7 @@ pnpm install
 pnpm run build
 pnpm run test
 pnpm --filter jsonschema-editor-examples run dev
-pnpm --filter jsonschema-editor-examples run test:e2e   # Playwright
+pnpm run test:e2e   # Playwright (Vue + React examples)
 ```
 
 More details: [PUBLISHING.md](./PUBLISHING.md), [CHANGELOG.md](./CHANGELOG.md), [SECURITY.md](./SECURITY.md).

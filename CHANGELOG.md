@@ -4,7 +4,7 @@
 
 All notable changes to the npm packages are documented in this file.
 
-The packages `@jsonschema-editor/json-schema`, `@jsonschema-editor/ui-schema`, and `@jsonschema-editor/vue` are versioned together.
+The packages `@jsonschema-editor/json-schema`, `@jsonschema-editor/ui-schema`, `@jsonschema-editor/vue`, and `@jsonschema-editor/react` (including `-extensions`) are versioned together.
 
 
 
@@ -13,6 +13,31 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 
 ## [Unreleased]
+
+
+
+### Added
+
+- `@jsonschema-editor/react` — React 19 form editor and fillable form (`JsonSchemaForm`, `JsonSchemaFormEditor`, registries, i18n, validation)
+- `@jsonschema-editor/react`: **`OneOfFormField`** — oneOf/anyOf variant switching in forms (parity with Vue)
+- `@jsonschema-editor/react-extensions` — React extensions matching `@jsonschema-editor/vue-extensions`: format fields, values-source, x-computed, x-file, x-geometry (Leaflet/Geoman)
+- Example app: **`jsonschema-editor-examples-react`** — React demo on port **5174** (form, schema editor, JSON; reuses Vue scenario data)
+- Example app: Playwright E2E for React examples (**64 tests**, parity with Vue)
+- CI: `pnpm run test:e2e` runs Vue and React example suites
+
+
+
+### Changed
+
+- Example app (React): `JsonSchemaFormEditor` remounts on scenario change (`key={activeExampleId}`)
+
+
+
+### Fixed
+
+- `@jsonschema-editor/react`: layout editor child wrappers use **`Fragment`** instead of `<span display:contents>` (Playwright `:scope >` selectors; parity with Vue)
+- `@jsonschema-editor/react-extensions`: geometry map **`min-height`** CSS so Leaflet maps are visible in the browser
+- `@jsonschema-editor/react-extensions`: multi-file upload batch no longer drops files when selecting several files at once
 
 
 
@@ -283,7 +308,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 
 
-[Unreleased]: https://github.com/eumicro/jsonschema-editor/compare/0.1.6...HEAD
+[Unreleased]: https://github.com/eumicro/jsonschema-editor/compare/0.1.8...HEAD
+
+[0.1.8]: https://github.com/eumicro/jsonschema-editor/releases/tag/0.1.8
+
+[0.1.7]: https://github.com/eumicro/jsonschema-editor/releases/tag/0.1.7
 
 [0.1.6]: https://github.com/eumicro/jsonschema-editor/releases/tag/0.1.6
 

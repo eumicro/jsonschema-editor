@@ -1,7 +1,10 @@
 import type { FileDescriptor } from "@jsonschema-editor/json-schema-extensions";
-import type { InMemoryFileFieldProvider } from "@jsonschema-editor/vue-extensions";
 import type { ExampleId } from "./catalog";
 import schadensfall1Url from "./data/insurance-claim/schadensfall-1.png?url";
+
+export interface SeedableFileProvider {
+  seed(descriptor: FileDescriptor, blob: Blob): void;
+}
 
 export const INSURANCE_CLAIM_SCHADENFOTO: FileDescriptor = {
   id: "insurance-claim-schadensfall-1",
@@ -10,7 +13,7 @@ export const INSURANCE_CLAIM_SCHADENFOTO: FileDescriptor = {
   size: 2990194,
 };
 
-async function seedInsuranceClaimFiles(provider: InMemoryFileFieldProvider): Promise<void> {
+async function seedInsuranceClaimFiles(provider: SeedableFileProvider): Promise<void> {
   const response = await fetch(schadensfall1Url);
   const blob = await response.blob();
   provider.seed(
@@ -22,13 +25,13 @@ async function seedInsuranceClaimFiles(provider: InMemoryFileFieldProvider): Pro
   );
 }
 
-const seedByExample: Partial<Record<ExampleId, (provider: InMemoryFileFieldProvider) => Promise<void>>> =
+const seedByExample: Partial<Record<ExampleId, (provider: SeedableFileProvider) => Promise<void>>> =
   {
     "insurance-claim": seedInsuranceClaimFiles,
   };
 
 export async function seedDemoFilesForExample(
-  provider: InMemoryFileFieldProvider,
+  provider: SeedableFileProvider,
   id: ExampleId,
 ): Promise<void> {
   await seedByExample[id]?.(provider);

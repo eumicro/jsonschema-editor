@@ -40,5 +40,5 @@ jobs:
         run: pnpm exec playwright install --with-deps chromium
         working-directory: jsonschema-editor-examples
 
-      - name: E2E tests
+      - name: E2E tests (Vue + React examples)
         run: pnpm run test:e2e

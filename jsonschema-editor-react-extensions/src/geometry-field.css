@@ -1,0 +1,31 @@
+.jse-geometry-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.jse-geometry-map {
+  width: 100%;
+  min-height: 280px;
+  border: 1px solid var(--jse-border, #c8c8c8);
+  border-radius: 4px;
+}
+
+.jse-geometry-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.jse-geometry-actions__btn {
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--jse-border, #c8c8c8);
+  border-radius: 4px;
+  background: var(--jse-surface, #fff);
+  cursor: pointer;
+  font: inherit;
+}
+
+.jse-geometry-actions__btn:hover {
+  background: var(--jse-surface-muted, #f4f4f4);
+}
