@@ -1,6 +1,6 @@
 {
   "name": "@jsonschema-editor/vue-extensions",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Vue form field renderers for JSON Schema format extensions (email, url, phone) and map geometry (x-geometry)",
   "type": "module",
   "license": "MIT",
@@ -34,13 +34,16 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/jsonschema-editor-vue-extensions.js"
-    }
+    },
+    "./style.css": "./dist/style.css"
   },
   "files": [
     "dist",
     "README.md"
   ],
-  "sideEffects": false,
+  "sideEffects": [
+    "**/*.css"
+  ],
   "scripts": {
     "prebuild": "node --input-type=module -e \"import fs from 'node:fs'; fs.rmSync('dist',{recursive:true,force:true})\"",
     "build": "vue-tsc -p tsconfig.json --noEmit && vite build",

@@ -1,6 +1,6 @@
 {
   "name": "@jsonschema-editor/react",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "JSON Schema form for React",
   "type": "module",
   "license": "MIT",

@@ -20,6 +20,7 @@ import { install } from "@jsonschema-editor/vue";
 import { registerDefaultVueExtensions } from "@jsonschema-editor/vue-extensions";
 import { documentFromJSONWithExtensions } from "@jsonschema-editor/json-schema-extensions";
 import "@jsonschema-editor/vue/style.css";
+import "@jsonschema-editor/vue-extensions/style.css";
 
 registerDefaultVueExtensions();
 

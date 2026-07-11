@@ -16,6 +16,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 
 
+## [0.1.10] - 2026-07-12
+
+
+
+### Fixed
+
+- `@jsonschema-editor/vue-extensions`: exports **`./style.css`** — Vite bundles extension CSS as `dist/style.css` (aligned with `@jsonschema-editor/vue`); file-field thumbnails and gallery layout work when apps import the stylesheet instead of duplicating CSS
+
+
+
 ## [0.1.9] - 2026-06-20
 
 
@@ -312,9 +322,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 
 
-[Unreleased]: https://github.com/eumicro/jsonschema-editor/compare/0.1.8...HEAD
+[Unreleased]: https://github.com/eumicro/jsonschema-editor/compare/v0.1.10...HEAD
 
-[0.1.8]: https://github.com/eumicro/jsonschema-editor/releases/tag/0.1.8
+[0.1.10]: https://github.com/eumicro/jsonschema-editor/releases/tag/v0.1.10
+
+[0.1.9]: https://github.com/eumicro/jsonschema-editor/releases/tag/v0.1.9
+
+[0.1.8]: https://github.com/eumicro/jsonschema-editor/releases/tag/v0.1.8
 
 [0.1.7]: https://github.com/eumicro/jsonschema-editor/releases/tag/0.1.7
 
