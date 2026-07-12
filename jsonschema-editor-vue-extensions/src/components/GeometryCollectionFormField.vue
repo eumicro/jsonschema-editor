@@ -511,16 +511,16 @@ watch(
     <div class="jse-geometry-field">
       <div ref="mapContainer" class="jse-geometry-map" role="application" :aria-label="displayLabel" />
       <div v-if="!readonly" class="jse-geometry-actions">
-        <button type="button" class="jse-geometry-actions__btn" @click="activateEditMode">
+        <button type="button" class="jse-btn" @click="activateEditMode">
           Bearbeiten
         </button>
-        <button type="button" class="jse-geometry-actions__btn" @click="activateRemovalMode">
+        <button type="button" class="jse-btn" @click="activateRemovalMode">
           Löschen
         </button>
         <button
           v-if="canDrawPoint"
           type="button"
-          class="jse-geometry-actions__btn"
+          class="jse-btn"
           @click="activateDrawMarker"
         >
           Punkt setzen
@@ -528,7 +528,7 @@ watch(
         <button
           v-if="canDrawLine"
           type="button"
-          class="jse-geometry-actions__btn"
+          class="jse-btn"
           @click="activateDrawLine"
         >
           Linie zeichnen
@@ -536,7 +536,7 @@ watch(
         <button
           v-if="canDrawPolygon"
           type="button"
-          class="jse-geometry-actions__btn"
+          class="jse-btn"
           @click="activateDrawPolygon"
         >
           Polygon zeichnen
@@ -570,19 +570,6 @@ watch(
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-}
-
-.jse-geometry-actions__btn {
-  padding: 0.35rem 0.75rem;
-  border: 1px solid var(--jse-border, #c8c8c8);
-  border-radius: 4px;
-  background: var(--jse-surface, #fff);
-  cursor: pointer;
-  font: inherit;
-}
-
-.jse-geometry-actions__btn:hover {
-  background: var(--jse-surface-muted, #f4f4f4);
 }
 </style>
 

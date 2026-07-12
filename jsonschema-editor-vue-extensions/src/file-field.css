@@ -99,6 +99,7 @@
   border: 1px dashed var(--jse-border, #cbd5e1);
   border-radius: 0.5rem;
   background: var(--jse-bg, #f8fafc);
+  color: var(--jse-text, #0f172a);
   font: inherit;
   font-size: 0.875rem;
   cursor: pointer;

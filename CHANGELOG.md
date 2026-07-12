@@ -16,6 +16,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 
 
+## [0.1.11] - 2026-07-12
+
+
+
+### Fixed
+
+- `@jsonschema-editor/vue`: form buttons (`.jse-form`) use the same styles as editor buttons, with `color: inherit` — text stays visible when host apps apply global `button` resets
+- `@jsonschema-editor/vue-extensions`: geometry action buttons use shared `jse-btn` class; file-field upload button sets explicit text color
+
+
+
 ## [0.1.10] - 2026-07-12
 
 
@@ -322,7 +333,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 
 
-[Unreleased]: https://github.com/eumicro/jsonschema-editor/compare/v0.1.10...HEAD
+[Unreleased]: https://github.com/eumicro/jsonschema-editor/compare/v0.1.11...HEAD
+
+[0.1.11]: https://github.com/eumicro/jsonschema-editor/releases/tag/v0.1.11
 
 [0.1.10]: https://github.com/eumicro/jsonschema-editor/releases/tag/v0.1.10
 

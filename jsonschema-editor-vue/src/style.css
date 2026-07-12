@@ -162,15 +162,18 @@
   flex-wrap: wrap;
 }
 
-.jse-editor button:not(.jse-icon-btn) {
+.jse-editor button:not(.jse-icon-btn),
+.jse-form button:not(.jse-icon-btn) {
   cursor: pointer;
   border: 1px solid #d1d5db;
   background: #f9fafb;
   border-radius: 0.375rem;
   padding: 0.35rem 0.65rem;
+  color: inherit;
 }
 
-.jse-editor button:not(.jse-icon-btn):hover {
+.jse-editor button:not(.jse-icon-btn):hover,
+.jse-form button:not(.jse-icon-btn):hover {
   background: #f3f4f6;
 }
 
@@ -675,6 +678,7 @@
   padding: 0.35rem 0.65rem;
   font: inherit;
   font-size: 0.82rem;
+  color: inherit;
 }
 
 .jse-btn:hover {
