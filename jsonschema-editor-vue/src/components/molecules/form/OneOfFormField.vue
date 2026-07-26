@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { computed, ref, watch } from "vue";
+import { computed, ref, toRef, watch } from "vue";
 import type { SchemaDocument, SchemaNode, ObjectSchema } from "@jsonschema-editor/json-schema";
 import { buildPropertyScope, scopeToPath } from "@jsonschema-editor/ui-schema";
 import { resolveCompositionAtScope } from "@jsonschema-editor/ui-schema/bridge";
 import { createEmptyDataForSchema, getValueAtPath, setValueAtPath } from "../../../utils/data-path";
 import JseLabel from "../../atoms/JseLabel.vue";
+import { useFormFieldLabel } from "../../../composables/useFormFieldLabel";
 import { useJseI18n } from "../../../composables/useJseI18n";
+import { useScopedField } from "../../../composables/useScopedField";
 import JseSelect from "../../atoms/JseSelect.vue";
 import SchemaFormFieldResolver from "./SchemaFormFieldResolver.vue";
 
@@ -14,12 +16,26 @@ const props = defineProps<{
   document?: SchemaDocument;
   scope: string;
   label?: string;
+  i18nKey?: string;
   readonly?: boolean;
 }>();
 
 const data = defineModel<Record<string, unknown>>({ required: true });
 
 const { t } = useJseI18n();
+
+const rootSchemaRef = toRef(props, "schema");
+const documentRef = toRef(props, "document");
+const labelRef = toRef(props, "label");
+const i18nKeyRef = toRef(props, "i18nKey");
+const { fieldSchema } = useScopedField(rootSchemaRef, data, props.scope, documentRef);
+const { displayLabel } = useFormFieldLabel(
+  rootSchemaRef,
+  props.scope,
+  labelRef,
+  fieldSchema,
+  i18nKeyRef,
+);
 
 const rootSchema = computed(() => props.document?.root ?? props.schema);
 const dataPath = computed(() => scopeToPath(props.scope));
@@ -156,7 +172,7 @@ function onVariantChange(raw: string | number) {
 
 <template>
   <fieldset v-if="composition && activeBranch" class="jse-group jse-oneof-field">
-    <legend v-if="label">{{ label }}</legend>
+    <legend v-if="displayLabel">{{ displayLabel }}</legend>
 
     <div v-if="branches.length > 1" class="jse-field">
       <JseLabel>{{ t("form.oneOf.type") }}</JseLabel>

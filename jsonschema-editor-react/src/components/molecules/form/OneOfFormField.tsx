@@ -10,6 +10,8 @@ import { resolveCompositionAtScope } from "@jsonschema-editor/ui-schema/bridge";
 import { JseLabel } from "../../atoms/JseLabel.js";
 import { JseSelect } from "../../atoms/JseSelect.js";
 import { useJseI18n } from "../../../context/JseI18nContext.js";
+import { useFormFieldLabel } from "../../../hooks/useFormFieldLabel.js";
+import { useScopedField } from "../../../hooks/useScopedField.js";
 import type { FormFieldProps } from "../../../types/form-field-props.js";
 import { SchemaFormFieldResolver } from "./SchemaFormFieldResolver.js";
 
@@ -34,6 +36,8 @@ export function OneOfFormField({
   onDataChange,
 }: FormFieldProps) {
   const { t } = useJseI18n();
+  const { fieldSchema } = useScopedField(schema, scope, document);
+  const { displayLabel } = useFormFieldLabel(schema, scope, label, fieldSchema, i18nKey);
   const rootSchema = document?.root ?? schema;
   const dataPath = useMemo(() => scopeToPath(scope), [scope]);
 
@@ -155,7 +159,7 @@ export function OneOfFormField({
 
   return (
     <fieldset className="jse-group jse-oneof-field">
-      {label ? <legend>{label}</legend> : null}
+      {displayLabel ? <legend>{displayLabel}</legend> : null}
 
       {branches.length > 1 ? (
         <div className="jse-field">
@@ -184,7 +188,6 @@ export function OneOfFormField({
           readonly={readonly}
           data={data}
           onDataChange={onDataChange}
-          i18nKey={i18nKey}
         />
       ))}
     </fieldset>

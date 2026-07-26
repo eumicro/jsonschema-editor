@@ -14,6 +14,14 @@ function assertDist(label, dir) {
   }
 }
 
+/** Vite emits extracted CSS linked from dist/index.html — bootstrap must load those too. */
+function cssHrefsFromDist(dist) {
+  const indexPath = join(dist, "index.html");
+  if (!existsSync(indexPath)) return [];
+  const html = readFileSync(indexPath, "utf8");
+  return [...html.matchAll(/href="(\/assets\/[^"]+\.css)"/g)].map((m) => m[1]);
+}
+
 assertDist("Vue", vueDist);
 assertDist("React", reactDist);
 
@@ -22,6 +30,15 @@ mkdirSync(siteDir, { recursive: true });
 
 cpSync(join(vueDist, "assets"), join(siteDir, "assets"), { recursive: true });
 cpSync(join(reactDist, "assets"), join(siteDir, "assets"), { recursive: true });
+
+const vueCss = cssHrefsFromDist(vueDist);
+const reactCss = cssHrefsFromDist(reactDist);
+if (vueCss.length === 0) {
+  console.warn("Warning: no Vue CSS linked in dist/index.html — site will render unstyled.");
+}
+if (reactCss.length === 0) {
+  console.warn("Warning: no React CSS linked in dist/index.html — site will render unstyled.");
+}
 
 const bootstrap = `<!doctype html>
 <html lang="de">
@@ -32,12 +49,23 @@ const bootstrap = `<!doctype html>
     <script>
       (function () {
         var STACK_KEY = "jse.site.stack";
+        var VUE_CSS = ${JSON.stringify(vueCss)};
+        var REACT_CSS = ${JSON.stringify(reactCss)};
         function preferredStack() {
           try {
             var raw = sessionStorage.getItem(STACK_KEY);
             if (raw === "react" || raw === "vue") return raw;
           } catch (e) {}
           return "vue";
+        }
+        function injectStyles(hrefs) {
+          for (var i = 0; i < hrefs.length; i++) {
+            var link = document.createElement("link");
+            link.rel = "stylesheet";
+            link.crossOrigin = "";
+            link.href = hrefs[i];
+            document.head.appendChild(link);
+          }
         }
         var path = location.pathname.replace(/\\/+$/, "") || "/";
         if (path === "/" || path === "") {
@@ -49,6 +77,7 @@ const bootstrap = `<!doctype html>
           parts[1] === "examples" && (parts[2] === "vue" || parts[2] === "react")
             ? parts[2]
             : preferredStack();
+        injectStyles(stack === "react" ? REACT_CSS : VUE_CSS);
         var entry = stack === "react" ? "/assets/react/main.js" : "/assets/vue/main.js";
         var s = document.createElement("script");
         s.type = "module";
@@ -72,19 +101,6 @@ if (existsSync(publicDir)) {
   cpSync(publicDir, siteDir, { recursive: true });
 }
 
-// Keep a copy of each app's built CSS entry references if emitted beside assets.
-for (const [label, dist] of [
-  ["vue", vueDist],
-  ["react", reactDist],
-]) {
-  const indexPath = join(dist, "index.html");
-  if (!existsSync(indexPath)) continue;
-  const html = readFileSync(indexPath, "utf8");
-  const cssMatches = [...html.matchAll(/href="(\/assets\/[^"]+\.css)"/g)].map((m) => m[1]);
-  if (cssMatches.length === 0) continue;
-  // Bootstrap loads only JS entry; Vite injects CSS via JS. No extra link needed.
-  void label;
-  void cssMatches;
-}
-
 console.log(`Assembled examples site at ${siteDir}`);
+console.log(`  Vue CSS: ${vueCss.join(", ") || "(none)"}`);
+console.log(`  React CSS: ${reactCss.join(", ") || "(none)"}`);
