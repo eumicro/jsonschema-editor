@@ -28,7 +28,7 @@ Opens http://127.0.0.1:5173 as **one site** for both stacks. Switch via the topb
 
 Isolated Vue-only Vite (without React entry) remains available via `pnpm --filter jsonschema-editor-examples run dev`.
 
-**GitHub Pages:** Pushes to `main` build Vue + React into one site (`pnpm run build:site`) at [jsonschema-editor.cloudapplication.net](https://jsonschema-editor.cloudapplication.net/). Local production site:
+**GitHub Pages:** Pushes to `main` build Vue + React into one site (`pnpm run build:site`) at [jsonschema-editor.cloudapplication.net](https://jsonschema-editor.cloudapplication.net/). Assemble emits [`sitemap.xml`](https://jsonschema-editor.cloudapplication.net/sitemap.xml) + `robots.txt` from public examples and locales. Local production site:
 
 ```bash
 pnpm run build:site

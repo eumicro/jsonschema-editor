@@ -2,11 +2,14 @@ import { createHash } from "node:crypto";
 import { cpSync, mkdirSync, readFileSync, rmSync, writeFileSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { generateExamplesSitemap } from "./generate-examples-sitemap.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const siteDir = join(root, "site");
 const vueDist = join(root, "jsonschema-editor-examples", "dist");
 const reactDist = join(root, "jsonschema-editor-examples-react", "dist");
+const examplesDataRoot = join(root, "jsonschema-editor-examples", "src", "examples", "data");
+const cnamePath = join(root, "jsonschema-editor-examples", "public", "CNAME");
 const defaultExampleId = "occupational-health-g37";
 
 function assertDist(label, dir) {
@@ -121,6 +124,20 @@ if (existsSync(publicDir)) {
   cpSync(publicDir, siteDir, { recursive: true });
 }
 
+// Custom domain marker (also emitted into Vue dist/public).
+if (existsSync(cnamePath)) {
+  cpSync(cnamePath, join(siteDir, "CNAME"));
+}
+
+const sitemap = generateExamplesSitemap({
+  dataRoot: examplesDataRoot,
+  outDir: siteDir,
+  cnamePath,
+});
+
 console.log(`Assembled examples site at ${siteDir}`);
 console.log(`  Vue:  ${vueEntry} + ${vueCss.join(", ") || "(no css)"}`);
 console.log(`  React: ${reactEntry} + ${reactCss.join(", ") || "(no css)"}`);
+console.log(
+  `  Sitemap: ${sitemap.urlCount} URLs (${sitemap.exampleCount} public examples) → ${sitemap.origin}/sitemap.xml`,
+);
