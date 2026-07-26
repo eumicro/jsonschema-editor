@@ -5,8 +5,10 @@
   "fixed": [
     [
       "@jsonschema-editor/json-schema",
+      "@jsonschema-editor/json-schema-extensions",
       "@jsonschema-editor/ui-schema",
       "@jsonschema-editor/vue",
+      "@jsonschema-editor/vue-extensions",
       "@jsonschema-editor/react",
       "@jsonschema-editor/react-extensions"
     ]
@@ -15,5 +17,9 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["jsonschema-editor-examples", "jsonschema-editor-examples-react"]
+  "ignore": [
+    "jsonschema-editor-examples",
+    "jsonschema-editor-examples-react",
+    "jsonschema-editor-examples-site"
+  ]
 }

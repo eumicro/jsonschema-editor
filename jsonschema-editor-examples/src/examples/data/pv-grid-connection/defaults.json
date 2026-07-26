@@ -1,0 +1,96 @@
+{
+  "vorgang": {
+    "antragsnummer": "PV-2026-04412",
+    "antragsdatum": "2026-06-18",
+    "netzbetreiber": "Stadtwerke Beispiel Netz GmbH"
+  },
+  "antragsteller": {
+    "vorname": "Elena",
+    "nachname": "Hartmann",
+    "firma": "Sonnenwerk Installationen GmbH",
+    "email": "e.hartmann@sonnenwerk.example.de",
+    "telefon": "+49 89 44112233",
+    "rolle": "Installateur"
+  },
+  "standort": {
+    "adresse": "Am Anger 14, 85354 Freising",
+    "marktlokation": "51234567890",
+    "flurstueck": "1234/56",
+    "dachflaecheKarte": {
+      "type": "GeometryCollection",
+      "geometries": [
+        {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [11.7482, 48.4011],
+              [11.7488, 48.4011],
+              [11.7488, 48.4015],
+              [11.7482, 48.4015],
+              [11.7482, 48.4011]
+            ]
+          ]
+        }
+      ]
+    },
+    "neigungGrad": 32,
+    "ausrichtung": "Süd",
+    "verschattung": false
+  },
+  "anlage": {
+    "montageart": {
+      "typ": "dach",
+      "dachart": "Satteldach",
+      "eindeckung": "Ziegel",
+      "statikGeprueft": true,
+      "firstabstandCm": 30
+    },
+    "module": [
+      {
+        "hersteller": "Example Solar",
+        "typ": "EX-430-M10",
+        "wp": 430,
+        "anzahl": 18,
+        "technologie": "mono"
+      },
+      {
+        "hersteller": "Example Solar",
+        "typ": "EX-430-M10",
+        "wp": 430,
+        "anzahl": 6,
+        "technologie": "mono"
+      }
+    ],
+    "geplanteInbetriebnahme": "2026-09-15"
+  },
+  "technik": {
+    "wechselrichter": {
+      "typ": "hybrid",
+      "hersteller": "PowerBridge",
+      "modell": "HB-10K",
+      "nennleistungKw": 10,
+      "batteriebereit": true,
+      "notstrom": true
+    },
+    "speicher": {
+      "vorhanden": true,
+      "hersteller": "PowerBridge Energy",
+      "nutzbareKwh": 10.2,
+      "leistungKw": 5
+    },
+    "einspeiseart": "Überschuss"
+  },
+  "kalkulation": {
+    "gesamtKwp": 10.32,
+    "modulAnzahl": 24,
+    "jahresertragKwh": 9804,
+    "speicherKwh": 10.2
+  },
+  "unterlagen": {
+    "lageplanVorhanden": true,
+    "dokumente": [],
+    "datenschutzEinwilligung": true,
+    "richtigkeitBestaetigt": true
+  },
+  "antragsStatus": "EINGEREICHT"
+}

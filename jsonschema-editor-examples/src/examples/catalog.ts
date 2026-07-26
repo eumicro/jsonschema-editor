@@ -1,62 +1,82 @@
 import type { JsonSchemaObject } from "@jsonschema-editor/json-schema";
 import type { UiSchemaObject } from "@jsonschema-editor/ui-schema";
+import type { AppLocale } from "../app-routing.js";
 
 import carConfiguratorDefaults from "./data/car-configurator/defaults.json";
 import carConfiguratorMeta from "./data/car-configurator/meta.json";
+import carConfiguratorMessages from "./data/car-configurator/messages.json";
 import carConfiguratorSchema from "./data/car-configurator/schema.json";
 import carConfiguratorUi from "./data/car-configurator/ui.schema.json";
 import occupationalHealthG37Defaults from "./data/occupational-health-g37/defaults.json";
 import occupationalHealthG37Meta from "./data/occupational-health-g37/meta.json";
+import occupationalHealthG37Messages from "./data/occupational-health-g37/messages.json";
 import occupationalHealthG37Schema from "./data/occupational-health-g37/schema.json";
 import occupationalHealthG37Ui from "./data/occupational-health-g37/ui.schema.json";
 import personOneOfDefaults from "./data/person-one-of/defaults.json";
 import personOneOfMeta from "./data/person-one-of/meta.json";
+import personOneOfMessages from "./data/person-one-of/messages.json";
 import personOneOfSchema from "./data/person-one-of/schema.json";
 import personOneOfUi from "./data/person-one-of/ui.schema.json";
 import personWithDefsDefaults from "./data/person-with-defs/defaults.json";
 import personWithDefsMeta from "./data/person-with-defs/meta.json";
+import personWithDefsMessages from "./data/person-with-defs/messages.json";
 import personWithDefsSchema from "./data/person-with-defs/schema.json";
 import personWithDefsUi from "./data/person-with-defs/ui.schema.json";
 import simpleCompositionDefaults from "./data/simple-composition/defaults.json";
 import simpleCompositionMeta from "./data/simple-composition/meta.json";
+import simpleCompositionMessages from "./data/simple-composition/messages.json";
 import simpleCompositionSchema from "./data/simple-composition/schema.json";
 import simpleCompositionUi from "./data/simple-composition/ui.schema.json";
 import computedCostQaDefaults from "./data/computed-cost-qa/defaults.json";
 import computedCostQaMeta from "./data/computed-cost-qa/meta.json";
+import computedCostQaMessages from "./data/computed-cost-qa/messages.json";
 import computedCostQaSchema from "./data/computed-cost-qa/schema.json";
 import computedCostQaUi from "./data/computed-cost-qa/ui.schema.json";
 import computedStatusQaDefaults from "./data/computed-status-qa/defaults.json";
 import computedStatusQaMeta from "./data/computed-status-qa/meta.json";
+import computedStatusQaMessages from "./data/computed-status-qa/messages.json";
 import computedStatusQaSchema from "./data/computed-status-qa/schema.json";
 import computedStatusQaUi from "./data/computed-status-qa/ui.schema.json";
 import arrayListQaDefaults from "./data/array-list-qa/defaults.json";
 import arrayListQaMeta from "./data/array-list-qa/meta.json";
+import arrayListQaMessages from "./data/array-list-qa/messages.json";
 import arrayListQaSchema from "./data/array-list-qa/schema.json";
 import arrayListQaUi from "./data/array-list-qa/ui.schema.json";
 import fieldExtensionsQaDefaults from "./data/field-extensions-qa/defaults.json";
 import fieldExtensionsQaMeta from "./data/field-extensions-qa/meta.json";
+import fieldExtensionsQaMessages from "./data/field-extensions-qa/messages.json";
 import fieldExtensionsQaSchema from "./data/field-extensions-qa/schema.json";
 import fieldExtensionsQaUi from "./data/field-extensions-qa/ui.schema.json";
 import geometryQaDefaults from "./data/geometry-qa/defaults.json";
 import geometryQaMeta from "./data/geometry-qa/meta.json";
+import geometryQaMessages from "./data/geometry-qa/messages.json";
 import geometryQaSchema from "./data/geometry-qa/schema.json";
 import geometryQaUi from "./data/geometry-qa/ui.schema.json";
 import insuranceClaimDefaults from "./data/insurance-claim/defaults.json";
 import insuranceClaimMeta from "./data/insurance-claim/meta.json";
+import insuranceClaimMessages from "./data/insurance-claim/messages.json";
 import insuranceClaimSchema from "./data/insurance-claim/schema.json";
 import insuranceClaimUi from "./data/insurance-claim/ui.schema.json";
 import logisticsFreightOrderDefaults from "./data/logistics-freight-order/defaults.json";
 import logisticsFreightOrderMeta from "./data/logistics-freight-order/meta.json";
+import logisticsFreightOrderMessages from "./data/logistics-freight-order/messages.json";
 import logisticsFreightOrderSchema from "./data/logistics-freight-order/schema.json";
 import logisticsFreightOrderUi from "./data/logistics-freight-order/ui.schema.json";
 import constructionProjectApplicationDefaults from "./data/construction-project-application/defaults.json";
 import constructionProjectApplicationMeta from "./data/construction-project-application/meta.json";
+import constructionProjectApplicationMessages from "./data/construction-project-application/messages.json";
 import constructionProjectApplicationSchema from "./data/construction-project-application/schema.json";
 import constructionProjectApplicationUi from "./data/construction-project-application/ui.schema.json";
 import fileQaDefaults from "./data/file-qa/defaults.json";
 import fileQaMeta from "./data/file-qa/meta.json";
+import fileQaMessages from "./data/file-qa/messages.json";
 import fileQaSchema from "./data/file-qa/schema.json";
 import fileQaUi from "./data/file-qa/ui.schema.json";
+import pvGridConnectionDefaults from "./data/pv-grid-connection/defaults.json";
+import pvGridConnectionMeta from "./data/pv-grid-connection/meta.json";
+import pvGridConnectionMessages from "./data/pv-grid-connection/messages.json";
+import pvGridConnectionSchema from "./data/pv-grid-connection/schema.json";
+import pvGridConnectionUi from "./data/pv-grid-connection/ui.schema.json";
 
 export type ExampleId =
   | "person-one-of"
@@ -67,6 +87,7 @@ export type ExampleId =
   | "insurance-claim"
   | "logistics-freight-order"
   | "construction-project-application"
+  | "pv-grid-connection"
   | "geometry-qa"
   | "field-extensions-qa"
   | "computed-cost-qa"
@@ -85,12 +106,19 @@ export type ExampleCategory =
   | "Stammdaten"
   | "Standort & Planung";
 
+export type ExampleUiMessages = Partial<Record<AppLocale, Record<string, string>>>;
+
+export type ExampleMetaLocales = Partial<
+  Record<AppLocale, { label?: string; tagline?: string; description?: string }>
+>;
+
 interface ExampleMetaSource {
   label: string;
   tagline: string;
   description: string;
   category: ExampleCategory;
   visibility: ExampleVisibility;
+  locales?: ExampleMetaLocales;
 }
 
 export interface ExampleManifest {
@@ -100,9 +128,11 @@ export interface ExampleManifest {
   description: string;
   category: ExampleCategory;
   visibility: ExampleVisibility;
+  locales?: ExampleMetaLocales;
   schema: JsonSchemaObject;
   uiSchema: UiSchemaObject;
   defaults: Record<string, unknown>;
+  messages: ExampleUiMessages;
 }
 
 /** Display order of categories in the example gallery. */
@@ -112,6 +142,7 @@ export const exampleCategoryOrder: ExampleCategory[] = [
   "Logistik & Transport",
   "Vertrieb & Konfiguration",
   "Anträge & Prozesse",
+  "Standort & Planung",
   "Stammdaten",
 ];
 
@@ -121,6 +152,7 @@ function manifest(
   schema: JsonSchemaObject,
   uiSchema: UiSchemaObject,
   defaults: Record<string, unknown>,
+  messages: ExampleUiMessages,
 ): ExampleManifest {
   return {
     id,
@@ -129,9 +161,11 @@ function manifest(
     description: meta.description,
     category: meta.category,
     visibility: meta.visibility,
+    locales: meta.locales,
     schema,
     uiSchema,
     defaults,
+    messages,
   };
 }
 
@@ -142,6 +176,7 @@ export const exampleManifests: ExampleManifest[] = [
     occupationalHealthG37Schema as unknown as JsonSchemaObject,
     occupationalHealthG37Ui as unknown as UiSchemaObject,
     occupationalHealthG37Defaults,
+    occupationalHealthG37Messages as ExampleUiMessages,
   ),
   manifest(
     "insurance-claim",
@@ -149,6 +184,7 @@ export const exampleManifests: ExampleManifest[] = [
     insuranceClaimSchema as unknown as JsonSchemaObject,
     insuranceClaimUi as unknown as UiSchemaObject,
     insuranceClaimDefaults,
+    insuranceClaimMessages as ExampleUiMessages,
   ),
   manifest(
     "logistics-freight-order",
@@ -156,6 +192,7 @@ export const exampleManifests: ExampleManifest[] = [
     logisticsFreightOrderSchema as unknown as JsonSchemaObject,
     logisticsFreightOrderUi as unknown as UiSchemaObject,
     logisticsFreightOrderDefaults,
+    logisticsFreightOrderMessages as ExampleUiMessages,
   ),
   manifest(
     "construction-project-application",
@@ -163,6 +200,15 @@ export const exampleManifests: ExampleManifest[] = [
     constructionProjectApplicationSchema as unknown as JsonSchemaObject,
     constructionProjectApplicationUi as unknown as UiSchemaObject,
     constructionProjectApplicationDefaults,
+    constructionProjectApplicationMessages as ExampleUiMessages,
+  ),
+  manifest(
+    "pv-grid-connection",
+    pvGridConnectionMeta as ExampleMetaSource,
+    pvGridConnectionSchema as unknown as JsonSchemaObject,
+    pvGridConnectionUi as unknown as UiSchemaObject,
+    pvGridConnectionDefaults,
+    pvGridConnectionMessages as ExampleUiMessages,
   ),
   manifest(
     "car-configurator",
@@ -170,6 +216,7 @@ export const exampleManifests: ExampleManifest[] = [
     carConfiguratorSchema as unknown as JsonSchemaObject,
     carConfiguratorUi as unknown as UiSchemaObject,
     carConfiguratorDefaults,
+    carConfiguratorMessages as ExampleUiMessages,
   ),
   manifest(
     "computed-status-qa",
@@ -177,6 +224,7 @@ export const exampleManifests: ExampleManifest[] = [
     computedStatusQaSchema as unknown as JsonSchemaObject,
     computedStatusQaUi as unknown as UiSchemaObject,
     computedStatusQaDefaults,
+    computedStatusQaMessages as ExampleUiMessages,
   ),
   manifest(
     "computed-cost-qa",
@@ -184,6 +232,7 @@ export const exampleManifests: ExampleManifest[] = [
     computedCostQaSchema as unknown as JsonSchemaObject,
     computedCostQaUi as unknown as UiSchemaObject,
     computedCostQaDefaults,
+    computedCostQaMessages as ExampleUiMessages,
   ),
   manifest(
     "person-with-defs",
@@ -191,6 +240,7 @@ export const exampleManifests: ExampleManifest[] = [
     personWithDefsSchema as unknown as JsonSchemaObject,
     personWithDefsUi as unknown as UiSchemaObject,
     personWithDefsDefaults,
+    personWithDefsMessages as ExampleUiMessages,
   ),
   manifest(
     "field-extensions-qa",
@@ -198,6 +248,7 @@ export const exampleManifests: ExampleManifest[] = [
     fieldExtensionsQaSchema as unknown as JsonSchemaObject,
     fieldExtensionsQaUi as unknown as UiSchemaObject,
     fieldExtensionsQaDefaults,
+    fieldExtensionsQaMessages as ExampleUiMessages,
   ),
   manifest(
     "person-one-of",
@@ -205,6 +256,7 @@ export const exampleManifests: ExampleManifest[] = [
     personOneOfSchema as unknown as JsonSchemaObject,
     personOneOfUi as unknown as UiSchemaObject,
     personOneOfDefaults,
+    personOneOfMessages as ExampleUiMessages,
   ),
   manifest(
     "simple-composition",
@@ -212,6 +264,7 @@ export const exampleManifests: ExampleManifest[] = [
     simpleCompositionSchema as unknown as JsonSchemaObject,
     simpleCompositionUi as unknown as UiSchemaObject,
     simpleCompositionDefaults,
+    simpleCompositionMessages as ExampleUiMessages,
   ),
   manifest(
     "array-list-qa",
@@ -219,6 +272,7 @@ export const exampleManifests: ExampleManifest[] = [
     arrayListQaSchema as unknown as JsonSchemaObject,
     arrayListQaUi as unknown as UiSchemaObject,
     arrayListQaDefaults,
+    arrayListQaMessages as ExampleUiMessages,
   ),
   manifest(
     "geometry-qa",
@@ -226,6 +280,7 @@ export const exampleManifests: ExampleManifest[] = [
     geometryQaSchema as unknown as JsonSchemaObject,
     geometryQaUi as unknown as UiSchemaObject,
     geometryQaDefaults,
+    geometryQaMessages as ExampleUiMessages,
   ),
   manifest(
     "file-qa",
@@ -233,6 +288,7 @@ export const exampleManifests: ExampleManifest[] = [
     fileQaSchema as unknown as JsonSchemaObject,
     fileQaUi as unknown as UiSchemaObject,
     fileQaDefaults,
+    fileQaMessages as ExampleUiMessages,
   ),
 ];
 
@@ -254,3 +310,5 @@ export const examplesByCategory: Record<ExampleCategory, ExampleManifest[]> =
   );
 
 export const defaultExampleId: ExampleId = "occupational-health-g37";
+
+export { exampleCopyFor, type ExampleCopy } from "./example-copy.js";

@@ -9,8 +9,9 @@ import {
   createComputedNumberSchema,
   createComputedStringSchema,
   readComputedConfig,
+  syncComputedFormData,
 } from "@jsonschema-editor/json-schema-extensions";
-import { matchCustomAttribute, type JseReactExtension } from "@jsonschema-editor/react";
+import type { JseReactExtension } from "@jsonschema-editor/react";
 import { ComputedFormField } from "./components/ComputedFormField.js";
 
 const SUM_EXPRESSION = "data.positionen.map(p, double(p.betrag)).sum()";
@@ -20,21 +21,23 @@ const STATUS_EXPRESSION = `!has(data.antragskopf.antragsdatum) || data.antragsko
   (!has(data.durchfuehrung.datum) || data.durchfuehrung.datum == '') ? 'BEREIT_ZUR_DURCHFUEHRUNG' :
   (!data.abrechnung.beglichen) ? 'DURCHGEFUEHRT' : 'ERLEDIGT'`;
 
-/** Field value derived from a CEL expression over root form data (`data`). */
+/**
+ * `x-computed` derives instance data via CEL.
+ * Presentation stays with normal form-field matchers (type / format / other x-*).
+ */
 export const computedExtension: JseReactExtension = {
   id: "jsonschema-editor-computed",
-  formFields: [
+  formDataSync: [
     {
-      id: "react-ext-computed",
-      priority: 35,
-      match: matchCustomAttribute(COMPUTED_ATTRIBUTE),
-      component: ComputedFormField,
+      id: "react-computed-sync",
+      sync: (schema, data) => syncComputedFormData(schema.root, data),
     },
   ],
   schemaTypes: [
     {
       id: "computed-number",
       label: "computed-number",
+      matchPriority: 10,
       create: () =>
         createComputedNumberSchema(SUM_EXPRESSION, {
           title: "Gesamtsumme",
@@ -46,6 +49,7 @@ export const computedExtension: JseReactExtension = {
     {
       id: "computed-string",
       label: "computed-string",
+      matchPriority: 10,
       create: () =>
         createComputedStringSchema(STATUS_EXPRESSION, {
           title: "Status",
@@ -57,6 +61,7 @@ export const computedExtension: JseReactExtension = {
     {
       id: "computed-boolean",
       label: "computed-boolean",
+      matchPriority: 10,
       create: () => {
         const schema = new BooleanSchema();
         schema.title = "Computed flag";
@@ -71,6 +76,7 @@ export const computedExtension: JseReactExtension = {
     {
       id: "computed-integer",
       label: "computed-integer",
+      matchPriority: 10,
       create: () => {
         const schema = new IntegerSchema();
         schema.title = "Computed count";
@@ -85,4 +91,5 @@ export const computedExtension: JseReactExtension = {
   ],
 };
 
+/** @deprecated Prefer formDataSync + normal field matchers; kept for optional direct use. */
 export { ComputedFormField };

@@ -111,6 +111,36 @@ describe("UiSchema roundtrip", () => {
     expect(copy.options).toEqual({ readonly: true });
   });
 
+  it("roundtrips Control options.detail (JSON Forms)", () => {
+    const json: UiSchemaObject = {
+      type: "Control",
+      scope: "#/properties/positionen",
+      label: "Kostenpositionen",
+      options: {
+        detail: {
+          type: "HorizontalLayout",
+          elements: [
+            { type: "Control", scope: "#/properties/bezeichnung" },
+            { type: "Control", scope: "#/properties/betrag" },
+          ],
+        },
+        showSortButtons: true,
+      },
+    };
+
+    const control = uiSchemaFromJSON(json) as Control;
+    expect(control).toBeInstanceOf(Control);
+    expect(control.detail).toBeInstanceOf(HorizontalLayout);
+    expect(control.detail?.elements).toHaveLength(2);
+    expect(control.options).toEqual({ showSortButtons: true });
+    expect(control.toJSON()).toEqual(json);
+
+    const copy = control.clone() as Control;
+    expect(copy.detail).toBeInstanceOf(HorizontalLayout);
+    expect(copy.detail).not.toBe(control.detail);
+    expect(copy.toJSON()).toEqual(json);
+  });
+
   it("throws for unknown type without recognizable shape", () => {
     expect(() =>
       uiSchemaFromJSON({ type: "UnknownWidget" } as unknown as UiSchemaObject),

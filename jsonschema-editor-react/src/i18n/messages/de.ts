@@ -92,7 +92,28 @@ export const deMessages = {
   "schemaAttributes.x-read-only": "Nur lesen (x-read-only)",
   "schemaAttributes.x-hidden": "Ausblenden (x-hidden)",
   "schemaAttributes.x-computed": "Berechnet (CEL, x-computed)",
+  "schemaAttributes.x-computed.hint":
+    "CEL-Ausdruck mit Root-Binding „data“ (gesamte Formulardaten).",
   "schemaAttributes.x-file": "Datei-Upload (x-file)",
+  "schemaAttributes.x-progress-bar": "Progress-Bar (x-progress-bar)",
+  "schemaAttributes.x-progress-bar.hint":
+    "Bereich über minimum/maximum. Farbe: fest oder Verlauf nach Wert.",
+  "schemaAttributes.x-rating": "Rating (x-rating)",
+  "schemaAttributes.x-rating.hint":
+    "Beliebiges Symbol aus der Palette wählen oder selbst eintragen. Farbe solid/gradient; Bereich über minimum/maximum.",
+  "schemaAttributes.x-rating.symbolPalette": "Symbolpalette",
+  "schemaAttributes.x-rating.customSymbol": "Auswahl / eigenes Symbol",
+  "schemaAttributes.x-rating.customSymbolPlaceholder": "beliebiges Unicode-Symbol",
+  "schemaAttributes.extensionEnabled": "Aktiv",
+  "schemaAttributes.x-file.multiple": "Mehrere Dateien",
+  "schemaAttributes.x-file.acceptTypes": "Erlaubte Typen",
+  "schemaAttributes.x-file.maxSize": "Max. Größe (Bytes)",
+  "schemaAttributes.x-file.maxFiles": "Max. Dateien",
+  "schemaAttributes.x-file.optionalPlaceholder": "optional",
+  "schemaAttributes.x-geometry.countMode": "Anzahl-Modus",
+  "schemaAttributes.x-geometry.countModeRange": "Bereich (min–max)",
+  "schemaAttributes.x-geometry.countModeExact": "Exakt",
+  "schemaAttributes.x-geometry.typeRequired": "Mindestens ein Geometrietyp muss aktiv sein.",
   "schemaAttributes.bulkFieldExtensions": "Felder-Erweiterungen (Sammelaktion)",
   "schemaAttributes.bulkFieldExtensionsHint":
     "Setzt das Attribut auf dieses Objekt und alle verschachtelten Felder.",
@@ -112,6 +133,16 @@ export const deMessages = {
   "uiAttributes.scopeSuggestionEmpty": "Alle Schema-Felder sind bereits als Control verknüpft.",
   "uiAttributes.scopeAlreadyInUse": "Das Attribut „{scope}“ ist bereits in Verwendung.",
   "uiAttributes.label": "label",
+  "uiAttributes.i18n": "i18n (Prefix)",
+  "uiAttributes.i18nPlaceholder": "automatisch",
+  "uiAttributes.i18nHint":
+    "Automatisch aus Schema-Titel (Slug) und Scope bzw. UI-Pfad. Übersetzungen: «prefix».label / «prefix».text.",
+  "uiAttributes.translatedLabel": "Übersetzung ({locale})",
+  "uiAttributes.translatedLabelNeedsI18n": "Prefix wird automatisch gesetzt",
+  "uiAttributes.elementLabelProp": "elementLabelProp (Item-Bezeichnung)",
+  "uiAttributes.elementLabelPropHint":
+    "JSON-Forms-Option: Property der Array-Items als editierbare Bezeichnung.",
+  "uiAttributes.elementLabelPropPlaceholder": "z. B. bezeichnung",
   "uiAttributes.text": "Text",
 
   "arrayItems.current": "Aktueller Items-Typ: {kind}",
@@ -124,6 +155,7 @@ export const deMessages = {
 
   "arrayList.empty": "Noch keine Einträge.",
   "arrayList.itemTitle": "Eintrag {index}",
+  "arrayList.itemLabelAria": "Bezeichnung von Eintrag {index}",
   "arrayList.addItem": "Eintrag hinzufügen",
   "arrayList.removeItem": "Entfernen",
 
@@ -133,6 +165,8 @@ export const deMessages = {
 
   "layout.dropHere": "Hier ablegen",
   "layout.dropElement": "Element hier ablegen",
+  "layout.detailHint": "options.detail",
+  "layout.detailTarget": "{label} · detail",
 
   "form.fallbackLabel": "Feld",
   "form.oneOf.type": "Typ",
@@ -158,6 +192,33 @@ export const deMessages = {
   "uiDefaults.labelText": "Beschriftung",
   "uiDefaults.categoryLabel": "Kategorie",
   "uiDefaults.stepLabel": "Schritt",
+
+  "extensions.dateToday.today": "Heute",
+  "extensions.geometry.point": "Punkt",
+  "extensions.geometry.line": "Linie",
+  "extensions.geometry.polygon": "Polygon",
+  "extensions.geometry.edit": "Bearbeiten",
+  "extensions.geometry.remove": "Löschen",
+  "extensions.geometry.drawPoint": "Punkt setzen",
+  "extensions.geometry.drawLine": "Linie zeichnen",
+  "extensions.geometry.drawPolygon": "Polygon zeichnen",
+  "extensions.geometry.modeHint":
+    "· „Bearbeiten“ → Eckpunkte verschieben · „Löschen“ → Geometrie anklicken",
+  "extensions.geometry.mapLoadError": "Karte konnte nicht geladen werden.",
+  "extensions.geometry.countExact": "{count} / exakt {max} Geometrie(n)",
+  "extensions.geometry.countRange": "{count} / {min}–{max} Geometrie(n)",
+  "extensions.geometry.countMax": "{count} / max. {max} Geometrie(n)",
+  "extensions.geometry.minRequired": "Mindestens {min} Geometrie(n) erforderlich.",
+  "extensions.geometry.maxAllowed": "Maximal {max} Geometrie(n) erlaubt.",
+  "extensions.file.preview": "Vorschau",
+  "extensions.file.previewAria": "Datei-Vorschau",
+  "extensions.file.delete": "Löschen",
+  "extensions.file.deleteAria": "Datei löschen",
+  "extensions.file.galleryAria": "Datei-Vorschau-Galerie",
+  "extensions.file.closeGallery": "Schließen",
+  "extensions.file.closeGalleryAria": "Galerie schließen",
+  "extensions.file.prevImage": "Vorheriges Bild",
+  "extensions.file.nextImage": "Nächstes Bild",
 } as const;
 
 export type JseMessageKey = keyof typeof deMessages;

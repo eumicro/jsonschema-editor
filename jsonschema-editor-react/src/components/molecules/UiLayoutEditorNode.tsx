@@ -1,9 +1,11 @@
 import { Fragment, useMemo, useState } from "react";
+import type { SchemaDocument } from "@jsonschema-editor/json-schema";
 import type { UiElement } from "@jsonschema-editor/ui-schema";
-import { Control, HorizontalLayout } from "@jsonschema-editor/ui-schema";
+import { Control, HorizontalLayout, VerticalLayout } from "@jsonschema-editor/ui-schema";
 import {
   canAcceptUiChild,
   canMoveUiElementTo,
+  controlAllowsDetail,
   createUiElement,
   getUiElementAt,
   getUiElementLabel,
@@ -32,6 +34,7 @@ export interface UiLayoutEditorNodeProps {
   path: UiPath;
   selectedPath: UiPath;
   dragSourcePath: UiPath | null;
+  document?: SchemaDocument | null;
   paletteKind?: string | null;
   depth?: number;
   onSelect: (path: UiPath) => void;
@@ -47,6 +50,7 @@ export function UiLayoutEditorNode({
   path,
   selectedPath,
   dragSourcePath,
+  document,
   paletteKind = null,
   depth = 0,
   onSelect,
@@ -64,12 +68,15 @@ export function UiLayoutEditorNode({
   const pathKey = uiPathKey(path);
   const isSelected = uiPathKey(selectedPath) === pathKey;
   const isLayout = isLayoutElement(element);
+  const showDetail = controlAllowsDetail(element, document);
+  const stackParentPath: UiPath =
+    showDetail && !isLayout ? [...path, "detail"] : path;
   const isHorizontal = element instanceof HorizontalLayout;
   const children = useMemo(
-    () => (isLayout ? listUiChildren(element, path) : []),
-    [element, isLayout, path],
+    () => listUiChildren(element, path),
+    [element, path],
   );
-  const showAdd = canAcceptUiChildren(element);
+  const showAdd = canAcceptUiChildren(element, document);
   const showDelete = canDeleteUiElement(path);
   const { addLabel, editLabel, deleteLabel } = useTreeNodeActionLabels(label, "ui");
   const isDragging =
@@ -110,18 +117,31 @@ export function UiLayoutEditorNode({
     return parseUiPathKey(key);
   }
 
+  function dropParentForAccept(): UiElement {
+    if (showDetail && !isLayout) {
+      const control = element as Control;
+      if (control.detail && isLayoutElement(control.detail)) return control.detail;
+      return new VerticalLayout();
+    }
+    return element;
+  }
+
   function canDropAt(insertIndex: number, event?: React.DragEvent): boolean {
     const kind = resolvePaletteKind(event);
     if (kind) {
-      if (!isLayoutElement(element)) return false;
-      return canAcceptUiChild(element, createUiElement(kind as UiPaletteKind));
+      if (!isLayout && !showDetail) return false;
+      return canAcceptUiChild(
+        dropParentForAccept(),
+        createUiElement(kind as UiPaletteKind),
+      );
     }
     const sourcePath = resolveDragSourcePath(event);
     if (!sourcePath) return false;
-    return canMoveUiElementTo(root, sourcePath, path, insertIndex);
+    return canMoveUiElementTo(root, sourcePath, stackParentPath, insertIndex);
   }
 
   const hasActiveDrag = dragSourcePath !== null || Boolean(paletteKind);
+  const showStack = isLayout || showDetail;
 
   function handleDragStart(event: React.DragEvent) {
     onDragStart(path);
@@ -131,13 +151,13 @@ export function UiLayoutEditorNode({
   }
 
   function onLayoutDragEnter(event: React.DragEvent) {
-    if (!isLayout) return;
+    if (!showStack) return;
     if (!resolveDragSourcePath(event) && !resolvePaletteKind(event)) return;
     event.preventDefault();
   }
 
   function onLayoutDragOver(event: React.DragEvent) {
-    if (!isLayout) return;
+    if (!showStack) return;
     event.stopPropagation();
     const stack = (event.currentTarget as HTMLElement).querySelector(
       ":scope > .jse-layout-editor__stack",
@@ -150,7 +170,7 @@ export function UiLayoutEditorNode({
   }
 
   function onLayoutDrop(event: React.DragEvent) {
-    if (!isLayout) return;
+    if (!showStack) return;
     event.stopPropagation();
     const stack = (event.currentTarget as HTMLElement).querySelector(
       ":scope > .jse-layout-editor__stack",
@@ -160,11 +180,11 @@ export function UiLayoutEditorNode({
     const insertIndex = resolveStackInsertIndex(stack, event.clientY);
     setActiveDropIndex(null);
     if (!canDropAt(insertIndex, event)) return;
-    onDropAt(path, insertIndex, event);
+    onDropAt(stackParentPath, insertIndex, event);
   }
 
   function onStackDragOver(event: React.DragEvent) {
-    if (!isLayout) return;
+    if (!showStack) return;
     const stack = event.currentTarget;
     if (!(stack instanceof HTMLElement)) return;
     const insertIndex = resolveStackInsertIndex(stack, event.clientY);
@@ -175,7 +195,7 @@ export function UiLayoutEditorNode({
   }
 
   function onStackDrop(event: React.DragEvent) {
-    if (!isLayout) return;
+    if (!showStack) return;
     const stack = event.currentTarget;
     if (!(stack instanceof HTMLElement)) return;
     event.preventDefault();
@@ -183,7 +203,7 @@ export function UiLayoutEditorNode({
     const insertIndex = resolveStackInsertIndex(stack, event.clientY);
     setActiveDropIndex(null);
     if (!canDropAt(insertIndex, event)) return;
-    onDropAt(path, insertIndex, event);
+    onDropAt(stackParentPath, insertIndex, event);
   }
 
   function onDropZoneDragOver(insertIndex: number, event: React.DragEvent) {
@@ -197,7 +217,7 @@ export function UiLayoutEditorNode({
     event.stopPropagation();
     setActiveDropIndex(null);
     if (!canDropAt(insertIndex, event)) return;
-    onDropAt(path, insertIndex, event);
+    onDropAt(stackParentPath, insertIndex, event);
   }
 
   return (
@@ -238,6 +258,9 @@ export function UiLayoutEditorNode({
         <span className="jse-tree-node__kind">{element.elementKind}</span>
         <span className="jse-layout-block__title">{label}</span>
         {scopeHint ? <span className="jse-tree-node__meta">{scopeHint}</span> : null}
+        {showDetail && !isLayout ? (
+          <span className="jse-tree-node__meta">{t("layout.detailHint")}</span>
+        ) : null}
         <JseTreeNodeActions
           showAdd={showAdd}
           showEdit
@@ -251,11 +274,12 @@ export function UiLayoutEditorNode({
         />
       </header>
 
-      {isLayout ? (
+      {showStack ? (
         <div
           className={[
             "jse-layout-editor__stack",
             isHorizontal ? "jse-layout-editor__stack--horizontal" : "",
+            showDetail && !isLayout ? "jse-layout-editor__stack--detail" : "",
           ]
             .filter(Boolean)
             .join(" ")}
@@ -276,6 +300,7 @@ export function UiLayoutEditorNode({
                 path={childPath}
                 selectedPath={selectedPath}
                 dragSourcePath={dragSourcePath}
+                document={document}
                 paletteKind={paletteKind}
                 depth={depth + 1}
                 onSelect={onSelect}

@@ -1,0 +1,191 @@
+.jse-rating {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.jse-rating__symbols {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* Beat .jse-form button:not(.jse-icon-btn) (color/background). */
+.jse-form .jse-rating__symbol,
+.jse-editor .jse-rating__symbol,
+.jse-rating__symbol.jse-rating__symbol {
+  appearance: none;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  min-width: 2.35rem;
+  min-height: 2.35rem;
+  padding: 0.25rem 0.4rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.45rem;
+  background: #f8fafc;
+  color: #94a3b8;
+  font-size: 1.45rem;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    color 0.12s ease,
+    background-color 0.12s ease,
+    border-color 0.12s ease,
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
+}
+
+.jse-form .jse-rating__symbol:hover:not(:disabled),
+.jse-editor .jse-rating__symbol:hover:not(:disabled),
+.jse-rating__symbol.jse-rating__symbol:hover:not(:disabled) {
+  transform: translateY(-1px);
+  border-color: #94a3b8;
+  background: #f1f5f9;
+  color: #64748b;
+  outline: none;
+}
+
+.jse-form .jse-rating__symbol:focus-visible:not(:disabled),
+.jse-editor .jse-rating__symbol:focus-visible:not(:disabled),
+.jse-rating__symbol.jse-rating__symbol:focus-visible:not(:disabled) {
+  outline: 2px solid color-mix(in srgb, var(--jse-rating-fill, #f59e0b) 55%, #fff);
+  outline-offset: 2px;
+}
+
+.jse-form .jse-rating__symbol--active,
+.jse-editor .jse-rating__symbol--active,
+.jse-rating__symbol--active.jse-rating__symbol {
+  color: var(--jse-rating-fill, #f59e0b);
+  border-color: color-mix(in srgb, var(--jse-rating-fill, #f59e0b) 55%, #cbd5e1);
+  background: color-mix(in srgb, var(--jse-rating-fill, #f59e0b) 18%, #fff);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--jse-rating-fill, #f59e0b) 25%, transparent);
+}
+
+.jse-form .jse-rating__symbol--active:hover:not(:disabled),
+.jse-editor .jse-rating__symbol--active:hover:not(:disabled),
+.jse-rating__symbol--active.jse-rating__symbol:hover:not(:disabled) {
+  color: var(--jse-rating-fill, #f59e0b);
+  background: color-mix(in srgb, var(--jse-rating-fill, #f59e0b) 28%, #fff);
+  border-color: color-mix(in srgb, var(--jse-rating-fill, #f59e0b) 70%, #94a3b8);
+}
+
+.jse-form .jse-rating__symbol:disabled,
+.jse-editor .jse-rating__symbol:disabled,
+.jse-rating__symbol.jse-rating__symbol:disabled {
+  cursor: default;
+  opacity: 1;
+}
+
+.jse-rating__value {
+  font-variant-numeric: tabular-nums;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--jse-rating-fill, #f59e0b);
+}
+
+.jse-rating-attr {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.jse-rating-attr__label {
+  font-weight: 600;
+}
+
+.jse-rating-attr__field,
+.jse-rating-attr__color {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.jse-rating-attr__field-label {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.jse-rating-attr__input,
+.jse-rating-attr__select {
+  width: 100%;
+}
+
+.jse-rating-attr__palette {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(2.25rem, 1fr));
+  gap: 0.3rem;
+  max-height: 11rem;
+  overflow: auto;
+  padding: 0.4rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.45rem;
+  background: #f8fafc;
+}
+
+.jse-rating-attr__symbol-option {
+  appearance: none;
+  min-width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.35rem;
+  background: #fff;
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.jse-rating-attr__symbol-option--active {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 1px #2563eb;
+  background: #eff6ff;
+}
+
+.jse-rating-attr__symbol-option:disabled {
+  cursor: default;
+  opacity: 0.7;
+}
+
+.jse-rating-attr__selected-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.jse-rating-attr__selected-preview {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.4rem;
+  background: #fff;
+  font-size: 1.35rem;
+}
+
+.jse-rating-attr__color-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.jse-rating-attr__swatch {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.25rem;
+  background: transparent;
+  cursor: pointer;
+}
+
+.jse-rating-attr__hint {
+  margin: 0;
+  font-size: 0.8rem;
+  opacity: 0.75;
+}

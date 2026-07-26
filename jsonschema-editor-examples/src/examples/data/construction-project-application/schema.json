@@ -1,68 +1,114 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Bauprojekt-Anmeldung",
-  "description": "Formelles Bauvorhaben von der Antragstellung bis zur Einreichung",
+  "title": "Construction project registration",
+  "description": "Formal construction project from application to submission",
   "type": "object",
   "properties": {
     "antrag": {
       "type": "object",
-      "title": "Antrag",
-      "required": ["antragsnummer", "antragsdatum", "verfahrensart"],
+      "title": "Application",
+      "required": [
+        "antragsnummer",
+        "antragsdatum",
+        "verfahrensart"
+      ],
       "properties": {
         "antragsnummer": {
           "type": "string",
-          "title": "Antragsnummer",
-          "description": "Aktenzeichen / Vorgangs-ID"
+          "title": "Application number",
+          "description": "File number / process ID"
         },
         "antragsdatum": {
           "type": "string",
           "format": "date",
-          "title": "Antragsdatum"
+          "title": "Application date"
         },
         "verfahrensart": {
           "type": "string",
-          "title": "Verfahrensart",
-          "enum": ["Genehmigungsfreistellung", "Bauantrag", "Bauvoranfrage"],
+          "title": "Type of procedure",
+          "enum": [
+            "Genehmigungsfreistellung",
+            "Bauantrag",
+            "Bauvoranfrage"
+          ],
           "x-values-source": {
             "kind": "static",
-            "values": ["Genehmigungsfreistellung", "Bauantrag", "Bauvoranfrage"]
+            "values": [
+              "Genehmigungsfreistellung",
+              "Bauantrag",
+              "Bauvoranfrage"
+            ]
           }
         },
         "bauvorhabenBezeichnung": {
           "type": "string",
-          "title": "Bezeichnung des Bauvorhabens"
+          "title": "Name of the construction project"
         }
       }
     },
     "bauherr": {
       "type": "object",
-      "title": "Bauherr",
-      "required": ["name", "email", "telefon"],
+      "title": "Builder",
+      "required": [
+        "name",
+        "email",
+        "telefon"
+      ],
       "properties": {
-        "name": { "type": "string", "title": "Name / Firma" },
-        "ansprechpartner": { "type": "string", "title": "Ansprechpartner" },
-        "email": { "type": "string", "format": "email", "title": "E-Mail" },
-        "telefon": { "type": "string", "format": "phone", "title": "Telefon" },
-        "steuerId": { "type": "string", "title": "Steuer-ID / USt-IdNr." }
+        "name": {
+          "type": "string",
+          "title": "Name/Company"
+        },
+        "ansprechpartner": {
+          "type": "string",
+          "title": "Contact Person"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "title": "Email"
+        },
+        "telefon": {
+          "type": "string",
+          "format": "phone",
+          "title": "Phone"
+        },
+        "steuerId": {
+          "type": "string",
+          "title": "Tax ID / VAT ID no."
+        }
       }
     },
     "grundstueck": {
       "type": "object",
-      "title": "Grundstück",
-      "required": ["adresse", "gemarkung", "flurstueck"],
+      "title": "Property",
+      "required": [
+        "adresse",
+        "gemarkung",
+        "flurstueck"
+      ],
       "properties": {
-        "adresse": { "type": "string", "title": "Lage (Adresse)" },
-        "gemarkung": { "type": "string", "title": "Gemarkung" },
-        "flurstueck": { "type": "string", "title": "Flurstück" },
+        "adresse": {
+          "type": "string",
+          "title": "Location (address)"
+        },
+        "gemarkung": {
+          "type": "string",
+          "title": "District"
+        },
+        "flurstueck": {
+          "type": "string",
+          "title": "Parcel"
+        },
         "grundstuecksflaecheQm": {
           "type": "number",
-          "title": "Grundstücksfläche (m²)",
+          "title": "Property area (m²)",
           "minimum": 0
         },
         "grundstueckKarte": {
           "type": "object",
-          "title": "Grundstücksgrenze (Karte)",
-          "description": "Flurstück oder geplante Baufläche als Polygon",
+          "title": "Property boundary (map)",
+          "description": "Parcel or planned building area as a polygon",
           "x-geometry": {
             "styleUrl": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
             "point": false,
@@ -71,61 +117,85 @@
             "maxObjects": 1
           }
         },
-        "denkmalschutz": { "type": "boolean", "title": "Denkmalschutz / Ensembleschutz" },
-        "altlastenVerdacht": { "type": "boolean", "title": "Altlastenverdacht bekannt" }
+        "denkmalschutz": {
+          "type": "boolean",
+          "title": "Monument protection/ensemble protection"
+        },
+        "altlastenVerdacht": {
+          "type": "boolean",
+          "title": "Suspicion of contaminated sites known"
+        }
       }
     },
     "vorhaben": {
-      "title": "Vorhaben",
+      "title": "Plan",
       "oneOf": [
-        { "$ref": "#/$defs/VorhabenNeubau" },
-        { "$ref": "#/$defs/VorhabenUmbau" },
-        { "$ref": "#/$defs/VorhabenAbbruch" }
+        {
+          "$ref": "#/$defs/VorhabenNeubau"
+        },
+        {
+          "$ref": "#/$defs/VorhabenUmbau"
+        },
+        {
+          "$ref": "#/$defs/VorhabenAbbruch"
+        }
       ]
     },
     "nutzung": {
-      "title": "Nutzung",
+      "title": "Use",
       "oneOf": [
-        { "$ref": "#/$defs/NutzungWohnen" },
-        { "$ref": "#/$defs/NutzungGewerbe" },
-        { "$ref": "#/$defs/NutzungGemischt" }
+        {
+          "$ref": "#/$defs/NutzungWohnen"
+        },
+        {
+          "$ref": "#/$defs/NutzungGewerbe"
+        },
+        {
+          "$ref": "#/$defs/NutzungGemischt"
+        }
       ]
     },
     "gebaeude": {
       "type": "object",
-      "title": "Gebäudekenndaten",
+      "title": "Building characteristics",
       "properties": {
         "geschosse": {
           "type": "integer",
-          "title": "Anzahl Geschosse",
+          "title": "Number of floors",
           "minimum": 1,
           "maximum": 50
         },
         "firstHoeheM": {
           "type": "number",
-          "title": "Firsthöhe (m)",
+          "title": "Ridge height (m)",
           "minimum": 0
         },
         "stellplaetze": {
           "type": "integer",
-          "title": "Stellplätze",
+          "title": "Pitches",
           "minimum": 0
         },
-        "barrierefrei": { "type": "boolean", "title": "Barrierefreier Zugang geplant" }
+        "barrierefrei": {
+          "type": "boolean",
+          "title": "Barrier-free access planned"
+        }
       }
     },
     "gewerke": {
       "type": "array",
-      "title": "Gewerke / Leistungspakete",
+      "title": "Trades/service packages",
       "minItems": 1,
       "items": {
         "type": "object",
-        "title": "Gewerk",
-        "required": ["bezeichnung", "kostenEur"],
+        "title": "Trade",
+        "required": [
+          "bezeichnung",
+          "kostenEur"
+        ],
         "properties": {
           "bezeichnung": {
             "type": "string",
-            "title": "Gewerk",
+            "title": "Trade",
             "enum": [
               "Erdarbeiten",
               "Rohbau",
@@ -136,21 +206,39 @@
               "Außenanlagen"
             ]
           },
-          "beschreibung": { "type": "string", "title": "Leistungsbeschreibung" },
-          "kostenEur": { "type": "number", "title": "Kosten (EUR)", "minimum": 0 },
-          "beginn": { "type": "string", "format": "date", "title": "Geplanter Beginn" },
-          "ende": { "type": "string", "format": "date", "title": "Geplantes Ende" },
-          "subunternehmer": { "type": "string", "title": "Subunternehmer (optional)" }
+          "beschreibung": {
+            "type": "string",
+            "title": "Description of services"
+          },
+          "kostenEur": {
+            "type": "number",
+            "title": "Costs (EUR)",
+            "minimum": 0
+          },
+          "beginn": {
+            "type": "string",
+            "format": "date",
+            "title": "Planned start"
+          },
+          "ende": {
+            "type": "string",
+            "format": "date",
+            "title": "Planned end"
+          },
+          "subunternehmer": {
+            "type": "string",
+            "title": "Subcontractor (optional)"
+          }
         }
       }
     },
     "baustelle": {
       "type": "object",
-      "title": "Baustelle & Logistik",
+      "title": "Construction site & logistics",
       "properties": {
         "zufahrtKarte": {
           "type": "object",
-          "title": "Baustellenzufahrt (Karte)",
+          "title": "Construction site access (map)",
           "x-geometry": {
             "styleUrl": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
             "point": true,
@@ -161,8 +249,8 @@
         },
         "baustellenbereich": {
           "type": "object",
-          "title": "Baustellenverkehr / Absperrung (Karte)",
-          "description": "Geplante Zufahrts- oder Absperrtrasse",
+          "title": "Construction site traffic / barrier (map)",
+          "description": "Planned access or barrier route",
           "x-geometry": {
             "styleUrl": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
             "point": false,
@@ -173,56 +261,92 @@
         },
         "baustelleneinrichtung": {
           "type": "object",
-          "title": "Baustelleneinrichtung",
+          "title": "Construction site equipment",
           "properties": {
-            "container": { "type": "boolean", "title": "Bürocontainer" },
-            "kran": { "type": "boolean", "title": "Turmdrehkran" },
+            "container": {
+              "type": "boolean",
+              "title": "Office container"
+            },
+            "kran": {
+              "type": "boolean",
+              "title": "Tower crane"
+            },
             "materialLagerflaecheQm": {
               "type": "number",
-              "title": "Materiallagerfläche (m²)"
+              "title": "Material storage area (m²)"
             }
           }
         },
         "arbeitszeiten": {
           "type": "string",
-          "title": "Regelmäßige Arbeitszeiten",
-          "description": "z. B. Mo–Fr 07:00–18:00"
+          "title": "Regular working hours",
+          "description": "E.g. E.g. Mon–Fri 7:00 a.m.–6:00 p.m"
         }
       }
     },
     "umwelt": {
       "type": "object",
-      "title": "Umwelt & Nachbarschaft",
+      "title": "Environment & Neighborhood",
       "properties": {
         "laerm": {
           "type": "object",
-          "title": "Lärmschutz",
+          "title": "Noise protection",
           "properties": {
-            "laermempfindlich": { "type": "boolean", "title": "Lärmsensible Zone" },
-            "schallschutzMassnahmen": { "type": "string", "title": "Geplante Schallschutzmaßnahmen" },
-            "nachtarbeit": { "type": "boolean", "title": "Nacht- oder Sonderarbeiten geplant" }
+            "laermempfindlich": {
+              "type": "boolean",
+              "title": "Noise-sensitive zone"
+            },
+            "schallschutzMassnahmen": {
+              "type": "string",
+              "title": "Planned noise protection measures"
+            },
+            "nachtarbeit": {
+              "type": "boolean",
+              "title": "Night or special work planned"
+            }
           }
         },
         "abfall": {
           "type": "object",
-          "title": "Abfall & Entsorgung",
+          "title": "Waste & disposal",
           "properties": {
-            "bautrocknung": { "type": "boolean", "title": "Bautrocknung erforderlich" },
-            "asbestVerdacht": { "type": "boolean", "title": "Asbestverdacht" },
-            "entsorgungskonzept": { "type": "string", "title": "Entsorgungskonzept" }
+            "bautrocknung": {
+              "type": "boolean",
+              "title": "Building drying required"
+            },
+            "asbestVerdacht": {
+              "type": "boolean",
+              "title": "Suspected asbestos"
+            },
+            "entsorgungskonzept": {
+              "type": "string",
+              "title": "Disposal concept"
+            }
           }
         },
         "nachbarn": {
           "type": "array",
-          "title": "Nachbarschaft (Benachrichtigung)",
+          "title": "Neighborhood (notification)",
           "items": {
             "type": "object",
-            "title": "Nachbar",
+            "title": "Neighbor",
             "properties": {
-              "name": { "type": "string", "title": "Name" },
-              "adresse": { "type": "string", "title": "Adresse" },
-              "benachrichtigt": { "type": "boolean", "title": "Benachrichtigt" },
-              "einwendung": { "type": "boolean", "title": "Einwendung eingegangen" }
+              "name": {
+                "type": "string",
+                "title": "Name"
+              },
+              "adresse": {
+                "type": "string",
+                "title": "Address"
+              },
+              "benachrichtigt": {
+                "type": "boolean",
+                "title": "Notified"
+              },
+              "einwendung": {
+                "type": "boolean",
+                "title": "Objection received"
+              }
             }
           }
         }
@@ -230,33 +354,33 @@
     },
     "kalkulation": {
       "type": "object",
-      "title": "Kalkulation",
+      "title": "Calculation",
       "properties": {
         "baukostenSumme": {
           "type": "number",
-          "title": "Baukosten gesamt (EUR)",
+          "title": "Total construction costs (EUR)",
           "x-computed": {
             "expression": "data.gewerke.map(g, double(g.kostenEur)).sum()"
           }
         },
         "geschaetzteFlaecheQm": {
           "type": "number",
-          "title": "Geschätzte relevante Fläche (m²)",
+          "title": "Estimated relevant area (m²)",
           "x-computed": {
             "expression": "has(data.vorhaben.typ) && data.vorhaben.typ == 'neubau' ? double(data.vorhaben.bruttogrundflaeche) : has(data.vorhaben.typ) && data.vorhaben.typ == 'umbau' ? double(data.vorhaben.umbauFlaeche) : has(data.vorhaben.typ) && data.vorhaben.typ == 'abbruch' ? double(data.vorhaben.abbruchFlaeche) : 0.0"
           }
         },
         "co2SchaetzungKg": {
           "type": "number",
-          "title": "CO₂-Schätzung Bau (kg)",
-          "description": "Vereinfachte Schätzung aus Fläche und Nutzungsart",
+          "title": "CO₂ estimate construction (kg)",
+          "description": "Simplified estimate based on area and type of use",
           "x-computed": {
             "expression": "(has(data.vorhaben.typ) && data.vorhaben.typ == 'neubau' ? double(data.vorhaben.bruttogrundflaeche) : has(data.vorhaben.typ) && data.vorhaben.typ == 'umbau' ? double(data.vorhaben.umbauFlaeche) : has(data.vorhaben.typ) && data.vorhaben.typ == 'abbruch' ? double(data.vorhaben.abbruchFlaeche) : 0.0) * (has(data.nutzung.typ) && data.nutzung.typ == 'gewerbe' ? 80.0 : has(data.nutzung.typ) && data.nutzung.typ == 'gemischt' ? 60.0 : 45.0)"
           }
         },
         "vollstaendigkeitProzent": {
           "type": "integer",
-          "title": "Unterlagen-Vollständigkeit (%)",
+          "title": "Document completeness (%)",
           "x-computed": {
             "expression": "(has(data.antrag.antragsdatum) && data.antrag.antragsdatum != '' ? 15 : 0) + (has(data.grundstueck.adresse) && data.grundstueck.adresse != '' ? 15 : 0) + (has(data.vorhaben.typ) ? 20 : 0) + (data.gewerke.size() > 0 ? 20 : 0) + (data.einreichung.lageplanVorhanden ? 15 : 0) + (data.einreichung.statikVorhanden ? 15 : 0)"
           }
@@ -265,21 +389,46 @@
     },
     "einreichung": {
       "type": "object",
-      "title": "Einreichung",
+      "title": "Submission",
       "properties": {
-        "lageplanVorhanden": { "type": "boolean", "title": "Lageplan beigefügt" },
-        "statikVorhanden": { "type": "boolean", "title": "Statik / Tragwerksplan beigefügt" },
-        "energieNachweisVorhanden": { "type": "boolean", "title": "Energie-Nachweis beigefügt" },
-        "bauherrBestaetigt": { "type": "boolean", "title": "Bauherr bestätigt Richtigkeit" },
-        "architektBestaetigt": { "type": "boolean", "title": "Entwurfsverfasser bestätigt Vollständigkeit" },
-        "einreichungsDatum": { "type": "string", "format": "date", "title": "Einreichungsdatum" },
-        "sachbearbeiter": { "type": "string", "title": "Sachbearbeiter Bauamt" },
-        "interneNotiz": { "type": "string", "title": "Interne Notiz" }
+        "lageplanVorhanden": {
+          "type": "boolean",
+          "title": "Site map attached"
+        },
+        "statikVorhanden": {
+          "type": "boolean",
+          "title": "Statics/structural plan attached"
+        },
+        "energieNachweisVorhanden": {
+          "type": "boolean",
+          "title": "Energy certificate attached"
+        },
+        "bauherrBestaetigt": {
+          "type": "boolean",
+          "title": "Builder confirms accuracy"
+        },
+        "architektBestaetigt": {
+          "type": "boolean",
+          "title": "Draft author confirms completeness"
+        },
+        "einreichungsDatum": {
+          "type": "string",
+          "format": "date",
+          "title": "Submission date"
+        },
+        "sachbearbeiter": {
+          "type": "string",
+          "title": "Building department clerk"
+        },
+        "interneNotiz": {
+          "type": "string",
+          "title": "Internal note"
+        }
       }
     },
     "antragsStatus": {
       "type": "string",
-      "title": "Bearbeitungsstand",
+      "title": "Processing status",
       "enum": [
         "NEU",
         "ANTRAG_ERFASST",
@@ -299,96 +448,188 @@
   "$defs": {
     "VorhabenNeubau": {
       "type": "object",
-      "title": "Neubau",
-      "required": ["typ", "bruttogrundflaeche"],
+      "title": "New building",
+      "required": [
+        "typ",
+        "bruttogrundflaeche"
+      ],
       "properties": {
-        "typ": { "type": "string", "const": "neubau", "title": "Art" },
+        "typ": {
+          "type": "string",
+          "const": "neubau",
+          "title": "Art"
+        },
         "bruttogrundflaeche": {
           "type": "number",
-          "title": "Bruttogrundfläche (m²)",
+          "title": "Gross floor area (m²)",
           "minimum": 1
         },
-        "wohneinheiten": { "type": "integer", "title": "Anzahl Wohneinheiten", "minimum": 0 },
+        "wohneinheiten": {
+          "type": "integer",
+          "title": "Number of residential units",
+          "minimum": 0
+        },
         "massivbauweise": {
           "type": "string",
-          "title": "Bauweise",
-          "enum": ["Massiv", "Holz", "Hybrid"]
+          "title": "Construction method",
+          "enum": [
+            "Massiv",
+            "Holz",
+            "Hybrid"
+          ]
         }
       }
     },
     "VorhabenUmbau": {
       "type": "object",
-      "title": "Umbau / Sanierung",
-      "required": ["typ", "umbauFlaeche", "umbauArt"],
+      "title": "Conversion/renovation",
+      "required": [
+        "typ",
+        "umbauFlaeche",
+        "umbauArt"
+      ],
       "properties": {
-        "typ": { "type": "string", "const": "umbau", "title": "Art" },
-        "umbauFlaeche": { "type": "number", "title": "Umbaufläche (m²)", "minimum": 1 },
+        "typ": {
+          "type": "string",
+          "const": "umbau",
+          "title": "Art"
+        },
+        "umbauFlaeche": {
+          "type": "number",
+          "title": "Conversion area (m²)",
+          "minimum": 1
+        },
         "umbauArt": {
           "type": "string",
-          "title": "Umbauart",
-          "enum": ["Kernsanierung", "Aufstockung", "Anbau", "Nutzungsänderung"]
+          "title": "Modification type",
+          "enum": [
+            "Kernsanierung",
+            "Aufstockung",
+            "Anbau",
+            "Nutzungsänderung"
+          ]
         },
-        "bestandsbauJahr": { "type": "integer", "title": "Baujahr Bestandsgebäude" }
+        "bestandsbauJahr": {
+          "type": "integer",
+          "title": "Year of construction of existing building"
+        }
       }
     },
     "VorhabenAbbruch": {
       "type": "object",
-      "title": "Abbruch",
-      "required": ["typ", "abbruchFlaeche"],
+      "title": "Abort",
+      "required": [
+        "typ",
+        "abbruchFlaeche"
+      ],
       "properties": {
-        "typ": { "type": "string", "const": "abbruch", "title": "Art" },
-        "abbruchFlaeche": { "type": "number", "title": "Abbruchfläche (m²)", "minimum": 1 },
-        "teilabbruch": { "type": "boolean", "title": "Teilabbruch" },
-        "schadstoffgutachten": { "type": "boolean", "title": "Schadstoffgutachten vorhanden" }
+        "typ": {
+          "type": "string",
+          "const": "abbruch",
+          "title": "Art"
+        },
+        "abbruchFlaeche": {
+          "type": "number",
+          "title": "Demolition area (m²)",
+          "minimum": 1
+        },
+        "teilabbruch": {
+          "type": "boolean",
+          "title": "Partial demolition"
+        },
+        "schadstoffgutachten": {
+          "type": "boolean",
+          "title": "Pollutant reports available"
+        }
       }
     },
     "NutzungWohnen": {
       "type": "object",
-      "title": "Wohnen",
-      "required": ["typ", "wohnform"],
+      "title": "Reside",
+      "required": [
+        "typ",
+        "wohnform"
+      ],
       "properties": {
-        "typ": { "type": "string", "const": "wohnen", "title": "Art" },
+        "typ": {
+          "type": "string",
+          "const": "wohnen",
+          "title": "Art"
+        },
         "wohnform": {
           "type": "string",
-          "title": "Wohnform",
-          "enum": ["Einfamilienhaus", "Mehrfamilienhaus", "Studentisches Wohnen"]
+          "title": "Type of living",
+          "enum": [
+            "Einfamilienhaus",
+            "Mehrfamilienhaus",
+            "Studentisches Wohnen"
+          ]
         },
-        "foerderprogramm": { "type": "boolean", "title": "Öffentliche Förderung beantragt" }
+        "foerderprogramm": {
+          "type": "boolean",
+          "title": "Public funding applied for"
+        }
       }
     },
     "NutzungGewerbe": {
       "type": "object",
-      "title": "Gewerbe",
-      "required": ["typ", "gewerbeart"],
+      "title": "Commercial",
+      "required": [
+        "typ",
+        "gewerbeart"
+      ],
       "properties": {
-        "typ": { "type": "string", "const": "gewerbe", "title": "Art" },
+        "typ": {
+          "type": "string",
+          "const": "gewerbe",
+          "title": "Art"
+        },
         "gewerbeart": {
           "type": "string",
-          "title": "Gewerbeart",
-          "enum": ["Büro", "Handel", "Produktion", "Logistik"]
+          "title": "Type of business",
+          "enum": [
+            "Büro",
+            "Handel",
+            "Produktion",
+            "Logistik"
+          ]
         },
-        "schwerlastverkehr": { "type": "boolean", "title": "Schwerlastverkehr erwartet" }
+        "schwerlastverkehr": {
+          "type": "boolean",
+          "title": "Heavy traffic expected"
+        }
       }
     },
     "NutzungGemischt": {
       "type": "object",
-      "title": "Gemischte Nutzung",
-      "required": ["typ", "wohnanteilProzent", "gewerbeanteilProzent"],
+      "title": "Mixed use",
+      "required": [
+        "typ",
+        "wohnanteilProzent",
+        "gewerbeanteilProzent"
+      ],
       "properties": {
-        "typ": { "type": "string", "const": "gemischt", "title": "Art" },
+        "typ": {
+          "type": "string",
+          "const": "gemischt",
+          "title": "Art"
+        },
         "wohnanteilProzent": {
           "type": "integer",
-          "title": "Wohnanteil (%)",
+          "title": "Residential share (%)",
           "minimum": 1,
           "maximum": 99
         },
         "gewerbeanteilProzent": {
           "type": "integer",
-          "title": "Gewerbeanteil (%)",
+          "title": "Commercial share (%)",
           "minimum": 1,
           "maximum": 99
         },
-        "mischnutzungImErdgeschoss": { "type": "boolean", "title": "Gewerbe im Erdgeschoss" }
+        "mischnutzungImErdgeschoss": {
+          "type": "boolean",
+          "title": "Commercial on the ground floor"
+        }
       }
     }
   }

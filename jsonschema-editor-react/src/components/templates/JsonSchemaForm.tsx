@@ -1,6 +1,7 @@
 import {
   forwardRef,
   useCallback,
+  useEffect,
   useImperativeHandle,
   useMemo,
   type FormEvent,
@@ -18,6 +19,7 @@ import { RegistriesProvider } from "../../context/RegistriesContext.js";
 import type { JseI18nOptions } from "../../i18n/types.js";
 import { registerDefaultControls } from "../../registry/register-defaults.js";
 import {
+  applyRegisteredFormDataSync,
   setupJseReactExtensions,
   type JseReactExtension,
 } from "../../registry/react-extension.js";
@@ -85,6 +87,13 @@ const JsonSchemaFormBody = forwardRef<JsonSchemaFormHandle, JsonSchemaFormProps>
   function JsonSchemaFormBody(props, ref) {
     const validation = useFormValidation();
     const rootElement = props.uiSchema.root;
+
+    useEffect(() => {
+      const synced = applyRegisteredFormDataSync(props.schema, props.data);
+      if (synced !== props.data) {
+        props.onDataChange(synced);
+      }
+    }, [props.data, props.onDataChange, props.schema]);
 
     useImperativeHandle(ref, () => ({
       validate: () => validation?.validateAll() ?? true,

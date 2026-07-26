@@ -21,12 +21,11 @@ export async function registerAjvFormats(
   }
 
   for (const extension of jsonSchemaFormatExtensions) {
-    if (extension.id === "phone") {
-      ajv.addFormat(extension.format, {
-        type: "string",
-        validate: extension.validate,
-      });
-    }
+    if (extension.id === "email" || extension.id === "url") continue;
+    ajv.addFormat(extension.format, {
+      type: "string",
+      validate: extension.validate,
+    });
   }
 
   return ajv;

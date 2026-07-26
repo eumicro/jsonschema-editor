@@ -13,6 +13,7 @@ export function LayoutUiElement({
   data,
   onDataChange,
   readonly,
+  scopePrefix,
 }: LayoutUiElementProps) {
   return (
     <div
@@ -31,6 +32,7 @@ export function LayoutUiElement({
           data={data}
           onDataChange={onDataChange}
           readonly={readonly}
+          scopePrefix={scopePrefix}
         />
       ))}
     </div>

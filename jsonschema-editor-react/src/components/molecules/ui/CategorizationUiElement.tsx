@@ -1,5 +1,10 @@
 import { useMemo, useState } from "react";
-import type { Category, Categorization, UiElement } from "@jsonschema-editor/ui-schema";
+import {
+  resolveUiI18nString,
+  type Category,
+  type Categorization,
+  type UiElement,
+} from "@jsonschema-editor/ui-schema";
 import { JseTabs } from "../../atoms/JseTabs.js";
 import { useJseI18n } from "../../../context/JseI18nContext.js";
 import { buildUiElementKey } from "../../../utils/ui-element-key.js";
@@ -17,8 +22,9 @@ export function CategorizationUiElement({
   data,
   onDataChange,
   readonly,
+  scopePrefix,
 }: CategorizationUiElementProps) {
-  const { t } = useJseI18n();
+  const { t, te } = useJseI18n();
   const [activeTab, setActiveTab] = useState("0");
 
   const categories = useMemo(
@@ -30,9 +36,13 @@ export function CategorizationUiElement({
     () =>
       categories.map((category, index) => ({
         id: String(index),
-        label: category.label ?? t("categorization.category", { index: index + 1 }),
+        label:
+          resolveUiI18nString(
+            { i18n: category.i18n, defaultMessage: category.label, suffix: "label" },
+            (key) => (te(key) ? t(key) : undefined),
+          ) ?? t("categorization.category", { index: index + 1 }),
       })),
-    [categories, t],
+    [categories, t, te],
   );
 
   const activeCategory = categories[Number(activeTab)] ?? categories[0];
@@ -53,6 +63,7 @@ export function CategorizationUiElement({
               data={data}
               onDataChange={onDataChange}
               readonly={readonly}
+              scopePrefix={scopePrefix}
             />
           ))}
         </div>

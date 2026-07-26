@@ -1,6 +1,7 @@
 import { useCallback, useMemo } from "react";
+import type { SchemaDocument } from "@jsonschema-editor/json-schema";
 import type { UiElement } from "@jsonschema-editor/ui-schema";
-import { Group, HorizontalLayout, VerticalLayout } from "@jsonschema-editor/ui-schema";
+import { Group, HorizontalLayout, Label, VerticalLayout } from "@jsonschema-editor/ui-schema";
 import {
   changeUiLayoutKind,
   getUiElementAt,
@@ -15,6 +16,7 @@ import {
   patchUiAttribute,
 } from "../utils/ui-attributes.js";
 import { useJseI18n } from "../context/JseI18nContext.js";
+import type { JseLocale } from "../i18n/types.js";
 
 export interface UiAttributesPanelCallbacks {
   onRootChange: (root: UiElement) => void;
@@ -24,6 +26,8 @@ export function useUiAttributesPanel(
   root: UiElement,
   selectedPath: UiPath,
   callbacks: UiAttributesPanelCallbacks,
+  document?: SchemaDocument | null,
+  labelLocales?: readonly JseLocale[],
 ) {
   const { t } = useJseI18n();
 
@@ -36,10 +40,12 @@ export function useUiAttributesPanel(
   }, [root, selectedPath]);
 
   const isLayout = isLayoutElement(selectedElement);
+  const multilangEnabled = (labelLocales?.length ?? 0) > 0;
   const attributeFields = useMemo(
-    () => listUiAttributeFields(selectedElement),
-    [selectedElement],
+    () => listUiAttributeFields(selectedElement, document, { includeI18n: multilangEnabled }),
+    [selectedElement, document, multilangEnabled],
   );
+  const i18nSuffix = selectedElement instanceof Label ? ("text" as const) : ("label" as const);
 
   const layoutKind = useMemo((): UiLayoutKind | null => {
     const element = selectedElement;
@@ -49,11 +55,12 @@ export function useUiAttributesPanel(
     return null;
   }, [selectedElement]);
 
+  const onRootChange = callbacks.onRootChange;
   const patch = useCallback(
     (next: UiElement) => {
-      callbacks.onRootChange(next);
+      onRootChange(next);
     },
-    [callbacks],
+    [onRootChange],
   );
 
   const readAttribute = useCallback(
@@ -85,6 +92,8 @@ export function useUiAttributesPanel(
     isLayout,
     layoutKind,
     attributeFields,
+    multilangEnabled,
+    i18nSuffix,
     readAttribute,
     updateAttribute,
     setLayoutKind,

@@ -3,7 +3,6 @@ import { openFormMode, readFormOutput, selectExample } from "./helpers";
 
 test.describe("Array-Listen im Formular", () => {
   test("Einträge hinzufügen und entfernen", async ({ page }) => {
-    await page.goto("/");
     await selectExample(page, "array-list-qa");
     await openFormMode(page);
 
@@ -11,20 +10,27 @@ test.describe("Array-Listen im Formular", () => {
     await expect(list.locator(".jse-array-item")).toHaveCount(1);
     await expect(list.getByRole("button", { name: "Entfernen" })).toHaveCount(0);
 
+    const firstTitle = list.locator(".jse-array-item").first().locator(".jse-array-item__title-input");
+    await expect(firstTitle).toHaveValue("Erstposition");
+    await firstTitle.fill("Umbenannt");
+    await expect(
+      list.locator(".jse-array-item").first().locator(".jse-field").filter({
+        has: page.locator(".jse-field__label", { hasText: "Bezeichnung" }),
+      }).locator("input"),
+    ).toHaveValue("Umbenannt");
+
     await list.getByRole("button", { name: "Eintrag hinzufügen" }).click();
     await expect(list.locator(".jse-array-item")).toHaveCount(2);
 
     const secondItem = list.locator(".jse-array-item").nth(1);
-    await secondItem.locator(".jse-field").filter({
-      has: page.locator(".jse-field__label", { hasText: "Bezeichnung" }),
-    }).locator("input").fill("Zweite Position");
+    await secondItem.locator(".jse-array-item__title-input").fill("Zweite Position");
     await secondItem.locator(".jse-field").filter({
       has: page.locator(".jse-field__label", { hasText: "Betrag" }),
     }).locator("input").fill("99");
 
     const output = await readFormOutput(page);
     expect(output.positionen).toEqual([
-      { bezeichnung: "Erstposition", betrag: 10 },
+      { bezeichnung: "Umbenannt", betrag: 10 },
       { bezeichnung: "Zweite Position", betrag: 99 },
     ]);
 

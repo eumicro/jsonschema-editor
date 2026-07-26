@@ -9,7 +9,6 @@ function fieldByLabel(page: import("@playwright/test").Page, label: RegExp) {
 
 test.describe("React-Extensions", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/");
     await selectExample(page, "person-with-defs");
   });
 
@@ -46,13 +45,13 @@ test.describe("React-Extensions", () => {
     await openFormMode(page);
     await oneOfSelect(page).selectOption("0");
 
-    await expect(fieldByLabel(page, /^E-Mail/)).toBeVisible();
+    await expect(fieldByLabel(page, /^Email/)).toBeVisible();
     await expect(fieldByLabel(page, /^Website/)).toBeVisible();
     await expect(fieldByLabel(page, /^Telefon/)).toBeVisible();
     await expect(fieldByLabel(page, /^Abteilung/)).toBeVisible();
     await expect(fieldByLabel(page, /^Vorgesetzter/)).toBeVisible();
 
-    await expect(fieldByLabel(page, /^E-Mail/).locator("input")).toHaveAttribute("type", "email");
+    await expect(fieldByLabel(page, /^Email/).locator("input")).toHaveAttribute("type", "email");
 
     const abteilungOptions = await fieldByLabel(page, /^Abteilung/)
       .locator("select option")

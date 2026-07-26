@@ -34,6 +34,21 @@ import {
   validateFileFieldValue,
   matchesFileAccept,
   resolveUploadMimeType,
+  dateTodayExtension,
+  validateDateToday,
+  createProgressBarSchema,
+  createRatingSchema,
+  DEFAULT_PROGRESS_BAR_COLOR_HIGH,
+  DEFAULT_PROGRESS_BAR_COLOR_LOW,
+  DEFAULT_PROGRESS_BAR_COLOR_MID,
+  mixHexColors,
+  progressBarFillColor,
+  progressBarRatio,
+  progressBarTrackBackground,
+  readProgressBarConfig,
+  readRatingConfig,
+  ratingLevels,
+  RATING_SYMBOL_CHARS,
 } from "./index.js";
 
 describe("format validators", () => {
@@ -57,11 +72,13 @@ describe("format validators", () => {
 });
 
 describe("JsonSchemaFormatExtension", () => {
-  it("exposes email, url, and phone extensions", () => {
+  it("exposes email, url, phone, and date-today extensions", () => {
     expect(getFormatExtension("email")).toBe(emailExtension);
     expect(getFormatExtension("url")).toBe(urlExtension);
     expect(getFormatExtension("phone")).toBe(phoneExtension);
+    expect(getFormatExtension("date-today")).toBe(dateTodayExtension);
     expect(getFormatExtensionByFormat("uri")).toBe(urlExtension);
+    expect(getFormatExtensionByFormat("date-today")).toBe(dateTodayExtension);
   });
 
   it("creates schema fragments with format keywords", () => {
@@ -72,6 +89,82 @@ describe("JsonSchemaFormatExtension", () => {
     });
     expect(createFormatSchemaFragment("url")).toMatchObject({ format: "uri" });
     expect(createFormatSchemaFragment("phone")).toMatchObject({ format: "phone" });
+    expect(createFormatSchemaFragment("date-today")).toMatchObject({
+      format: "date-today",
+      "x-format-extension": "date-today",
+    });
+    expect(createFormatSchemaFragment("date-today").pattern).toBeUndefined();
+  });
+
+  it("date-today never fails validation", () => {
+    expect(validateDateToday(undefined)).toBe(true);
+    expect(validateDateToday("")).toBe(true);
+    expect(validateDateToday("not-a-date")).toBe(true);
+    expect(validateDateToday("2026-07-26")).toBe(true);
+  });
+});
+
+describe("progress-bar extension", () => {
+  it("creates number schema with x-progress-bar and 0–10 range", () => {
+    const schema = createProgressBarSchema({ minimum: 0, maximum: 10, step: 0.1 });
+    expect(schema.minimum).toBe(0);
+    expect(schema.maximum).toBe(10);
+    expect(readProgressBarConfig(schema)).toEqual({ step: 0.1, colorMode: "gradient" });
+  });
+
+  it("interpolates gradient colors by value", () => {
+    expect(progressBarRatio(0, 0, 10)).toBe(0);
+    expect(progressBarRatio(5, 0, 10)).toBe(0.5);
+    expect(progressBarRatio(10, 0, 10)).toBe(1);
+
+    const gradient = {
+      min: 0,
+      max: 10,
+      colorMode: "gradient" as const,
+      color: "#2563eb",
+      colorLow: DEFAULT_PROGRESS_BAR_COLOR_LOW,
+      colorMid: DEFAULT_PROGRESS_BAR_COLOR_MID,
+      colorHigh: DEFAULT_PROGRESS_BAR_COLOR_HIGH,
+    };
+    expect(progressBarFillColor(0, gradient)).toBe(DEFAULT_PROGRESS_BAR_COLOR_LOW);
+    expect(progressBarFillColor(5, gradient)).toBe(DEFAULT_PROGRESS_BAR_COLOR_MID);
+    expect(progressBarFillColor(10, gradient)).toBe(DEFAULT_PROGRESS_BAR_COLOR_HIGH);
+    expect(progressBarTrackBackground(gradient)).toContain(DEFAULT_PROGRESS_BAR_COLOR_LOW);
+
+    const solid = { ...gradient, colorMode: "solid" as const, color: "#2563eb" };
+    expect(progressBarFillColor(7, solid)).toBe("#2563eb");
+    expect(mixHexColors("#000000", "#ffffff", 0.5)).toBe("#808080");
+  });
+});
+
+describe("rating extension", () => {
+  it("stores freely chosen palette glyphs on x-rating", () => {
+    const schema = createRatingSchema({
+      minimum: 0,
+      maximum: 5,
+      symbol: "♥",
+      colorMode: "solid",
+      color: "#e11d48",
+    });
+    expect(schema.minimum).toBe(0);
+    expect(schema.maximum).toBe(5);
+    expect(readRatingConfig(schema)).toEqual({
+      step: 1,
+      symbol: "♥",
+      colorMode: "solid",
+      color: "#e11d48",
+    });
+  });
+
+  it("resolves legacy preset ids to glyphs", () => {
+    expect(RATING_SYMBOL_CHARS.heart).toBe("♥");
+    const schema = createRatingSchema({ symbol: "heart" });
+    expect(readRatingConfig(schema)?.symbol).toBe("♥");
+  });
+
+  it("builds discrete levels from min/max/step", () => {
+    expect(ratingLevels({ min: 0, max: 5, step: 1 })).toEqual([1, 2, 3, 4, 5]);
+    expect(ratingLevels({ min: 1, max: 5, step: 1 })).toEqual([1, 2, 3, 4, 5]);
   });
 });
 

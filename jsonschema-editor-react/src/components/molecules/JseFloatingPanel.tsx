@@ -53,10 +53,11 @@ export const JseFloatingPanel = forwardRef<JseFloatingPanelHandle, JseFloatingPa
     const rectRef = useRef(panel.rect);
     rectRef.current = panel.rect;
 
+    const { show, hide } = panel;
     useEffect(() => {
-      if (open) panel.show();
-      else panel.hide();
-    }, [open, panel]);
+      if (open) show();
+      else hide();
+    }, [open, show, hide]);
 
     useImperativeHandle(ref, () => ({
       anchorNear(element: HTMLElement) {

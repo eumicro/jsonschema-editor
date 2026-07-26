@@ -4,23 +4,31 @@ import type {
   StringSchema,
 } from "@jsonschema-editor/json-schema";
 import {
-  JsonSchemaAttributeRegistry as Registry,
+  globalJsonSchemaAttributeRegistry,
   StringSchema as StringSchemaClass,
   documentFromJSON,
   schemaFromJSON,
 } from "@jsonschema-editor/json-schema";
-import { emailExtension, phoneExtension, urlExtension } from "./formats/index.js";
+import {
+  dateTodayExtension,
+  emailExtension,
+  phoneExtension,
+  urlExtension,
+} from "./formats/index.js";
 import type { FormatExtensionId, JsonSchemaFormatExtension } from "./types.js";
 import { isComputedExtensionConfig } from "./computed.js";
 import { isGeometryExtensionConfig } from "./geometry.js";
 import { isValuesSourceConfig } from "./values-source.js";
 import { isFileExtensionConfig } from "./file.js";
+import { isProgressBarExtensionConfig } from "./progress-bar.js";
+import { isRatingExtensionConfig } from "./rating.js";
 import { registerFieldFlagAttributes } from "./field-flags.js";
 
 export const jsonSchemaFormatExtensions: readonly JsonSchemaFormatExtension[] = [
   emailExtension,
   urlExtension,
   phoneExtension,
+  dateTodayExtension,
 ];
 
 const extensionById = new Map<FormatExtensionId, JsonSchemaFormatExtension>(
@@ -82,11 +90,11 @@ export function validateByFormatKeyword(format: string, value: unknown): boolean
 }
 
 /**
- * Registers `x-format-extension` on the given registry (or a new one) so values
- * roundtrip through `@jsonschema-editor/json-schema`.
+ * Registers extension attributes on the given registry (defaults to the global
+ * registry so the schema editor can offer composable `x-*` attributes).
  */
 export function createExtensionsRegistry(
-  base: JsonSchemaAttributeRegistry = new Registry(),
+  base: JsonSchemaAttributeRegistry = globalJsonSchemaAttributeRegistry,
 ): JsonSchemaAttributeRegistry {
   if (!base.isRegistered("x-format-extension")) {
     base.register({
@@ -112,14 +120,15 @@ export function createExtensionsRegistry(
       serialize: (value) => value,
     });
   }
-  if (!base.isRegistered("x-computed")) {
-    base.register({
-      name: "x-computed",
-      defaultValue: undefined,
-      deserialize: (raw) => (isComputedExtensionConfig(raw) ? raw : undefined),
-      serialize: (value) => value,
-    });
-  }
+  // Re-register so composition / offer metadata stays current across package versions.
+  base.register({
+    name: "x-computed",
+    defaultValue: undefined,
+    offerForKinds: ["string", "number", "integer", "boolean"],
+    composition: { role: "behavior" },
+    deserialize: (raw) => (isComputedExtensionConfig(raw) ? raw : undefined),
+    serialize: (value) => value,
+  });
   if (!base.isRegistered("x-file")) {
     base.register({
       name: "x-file",
@@ -128,6 +137,30 @@ export function createExtensionsRegistry(
       serialize: (value) => value,
     });
   }
+  base.register({
+    name: "x-progress-bar",
+    defaultValue: undefined,
+    offerForKinds: ["number", "integer"],
+    composition: {
+      role: "presentation",
+      combinesWith: ["x-computed"],
+      exclusiveWith: ["x-rating"],
+    },
+    deserialize: (raw) => (isProgressBarExtensionConfig(raw) ? raw : undefined),
+    serialize: (value) => value,
+  });
+  base.register({
+    name: "x-rating",
+    defaultValue: undefined,
+    offerForKinds: ["number", "integer"],
+    composition: {
+      role: "presentation",
+      combinesWith: ["x-computed"],
+      exclusiveWith: ["x-progress-bar"],
+    },
+    deserialize: (raw) => (isRatingExtensionConfig(raw) ? raw : undefined),
+    serialize: (value) => value,
+  });
   registerFieldFlagAttributes(base);
   return base;
 }

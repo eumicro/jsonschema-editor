@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import type { FileDescriptor } from "@jsonschema-editor/json-schema-extensions";
 import { isPreviewableMimeType } from "@jsonschema-editor/json-schema-extensions";
+import { useJseI18n } from "@jsonschema-editor/react";
 
 export interface FileGalleryDialogProps {
   open: boolean;
@@ -22,11 +23,12 @@ export function FileGalleryDialog({
   onClose,
   onDelete,
 }: FileGalleryDialogProps) {
+  const { t } = useJseI18n();
   const [activeIndex, setActiveIndex] = useState(0);
 
   const previewableFiles = useMemo(
     () => files.filter((file) => isPreviewableMimeType(file.mimeType)),
-    [files],
+    [files]
   );
 
   const activeFile = previewableFiles[activeIndex];
@@ -34,7 +36,10 @@ export function FileGalleryDialog({
   useEffect(() => {
     if (!open) return;
     setActiveIndex(
-      Math.min(Math.max(startIndex, 0), Math.max(previewableFiles.length - 1, 0)),
+      Math.min(
+        Math.max(startIndex, 0),
+        Math.max(previewableFiles.length - 1, 0)
+      )
     );
   }, [open, previewableFiles.length, startIndex]);
 
@@ -44,7 +49,7 @@ export function FileGalleryDialog({
         onClose();
       }
     },
-    [onClose],
+    [onClose]
   );
 
   const handleKeydown = useCallback(
@@ -53,13 +58,14 @@ export function FileGalleryDialog({
         onClose();
       } else if (event.key === "ArrowLeft") {
         setActiveIndex(
-          (current) => (current - 1 + previewableFiles.length) % previewableFiles.length,
+          (current) =>
+            (current - 1 + previewableFiles.length) % previewableFiles.length
         );
       } else if (event.key === "ArrowRight") {
         setActiveIndex((current) => (current + 1) % previewableFiles.length);
       }
     },
-    [onClose, previewableFiles.length],
+    [onClose, previewableFiles.length]
   );
 
   const deleteActive = useCallback(() => {
@@ -82,14 +88,16 @@ export function FileGalleryDialog({
       className="jse-file-gallery"
       role="dialog"
       aria-modal="true"
-      aria-label="File preview gallery"
+      aria-label={t("extensions.file.galleryAria")}
       tabIndex={-1}
       onClick={handleBackdropClick}
       onKeyDown={handleKeydown}
     >
       <div className="jse-file-gallery__panel">
         <header className="jse-file-gallery__header">
-          <strong className="jse-file-gallery__title">{activeFile?.name}</strong>
+          <strong className="jse-file-gallery__title">
+            {activeFile?.name}
+          </strong>
           <span className="jse-file-gallery__counter">
             {activeIndex + 1} / {previewableFiles.length}
           </span>
@@ -98,11 +106,16 @@ export function FileGalleryDialog({
               <button
                 type="button"
                 className="jse-file-gallery__icon-btn jse-file-gallery__icon-btn--danger"
-                title="Delete"
-                aria-label="Delete file"
+                title={t("extensions.file.delete")}
+                aria-label={t("extensions.file.deleteAria")}
                 onClick={deleteActive}
               >
-                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  aria-hidden="true"
+                >
                   <path
                     fill="currentColor"
                     d="M9 3h6l1 2h4v2H4V5h4l1-2Zm1 6h2v9h-2V9Zm4 0h2v9h-2V9ZM7 9h2v9H7V9Z"
@@ -113,11 +126,16 @@ export function FileGalleryDialog({
             <button
               type="button"
               className="jse-file-gallery__icon-btn"
-              title="Close"
-              aria-label="Close gallery"
+              title={t("extensions.file.closeGallery")}
+              aria-label={t("extensions.file.closeGalleryAria")}
               onClick={onClose}
             >
-              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                width="18"
+                height="18"
+                aria-hidden="true"
+              >
                 <path
                   fill="currentColor"
                   d="M6.4 4 4 6.4 10.6 13 4 19.6 6.4 22 13 15.4 19.6 22 22 19.6 15.4 13 22 6.4 19.6 4 13 10.6Z"
@@ -132,10 +150,12 @@ export function FileGalleryDialog({
             <button
               type="button"
               className="jse-file-gallery__nav"
-              aria-label="Previous image"
+              aria-label={t("extensions.file.prevImage")}
               onClick={() =>
                 setActiveIndex(
-                  (current) => (current - 1 + previewableFiles.length) % previewableFiles.length,
+                  (current) =>
+                    (current - 1 + previewableFiles.length) %
+                    previewableFiles.length
                 )
               }
             >
@@ -155,9 +175,11 @@ export function FileGalleryDialog({
             <button
               type="button"
               className="jse-file-gallery__nav"
-              aria-label="Next image"
+              aria-label={t("extensions.file.nextImage")}
               onClick={() =>
-                setActiveIndex((current) => (current + 1) % previewableFiles.length)
+                setActiveIndex(
+                  (current) => (current + 1) % previewableFiles.length
+                )
               }
             >
               ›
@@ -171,7 +193,11 @@ export function FileGalleryDialog({
               <button
                 key={file.id}
                 type="button"
-                className={`jse-file-gallery__thumb${index === activeIndex ? " jse-file-gallery__thumb--active" : ""}`}
+                className={`jse-file-gallery__thumb${
+                  index === activeIndex
+                    ? " jse-file-gallery__thumb--active"
+                    : ""
+                }`}
                 aria-label={file.name}
                 onClick={() => setActiveIndex(index)}
               >
@@ -184,6 +210,6 @@ export function FileGalleryDialog({
         ) : null}
       </div>
     </div>,
-    document.body,
+    document.body
   );
 }

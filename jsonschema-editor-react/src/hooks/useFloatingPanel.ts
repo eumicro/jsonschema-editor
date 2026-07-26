@@ -132,15 +132,18 @@ export function useFloatingPanel(options: UseFloatingPanelOptions = {}) {
 
   const show = useCallback(
     (at?: Partial<FloatingPanelRect>) => {
-      setRect((current) => {
-        const next = {
-          x: at?.x ?? current.x,
-          y: at?.y ?? current.y,
-          width: at?.width ?? current.width,
-          height: at?.height ?? current.height,
-        };
-        return clampPosition(next);
-      });
+      // Only reposition when an explicit anchor is provided. Calling show() on
+      // every open-effect tick must not allocate a new rect (update-depth loop).
+      if (at) {
+        setRect((current) =>
+          clampPosition({
+            x: at.x ?? current.x,
+            y: at.y ?? current.y,
+            width: at.width ?? current.width,
+            height: at.height ?? current.height,
+          }),
+        );
+      }
       setMinimized(false);
       setOpen(true);
     },

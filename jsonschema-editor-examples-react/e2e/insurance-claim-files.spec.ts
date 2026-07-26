@@ -18,7 +18,6 @@ async function openAbschlussStep(page: import("@playwright/test").Page): Promise
 
 test.describe("Schadensmeldung: Datei-Upload", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/#/");
     await selectExample(page, "insurance-claim");
     await openFormMode(page);
     await openAbschlussStep(page);

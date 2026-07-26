@@ -1,7 +1,49 @@
 {
-  "label": "Förderantrag",
-  "tagline": "Antrag mit Bearbeitungsstatus — Fortschritt ohne manuelles Nachpflegen",
-  "description": "Mehrstufiger Antrag mit automatisch ermitteltem Bearbeitungsstand — ideal für Förder-, Genehmigungs- oder Serviceprozesse.",
+  "label": "Funding application",
+  "tagline": "Application with processing status - progress without manual follow-up",
+  "description": "Multi-stage application with automatically determined processing status — ideal for funding, approval or service processes.",
   "category": "Anträge & Prozesse",
-  "visibility": "public"
+  "visibility": "public",
+  "locales": {
+    "de": {
+      "label": "Förderantrag",
+      "tagline": "Antrag mit Bearbeitungsstatus — Fortschritt ohne manuelles Nachpflegen",
+      "description": "Mehrstufiger Antrag mit automatisch ermitteltem Bearbeitungsstand — ideal für Förder-, Genehmigungs- oder Serviceprozesse."
+    },
+    "fr": {
+      "label": "Demande de financement",
+      "tagline": "Demande avec statut de traitement - avancement sans suivi manuel",
+      "description": "Demande en plusieurs étapes avec statut de traitement déterminé automatiquement — idéal pour les processus de financement, d'approbation ou de service."
+    },
+    "it": {
+      "label": "Domanda di finanziamento",
+      "tagline": "Domanda con stato di elaborazione - avanzamento senza follow-up manuale",
+      "description": "Applicazione in più fasi con stato di elaborazione determinato automaticamente: ideale per processi di finanziamento, approvazione o servizio."
+    },
+    "pl": {
+      "label": "Wniosek o dofinansowanie",
+      "tagline": "Wniosek ze statusem przetwarzania - postęp bez ręcznej kontroli",
+      "description": "Wieloetapowy wniosek z automatycznie określanym statusem przetwarzania – idealny do procesów finansowania, zatwierdzania lub obsługi."
+    },
+    "uk": {
+      "label": "Заявка на фінансування",
+      "tagline": "Заявка зі статусом обробки – прогрес без ручного контролю",
+      "description": "Багатоетапна заявка з автоматично визначеним статусом обробки — ідеальна для процесів фінансування, затвердження або обслуговування."
+    },
+    "ru": {
+      "label": "Заявка на финансирование",
+      "tagline": "Заявка со статусом обработки — прогресс без отслеживания вручную",
+      "description": "Многоэтапная заявка с автоматически определяемым статусом обработки — идеально подходит для процессов финансирования, утверждения или обслуживания."
+    },
+    "zh": {
+      "label": "资助申请",
+      "tagline": "具有处理状态的申请 - 无需人工跟进的进度",
+      "description": "具有自动确定处理状态的多阶段应用程序 - 非常适合融资、审批或服务流程。"
+    },
+    "ja": {
+      "label": "資金調達の申請",
+      "tagline": "処理ステータスを含むアプリケーション - 手動によるフォローアップなしで進行状況を確認",
+      "description": "処理ステータスが自動的に決定される多段階アプリケーション - 資金調達、承認、サービス プロセスに最適です。"
+    }
+  }
 }

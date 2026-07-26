@@ -1,7 +1,49 @@
 {
-  "label": "Ressource zuweisen",
-  "tagline": "Mitarbeiter oder Gerät per Typauswahl erfassen",
-  "description": "Internes Beispiel: einfache Typauswahl zwischen Person und Betriebsmittel.",
+  "label": "Assign resource",
+  "tagline": "Enter employees or devices using type selection",
+  "description": "Internal example: simple type selection between person and equipment.",
   "category": "Stammdaten",
-  "visibility": "internal"
+  "visibility": "internal",
+  "locales": {
+    "de": {
+      "label": "Ressource zuweisen",
+      "tagline": "Mitarbeiter oder Gerät per Typauswahl erfassen",
+      "description": "Internes Beispiel: einfache Typauswahl zwischen Person und Betriebsmittel."
+    },
+    "fr": {
+      "label": "Attribuer une ressource",
+      "tagline": "Saisissez les employés ou les appareils à l'aide de la sélection de type",
+      "description": "Exemple interne : sélection de type simple entre personne et équipement."
+    },
+    "it": {
+      "label": "Assegna risorsa",
+      "tagline": "Inserisci dipendenti o dispositivi utilizzando la selezione del tipo",
+      "description": "Esempio interno: semplice selezione della tipologia tra persona e attrezzatura."
+    },
+    "pl": {
+      "label": "Przypisz zasób",
+      "tagline": "Wprowadź pracowników lub urządzenia, korzystając z wyboru typu",
+      "description": "Przykład wewnętrzny: prosty wybór typu pomiędzy osobą a sprzętem."
+    },
+    "uk": {
+      "label": "Призначити ресурс",
+      "tagline": "Введіть співробітників або пристрої за допомогою вибору типу",
+      "description": "Внутрішній приклад: простий вибір типу між людиною та обладнанням."
+    },
+    "ru": {
+      "label": "Назначить ресурс",
+      "tagline": "Введите сотрудников или устройства, используя выбор типа",
+      "description": "Внутренний пример: простой выбор типа между человеком и оборудованием."
+    },
+    "zh": {
+      "label": "分配资源",
+      "tagline": "使用类型选择输入员工或设备",
+      "description": "内部示例：人员和设备之间的简单类型选择。"
+    },
+    "ja": {
+      "label": "リソースの割り当て",
+      "tagline": "タイプ選択を使用して従業員またはデバイスを入力します",
+      "description": "内部例: 人物と機器の間の単純なタイプの選択。"
+    }
+  }
 }

@@ -2,11 +2,11 @@ import type { Locator, Page } from "@playwright/test";
 import { expect } from "@playwright/test";
 
 export async function selectExample(page: Page, id: string): Promise<void> {
+  await page.goto(`/en/examples/react/${id}`);
   const select = page.locator("#app-example-select");
   await select.waitFor({ state: "attached" });
-  const label = await select.locator(`option[value="${id}"]`).textContent();
-  await select.selectOption(id);
   await expect(select).toHaveValue(id);
+  const label = await select.locator(`option[value="${id}"]`).textContent();
   if (label) {
     await expect(page.locator(".app__scenario-title")).toHaveText(label.trim(), {
       timeout: 30_000,
@@ -15,11 +15,11 @@ export async function selectExample(page: Page, id: string): Promise<void> {
 }
 
 export async function openFormMode(page: Page): Promise<void> {
-  await page.getByRole("tab", { name: "Formular testen" }).click();
+  await page.getByRole("tab", { name: "Test form" }).click();
 }
 
 export async function openEditorMode(page: Page): Promise<void> {
-  await page.getByRole("tab", { name: "Schema bearbeiten" }).click();
+  await page.getByRole("tab", { name: "Edit schema" }).click();
 }
 
 /** Upload via the visible button so the browser fires change on the file input. */

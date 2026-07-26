@@ -24,12 +24,15 @@ const props = defineProps<{
   fallbackLocale?: JseLocale;
   messages?: JseI18nOptions["messages"];
   translate?: JseI18nOptions["translate"];
+  /** Opt-in locales for editing UI label translations in the attributes panel. */
+  labelLocales?: JseLocale[];
   extensions?: JseVueExtension[];
 }>();
 
 const emit = defineEmits<{
   "update:schema": [schema: SchemaDocument];
   "update:uiSchema": [uiSchema: UiSchema];
+  "update:messages": [messages: NonNullable<JseI18nOptions["messages"]>];
 }>();
 
 setupJseI18n(() => resolveJseI18nOptions(props));
@@ -91,8 +94,11 @@ const {
           :root="uiRoot"
           :selected-path="selectedUiPath"
           :document="documentRef"
+          :label-locales="labelLocales"
+          :messages="messages"
           @update:root="updateUiRoot"
           @update:selected-path="selectedUiPath = $event"
+          @update:messages="emit('update:messages', $event)"
         />
       </div>
 

@@ -3,35 +3,79 @@
   "elements": [
     {
       "type": "Step",
-      "label": "Antragskopf",
+      "label": "Application header",
       "elements": [
-        { "type": "Control", "scope": "#/properties/antragskopf/properties/antragsdatum" },
-        { "type": "Control", "scope": "#/properties/status", "label": "Bearbeitungsstand" }
-      ]
+        {
+          "type": "Control",
+          "scope": "#/properties/antragskopf/properties/antragsdatum",
+          "i18n": "funding-application.antragskopf.antragsdatum",
+          "label": "Application date"
+        },
+        {
+          "type": "Control",
+          "scope": "#/properties/status",
+          "label": "Processing status",
+          "i18n": "funding-application.status"
+        }
+      ],
+      "i18n": "funding-application.ui.0"
     },
     {
       "type": "Step",
-      "label": "Auftragsdaten",
+      "label": "Order data",
       "elements": [
-        { "type": "Control", "scope": "#/properties/auftragsdaten/properties/adresse" },
-        { "type": "Control", "scope": "#/properties/status", "label": "Bearbeitungsstand" }
-      ]
+        {
+          "type": "Control",
+          "scope": "#/properties/auftragsdaten/properties/adresse",
+          "i18n": "funding-application.auftragsdaten.adresse",
+          "label": "Address for the application"
+        },
+        {
+          "type": "Control",
+          "scope": "#/properties/status",
+          "label": "Processing status",
+          "i18n": "funding-application.status"
+        }
+      ],
+      "i18n": "funding-application.ui.1"
     },
     {
       "type": "Step",
-      "label": "Durchführung",
+      "label": "Implementation",
       "elements": [
-        { "type": "Control", "scope": "#/properties/durchfuehrung/properties/datum" },
-        { "type": "Control", "scope": "#/properties/status", "label": "Bearbeitungsstand" }
-      ]
+        {
+          "type": "Control",
+          "scope": "#/properties/durchfuehrung/properties/datum",
+          "i18n": "funding-application.durchfuehrung.datum",
+          "label": "Date of implementation"
+        },
+        {
+          "type": "Control",
+          "scope": "#/properties/status",
+          "label": "Processing status",
+          "i18n": "funding-application.status"
+        }
+      ],
+      "i18n": "funding-application.ui.2"
     },
     {
       "type": "Step",
-      "label": "Abrechnung",
+      "label": "Invoice",
       "elements": [
-        { "type": "Control", "scope": "#/properties/abrechnung/properties/beglichen" },
-        { "type": "Control", "scope": "#/properties/status", "label": "Bearbeitungsstand" }
-      ]
+        {
+          "type": "Control",
+          "scope": "#/properties/abrechnung/properties/beglichen",
+          "i18n": "funding-application.abrechnung.beglichen",
+          "label": "Bill paid"
+        },
+        {
+          "type": "Control",
+          "scope": "#/properties/status",
+          "label": "Processing status",
+          "i18n": "funding-application.status"
+        }
+      ],
+      "i18n": "funding-application.ui.3"
     }
   ]
 }

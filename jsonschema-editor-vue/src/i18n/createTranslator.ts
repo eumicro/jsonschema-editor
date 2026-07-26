@@ -1,5 +1,12 @@
 import { deMessages } from "./messages/de.js";
 import { enMessages } from "./messages/en.js";
+import { frMessages } from "./messages/fr.js";
+import { itMessages } from "./messages/it.js";
+import { plMessages } from "./messages/pl.js";
+import { ukMessages } from "./messages/uk.js";
+import { ruMessages } from "./messages/ru.js";
+import { zhMessages } from "./messages/zh.js";
+import { jaMessages } from "./messages/ja.js";
 import type { JseLocale, JseTranslateParams, TranslateFn } from "./types.js";
 
 export const DEFAULT_LOCALE: JseLocale = "de";
@@ -8,6 +15,13 @@ export const FALLBACK_LOCALE: JseLocale = "en";
 export const builtInMessages: Record<JseLocale, Record<string, string>> = {
   de: { ...deMessages },
   en: { ...enMessages },
+  fr: { ...frMessages },
+  it: { ...itMessages },
+  pl: { ...plMessages },
+  uk: { ...ukMessages },
+  ru: { ...ruMessages },
+  zh: { ...zhMessages },
+  ja: { ...jaMessages },
 };
 
 function interpolate(template: string, params?: JseTranslateParams): string {

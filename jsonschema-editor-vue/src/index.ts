@@ -21,6 +21,7 @@ export {
 export * from "./composables/useScopedField";
 export * from "./composables/useFormFieldLabel";
 export * from "./composables/useFormValidation";
+export * from "./composables/useFormDataSync";
 export * from "./composables/useRegistries";
 export * from "./composables/useEditorContext";
 export * from "./composables/useSchemaFormEditorState";

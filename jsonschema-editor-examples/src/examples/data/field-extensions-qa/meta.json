@@ -1,7 +1,49 @@
 {
-  "label": "Kundenkontakt",
-  "tagline": "Kontaktdaten mit schreibgeschützten Systemfeldern und internen Notizen",
-  "description": "Pflegen Sie Kundenkontakte mit Adresse und Erreichbarkeit — Systemfelder bleiben geschützt, interne Hinweise nur für Sachbearbeiter sichtbar.",
+  "label": "Customer contact",
+  "tagline": "Contact details, address and contact history with satisfaction",
+  "description": "Maintain customer contacts with address and availability — plus contact list with date (date-today), comment and satisfaction (progress-bar).",
   "category": "Stammdaten",
-  "visibility": "public"
+  "visibility": "public",
+  "locales": {
+    "de": {
+      "label": "Kundenkontakt",
+      "tagline": "Kontaktdaten, Adresse und Kontaktverlauf mit Zufriedenheit",
+      "description": "Pflegen Sie Kundenkontakte mit Adresse und Erreichbarkeit — plus Kontaktliste mit Datum (date-today), Kommentar und Zufriedenheit (progress-bar)."
+    },
+    "fr": {
+      "label": "Contact client",
+      "tagline": "Coordonnées, adresse et historique des contacts avec satisfaction",
+      "description": "Maintenez les contacts clients avec l'adresse et la disponibilité, ainsi qu'une liste de contacts avec la date (date d'aujourd'hui), les commentaires et la satisfaction (barre de progression)."
+    },
+    "it": {
+      "label": "Contatto con il cliente",
+      "tagline": "Dettagli di contatto, indirizzo e cronologia dei contatti con soddisfazione",
+      "description": "Mantieni i contatti dei clienti con indirizzo e disponibilità, oltre all'elenco dei contatti con data (data-oggi), commento e soddisfazione (barra di avanzamento)."
+    },
+    "pl": {
+      "label": "Kontakt z klientem",
+      "tagline": "Dane kontaktowe, adres i historia kontaktów z satysfakcją",
+      "description": "Utrzymuj kontakty z klientami dzięki adresowi i dostępności — plus lista kontaktów z datą (data-dzisiaj), komentarzem i poziomem zadowolenia (pasek postępu)."
+    },
+    "uk": {
+      "label": "Контакт з клієнтом",
+      "tagline": "Контактні дані, адреса та історія контактів із задоволенням",
+      "description": "Підтримуйте контакти з клієнтами з адресою та доступністю — плюс список контактів із датою (дата-сьогодні), коментарями та задоволеністю (індикатор прогресу)."
+    },
+    "ru": {
+      "label": "Контакт с клиентом",
+      "tagline": "Контактные данные, адрес и история контактов с удовлетворением",
+      "description": "Сохраняйте контакты клиентов с указанием адреса и доступности, а также список контактов с датой (сегодняшняя дата), комментариями и уровнем удовлетворенности (индикатор выполнения)."
+    },
+    "zh": {
+      "label": "客户联系",
+      "tagline": "满意的联系方式、地址和联系历史记录",
+      "description": "维护客户联系人的地址和可用性，以及包含日期（日期-今天）、评论和满意度（进度条）的联系人列表。"
+    },
+    "ja": {
+      "label": "お客様連絡先",
+      "tagline": "連絡先の詳細、住所、および満足の連絡履歴",
+      "description": "住所と空き状況を含む顧客連絡先を管理します。さらに、日付 (今日の日付)、コメント、満足度 (進捗バー) を含む連絡先リストを管理します。"
+    }
+  }
 }

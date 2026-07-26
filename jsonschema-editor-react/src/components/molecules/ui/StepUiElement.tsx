@@ -1,4 +1,5 @@
-import type { Step, UiElement } from "@jsonschema-editor/ui-schema";
+import { resolveUiI18nString, type Step, type UiElement } from "@jsonschema-editor/ui-schema";
+import { useJseI18n } from "../../../context/JseI18nContext.js";
 import type { UiElementRendererProps } from "../../../types/form-field-props.js";
 import { UiFormElementResolver } from "./UiFormElementResolver.js";
 
@@ -13,10 +14,17 @@ export function StepUiElement({
   data,
   onDataChange,
   readonly,
+  scopePrefix,
 }: StepUiElementProps) {
+  const { t, te } = useJseI18n();
+  const displayLabel = resolveUiI18nString(
+    { i18n: element.i18n, defaultMessage: element.label, suffix: "label" },
+    (key) => (te(key) ? t(key) : undefined),
+  );
+
   return (
     <section className="jse-step">
-      {element.label ? <h3 className="jse-step__title">{element.label}</h3> : null}
+      {displayLabel ? <h3 className="jse-step__title">{displayLabel}</h3> : null}
       {element.elements.map((child: UiElement, index: number) => (
         <UiFormElementResolver
           key={index}
@@ -26,6 +34,7 @@ export function StepUiElement({
           data={data}
           onDataChange={onDataChange}
           readonly={readonly}
+          scopePrefix={scopePrefix}
         />
       ))}
     </section>

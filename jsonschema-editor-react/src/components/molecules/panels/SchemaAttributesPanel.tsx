@@ -114,6 +114,7 @@ export function SchemaAttributesPanel({
           attributeName={field.name}
           label={t(field.labelKey)}
           mode="schema"
+          document={document}
           modelValue={readAttribute(field.name)}
           onModelValueChange={(value) => updateAttribute(field.name, value)}
         />

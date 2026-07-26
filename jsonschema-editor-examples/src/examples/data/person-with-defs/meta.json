@@ -1,7 +1,49 @@
 {
-  "label": "Ansprechpartner erfassen",
-  "tagline": "Person oder Betriebsmittel mit E-Mail, Telefon und Auswahlfeldern",
-  "description": "Erfassen Sie Ansprechpartner oder zugeordnete Betriebsmittel mit Kontaktdaten und strukturierten Zusatzfeldern.",
+  "label": "Enter contact person",
+  "tagline": "Person or resource with email, telephone and selection fields",
+  "description": "Record contact persons or assigned resources with contact details and structured additional fields.",
   "category": "Stammdaten",
-  "visibility": "public"
+  "visibility": "public",
+  "locales": {
+    "de": {
+      "label": "Ansprechpartner erfassen",
+      "tagline": "Person oder Betriebsmittel mit E-Mail, Telefon und Auswahlfeldern",
+      "description": "Erfassen Sie Ansprechpartner oder zugeordnete Betriebsmittel mit Kontaktdaten und strukturierten Zusatzfeldern."
+    },
+    "fr": {
+      "label": "Entrez la personne à contacter",
+      "tagline": "Personne ou ressource avec champs de courrier électronique, de téléphone et de sélection",
+      "description": "Enregistrez les personnes de contact ou les ressources affectées avec leurs coordonnées et des champs supplémentaires structurés."
+    },
+    "it": {
+      "label": "Inserisci la persona da contattare",
+      "tagline": "Persona o risorsa con campi email, telefono e selezione",
+      "description": "Registra le persone di contatto o le risorse assegnate con dettagli di contatto e campi aggiuntivi strutturati."
+    },
+    "pl": {
+      "label": "Wpisz osobę kontaktową",
+      "tagline": "Osoba lub zasób z polami adresu e-mail, telefonu i wyboru",
+      "description": "Rejestruj osoby kontaktowe lub przydzielone zasoby z danymi kontaktowymi i dodatkowymi polami strukturalnymi."
+    },
+    "uk": {
+      "label": "Введіть контактну особу",
+      "tagline": "Особа або ресурс із електронною поштою, телефоном і полями вибору",
+      "description": "Запис контактних осіб або призначених ресурсів із контактними даними та структурованими додатковими полями."
+    },
+    "ru": {
+      "label": "Введите контактное лицо",
+      "tagline": "Человек или ресурс с адресом электронной почты, телефоном и полями выбора.",
+      "description": "Запишите контактных лиц или назначенные ресурсы с контактными данными и структурированными дополнительными полями."
+    },
+    "zh": {
+      "label": "输入联系人",
+      "tagline": "具有电子邮件、电话和选择字段的人员或资源",
+      "description": "使用联系人详细信息和结构化附加字段记录联系人或分配的资源。"
+    },
+    "ja": {
+      "label": "連絡先担当者を入力してください",
+      "tagline": "電子メール、電話、選択フィールドを備えた個人またはリソース",
+      "description": "連絡先の詳細と構造化された追加フィールドを使用して、連絡先担当者または割り当てられたリソースを記録します。"
+    }
+  }
 }

@@ -1,0 +1,47 @@
+{
+  "en": {
+    "cost-estimate.positionen.label": "Cost items",
+    "cost-estimate.gesamtsumme.label": "Total",
+    "cost-estimate.gesamtsumme.description": "Is calculated automatically from all positions"
+  },
+  "de": {
+    "cost-estimate.positionen.label": "Kostenpositionen",
+    "cost-estimate.gesamtsumme.label": "Gesamtsumme",
+    "cost-estimate.gesamtsumme.description": "Wird aus allen Positionen automatisch berechnet"
+  },
+  "fr": {
+    "cost-estimate.positionen.label": "Éléments de coûts",
+    "cost-estimate.gesamtsumme.label": "Total",
+    "cost-estimate.gesamtsumme.description": "Est calculé automatiquement à partir de toutes les positions"
+  },
+  "it": {
+    "cost-estimate.positionen.label": "Voci di costo",
+    "cost-estimate.gesamtsumme.label": "Totale",
+    "cost-estimate.gesamtsumme.description": "Viene calcolato automaticamente da tutte le posizioni"
+  },
+  "pl": {
+    "cost-estimate.positionen.label": "Pozycje kosztowe",
+    "cost-estimate.gesamtsumme.label": "Całkowity",
+    "cost-estimate.gesamtsumme.description": "Jest obliczany automatycznie ze wszystkich pozycji"
+  },
+  "uk": {
+    "cost-estimate.positionen.label": "Статті витрат",
+    "cost-estimate.gesamtsumme.label": "Всього",
+    "cost-estimate.gesamtsumme.description": "Розраховується автоматично з усіх позицій"
+  },
+  "ru": {
+    "cost-estimate.positionen.label": "Статьи затрат",
+    "cost-estimate.gesamtsumme.label": "Общий",
+    "cost-estimate.gesamtsumme.description": "Рассчитывается автоматически со всех позиций"
+  },
+  "zh": {
+    "cost-estimate.positionen.label": "成本项目",
+    "cost-estimate.gesamtsumme.label": "全部的",
+    "cost-estimate.gesamtsumme.description": "从所有位置自动计算"
+  },
+  "ja": {
+    "cost-estimate.positionen.label": "費用項目",
+    "cost-estimate.gesamtsumme.label": "合計",
+    "cost-estimate.gesamtsumme.description": "すべてのポジションから自動的に計算されます"
+  }
+}

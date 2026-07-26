@@ -7,5 +7,38 @@
     "street": "Musterstraße 1",
     "city": "Hannover",
     "zip": "30159"
-  }
+  },
+  "kontakte": [
+    {
+      "datum": "2026-02-03",
+      "kommentar": "Erstgespräch: Bedarf an Lizenzverlängerung und Onboarding geklärt.",
+      "zufriedenheit": 4
+    },
+    {
+      "datum": "2026-03-12",
+      "kommentar": "Angebot zugesandt; Rückfragen zu Staffelpreisen beantwortet.",
+      "zufriedenheit": 3
+    },
+    {
+      "datum": "2026-04-08",
+      "kommentar": "Vertrag unterzeichnet. Go-Live für Anfang Mai vereinbart.",
+      "zufriedenheit": 5
+    },
+    {
+      "datum": "2026-05-06",
+      "kommentar": "Go-Live verzögert sich wegen fehlender SSO-Freigabe IT.",
+      "zufriedenheit": 3
+    },
+    {
+      "datum": "2026-06-18",
+      "kommentar": "Beschwerde: Support-Ticket seit drei Tagen ohne Update.",
+      "zufriedenheit": 2
+    },
+    {
+      "datum": "2026-07-20",
+      "kommentar": "Nachfassung: Ticket gelöst, Kunde wieder zufrieden mit dem Support.",
+      "zufriedenheit": 4
+    }
+  ],
+  "progress": 3.5
 }

@@ -3,7 +3,6 @@ import { oneOfSelect, openFormMode, readFormOutput, selectExample } from "./help
 
 test.describe("$defs + oneOf-Formular", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/");
     await selectExample(page, "person-with-defs");
     await openFormMode(page);
   });

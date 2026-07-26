@@ -1,7 +1,49 @@
 {
-  "label": "Schadensmeldung",
-  "tagline": "Versicherungsfall von Meldung bis Unterlagen — mit Schadenart und Karte",
-  "description": "Typischer Schadenfall für Versicherung und Assistance: Versicherungsnehmer, Schadenort auf der Karte, Schadenart (Kfz, Hausrat, Haftpflicht) per oneOf, Zeugenliste und automatischer Bearbeitungsstand.",
+  "label": "Damage report",
+  "tagline": "Insured event from notification to documents - with type of damage and card",
+  "description": "Typical damage event for insurance and assistance: policyholder, damage location on the map, type of damage (motor vehicle, household contents, liability) per oneOf, witness list and automatic processing status.",
   "category": "Versicherung & Service",
-  "visibility": "public"
+  "visibility": "public",
+  "locales": {
+    "de": {
+      "label": "Schadensmeldung",
+      "tagline": "Versicherungsfall von Meldung bis Unterlagen — mit Schadenart und Karte",
+      "description": "Typischer Schadenfall für Versicherung und Assistance: Versicherungsnehmer, Schadenort auf der Karte, Schadenart (Kfz, Hausrat, Haftpflicht) per oneOf, Zeugenliste und automatischer Bearbeitungsstand."
+    },
+    "fr": {
+      "label": "Rapport de dommages",
+      "tagline": "Événement assuré de la notification aux documents - avec type de dommage et carte",
+      "description": "Cas de sinistre typique pour l'assurance et l'assistance : preneur d'assurance, localisation du dommage sur la carte, type de dommage (véhicule automobile, inventaire du ménage, responsabilité) par personne, liste des témoins et état du traitement automatique."
+    },
+    "it": {
+      "label": "Rapporto sui danni",
+      "tagline": "Evento assicurato dalla notifica ai documenti - con tipologia del danno e tessera",
+      "description": "Evento di danno tipico per l'assicurazione e l'assistenza: contraente, localizzazione del danno sulla mappa, tipologia del danno (autoveicolo, mobilia domestica, responsabilità civile) per oneOf, lista dei testimoni e stato dell'elaborazione automatica."
+    },
+    "pl": {
+      "label": "Raport o szkodach",
+      "tagline": "Zdarzenie ubezpieczeniowe od zgłoszenia do dokumentów – z rodzajem szkody i kartą",
+      "description": "Typowe zdarzenie szkodowe w ramach ubezpieczenia i pomocy: ubezpieczający, lokalizacja szkody na mapie, rodzaj szkody (pojazd mechaniczny, wyposażenie domu, odpowiedzialność) w przeliczeniu na jednego, lista świadków i status automatycznego przetwarzania."
+    },
+    "uk": {
+      "label": "Звіт про пошкодження",
+      "tagline": "Страховий випадок від повідомлення до документів - з типом збитку та карткою",
+      "description": "Типовий випадок пошкодження для страхування та допомоги: власник поліса, місце пошкодження на карті, тип пошкодження (автотранспорт, домашнє майно, відповідальність) на oneOf, список свідків і статус автоматичної обробки."
+    },
+    "ru": {
+      "label": "Отчет о повреждениях",
+      "tagline": "Страховой случай от уведомления до документов - с видом ущерба и картой",
+      "description": "Типичный случай повреждения для страхования и помощи: страхователь, место повреждения на карте, тип повреждения (автомобиль, домашнее имущество, ответственность) для каждого, список свидетелей и статус автоматической обработки."
+    },
+    "zh": {
+      "label": "损坏报告",
+      "tagline": "保险事件从通知到文件 - 包含损坏类型和卡片",
+      "description": "保险和援助的典型损坏事件：保单持有人、地图上的损坏位置、每个人的损坏类型（机动车辆、家居物品、责任）、证人名单和自动处理状态。"
+    },
+    "ja": {
+      "label": "被害届",
+      "tagline": "通知から書類までの保険事故 - 損害の種類とカード付き",
+      "description": "保険と支援の典型的な損害イベント: 保険契約者、地図上の損害位置、1 つあたりの損害の種類 (自動車、家財、賠償責任)、目撃者リスト、および自動処理ステータス。"
+    }
+  }
 }

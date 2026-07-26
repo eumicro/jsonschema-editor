@@ -9,7 +9,7 @@ import { UiStructureEditor } from "../organisms/UiStructureEditor.js";
 import { EditorContextProvider } from "../../context/EditorContext.js";
 import { JseI18nProvider, resolveJseI18nOptions } from "../../context/JseI18nContext.js";
 import { RegistriesProvider } from "../../context/RegistriesContext.js";
-import type { JseI18nOptions } from "../../i18n/types.js";
+import type { JseI18nOptions, JseLocale } from "../../i18n/types.js";
 import { registerDefaultControls } from "../../registry/register-defaults.js";
 import {
   setupJseReactExtensions,
@@ -29,6 +29,9 @@ export interface JsonSchemaFormEditorProps {
   fallbackLocale?: JseI18nOptions["fallbackLocale"];
   messages?: JseI18nOptions["messages"];
   translate?: JseI18nOptions["translate"];
+  /** Opt-in locales for editing UI label translations in the attributes panel. */
+  labelLocales?: readonly JseLocale[];
+  onMessagesChange?: (messages: NonNullable<JseI18nOptions["messages"]>) => void;
   extensions?: JseReactExtension[];
 }
 
@@ -37,9 +40,18 @@ function JsonSchemaFormEditorBody({
   uiSchema,
   onSchemaChange,
   onUiSchemaChange,
+  labelLocales,
+  messages,
+  onMessagesChange,
 }: Pick<
   JsonSchemaFormEditorProps,
-  "schema" | "uiSchema" | "onSchemaChange" | "onUiSchemaChange"
+  | "schema"
+  | "uiSchema"
+  | "onSchemaChange"
+  | "onUiSchemaChange"
+  | "labelLocales"
+  | "messages"
+  | "onMessagesChange"
 >) {
   const { t } = useJseI18n();
 
@@ -117,6 +129,9 @@ function JsonSchemaFormEditorBody({
                 document={documentRef}
                 onRootChange={updateUiRoot}
                 onSelectedPathChange={setSelectedUiPath}
+                labelLocales={labelLocales}
+                messages={messages}
+                onMessagesChange={onMessagesChange}
               />
             </div>
           ) : null}
@@ -179,6 +194,9 @@ export function JsonSchemaFormEditor(props: JsonSchemaFormEditorProps) {
           uiSchema={props.uiSchema}
           onSchemaChange={props.onSchemaChange}
           onUiSchemaChange={props.onUiSchemaChange}
+          labelLocales={props.labelLocales}
+          messages={props.messages}
+          onMessagesChange={props.onMessagesChange}
         />
       </RegistriesProvider>
     </JseI18nProvider>

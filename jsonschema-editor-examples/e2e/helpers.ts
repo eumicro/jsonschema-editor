@@ -2,17 +2,23 @@ import type { Locator, Page } from "@playwright/test";
 
 import type { ExampleId } from "../src/examples/catalog";
 
+const E2E_STACK = process.env.E2E_STACK === "react" ? "react" : "vue";
+
+export function exampleUrl(id: ExampleId): string {
+  return `/en/examples/${E2E_STACK}/${id}`;
+}
+
 export async function selectExample(page: Page, id: ExampleId): Promise<void> {
+  await page.goto(exampleUrl(id));
   await page.locator("#app-example-select").waitFor({ state: "attached" });
-  await page.locator("#app-example-select").selectOption(id);
 }
 
 export async function openFormMode(page: Page): Promise<void> {
-  await page.getByRole("tab", { name: "Formular testen" }).click();
+  await page.getByRole("tab", { name: "Test form" }).click();
 }
 
 export async function openEditorMode(page: Page): Promise<void> {
-  await page.getByRole("tab", { name: "Schema bearbeiten" }).click();
+  await page.getByRole("tab", { name: "Edit schema" }).click();
 }
 
 /** Upload via the visible button so the browser fires change on the file input. */

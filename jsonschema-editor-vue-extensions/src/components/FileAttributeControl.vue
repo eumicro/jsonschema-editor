@@ -5,7 +5,7 @@ import {
   normalizeFileConfig,
   type FileExtensionConfig,
 } from "@jsonschema-editor/json-schema-extensions";
-import { JseInput } from "@jsonschema-editor/vue";
+import { JseInput, useJseI18n } from "@jsonschema-editor/vue";
 
 defineProps<{
   label: string;
@@ -13,6 +13,7 @@ defineProps<{
 }>();
 
 const modelValue = defineModel<unknown>();
+const { t } = useJseI18n();
 
 function readConfig(value: unknown): FileExtensionConfig {
   return isFileExtensionConfig(value) ? value : {};
@@ -61,11 +62,11 @@ function setMultiple(multiple: boolean): void {
         :disabled="readonly"
         @change="setMultiple(($event.target as HTMLInputElement).checked)"
       />
-      <span>Multiple files</span>
+      <span>{{ t("schemaAttributes.x-file.multiple") }}</span>
     </label>
 
     <label class="jse-file-attr__field">
-      <span class="jse-file-attr__label">Accepted types</span>
+      <span class="jse-file-attr__label">{{ t("schemaAttributes.x-file.acceptTypes") }}</span>
       <JseInput
         v-model="acceptText"
         :readonly="readonly"
@@ -74,12 +75,12 @@ function setMultiple(multiple: boolean): void {
     </label>
 
     <label class="jse-file-attr__field">
-      <span class="jse-file-attr__label">Max size (bytes)</span>
+      <span class="jse-file-attr__label">{{ t("schemaAttributes.x-file.maxSize") }}</span>
       <JseInput
         :model-value="draft.maxSize?.toString() ?? ''"
         :readonly="readonly"
         inputmode="numeric"
-        placeholder="optional"
+        :placeholder="t('schemaAttributes.x-file.optionalPlaceholder')"
         @update:model-value="
           draft.maxSize = $event ? Number($event) : undefined;
           commit();
@@ -88,7 +89,7 @@ function setMultiple(multiple: boolean): void {
     </label>
 
     <label v-if="draft.multiple" class="jse-file-attr__field">
-      <span class="jse-file-attr__label">Max files</span>
+      <span class="jse-file-attr__label">{{ t("schemaAttributes.x-file.maxFiles") }}</span>
       <JseInput
         :model-value="(draft.maxFiles ?? 10).toString()"
         :readonly="readonly"

@@ -3,7 +3,7 @@
   "elements": [
     {
       "type": "Step",
-      "label": "Vorgang",
+      "label": "Occurrence",
       "elements": [
         {
           "type": "VerticalLayout",
@@ -11,140 +11,269 @@
             {
               "type": "HorizontalLayout",
               "elements": [
-                { "type": "Control", "scope": "#/properties/vorgang/properties/schadennummer" },
-                { "type": "Control", "scope": "#/properties/vorgang/properties/meldedatum" }
+                {
+                  "type": "Control",
+                  "scope": "#/properties/vorgang/properties/schadennummer",
+                  "i18n": "damage-report.vorgang.schadennummer",
+                  "label": "Claim number"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/vorgang/properties/meldedatum",
+                  "i18n": "damage-report.vorgang.meldedatum",
+                  "label": "Reporting date"
+                }
               ]
             },
-            { "type": "Control", "scope": "#/properties/bearbeitungsStatus", "label": "Bearbeitungsstand" },
+            {
+              "type": "Control",
+              "scope": "#/properties/bearbeitungsStatus",
+              "label": "Processing status",
+              "i18n": "damage-report.bearbeitungsStatus"
+            },
             {
               "type": "Group",
-              "label": "Versicherungsnehmer",
+              "label": "Policyholder",
               "elements": [
                 {
                   "type": "HorizontalLayout",
                   "elements": [
-                    { "type": "Control", "scope": "#/properties/versicherungsnehmer/properties/vorname" },
-                    { "type": "Control", "scope": "#/properties/versicherungsnehmer/properties/nachname" }
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/versicherungsnehmer/properties/vorname",
+                      "i18n": "damage-report.versicherungsnehmer.vorname",
+                      "label": "First name"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/versicherungsnehmer/properties/nachname",
+                      "i18n": "damage-report.versicherungsnehmer.nachname",
+                      "label": "Last name"
+                    }
                   ]
                 },
                 {
                   "type": "HorizontalLayout",
                   "elements": [
-                    { "type": "Control", "scope": "#/properties/versicherungsnehmer/properties/email" },
-                    { "type": "Control", "scope": "#/properties/versicherungsnehmer/properties/telefon" }
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/versicherungsnehmer/properties/email",
+                      "i18n": "damage-report.versicherungsnehmer.email",
+                      "label": "Email"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/versicherungsnehmer/properties/telefon",
+                      "i18n": "damage-report.versicherungsnehmer.telefon",
+                      "label": "Phone"
+                    }
                   ]
                 },
-                { "type": "Control", "scope": "#/properties/versicherungsnehmer/properties/policennummer" }
-              ]
+                {
+                  "type": "Control",
+                  "scope": "#/properties/versicherungsnehmer/properties/policennummer",
+                  "i18n": "damage-report.versicherungsnehmer.policennummer",
+                  "label": "Policy number"
+                }
+              ],
+              "i18n": "damage-report.ui.0.0.2"
             }
           ]
         }
-      ]
+      ],
+      "i18n": "damage-report.ui.0"
     },
     {
       "type": "Step",
-      "label": "Schadenfall",
+      "label": "Damage event",
       "elements": [
         {
           "type": "Group",
-          "label": "Zeit & Ort",
+          "label": "Time & Place",
           "elements": [
             {
               "type": "HorizontalLayout",
               "elements": [
-                { "type": "Control", "scope": "#/properties/schadenfall/properties/schadenDatum" },
-                { "type": "Control", "scope": "#/properties/schadenfall/properties/schadenzeit" }
+                {
+                  "type": "Control",
+                  "scope": "#/properties/schadenfall/properties/schadenDatum",
+                  "i18n": "damage-report.schadenfall.schadenDatum",
+                  "label": "Damage day"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/schadenfall/properties/schadenzeit",
+                  "i18n": "damage-report.schadenfall.schadenzeit",
+                  "label": "Approximate time"
+                }
               ]
             },
-            { "type": "Control", "scope": "#/properties/schadenfall/properties/adresse" },
+            {
+              "type": "Control",
+              "scope": "#/properties/schadenfall/properties/adresse",
+              "i18n": "damage-report.schadenfall.adresse",
+              "label": "City of damage (address)"
+            },
             {
               "type": "Control",
               "scope": "#/properties/schadenfall/properties/schadenortKarte",
-              "label": "Schadenort (Karte)"
+              "label": "Damage location (map)",
+              "i18n": "damage-report.schadenfall.schadenortKarte"
             }
-          ]
+          ],
+          "i18n": "damage-report.ui.1.0"
         },
         {
           "type": "Group",
-          "label": "Hergang",
+          "label": "Course Of Events",
           "elements": [
-            { "type": "Control", "scope": "#/properties/schadenfall/properties/schilderung" },
+            {
+              "type": "Control",
+              "scope": "#/properties/schadenfall/properties/schilderung",
+              "i18n": "damage-report.schadenfall.schilderung",
+              "label": "Description of the process"
+            },
             {
               "type": "HorizontalLayout",
               "elements": [
-                { "type": "Control", "scope": "#/properties/schadenfall/properties/polizeiAufgenommen" },
-                { "type": "Control", "scope": "#/properties/schadenfall/properties/polizeiAktenzeichen" }
+                {
+                  "type": "Control",
+                  "scope": "#/properties/schadenfall/properties/polizeiAufgenommen",
+                  "i18n": "damage-report.schadenfall.polizeiAufgenommen",
+                  "label": "Recorded by police"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/schadenfall/properties/polizeiAktenzeichen",
+                  "i18n": "damage-report.schadenfall.polizeiAktenzeichen",
+                  "label": "Police file number"
+                }
               ]
             }
-          ]
+          ],
+          "i18n": "damage-report.ui.1.1"
         }
-      ]
+      ],
+      "i18n": "damage-report.ui.1"
     },
     {
       "type": "Step",
-      "label": "Schadendetails",
+      "label": "Damage details",
       "elements": [
         {
           "type": "Group",
-          "label": "Art des Schadens",
+          "label": "Type of damage",
           "elements": [
-            { "type": "Control", "scope": "#/properties/schadendetails/properties/art", "label": "Schadenart" }
-          ]
+            {
+              "type": "Control",
+              "scope": "#/properties/schadendetails/properties/art",
+              "label": "Damage type",
+              "i18n": "damage-report.schadendetails.art"
+            }
+          ],
+          "i18n": "damage-report.ui.2.0"
         }
-      ]
+      ],
+      "i18n": "damage-report.ui.2"
     },
     {
       "type": "Step",
-      "label": "Beteiligte",
+      "label": "Involved",
       "elements": [
         {
           "type": "Group",
-          "label": "Zeugen & Dritte",
+          "label": "Witnesses & third parties",
           "elements": [
-            { "type": "Control", "scope": "#/properties/beteiligte/properties/zeugen" },
+            {
+              "type": "Control",
+              "scope": "#/properties/beteiligte/properties/zeugen",
+              "i18n": "damage-report.beteiligte.zeugen",
+              "label": "Witnesses"
+            },
             {
               "type": "Group",
-              "label": "Gegnerische Partei",
+              "label": "Opposing party",
               "elements": [
                 {
                   "type": "HorizontalLayout",
                   "elements": [
-                    { "type": "Control", "scope": "#/properties/beteiligte/properties/gegnerischePartei/properties/name" },
-                    { "type": "Control", "scope": "#/properties/beteiligte/properties/gegnerischePartei/properties/kontakt" }
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/beteiligte/properties/gegnerischePartei/properties/name",
+                      "i18n": "damage-report.beteiligte.gegnerischePartei.name",
+                      "label": "Name / license plate"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/beteiligte/properties/gegnerischePartei/properties/kontakt",
+                      "i18n": "damage-report.beteiligte.gegnerischePartei.kontakt",
+                      "label": "Contact"
+                    }
                   ]
                 },
-                { "type": "Control", "scope": "#/properties/beteiligte/properties/gegnerischePartei/properties/versicherung" }
-              ]
+                {
+                  "type": "Control",
+                  "scope": "#/properties/beteiligte/properties/gegnerischePartei/properties/versicherung",
+                  "i18n": "damage-report.beteiligte.gegnerischePartei.versicherung",
+                  "label": "Insurance"
+                }
+              ],
+              "i18n": "damage-report.ui.3.0.1"
             }
-          ]
+          ],
+          "i18n": "damage-report.ui.3.0"
         }
-      ]
+      ],
+      "i18n": "damage-report.ui.3"
     },
     {
       "type": "Step",
-      "label": "Abschluss",
+      "label": "Diploma",
       "elements": [
         {
           "type": "Group",
-          "label": "Unterlagen & Erklärungen",
+          "label": "Documents & explanations",
           "elements": [
-            { "type": "Control", "scope": "#/properties/abschluss/properties/fotosVorhanden" },
+            {
+              "type": "Control",
+              "scope": "#/properties/abschluss/properties/fotosVorhanden",
+              "i18n": "damage-report.abschluss.fotosVorhanden",
+              "label": "Photos/documents are available"
+            },
             {
               "type": "Control",
               "scope": "#/properties/abschluss/properties/schadenfotos",
-              "label": "Schadenfotos & Belege"
+              "label": "Damage photos & receipts",
+              "i18n": "damage-report.abschluss.schadenfotos"
             },
-            { "type": "Control", "scope": "#/properties/abschluss/properties/iban" },
+            {
+              "type": "Control",
+              "scope": "#/properties/abschluss/properties/iban",
+              "i18n": "damage-report.abschluss.iban",
+              "label": "IBAN for reimbursement"
+            },
             {
               "type": "HorizontalLayout",
               "elements": [
-                { "type": "Control", "scope": "#/properties/abschluss/properties/datenschutzEinwilligung" },
-                { "type": "Control", "scope": "#/properties/abschluss/properties/wahrheitsgemasseAngaben" }
+                {
+                  "type": "Control",
+                  "scope": "#/properties/abschluss/properties/datenschutzEinwilligung",
+                  "i18n": "damage-report.abschluss.datenschutzEinwilligung",
+                  "label": "Consent to data processing"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/abschluss/properties/wahrheitsgemasseAngaben",
+                  "i18n": "damage-report.abschluss.wahrheitsgemasseAngaben",
+                  "label": "Information is truthful"
+                }
               ]
             }
-          ]
+          ],
+          "i18n": "damage-report.ui.4.0"
         }
-      ]
+      ],
+      "i18n": "damage-report.ui.4"
     }
   ]
 }

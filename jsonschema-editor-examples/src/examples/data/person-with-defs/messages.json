@@ -1,0 +1,38 @@
+{
+  "en": {
+    "contact-person.ui.0.label": "Person",
+    "contact-person.ui.0.description": "Enter a person or an assigned asset with contact details"
+  },
+  "de": {
+    "contact-person.ui.0.label": "Person",
+    "contact-person.ui.0.description": "Erfassen Sie eine Person oder ein zugeordnetes Betriebsmittel mit Kontaktdaten"
+  },
+  "fr": {
+    "contact-person.ui.0.label": "Personne",
+    "contact-person.ui.0.description": "Saisissez une personne ou un actif attribué avec ses coordonnées"
+  },
+  "it": {
+    "contact-person.ui.0.label": "Persona",
+    "contact-person.ui.0.description": "Inserisci una persona o una risorsa assegnata con i dettagli di contatto"
+  },
+  "pl": {
+    "contact-person.ui.0.label": "Osoba",
+    "contact-person.ui.0.description": "Wprowadź osobę lub przypisany zasób wraz z danymi kontaktowymi"
+  },
+  "uk": {
+    "contact-person.ui.0.label": "Людина",
+    "contact-person.ui.0.description": "Введіть особу або призначений актив із контактними даними"
+  },
+  "ru": {
+    "contact-person.ui.0.label": "Человек",
+    "contact-person.ui.0.description": "Введите человека или назначенный актив с контактными данными."
+  },
+  "zh": {
+    "contact-person.ui.0.label": "人",
+    "contact-person.ui.0.description": "输入人员或分配的资产及其联系方式"
+  },
+  "ja": {
+    "contact-person.ui.0.label": "人",
+    "contact-person.ui.0.description": "個人または割り当てられた資産と連絡先の詳細を入力します"
+  }
+}

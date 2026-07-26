@@ -1,11 +1,11 @@
 {
   "type": "object",
-  "title": "Standort & Gebiet",
-  "description": "Kartenfelder für Standortplanung und Einsatzgebiete",
+  "title": "Location & area",
+  "description": "Map fields for location planning and areas of operation",
   "properties": {
     "pointOnly": {
       "type": "object",
-      "title": "Standort markieren",
+      "title": "Mark location",
       "x-geometry": {
         "point": true,
         "line": false,
@@ -15,7 +15,7 @@
     },
     "lineOnly": {
       "type": "object",
-      "title": "Route erfassen",
+      "title": "Capture route",
       "x-geometry": {
         "point": false,
         "line": true,
@@ -25,7 +25,7 @@
     },
     "polygonOnly": {
       "type": "object",
-      "title": "Einsatzgebiet abgrenzen",
+      "title": "Define the area of ​​application",
       "x-geometry": {
         "point": false,
         "line": false,
@@ -35,7 +35,7 @@
     },
     "pointLine": {
       "type": "object",
-      "title": "Standort und Route",
+      "title": "Location and route",
       "x-geometry": {
         "point": true,
         "line": true,
@@ -45,7 +45,7 @@
     },
     "pointPolygon": {
       "type": "object",
-      "title": "Standort und Gebiet",
+      "title": "Location and area",
       "x-geometry": {
         "point": true,
         "line": false,
@@ -55,7 +55,7 @@
     },
     "linePolygon": {
       "type": "object",
-      "title": "Route und Gebiet",
+      "title": "Route and area",
       "x-geometry": {
         "point": false,
         "line": true,
@@ -65,7 +65,7 @@
     },
     "allTypes": {
       "type": "object",
-      "title": "Gesamtplanung",
+      "title": "Overall planning",
       "x-geometry": {
         "point": true,
         "line": true,
@@ -75,7 +75,7 @@
     },
     "rangeOneThree": {
       "type": "object",
-      "title": "Mehrere Gebiete",
+      "title": "Multiple areas",
       "x-geometry": {
         "point": false,
         "line": false,
@@ -86,7 +86,7 @@
     },
     "exactTwo": {
       "type": "object",
-      "title": "Zwei Kartenelemente",
+      "title": "Two map elements",
       "x-geometry": {
         "point": true,
         "line": true,

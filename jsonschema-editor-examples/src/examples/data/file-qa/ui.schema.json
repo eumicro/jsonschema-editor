@@ -1,7 +1,17 @@
 {
   "type": "VerticalLayout",
   "elements": [
-    { "type": "Control", "scope": "#/properties/avatar" },
-    { "type": "Control", "scope": "#/properties/anhaenge" }
+    {
+      "type": "Control",
+      "scope": "#/properties/avatar",
+      "i18n": "file-upload-qa.avatar",
+      "label": "Profile picture"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/anhaenge",
+      "i18n": "file-upload-qa.anhaenge",
+      "label": "Attachments"
+    }
   ]
 }

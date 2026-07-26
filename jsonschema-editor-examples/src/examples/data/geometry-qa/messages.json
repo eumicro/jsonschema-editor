@@ -1,0 +1,101 @@
+{
+  "en": {
+    "location-area.pointOnly.label": "Mark location",
+    "location-area.lineOnly.label": "Capture route",
+    "location-area.polygonOnly.label": "Define the area of ​​application",
+    "location-area.pointLine.label": "City and route",
+    "location-area.pointPolygon.label": "City and area",
+    "location-area.linePolygon.label": "Route and area",
+    "location-area.allTypes.label": "Overall planning",
+    "location-area.rangeOneThree.label": "Multiple areas",
+    "location-area.exactTwo.label": "Two map elements"
+  },
+  "de": {
+    "location-area.pointOnly.label": "Standort markieren",
+    "location-area.lineOnly.label": "Route erfassen",
+    "location-area.polygonOnly.label": "Einsatzgebiet abgrenzen",
+    "location-area.pointLine.label": "Standort und Route",
+    "location-area.pointPolygon.label": "Standort und Gebiet",
+    "location-area.linePolygon.label": "Route und Gebiet",
+    "location-area.allTypes.label": "Gesamtplanung",
+    "location-area.rangeOneThree.label": "Mehrere Gebiete",
+    "location-area.exactTwo.label": "Zwei Kartenelemente"
+  },
+  "fr": {
+    "location-area.pointOnly.label": "Marquer l'emplacement",
+    "location-area.lineOnly.label": "Capturer l'itinéraire",
+    "location-area.polygonOnly.label": "Définir le domaine d'application",
+    "location-area.pointLine.label": "Localisation et itinéraire",
+    "location-area.pointPolygon.label": "Localisation et zone",
+    "location-area.linePolygon.label": "Itinéraire et zone",
+    "location-area.allTypes.label": "Planification globale",
+    "location-area.rangeOneThree.label": "Plusieurs domaines",
+    "location-area.exactTwo.label": "Deux éléments de carte"
+  },
+  "it": {
+    "location-area.pointOnly.label": "Segna la posizione",
+    "location-area.lineOnly.label": "Cattura il percorso",
+    "location-area.polygonOnly.label": "Definire l'area di applicazione",
+    "location-area.pointLine.label": "Posizione e percorso",
+    "location-area.pointPolygon.label": "Posizione e zona",
+    "location-area.linePolygon.label": "Itinerario e zona",
+    "location-area.allTypes.label": "Pianificazione complessiva",
+    "location-area.rangeOneThree.label": "Aree multiple",
+    "location-area.exactTwo.label": "Due elementi della mappa"
+  },
+  "pl": {
+    "location-area.pointOnly.label": "Zaznacz lokalizację",
+    "location-area.lineOnly.label": "Przechwytywanie trasy",
+    "location-area.polygonOnly.label": "Określ obszar zastosowania",
+    "location-area.pointLine.label": "Lokalizacja i trasa",
+    "location-area.pointPolygon.label": "Lokalizacja i okolica",
+    "location-area.linePolygon.label": "Trasa i teren",
+    "location-area.allTypes.label": "Ogólne planowanie",
+    "location-area.rangeOneThree.label": "Wiele obszarów",
+    "location-area.exactTwo.label": "Dwa elementy mapy"
+  },
+  "uk": {
+    "location-area.pointOnly.label": "Позначте розташування",
+    "location-area.lineOnly.label": "Захоплення маршруту",
+    "location-area.polygonOnly.label": "Визначте область застосування",
+    "location-area.pointLine.label": "Розташування та маршрут",
+    "location-area.pointPolygon.label": "Розташування та площа",
+    "location-area.linePolygon.label": "Маршрут і район",
+    "location-area.allTypes.label": "Загальне планування",
+    "location-area.rangeOneThree.label": "Кілька областей",
+    "location-area.exactTwo.label": "Два елементи карти"
+  },
+  "ru": {
+    "location-area.pointOnly.label": "Отметить местоположение",
+    "location-area.lineOnly.label": "Захватить маршрут",
+    "location-area.polygonOnly.label": "Определите область применения",
+    "location-area.pointLine.label": "Местоположение и маршрут",
+    "location-area.pointPolygon.label": "Расположение и район",
+    "location-area.linePolygon.label": "Маршрут и район",
+    "location-area.allTypes.label": "Общее планирование",
+    "location-area.rangeOneThree.label": "Несколько областей",
+    "location-area.exactTwo.label": "Два элемента карты"
+  },
+  "zh": {
+    "location-area.pointOnly.label": "标记位置",
+    "location-area.lineOnly.label": "捕获路线",
+    "location-area.polygonOnly.label": "定义应用领域",
+    "location-area.pointLine.label": "地点及路线",
+    "location-area.pointPolygon.label": "位置及面积",
+    "location-area.linePolygon.label": "路线及区域",
+    "location-area.allTypes.label": "整体规划",
+    "location-area.rangeOneThree.label": "多个区域",
+    "location-area.exactTwo.label": "两个地图元素"
+  },
+  "ja": {
+    "location-area.pointOnly.label": "位置をマークする",
+    "location-area.lineOnly.label": "攻略ルート",
+    "location-area.polygonOnly.label": "適用分野を定義する",
+    "location-area.pointLine.label": "場所とルート",
+    "location-area.pointPolygon.label": "場所とエリア",
+    "location-area.linePolygon.label": "ルートとエリア",
+    "location-area.allTypes.label": "全体計画",
+    "location-area.rangeOneThree.label": "複数のエリア",
+    "location-area.exactTwo.label": "2 つのマップ要素"
+  }
+}

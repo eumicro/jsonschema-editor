@@ -1,55 +1,61 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
-  "title": "Förderantrag",
+  "title": "Funding application",
   "properties": {
     "antragskopf": {
       "type": "object",
-      "title": "Antragskopf",
+      "title": "Application header",
       "properties": {
         "antragsdatum": {
           "type": "string",
           "format": "date",
-          "title": "Antragsdatum"
+          "title": "Application date"
         }
       }
     },
     "auftragsdaten": {
       "type": "object",
-      "title": "Auftragsdaten",
+      "title": "Order data",
       "properties": {
         "adresse": {
           "type": "string",
-          "title": "Adresse zum Antrag"
+          "title": "Address for the application"
         }
       }
     },
     "durchfuehrung": {
       "type": "object",
-      "title": "Durchführung",
+      "title": "Implementation",
       "properties": {
         "datum": {
           "type": "string",
           "format": "date",
-          "title": "Datum der Durchführung"
+          "title": "Date of implementation"
         }
       }
     },
     "abrechnung": {
       "type": "object",
-      "title": "Abrechnung",
+      "title": "Invoice",
       "properties": {
         "beglichen": {
           "type": "boolean",
-          "title": "Rechnung beglichen"
+          "title": "Bill paid"
         }
       }
     },
     "status": {
       "type": "string",
-      "title": "Bearbeitungsstand",
-      "description": "Wird automatisch aus dem ausgefüllten Antrag abgeleitet",
-      "enum": ["NEU", "ANTRAG_ANGELEGT", "BEREIT_ZUR_DURCHFUEHRUNG", "DURCHGEFUEHRT", "ERLEDIGT"],
+      "title": "Processing status",
+      "description": "Automatically derived from the completed application",
+      "enum": [
+        "NEU",
+        "ANTRAG_ANGELEGT",
+        "BEREIT_ZUR_DURCHFUEHRUNG",
+        "DURCHGEFUEHRT",
+        "ERLEDIGT"
+      ],
       "x-computed": {
         "expression": "!has(data.antragskopf.antragsdatum) || data.antragskopf.antragsdatum == '' ? 'NEU' : (!has(data.auftragsdaten.adresse) || data.auftragsdaten.adresse == '') ? 'ANTRAG_ANGELEGT' : (!has(data.durchfuehrung.datum) || data.durchfuehrung.datum == '') ? 'BEREIT_ZUR_DURCHFUEHRUNG' : (!data.abrechnung.beglichen) ? 'DURCHGEFUEHRT' : 'ERLEDIGT'"
       }

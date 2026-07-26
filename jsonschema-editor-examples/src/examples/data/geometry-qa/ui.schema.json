@@ -1,14 +1,59 @@
 {
   "type": "VerticalLayout",
   "elements": [
-    { "type": "Control", "scope": "#/properties/pointOnly" },
-    { "type": "Control", "scope": "#/properties/lineOnly" },
-    { "type": "Control", "scope": "#/properties/polygonOnly" },
-    { "type": "Control", "scope": "#/properties/pointLine" },
-    { "type": "Control", "scope": "#/properties/pointPolygon" },
-    { "type": "Control", "scope": "#/properties/linePolygon" },
-    { "type": "Control", "scope": "#/properties/allTypes" },
-    { "type": "Control", "scope": "#/properties/rangeOneThree" },
-    { "type": "Control", "scope": "#/properties/exactTwo" }
+    {
+      "type": "Control",
+      "scope": "#/properties/pointOnly",
+      "i18n": "location-area.pointOnly",
+      "label": "Mark location"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/lineOnly",
+      "i18n": "location-area.lineOnly",
+      "label": "Capture route"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/polygonOnly",
+      "i18n": "location-area.polygonOnly",
+      "label": "Define the area of ​​application"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/pointLine",
+      "i18n": "location-area.pointLine",
+      "label": "City and route"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/pointPolygon",
+      "i18n": "location-area.pointPolygon",
+      "label": "City and area"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/linePolygon",
+      "i18n": "location-area.linePolygon",
+      "label": "Route and area"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/allTypes",
+      "i18n": "location-area.allTypes",
+      "label": "Overall planning"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/rangeOneThree",
+      "i18n": "location-area.rangeOneThree",
+      "label": "Multiple areas"
+    },
+    {
+      "type": "Control",
+      "scope": "#/properties/exactTwo",
+      "i18n": "location-area.exactTwo",
+      "label": "Two map elements"
+    }
   ]
 }

@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { computed, toRef } from "vue";
 import type { SchemaDocument, SchemaNode } from "@jsonschema-editor/json-schema";
+import type { UiElement } from "@jsonschema-editor/ui-schema";
 import { resolveCompositionAtScope } from "@jsonschema-editor/ui-schema/bridge";
 import { useScopedField } from "../../../composables/useScopedField";
 import { useSchemaFormTypeRegistry } from "../../../composables/useRegistries";
 import { createFormFieldMatchContext } from "../../../registry/form-field-context";
+import type { ElementLabelProp } from "../../../utils/array-item-label";
 import { isSchemaFieldHidden, isSchemaFieldReadOnly } from "../../../utils/field-behavior";
 import DefaultFormField from "./DefaultFormField.vue";
 import OneOfFormField from "./OneOfFormField.vue";
@@ -16,6 +18,12 @@ const props = defineProps<{
   label?: string;
   i18nKey?: string;
   readonly?: boolean;
+  /** JSON Forms `options.detail` for array item UI (when resolved to ArrayFormField). */
+  detail?: UiElement;
+  /** JSON Forms `options.elementLabelProp`. */
+  elementLabelProp?: ElementLabelProp;
+  /** Full Control options (fallback for elementLabelProp). */
+  controlOptions?: Readonly<Record<string, unknown>>;
 }>();
 
 const rootSchema = toRef(props, "schema");
@@ -65,5 +73,8 @@ const effectiveReadonly = computed(() =>
     :label="label"
     :i18n-key="i18nKey"
     :readonly="effectiveReadonly"
+    :detail="detail"
+    :element-label-prop="elementLabelProp"
+    :control-options="controlOptions"
   />
 </template>

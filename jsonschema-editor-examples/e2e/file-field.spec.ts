@@ -8,7 +8,6 @@ const sampleImage = path.join(__dirname, "fixtures", "sample.png");
 
 test.describe("Datei-Upload (x-file)", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/");
     await selectExample(page, "file-qa");
     await openFormMode(page);
   });

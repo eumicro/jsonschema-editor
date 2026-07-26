@@ -16,16 +16,17 @@ import { useFormData } from "./useFormData";
 export function useScopedField(
   rootSchema: Ref<SchemaNode>,
   rootData: Ref<Record<string, unknown>>,
-  scope: string,
+  scope: string | Ref<string>,
   document?: Ref<SchemaDocument | undefined>,
 ) {
   const formData = useFormData(rootData);
-  const path = computed(() => scopeToPath(scope));
+  const scopeValue = computed(() => (typeof scope === "string" ? scope : scope.value));
+  const path = computed(() => scopeToPath(scopeValue.value));
   const fieldSchema = computed(() => {
     const resolveRef = document?.value
       ? (ref: string) => document.value!.resolveRef(ref)
       : undefined;
-    return resolveSchemaAtScope(rootSchema.value, scope, resolveRef);
+    return resolveSchemaAtScope(rootSchema.value, scopeValue.value, resolveRef);
   });
 
   const value = computed({

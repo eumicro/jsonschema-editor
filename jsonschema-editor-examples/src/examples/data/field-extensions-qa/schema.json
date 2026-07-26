@@ -1,7 +1,7 @@
 {
   "type": "object",
-  "title": "Kundenkontakt",
-  "description": "Kontaktdaten mit geschützten Systemfeldern für die Sachbearbeitung",
+  "title": "Customer contact",
+  "description": "Contact details with protected system fields and contact history",
   "properties": {
     "name": {
       "type": "string",
@@ -10,28 +10,95 @@
     "email": {
       "type": "string",
       "format": "email",
-      "title": "E-Mail",
-      "description": "Aus dem CRM übernommen — nicht editierbar",
+      "title": "Email",
+      "description": "Taken from CRM — cannot be edited",
       "x-read-only": true
     },
     "phone": {
       "type": "string",
       "format": "phone",
-      "title": "Telefon"
+      "title": "Phone"
     },
     "internalNote": {
       "type": "string",
-      "title": "Interne Notiz",
-      "description": "Nur für Sachbearbeiter sichtbar",
+      "title": "Internal note",
+      "description": "Only visible to clerks",
       "x-hidden": true
     },
     "address": {
       "type": "object",
-      "title": "Adresse",
+      "title": "Address",
       "properties": {
-        "street": { "type": "string", "title": "Straße" },
-        "city": { "type": "string", "title": "Ort" },
-        "zip": { "type": "string", "title": "PLZ" }
+        "street": {
+          "type": "string",
+          "title": "Street"
+        },
+        "city": {
+          "type": "string",
+          "title": "City"
+        },
+        "zip": {
+          "type": "string",
+          "title": "ZIP code"
+        }
+      }
+    },
+    "progress": {
+      "type": "number",
+      "title": "Progress",
+      "description": "Average satisfaction of all contacts",
+      "minimum": 0,
+      "maximum": 5,
+      "x-progress-bar": {
+        "step": 0.1,
+        "colorMode": "gradient",
+        "colorLow": "#dc2626",
+        "colorMid": "#ca8a04",
+        "colorHigh": "#16a34a"
+      },
+      "x-computed": {
+        "expression": "!has(data.kontakte) || data.kontakte.size() == 0 ? 0.0 : data.kontakte.map(k, double(k.zufriedenheit)).sum() / double(data.kontakte.size())"
+      }
+    },
+    "kontakte": {
+      "type": "array",
+      "title": "Contacts",
+      "description": "Contact history with date, comment and satisfaction",
+      "items": {
+        "$ref": "#/$defs/Kontakt"
+      }
+    }
+  },
+  "$defs": {
+    "Kontakt": {
+      "type": "object",
+      "title": "Contact",
+      "properties": {
+        "datum": {
+          "type": "string",
+          "format": "date-today",
+          "title": "Date",
+          "x-format-extension": "date-today"
+        },
+        "kommentar": {
+          "type": "string",
+          "title": "Comment"
+        },
+        "zufriedenheit": {
+          "type": "number",
+          "title": "Satisfaction",
+          "description": "1 (Low) To 5 (High)",
+          "minimum": 0,
+          "maximum": 5,
+          "x-rating": {
+            "symbol": "★",
+            "step": 1,
+            "colorMode": "gradient",
+            "colorLow": "#dc2626",
+            "colorMid": "#ca8a04",
+            "colorHigh": "#16a34a"
+          }
+        }
       }
     }
   }

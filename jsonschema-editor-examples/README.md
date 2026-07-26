@@ -11,23 +11,28 @@ pnpm install
 pnpm run build
 ```
 
-## Start
+## Start (unified Vue + React site)
+
+From the **repository root**:
 
 ```bash
-pnpm --filter jsonschema-editor-examples run dev
+pnpm run dev:site
 ```
 
-Opens http://localhost:5173 with:
+Opens http://127.0.0.1:5173 as **one site** for both stacks. Switch via the topbar **Vue | React** control (same origin, History URLs):
 
-- **Get started** — install steps and package overview (`#/get-started`)
-- **Edit schema** — adjust schema and UI layout with live preview
-- **Test form** — fill the form and inspect JSON output
+- `/en/examples/vue/occupational-health-g37` — Vue stack
+- `/en/examples/react/field-extensions-qa` — React stack
+- `/en/get-started` — install steps and package overview
+- `/en/imprint` — legal notice
 
-**GitHub Pages:** After enabling Pages (*Settings → Pages → Build and deployment: GitHub Actions*) and configuring the custom domain, pushes to `main` publish the site at [jsonschema-editor.cloudapplication.net](https://jsonschema-editor.cloudapplication.net/). Local production preview:
+Isolated Vue-only Vite (without React entry) remains available via `pnpm --filter jsonschema-editor-examples run dev`.
+
+**GitHub Pages:** Pushes to `main` build Vue + React into one site (`pnpm run build:site`) at [jsonschema-editor.cloudapplication.net](https://jsonschema-editor.cloudapplication.net/). Local production site:
 
 ```bash
-pnpm run build
-pnpm run preview
+pnpm run build:site
+npx --yes serve site
 ```
 
 The landing page shows **curated use-case scenarios** grouped by domain (occupational health, vehicle orders, applications, master data). Internal examples remain available for automated tests via the hidden example selector.
@@ -36,12 +41,12 @@ The landing page shows **curated use-case scenarios** grouped by domain (occupat
 
 | Scenario | ID | Typical use |
 | --- | --- | --- |
-| G37 screen-work preventive exam | `occupational-health-g37` | Occupational health from intake to employer notification |
-| Insurance claim | `insurance-claim` | Multi-step claim with damage type, witnesses, map, computed status |
-| Freight order | `logistics-freight-order` | Pickup/delivery route, cargo lines, service oneOf, freight calculation |
-| Building permit | `construction-project-application` | Plot/site maps, dual oneOf, trade packages, cost/CO₂ calculation |
+| G37 screen precaution | `occupational-health-g37` | Occupational health from intake to employer notification |
+| Damage report | `insurance-claim` | Multi-step claim with damage type, witnesses, map, computed status |
+| Shipping order | `logistics-freight-order` | Pickup/delivery route, cargo lines, service oneOf, freight calculation |
+| Construction project registration | `construction-project-application` | Plot/site maps, dual oneOf, trade packages, cost/CO₂ calculation |
 | Vehicle order | `car-configurator` | Multi-step configuration with model, equipment, financing |
-| Grant application | `computed-status-qa` | Application workflow with automatic processing status |
+| Funding application | `computed-status-qa` | Application workflow with automatic processing status |
 | Cost estimate | `computed-cost-qa` | Line items with automatic total |
 | Contact person | `person-with-defs` | Person or asset with email, phone, selects |
 | Customer contact | `field-extensions-qa` | CRM contact with read-only system fields |

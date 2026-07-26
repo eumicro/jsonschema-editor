@@ -1,7 +1,49 @@
 {
-  "label": "Kostenvoranschlag",
-  "tagline": "Positionen erfassen, Gesamtsumme wird automatisch berechnet",
-  "description": "Leistungen und Beträge als Positionen erfassen — die Gesamtsumme aktualisiert sich bei jeder Änderung von selbst.",
+  "label": "Cost estimate",
+  "tagline": "Enter positions, total is calculated automatically",
+  "description": "Record services and amounts as items - the total updates automatically with every change.",
   "category": "Anträge & Prozesse",
-  "visibility": "public"
+  "visibility": "public",
+  "locales": {
+    "de": {
+      "label": "Kostenvoranschlag",
+      "tagline": "Positionen erfassen, Gesamtsumme wird automatisch berechnet",
+      "description": "Leistungen und Beträge als Positionen erfassen — die Gesamtsumme aktualisiert sich bei jeder Änderung von selbst."
+    },
+    "fr": {
+      "label": "Estimation des coûts",
+      "tagline": "Entrez les positions, le total est calculé automatiquement",
+      "description": "Enregistrez les services et les montants sous forme d'éléments - le total est mis à jour automatiquement à chaque changement."
+    },
+    "it": {
+      "label": "Stima dei costi",
+      "tagline": "Inserisci le posizioni, il totale viene calcolato automaticamente",
+      "description": "Registra servizi e importi come voci: il totale si aggiorna automaticamente ad ogni modifica."
+    },
+    "pl": {
+      "label": "Kosztorys",
+      "tagline": "Wprowadź pozycje, suma zostanie obliczona automatycznie",
+      "description": "Rejestruj usługi i kwoty jako pozycje — suma aktualizuje się automatycznie przy każdej zmianie."
+    },
+    "uk": {
+      "label": "Кошторис",
+      "tagline": "Введіть позиції, підсумок розраховується автоматично",
+      "description": "Записуйте послуги та суми як позиції - загальна сума оновлюється автоматично з кожною зміною."
+    },
+    "ru": {
+      "label": "Смета стоимости",
+      "tagline": "Введите позиции, итоговая сумма рассчитывается автоматически",
+      "description": "Записывайте услуги и суммы как статьи — итоговая сумма автоматически обновляется при каждом изменении."
+    },
+    "zh": {
+      "label": "成本估算",
+      "tagline": "输入仓位，自动计算总计",
+      "description": "将服务和金额记录为项目 - 每次更改时总数都会自动更新。"
+    },
+    "ja": {
+      "label": "費用の見積もり",
+      "tagline": "ポジションを入力すると、合計が自動的に計算されます",
+      "description": "サービスと金額を項目として記録します。合計は変更されるたびに自動的に更新されます。"
+    }
+  }
 }

@@ -3,51 +3,58 @@
   "elements": [
     {
       "type": "Step",
-      "label": "Fahrzeug",
+      "label": "Vehicle",
       "elements": [
         {
           "type": "Categorization",
           "elements": [
             {
               "type": "Category",
-              "label": "Modell",
+              "label": "Model",
               "elements": [
                 {
                   "type": "Control",
                   "scope": "#/properties/fahrzeug/properties/modell",
-                  "label": "Modelllinie"
+                  "label": "Model Line",
+                  "i18n": "vehicle-order.fahrzeug.modell"
                 }
-              ]
+              ],
+              "i18n": "vehicle-order.ui.0.0.0"
             },
             {
               "type": "Category",
-              "label": "Antrieb",
+              "label": "Drive",
               "elements": [
                 {
                   "type": "Control",
                   "scope": "#/properties/fahrzeug/properties/antrieb",
-                  "label": "Antrieb"
+                  "label": "Drive",
+                  "i18n": "vehicle-order.fahrzeug.antrieb"
                 }
-              ]
+              ],
+              "i18n": "vehicle-order.ui.0.0.1"
             },
             {
               "type": "Category",
-              "label": "Lackierung",
+              "label": "Painting",
               "elements": [
                 {
                   "type": "Control",
                   "scope": "#/properties/fahrzeug/properties/lackierung",
-                  "label": "Lackierung"
+                  "label": "Painting",
+                  "i18n": "vehicle-order.fahrzeug.lackierung"
                 }
-              ]
+              ],
+              "i18n": "vehicle-order.ui.0.0.2"
             }
           ]
         }
-      ]
+      ],
+      "i18n": "vehicle-order.ui.0"
     },
     {
       "type": "Step",
-      "label": "Kunde",
+      "label": "Customer",
       "elements": [
         {
           "type": "VerticalLayout",
@@ -55,54 +62,63 @@
             {
               "type": "Control",
               "scope": "#/properties/kunde/properties/vorname",
-              "label": "Vorname"
+              "label": "First name",
+              "i18n": "vehicle-order.kunde.vorname"
             },
             {
               "type": "Control",
               "scope": "#/properties/kunde/properties/nachname",
-              "label": "Nachname"
+              "label": "Last name",
+              "i18n": "vehicle-order.kunde.nachname"
             },
             {
               "type": "Control",
               "scope": "#/properties/kunde/properties/email",
-              "label": "E-Mail"
+              "label": "Email",
+              "i18n": "vehicle-order.kunde.email"
             }
           ]
         }
-      ]
+      ],
+      "i18n": "vehicle-order.ui.1"
     },
     {
       "type": "Step",
-      "label": "Bestellung",
+      "label": "Order",
       "elements": [
         {
           "type": "Categorization",
           "elements": [
             {
               "type": "Category",
-              "label": "Ausstattung",
+              "label": "Equipment",
               "elements": [
                 {
                   "type": "Control",
                   "scope": "#/properties/bestellung/properties/ausstattung",
-                  "label": "Paket"
+                  "label": "Package",
+                  "i18n": "vehicle-order.bestellung.ausstattung"
                 }
-              ]
+              ],
+              "i18n": "vehicle-order.ui.2.0.0"
             },
             {
               "type": "Category",
-              "label": "Finanzierung",
+              "label": "Financing",
               "elements": [
                 {
                   "type": "Control",
                   "scope": "#/properties/bestellung/properties/finanzierung",
-                  "label": "Finanzierung"
+                  "label": "Financing",
+                  "i18n": "vehicle-order.bestellung.finanzierung"
                 }
-              ]
+              ],
+              "i18n": "vehicle-order.ui.2.0.1"
             }
           ]
         }
-      ]
+      ],
+      "i18n": "vehicle-order.ui.2"
     }
   ]
 }

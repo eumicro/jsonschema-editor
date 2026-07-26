@@ -9,7 +9,6 @@ function fieldByLabel(page: import("@playwright/test").Page, label: RegExp) {
 
 test.describe("Formular-Validierung", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/");
     await selectExample(page, "person-with-defs");
     await openFormMode(page);
     await oneOfSelect(page).selectOption("0");
@@ -27,7 +26,7 @@ test.describe("Formular-Validierung", () => {
   });
 
   test("Ungültige E-Mail nach Blur", async ({ page }) => {
-    const emailField = fieldByLabel(page, /^E-Mail/);
+    const emailField = fieldByLabel(page, /^Email/);
     const input = emailField.locator("input");
 
     await input.fill("not-an-email");

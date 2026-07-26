@@ -1,0 +1,26 @@
+.jse-computed-attr {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.jse-computed-attr__label {
+  font-weight: 600;
+}
+
+.jse-computed-attr__enable {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+}
+
+.jse-computed-attr__hint {
+  margin: 0;
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+.jse-cel-expression-editor {
+  min-height: 5.5rem;
+}

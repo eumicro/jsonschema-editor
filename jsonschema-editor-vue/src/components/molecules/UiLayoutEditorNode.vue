@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
+import type { SchemaDocument } from "@jsonschema-editor/json-schema";
 import type { UiElement } from "@jsonschema-editor/ui-schema";
-import { Control, HorizontalLayout } from "@jsonschema-editor/ui-schema";
+import { Control, HorizontalLayout, VerticalLayout } from "@jsonschema-editor/ui-schema";
 import {
   canAcceptUiChild,
   canMoveUiElementTo,
+  controlAllowsDetail,
   createUiElement,
   getUiElementAt,
   getUiElementLabel,
@@ -35,6 +37,7 @@ const props = defineProps<{
   path: UiPath;
   selectedPath: UiPath;
   dragSourcePath: UiPath | null;
+  document?: SchemaDocument | null;
   paletteKind?: string | null;
   depth?: number;
 }>();
@@ -55,11 +58,13 @@ const label = computed(() => getUiElementLabel(element.value));
 const pathKey = computed(() => uiPathKey(props.path));
 const isSelected = computed(() => uiPathKey(props.selectedPath) === pathKey.value);
 const isLayout = computed(() => isLayoutElement(element.value));
-const isHorizontal = computed(() => element.value instanceof HorizontalLayout);
-const children = computed(() =>
-  isLayout.value ? listUiChildren(element.value, props.path) : [],
+const showDetail = computed(() => controlAllowsDetail(element.value, props.document));
+const stackParentPath = computed((): UiPath =>
+  showDetail.value && !isLayout.value ? [...props.path, "detail"] : props.path,
 );
-const showAdd = computed(() => canAcceptUiChildren(element.value));
+const isHorizontal = computed(() => element.value instanceof HorizontalLayout);
+const children = computed(() => listUiChildren(element.value, props.path));
+const showAdd = computed(() => canAcceptUiChildren(element.value, props.document));
 const showDelete = computed(() => canDeleteUiElement(props.path));
 const { t } = useJseI18n();
 const { addLabel, editLabel, deleteLabel } = useTreeNodeActionLabels(label, "ui");
@@ -102,23 +107,34 @@ function resolveDragSourcePath(event?: DragEvent): UiPath | null {
   return parseUiPathKey(key);
 }
 
+function dropParentForAccept(): UiElement {
+  if (showDetail.value && !isLayout.value) {
+    const control = element.value as Control;
+    if (control.detail && isLayoutElement(control.detail)) return control.detail;
+    return new VerticalLayout();
+  }
+  return element.value;
+}
+
 function canDropAt(insertIndex: number, event?: DragEvent): boolean {
   const paletteKind = resolvePaletteKind(event);
   if (paletteKind) {
-    if (!isLayoutElement(element.value)) return false;
+    if (!isLayout.value && !showDetail.value) return false;
     return canAcceptUiChild(
-      element.value,
+      dropParentForAccept(),
       createUiElement(paletteKind as UiPaletteKind),
     );
   }
   const sourcePath = resolveDragSourcePath(event);
   if (!sourcePath) return false;
-  return canMoveUiElementTo(props.root, sourcePath, props.path, insertIndex);
+  return canMoveUiElementTo(props.root, sourcePath, stackParentPath.value, insertIndex);
 }
 
 const hasActiveDrag = computed(
   () => props.dragSourcePath !== null || Boolean(props.paletteKind),
 );
+
+const showStack = computed(() => isLayout.value || showDetail.value);
 
 function onDragStart(event: DragEvent) {
   emit("dragStart", props.path);
@@ -128,13 +144,13 @@ function onDragStart(event: DragEvent) {
 }
 
 function onLayoutDragEnter(event: DragEvent) {
-  if (!isLayout.value) return;
+  if (!showStack.value) return;
   if (!resolveDragSourcePath(event) && !resolvePaletteKind(event)) return;
   event.preventDefault();
 }
 
 function onLayoutDragOver(event: DragEvent) {
-  if (!isLayout.value) return;
+  if (!showStack.value) return;
   event.stopPropagation();
   const stack = (event.currentTarget as HTMLElement).querySelector(":scope > .jse-layout-editor__stack");
   if (!(stack instanceof HTMLElement)) return;
@@ -145,7 +161,7 @@ function onLayoutDragOver(event: DragEvent) {
 }
 
 function onLayoutDrop(event: DragEvent) {
-  if (!isLayout.value) return;
+  if (!showStack.value) return;
   event.stopPropagation();
   const stack = (event.currentTarget as HTMLElement).querySelector(":scope > .jse-layout-editor__stack");
   if (!(stack instanceof HTMLElement)) return;
@@ -153,11 +169,11 @@ function onLayoutDrop(event: DragEvent) {
   const insertIndex = resolveStackInsertIndex(stack, event.clientY);
   activeDropIndex.value = null;
   if (!canDropAt(insertIndex, event)) return;
-  emit("dropAt", props.path, insertIndex, event);
+  emit("dropAt", stackParentPath.value, insertIndex, event);
 }
 
 function onStackDragOver(event: DragEvent) {
-  if (!isLayout.value) return;
+  if (!showStack.value) return;
   const stack = event.currentTarget;
   if (!(stack instanceof HTMLElement)) return;
   const insertIndex = resolveStackInsertIndex(stack, event.clientY);
@@ -168,7 +184,7 @@ function onStackDragOver(event: DragEvent) {
 }
 
 function onStackDrop(event: DragEvent) {
-  if (!isLayout.value) return;
+  if (!showStack.value) return;
   const stack = event.currentTarget;
   if (!(stack instanceof HTMLElement)) return;
   event.preventDefault();
@@ -176,7 +192,7 @@ function onStackDrop(event: DragEvent) {
   const insertIndex = resolveStackInsertIndex(stack, event.clientY);
   activeDropIndex.value = null;
   if (!canDropAt(insertIndex, event)) return;
-  emit("dropAt", props.path, insertIndex, event);
+  emit("dropAt", stackParentPath.value, insertIndex, event);
 }
 
 function onDropZoneDragOver(insertIndex: number, event: DragEvent) {
@@ -194,7 +210,7 @@ function onDropZoneDrop(insertIndex: number, event: DragEvent) {
   event.stopPropagation();
   activeDropIndex.value = null;
   if (!canDropAt(insertIndex, event)) return;
-  emit("dropAt", props.path, insertIndex, event);
+  emit("dropAt", stackParentPath.value, insertIndex, event);
 }
 </script>
 
@@ -227,6 +243,7 @@ function onDropZoneDrop(insertIndex: number, event: DragEvent) {
       <span class="jse-tree-node__kind">{{ element.elementKind }}</span>
       <span class="jse-layout-block__title">{{ label }}</span>
       <span v-if="scopeHint" class="jse-tree-node__meta">{{ scopeHint }}</span>
+      <span v-if="showDetail && !isLayout" class="jse-tree-node__meta">{{ t("layout.detailHint") }}</span>
 
       <JseTreeNodeActions
         :show-add="showAdd"
@@ -242,9 +259,12 @@ function onDropZoneDrop(insertIndex: number, event: DragEvent) {
     </header>
 
     <div
-      v-if="isLayout"
+      v-if="showStack"
       class="jse-layout-editor__stack"
-      :class="{ 'jse-layout-editor__stack--horizontal': isHorizontal }"
+      :class="{
+        'jse-layout-editor__stack--horizontal': isHorizontal,
+        'jse-layout-editor__stack--detail': showDetail && !isLayout,
+      }"
       @dragover="onStackDragOver"
       @dragleave="onDropZoneDragLeave"
       @drop="onStackDrop"
@@ -261,6 +281,7 @@ function onDropZoneDrop(insertIndex: number, event: DragEvent) {
           :path="childPath"
           :selected-path="selectedPath"
           :drag-source-path="dragSourcePath"
+          :document="document"
           :palette-kind="paletteKind"
           :depth="(depth ?? 0) + 1"
           @select="emit('select', $event)"

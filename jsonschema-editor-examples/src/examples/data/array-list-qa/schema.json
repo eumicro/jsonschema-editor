@@ -1,19 +1,28 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
-  "title": "Leistungsverzeichnis",
+  "title": "List of services",
   "properties": {
     "positionen": {
       "type": "array",
-      "title": "Kostenpositionen",
+      "title": "Cost items",
       "minItems": 1,
       "items": {
         "type": "object",
         "properties": {
-          "bezeichnung": { "type": "string", "title": "Bezeichnung" },
-          "betrag": { "type": "number", "title": "Betrag (EUR)" }
+          "bezeichnung": {
+            "type": "string",
+            "title": "Designation"
+          },
+          "betrag": {
+            "type": "number",
+            "title": "Amount (EUR)"
+          }
         },
-        "required": ["bezeichnung", "betrag"]
+        "required": [
+          "bezeichnung",
+          "betrag"
+        ]
       }
     }
   }

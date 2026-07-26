@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { computed } from "vue";
+import type { SchemaDocument } from "@jsonschema-editor/json-schema";
 import type { UiElement } from "@jsonschema-editor/ui-schema";
+import { VerticalLayout } from "@jsonschema-editor/ui-schema";
 import {
   canAcceptUiChild,
+  controlPathOfDetail,
   createUiElement,
   getUiElementAt,
   getUiElementLabel,
@@ -19,6 +22,7 @@ import { useJseI18n } from "../../composables/useJseI18n";
 const props = defineProps<{
   root: UiElement;
   selectedPath: UiPath;
+  document?: SchemaDocument | null;
 }>();
 
 const emit = defineEmits<{
@@ -28,10 +32,33 @@ const emit = defineEmits<{
 const { t } = useJseI18n();
 
 const insertParentPath = computed(() =>
-  getUiInsertParentPath(props.root, props.selectedPath),
+  getUiInsertParentPath(props.root, props.selectedPath, props.document),
 );
-const insertParent = computed(() => getUiElementAt(props.root, insertParentPath.value));
-const targetLabel = computed(() => getUiElementLabel(insertParent.value));
+
+const insertParent = computed((): UiElement => {
+  const path = insertParentPath.value;
+  if (path[path.length - 1] === "detail") {
+    try {
+      return getUiElementAt(props.root, path);
+    } catch {
+      return new VerticalLayout();
+    }
+  }
+  return getUiElementAt(props.root, path);
+});
+
+const targetLabel = computed(() => {
+  const path = insertParentPath.value;
+  if (path[path.length - 1] === "detail") {
+    try {
+      const control = getUiElementAt(props.root, controlPathOfDetail(path));
+      return t("layout.detailTarget", { label: getUiElementLabel(control) });
+    } catch {
+      return t("layout.detailHint");
+    }
+  }
+  return getUiElementLabel(insertParent.value);
+});
 
 function isKindAllowed(kind: UiPaletteKind): boolean {
   return canAcceptUiChild(insertParent.value, createUiElement(kind, { translate: t }));

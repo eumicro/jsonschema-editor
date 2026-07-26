@@ -1,7 +1,49 @@
 {
-  "label": "Standort & Gebiet",
-  "tagline": "Kartenfelder für Punkt, Linie und Fläche",
-  "description": "Internes Beispiel: verschiedene Kartendarstellungen für Standortplanung und Einsatzgebiete.",
+  "label": "Location & area",
+  "tagline": "Map fields for point, line and area",
+  "description": "Internal example: various map displays for location planning and areas of operation.",
   "category": "Standort & Planung",
-  "visibility": "internal"
+  "visibility": "internal",
+  "locales": {
+    "de": {
+      "label": "Standort & Gebiet",
+      "tagline": "Kartenfelder für Punkt, Linie und Fläche",
+      "description": "Internes Beispiel: verschiedene Kartendarstellungen für Standortplanung und Einsatzgebiete."
+    },
+    "fr": {
+      "label": "Emplacement et zone",
+      "tagline": "Champs de carte pour le point, la ligne et la surface",
+      "description": "Exemple interne : divers affichages cartographiques pour la planification de l'emplacement et les zones d'opération."
+    },
+    "it": {
+      "label": "Posizione e zona",
+      "tagline": "Campi della mappa per punto, linea e area",
+      "description": "Esempio interno: diverse rappresentazioni cartografiche per la pianificazione della posizione e delle aree operative."
+    },
+    "pl": {
+      "label": "Lokalizacja i obszar",
+      "tagline": "Pola mapy dla punktów, linii i obszarów",
+      "description": "Przykład wewnętrzny: różne prezentacje map do planowania lokalizacji i obszarów działania."
+    },
+    "uk": {
+      "label": "Розташування та площа",
+      "tagline": "Поля карти для точки, лінії та області",
+      "description": "Внутрішній приклад: різноманітні відображення карт для планування розташування та зон дії."
+    },
+    "ru": {
+      "label": "Расположение и район",
+      "tagline": "Поля карты для точки, линии и площади",
+      "description": "Внутренний пример: различные отображения карт для планирования местоположения и зон деятельности."
+    },
+    "zh": {
+      "label": "地点及面积",
+      "tagline": "点、线、面的地图字段",
+      "description": "内部示例：用于位置规划和操作区域的各种地图显示。"
+    },
+    "ja": {
+      "label": "場所とエリア",
+      "tagline": "ポイント、ライン、エリアのマップ フィールド",
+      "description": "内部例: ロケーション計画および運用エリア用のさまざまなマップ表示。"
+    }
+  }
 }

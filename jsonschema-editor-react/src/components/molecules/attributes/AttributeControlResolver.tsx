@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import type { SchemaNode } from "@jsonschema-editor/json-schema";
+import type { SchemaDocument, SchemaNode } from "@jsonschema-editor/json-schema";
 import type { UiElement } from "@jsonschema-editor/ui-schema";
 import {
   useSchemaAttributeControlRegistry,
@@ -15,6 +15,7 @@ export interface AttributeControlResolverProps {
   mode: "schema" | "ui";
   modelValue?: unknown;
   onModelValueChange?: (value: unknown) => void;
+  document?: SchemaDocument;
 }
 
 export function AttributeControlResolver({
@@ -25,6 +26,7 @@ export function AttributeControlResolver({
   mode,
   modelValue,
   onModelValueChange,
+  document,
 }: AttributeControlResolverProps) {
   const schemaRegistry = useSchemaAttributeControlRegistry();
   const uiRegistry = useUiAttributeControlRegistry();
@@ -51,6 +53,7 @@ export function AttributeControlResolver({
       readonly={readonly}
       modelValue={modelValue}
       onModelValueChange={onModelValueChange}
+      document={document}
     />
   );
 }

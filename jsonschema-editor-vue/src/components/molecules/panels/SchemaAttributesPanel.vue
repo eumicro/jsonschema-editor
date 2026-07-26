@@ -85,6 +85,7 @@ const {
       :attribute-name="field.name"
       :label="t(field.labelKey)"
       mode="schema"
+      :document="document"
       :model-value="readAttribute(field.name)"
       @update:model-value="updateAttribute(field.name, $event)"
     />

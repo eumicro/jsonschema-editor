@@ -3,7 +3,6 @@ import { openEditorMode, selectExample } from "./helpers";
 
 test.describe("UI-Schema Layout-Editor", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/");
     await selectExample(page, "person-with-defs");
     await openEditorMode(page);
     await page.getByRole("tab", { name: "Schema-UI" }).click();
@@ -72,6 +71,21 @@ test.describe("UI-Schema Layout-Editor", () => {
 
     const nachname = groupStack.locator(".jse-layout-block--control").filter({ hasText: "nachname" });
     await expect(nachname.locator(".jse-layout-block__drag-handle")).toBeVisible();
+  });
+
+  test("Array-Control zeigt options.detail im Layout-Editor", async ({ page }) => {
+    await selectExample(page, "array-list-qa");
+    await openEditorMode(page);
+    await page.getByRole("tab", { name: "Schema-UI" }).click();
+
+    const panel = page.locator("#jse-editor-ui");
+    const arrayControl = panel.locator(".jse-layout-block--control").filter({ hasText: "positionen" });
+    await expect(arrayControl).toBeVisible();
+    await expect(arrayControl.getByText("options.detail")).toBeVisible();
+    await expect(arrayControl.locator(".jse-layout-editor__stack--detail")).toBeVisible();
+    await expect(
+      arrayControl.locator(".jse-layout-block--control").filter({ hasText: "bezeichnung" }),
+    ).toBeVisible();
   });
 
   test("G37: am Stepper-Root sind unverträgliche Palette-Chips ausgegraut", async ({ page }) => {

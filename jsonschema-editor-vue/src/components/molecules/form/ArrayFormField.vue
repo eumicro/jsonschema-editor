@@ -2,11 +2,20 @@
 import { computed, toRef, watch } from "vue";
 import type { ArraySchema, SchemaDocument, SchemaNode } from "@jsonschema-editor/json-schema";
 import { buildArrayItemScope } from "@jsonschema-editor/json-schema";
+import type { UiElement } from "@jsonschema-editor/ui-schema";
+import { resolveControlDetailSchema } from "@jsonschema-editor/ui-schema";
 import { useFormFieldLabel } from "../../../composables/useFormFieldLabel";
 import { useJseI18n } from "../../../composables/useJseI18n";
 import { useArrayFieldValue, useScopedField } from "../../../composables/useScopedField";
+import {
+  getArrayItemLabelValue,
+  resolveItemLabelProp,
+  setArrayItemLabelValue,
+  type ElementLabelProp,
+} from "../../../utils/array-item-label";
 import { isSchemaFieldHidden, isSchemaFieldReadOnly } from "../../../utils/field-behavior";
 import JseButton from "../../atoms/JseButton.vue";
+import UiFormElementResolver from "../ui/UiFormElementResolver.vue";
 import SchemaFormFieldResolver from "./SchemaFormFieldResolver.vue";
 
 const props = defineProps<{
@@ -16,6 +25,12 @@ const props = defineProps<{
   label?: string;
   i18nKey?: string;
   readonly?: boolean;
+  /** JSON Forms `options.detail` UI Schema for each array item. */
+  detail?: UiElement;
+  /** JSON Forms `options.elementLabelProp`. */
+  elementLabelProp?: ElementLabelProp;
+  /** Full Control options (fallback for elementLabelProp). */
+  controlOptions?: Readonly<Record<string, unknown>>;
 }>();
 
 const rootSchema = toRef(props, "schema");
@@ -38,6 +53,17 @@ const arraySchema = computed((): ArraySchema | undefined => {
   const node = fieldSchema.value;
   return node?.nodeKind === "array" ? (node as ArraySchema) : undefined;
 });
+
+const itemSchema = computed(() => resolveControlDetailSchema(props.document ?? null, props.scope));
+
+const labelProp = computed(() =>
+  resolveItemLabelProp(
+    props.elementLabelProp !== undefined
+      ? { elementLabelProp: props.elementLabelProp }
+      : props.controlOptions,
+    itemSchema.value,
+  ),
+);
 
 const items = useArrayFieldValue(rootData, path);
 
@@ -65,6 +91,22 @@ const effectiveReadonly = computed(() =>
 
 function itemScope(index: number): string {
   return buildArrayItemScope(props.scope, index);
+}
+
+function itemTitle(index: number): string {
+  const prop = labelProp.value;
+  if (!prop) return t("arrayList.itemTitle", { index: index + 1 });
+  const value = getArrayItemLabelValue(items.value[index], prop).trim();
+  return value || t("arrayList.itemTitle", { index: index + 1 });
+}
+
+function onItemLabelInput(index: number, event: Event): void {
+  const prop = labelProp.value;
+  if (!prop || effectiveReadonly.value) return;
+  const value = (event.target as HTMLInputElement).value;
+  const next = [...items.value];
+  next[index] = setArrayItemLabelValue(next[index], prop, value);
+  items.value = next;
 }
 
 function addItem(): void {
@@ -97,9 +139,17 @@ function removeItem(index: number): void {
       class="jse-array-item"
     >
       <header class="jse-array-item__header">
-        <span class="jse-array-item__title">
-          {{ t("arrayList.itemTitle", { index: index + 1 }) }}
-        </span>
+        <input
+          v-if="labelProp"
+          type="text"
+          class="jse-array-item__title-input"
+          :value="getArrayItemLabelValue(items[index], labelProp)"
+          :placeholder="t('arrayList.itemTitle', { index: index + 1 })"
+          :readonly="effectiveReadonly"
+          :aria-label="t('arrayList.itemLabelAria', { index: index + 1 })"
+          @input="onItemLabelInput(index, $event)"
+        />
+        <span v-else class="jse-array-item__title">{{ itemTitle(index) }}</span>
         <JseButton
           v-if="canRemove"
           type="button"
@@ -110,7 +160,17 @@ function removeItem(index: number): void {
         </JseButton>
       </header>
 
+      <UiFormElementResolver
+        v-if="detail"
+        v-model="rootData"
+        :element="detail"
+        :schema="schema"
+        :document="document"
+        :readonly="effectiveReadonly"
+        :scope-prefix="itemScope(index)"
+      />
       <SchemaFormFieldResolver
+        v-else
         v-model="rootData"
         :schema="schema"
         :document="document"

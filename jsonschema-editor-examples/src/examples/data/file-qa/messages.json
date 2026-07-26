@@ -1,0 +1,56 @@
+{
+  "en": {
+    "file-upload-qa.avatar.label": "Profile picture",
+    "file-upload-qa.avatar.description": "Single image",
+    "file-upload-qa.anhaenge.label": "Attachments",
+    "file-upload-qa.anhaenge.description": "Multiple images with gallery preview"
+  },
+  "de": {
+    "file-upload-qa.avatar.label": "Profilbild",
+    "file-upload-qa.avatar.description": "Einzelnes Bild",
+    "file-upload-qa.anhaenge.label": "Anhänge",
+    "file-upload-qa.anhaenge.description": "Mehrere Bilder mit Galerie-Vorschau"
+  },
+  "fr": {
+    "file-upload-qa.avatar.label": "Photo de profil",
+    "file-upload-qa.avatar.description": "Image unique",
+    "file-upload-qa.anhaenge.label": "Pièces jointes",
+    "file-upload-qa.anhaenge.description": "Plusieurs images avec aperçu de la galerie"
+  },
+  "it": {
+    "file-upload-qa.avatar.label": "Immagine del profilo",
+    "file-upload-qa.avatar.description": "Immagine singola",
+    "file-upload-qa.anhaenge.label": "Allegati",
+    "file-upload-qa.anhaenge.description": "Immagini multiple con anteprima della galleria"
+  },
+  "pl": {
+    "file-upload-qa.avatar.label": "Zdjęcie profilowe",
+    "file-upload-qa.avatar.description": "Pojedynczy obraz",
+    "file-upload-qa.anhaenge.label": "Załączniki",
+    "file-upload-qa.anhaenge.description": "Wiele obrazów z podglądem galerii"
+  },
+  "uk": {
+    "file-upload-qa.avatar.label": "Фото профілю",
+    "file-upload-qa.avatar.description": "Одиночне зображення",
+    "file-upload-qa.anhaenge.label": "Додатки",
+    "file-upload-qa.anhaenge.description": "Кілька зображень із попереднім переглядом галереї"
+  },
+  "ru": {
+    "file-upload-qa.avatar.label": "Изображение профиля",
+    "file-upload-qa.avatar.description": "Одно изображение",
+    "file-upload-qa.anhaenge.label": "Вложения",
+    "file-upload-qa.anhaenge.description": "Несколько изображений с предварительным просмотром галереи"
+  },
+  "zh": {
+    "file-upload-qa.avatar.label": "个人资料图片",
+    "file-upload-qa.avatar.description": "单幅图像",
+    "file-upload-qa.anhaenge.label": "附件",
+    "file-upload-qa.anhaenge.description": "带图库预览的多张图像"
+  },
+  "ja": {
+    "file-upload-qa.avatar.label": "プロフィール写真",
+    "file-upload-qa.avatar.description": "単一の画像",
+    "file-upload-qa.anhaenge.label": "添付ファイル",
+    "file-upload-qa.anhaenge.description": "ギャラリープレビュー付きの複数の画像"
+  }
+}

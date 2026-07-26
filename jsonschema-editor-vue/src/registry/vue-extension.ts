@@ -1,5 +1,5 @@
 import type { Component } from "vue";
-import type { SchemaNode } from "@jsonschema-editor/json-schema";
+import type { SchemaDocument, SchemaNode } from "@jsonschema-editor/json-schema";
 import type { SchemaTypeExtensionDescriptor } from "./schema-type-extension-registry.js";
 import {
   registerSchemaTypeExtension,
@@ -19,12 +19,27 @@ export interface VueFormFieldExtension {
   component: Component;
 }
 
+/**
+ * Framework-agnostic form-data derivation hook.
+ * Use for values that must stay in sync with other instance data
+ * (e.g. `x-computed`) without owning the field UI.
+ */
+export interface FormDataSyncExtension {
+  id: string;
+  sync: (
+    schema: SchemaDocument,
+    data: Record<string, unknown>,
+  ) => Record<string, unknown>;
+}
+
 export type SchemaTypeExtension = SchemaTypeExtensionDescriptor;
 
 export interface JseVueExtension {
   id: string;
   formFields?: VueFormFieldExtension[];
   schemaTypes?: SchemaTypeExtension[];
+  /** Optional instance-data sync plugins (computed values, future derived fields). */
+  formDataSync?: FormDataSyncExtension[];
 }
 
 export interface RegisterVueExtensionOptions {
@@ -37,6 +52,7 @@ export interface RegisterVueExtensionOptions {
 const registeredExtensionIds = new Set<string>();
 const registeredFieldIdsByExtension = new Map<string, string[]>();
 const registeredSchemaTypeIdsByExtension = new Map<string, string[]>();
+const registeredFormDataSyncByExtension = new Map<string, FormDataSyncExtension[]>();
 
 export function isVueExtensionRegistered(id: string): boolean {
   return registeredExtensionIds.has(id);
@@ -82,6 +98,7 @@ export function registerVueExtension(
   registeredExtensionIds.add(extension.id);
   registeredFieldIdsByExtension.set(extension.id, fieldIds);
   registeredSchemaTypeIdsByExtension.set(extension.id, schemaTypeIds);
+  registeredFormDataSyncByExtension.set(extension.id, [...(extension.formDataSync ?? [])]);
 }
 
 export function registerVueExtensions(
@@ -114,6 +131,23 @@ export function unregisterVueExtension(id: string, options?: RegisterVueExtensio
   registeredExtensionIds.delete(id);
   registeredFieldIdsByExtension.delete(id);
   registeredSchemaTypeIdsByExtension.delete(id);
+  registeredFormDataSyncByExtension.delete(id);
+}
+
+export function listRegisteredFormDataSyncExtensions(): FormDataSyncExtension[] {
+  return [...registeredFormDataSyncByExtension.values()].flat();
+}
+
+/** Applies all registered form-data sync plugins. Returns `data` when unchanged. */
+export function applyRegisteredFormDataSync(
+  schema: SchemaDocument,
+  data: Record<string, unknown>,
+): Record<string, unknown> {
+  let current = data;
+  for (const syncer of listRegisteredFormDataSyncExtensions()) {
+    current = syncer.sync(schema, current);
+  }
+  return current;
 }
 
 /** Call once at app startup or pass via `JsonSchemaForm` / `install()` extensions prop. */

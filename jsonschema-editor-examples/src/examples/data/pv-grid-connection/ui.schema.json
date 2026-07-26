@@ -1,0 +1,391 @@
+{
+  "type": "Stepper",
+  "elements": [
+    {
+      "type": "Step",
+      "label": "Application",
+      "elements": [
+        {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/vorgang/properties/antragsnummer",
+                  "i18n": "pv-grid.vorgang.antragsnummer",
+                  "label": "Application number"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/vorgang/properties/antragsdatum",
+                  "i18n": "pv-grid.vorgang.antragsdatum",
+                  "label": "Application date"
+                }
+              ]
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/vorgang/properties/netzbetreiber",
+              "i18n": "pv-grid.vorgang.netzbetreiber",
+              "label": "Grid operator"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/antragsStatus",
+              "label": "Application status",
+              "i18n": "pv-grid.antragsStatus"
+            },
+            {
+              "type": "Group",
+              "label": "Applicant",
+              "i18n": "pv-grid.ui.applicant",
+              "elements": [
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/antragsteller/properties/vorname",
+                      "i18n": "pv-grid.antragsteller.vorname",
+                      "label": "First name"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/antragsteller/properties/nachname",
+                      "i18n": "pv-grid.antragsteller.nachname",
+                      "label": "Last name"
+                    }
+                  ]
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/antragsteller/properties/firma",
+                  "i18n": "pv-grid.antragsteller.firma",
+                  "label": "Company"
+                },
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/antragsteller/properties/email",
+                      "i18n": "pv-grid.antragsteller.email",
+                      "label": "Email"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/antragsteller/properties/telefon",
+                      "i18n": "pv-grid.antragsteller.telefon",
+                      "label": "Phone"
+                    }
+                  ]
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/antragsteller/properties/rolle",
+                  "i18n": "pv-grid.antragsteller.rolle",
+                  "label": "Role"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "i18n": "pv-grid.ui.step.application"
+    },
+    {
+      "type": "Step",
+      "label": "Site",
+      "elements": [
+        {
+          "type": "Group",
+          "label": "Location",
+          "i18n": "pv-grid.ui.site",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/standort/properties/adresse",
+              "i18n": "pv-grid.standort.adresse",
+              "label": "Plant address"
+            },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/standort/properties/marktlokation",
+                  "i18n": "pv-grid.standort.marktlokation",
+                  "label": "Market location (MaLo)"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/standort/properties/flurstueck",
+                  "i18n": "pv-grid.standort.flurstueck",
+                  "label": "Parcel"
+                }
+              ]
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/standort/properties/dachflaecheKarte",
+              "label": "Installation area (map)",
+              "i18n": "pv-grid.standort.dachflaecheKarte"
+            },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/standort/properties/neigungGrad",
+                  "i18n": "pv-grid.standort.neigungGrad",
+                  "label": "Tilt (degrees)"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/standort/properties/ausrichtung",
+                  "i18n": "pv-grid.standort.ausrichtung",
+                  "label": "Orientation"
+                }
+              ]
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/standort/properties/verschattung",
+              "i18n": "pv-grid.standort.verschattung",
+              "label": "Significant shading expected"
+            }
+          ]
+        }
+      ],
+      "i18n": "pv-grid.ui.step.site"
+    },
+    {
+      "type": "Step",
+      "label": "Plant",
+      "elements": [
+        {
+          "type": "Group",
+          "label": "Mounting & modules",
+          "i18n": "pv-grid.ui.plant",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/anlage/properties/montageart",
+              "label": "Mounting type",
+              "i18n": "pv-grid.anlage.montageart"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/anlage/properties/module",
+              "i18n": "pv-grid.anlage.module",
+              "label": "Module strings / batches",
+              "options": {
+                "elementLabelProp": "typ",
+                "detail": {
+                  "type": "VerticalLayout",
+                  "elements": [
+                    {
+                      "type": "HorizontalLayout",
+                      "elements": [
+                        {
+                          "type": "Control",
+                          "scope": "#/properties/hersteller",
+                          "label": "Manufacturer",
+                          "i18n": "pv-grid.anlage.module.hersteller"
+                        },
+                        {
+                          "type": "Control",
+                          "scope": "#/properties/typ",
+                          "label": "Module type",
+                          "i18n": "pv-grid.anlage.module.typ"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "HorizontalLayout",
+                      "elements": [
+                        {
+                          "type": "Control",
+                          "scope": "#/properties/wp",
+                          "label": "Module power (Wp)",
+                          "i18n": "pv-grid.anlage.module.wp"
+                        },
+                        {
+                          "type": "Control",
+                          "scope": "#/properties/anzahl",
+                          "label": "Quantity",
+                          "i18n": "pv-grid.anlage.module.anzahl"
+                        },
+                        {
+                          "type": "Control",
+                          "scope": "#/properties/technologie",
+                          "label": "Cell technology",
+                          "i18n": "pv-grid.anlage.module.technologie"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/anlage/properties/geplanteInbetriebnahme",
+              "i18n": "pv-grid.anlage.geplanteInbetriebnahme",
+              "label": "Planned commissioning"
+            }
+          ]
+        }
+      ],
+      "i18n": "pv-grid.ui.step.plant"
+    },
+    {
+      "type": "Step",
+      "label": "Technology",
+      "elements": [
+        {
+          "type": "Group",
+          "label": "Inverter & storage",
+          "i18n": "pv-grid.ui.tech",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/technik/properties/wechselrichter",
+              "label": "Inverter",
+              "i18n": "pv-grid.technik.wechselrichter"
+            },
+            {
+              "type": "Group",
+              "label": "Battery storage",
+              "i18n": "pv-grid.ui.storage",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/technik/properties/speicher/properties/vorhanden",
+                  "i18n": "pv-grid.technik.speicher.vorhanden",
+                  "label": "Battery storage planned"
+                },
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/technik/properties/speicher/properties/hersteller",
+                      "i18n": "pv-grid.technik.speicher.hersteller",
+                      "label": "Storage manufacturer"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/technik/properties/speicher/properties/nutzbareKwh",
+                      "i18n": "pv-grid.technik.speicher.nutzbareKwh",
+                      "label": "Usable capacity (kWh)"
+                    }
+                  ]
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/technik/properties/speicher/properties/leistungKw",
+                  "i18n": "pv-grid.technik.speicher.leistungKw",
+                  "label": "Charge/discharge power (kW)"
+                }
+              ]
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/technik/properties/einspeiseart",
+              "i18n": "pv-grid.technik.einspeiseart",
+              "label": "Feed-in mode"
+            }
+          ]
+        }
+      ],
+      "i18n": "pv-grid.ui.step.tech"
+    },
+    {
+      "type": "Step",
+      "label": "Summary",
+      "elements": [
+        {
+          "type": "Group",
+          "label": "Calculated values",
+          "i18n": "pv-grid.ui.calc",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/kalkulation/properties/gesamtKwp",
+                  "label": "Total DC power (kWp)",
+                  "i18n": "pv-grid.kalkulation.gesamtKwp"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/kalkulation/properties/modulAnzahl",
+                  "label": "Total modules",
+                  "i18n": "pv-grid.kalkulation.modulAnzahl"
+                }
+              ]
+            },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/kalkulation/properties/jahresertragKwh",
+                  "label": "Estimated annual yield (kWh)",
+                  "i18n": "pv-grid.kalkulation.jahresertragKwh"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/kalkulation/properties/speicherKwh",
+                  "label": "Storage capacity (kWh)",
+                  "i18n": "pv-grid.kalkulation.speicherKwh"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Group",
+          "label": "Documents & declarations",
+          "i18n": "pv-grid.ui.docs",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/unterlagen/properties/lageplanVorhanden",
+              "i18n": "pv-grid.unterlagen.lageplanVorhanden",
+              "label": "Site plan available"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/unterlagen/properties/dokumente",
+              "label": "Uploads",
+              "i18n": "pv-grid.unterlagen.dokumente"
+            },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/unterlagen/properties/datenschutzEinwilligung",
+                  "i18n": "pv-grid.unterlagen.datenschutzEinwilligung",
+                  "label": "Consent to data processing"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/unterlagen/properties/richtigkeitBestaetigt",
+                  "i18n": "pv-grid.unterlagen.richtigkeitBestaetigt",
+                  "label": "Information is complete and correct"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "i18n": "pv-grid.ui.step.summary"
+    }
+  ]
+}

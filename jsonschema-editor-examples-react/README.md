@@ -14,19 +14,24 @@ pnpm --filter @jsonschema-editor/json-schema --filter @jsonschema-editor/json-sc
 pnpm --filter @jsonschema-editor/react --filter @jsonschema-editor/react-extensions run build
 ```
 
-## Start
+## Start (unified Vue + React site)
+
+From the **repository root**:
 
 ```bash
-pnpm --filter jsonschema-editor-examples-react run dev
+pnpm run dev:site
 ```
 
-Opens http://localhost:5174 with:
+Opens http://127.0.0.1:5173 as **one site**. Switch stacks via the topbar **Vue | React** control:
 
-- **Get started** — React install steps (`#/get-started`)
-- **Examples** — curated scenarios with form, **schema editor**, and JSON output
-- **Imprint** — legal notice stub
+- `/en/examples/react/field-extensions-qa` — React stack (default scenario)
+- `/en/examples/vue/...` — Vue stack
+- `/en/get-started` — install steps
+- `/en/imprint` — legal notice
 
-Default scenario: **Kundenkontakt** (`field-extensions-qa`) — email/url/phone format fields.
+Isolated React-only Vite remains available via `pnpm --filter jsonschema-editor-examples-react run dev` (port 5174).
+
+Production deploy ships Vue + React together (`pnpm run build:site` from the repo root).
 
 ## E2E tests
 
@@ -46,7 +51,7 @@ pnpm run test:e2e
 
 | Feature | Vue examples | React examples |
 | --- | --- | --- |
-| Port | 5173 | 5174 |
+| Unified site path | `/…/examples/vue/…` | `/…/examples/react/…` |
 | Schema editor tab | yes | yes |
 | All extensions | yes | yes |
 | Playwright E2E | yes | yes |

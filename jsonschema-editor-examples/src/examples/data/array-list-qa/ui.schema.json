@@ -1,6 +1,31 @@
 {
   "type": "VerticalLayout",
   "elements": [
-    { "type": "Control", "scope": "#/properties/positionen", "label": "Kostenpositionen" }
+    {
+      "type": "Control",
+      "scope": "#/properties/positionen",
+      "label": "Cost items",
+      "options": {
+        "elementLabelProp": "bezeichnung",
+        "detail": {
+          "type": "HorizontalLayout",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/bezeichnung",
+              "label": "Designation",
+              "i18n": "list-of-services.bezeichnung"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/betrag",
+              "label": "Amount (EUR)",
+              "i18n": "list-of-services.betrag"
+            }
+          ]
+        }
+      },
+      "i18n": "list-of-services.positionen"
+    }
   ]
 }

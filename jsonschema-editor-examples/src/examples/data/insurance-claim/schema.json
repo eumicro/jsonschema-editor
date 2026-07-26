@@ -1,76 +1,93 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Schadensmeldung",
-  "description": "Schadenfall melden — für Kfz-, Hausrat- und Haftpflichtschäden",
+  "title": "Damage report",
+  "description": "Report a claim - for vehicle, household contents and liability damage",
   "type": "object",
   "properties": {
     "vorgang": {
       "type": "object",
-      "title": "Vorgang",
-      "required": ["schadennummer", "meldedatum"],
+      "title": "Occurrence",
+      "required": [
+        "schadennummer",
+        "meldedatum"
+      ],
       "properties": {
         "schadennummer": {
           "type": "string",
-          "title": "Schadennummer",
-          "description": "Interne Vorgangsnummer / Schaden-ID"
+          "title": "Claim number",
+          "description": "Internal process number / damage ID"
         },
         "meldedatum": {
           "type": "string",
           "format": "date",
-          "title": "Meldedatum"
+          "title": "Reporting date"
         }
       }
     },
     "versicherungsnehmer": {
       "type": "object",
-      "title": "Versicherungsnehmer",
-      "required": ["nachname", "email", "policennummer"],
+      "title": "Policyholder",
+      "required": [
+        "nachname",
+        "email",
+        "policennummer"
+      ],
       "properties": {
-        "vorname": { "type": "string", "title": "Vorname" },
-        "nachname": { "type": "string", "title": "Nachname" },
+        "vorname": {
+          "type": "string",
+          "title": "First name"
+        },
+        "nachname": {
+          "type": "string",
+          "title": "Last name"
+        },
         "email": {
           "type": "string",
           "format": "email",
-          "title": "E-Mail",
-          "description": "Für Rückfragen und Statusmitteilungen"
+          "title": "Email",
+          "description": "For questions and status reports"
         },
         "telefon": {
           "type": "string",
           "format": "phone",
-          "title": "Telefon",
-          "description": "Erreichbarkeit tagsüber"
+          "title": "Phone",
+          "description": "Availability during the day"
         },
         "policennummer": {
           "type": "string",
-          "title": "Policennummer",
-          "description": "Nummer aus dem Versicherungsschein"
+          "title": "Policy number",
+          "description": "Number from the insurance certificate"
         }
       }
     },
     "schadenfall": {
       "type": "object",
-      "title": "Schadenfall",
-      "required": ["schadenDatum", "adresse", "schilderung"],
+      "title": "Damage event",
+      "required": [
+        "schadenDatum",
+        "adresse",
+        "schilderung"
+      ],
       "properties": {
         "schadenDatum": {
           "type": "string",
           "format": "date",
-          "title": "Schadentag"
+          "title": "Damage day"
         },
         "schadenzeit": {
           "type": "string",
-          "title": "Ungefähre Uhrzeit",
-          "description": "z. B. 14:30"
+          "title": "Approximate time",
+          "description": "E.g. B. 2:30 p.m"
         },
         "adresse": {
           "type": "string",
-          "title": "Schadenort (Adresse)",
-          "description": "Straße, PLZ Ort"
+          "title": "Location of damage (address)",
+          "description": "Street, zip code, city"
         },
         "schadenortKarte": {
           "type": "object",
-          "title": "Schadenort (Karte)",
-          "description": "Unfall- oder Ereignisort auf der Karte",
+          "title": "Damage location (map)",
+          "description": "Accident or incident location on the map",
           "x-geometry": {
             "styleUrl": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
             "point": true,
@@ -81,114 +98,167 @@
         },
         "schilderung": {
           "type": "string",
-          "title": "Schilderung des Hergangs",
-          "description": "Was ist passiert?"
+          "title": "Description of the process",
+          "description": "What happened?"
         },
         "polizeiAufgenommen": {
           "type": "boolean",
-          "title": "Polizeilich aufgenommen"
+          "title": "Recorded by police"
         },
         "polizeiAktenzeichen": {
           "type": "string",
-          "title": "Polizei-Aktenzeichen",
-          "description": "Falls polizeilich erfasst"
+          "title": "Police file number",
+          "description": "If recorded by the police"
         }
       }
     },
     "schadendetails": {
       "type": "object",
-      "title": "Schadendetails",
-      "required": ["art"],
+      "title": "Damage details",
+      "required": [
+        "art"
+      ],
       "properties": {
         "art": {
-          "title": "Schadenart",
-          "description": "Je nach Police unterschiedliche Pflichtfelder",
+          "title": "Damage type",
+          "description": "Depending on the policy, different mandatory fields",
           "oneOf": [
-            { "$ref": "#/$defs/SchadenKfz" },
-            { "$ref": "#/$defs/SchadenHausrat" },
-            { "$ref": "#/$defs/SchadenHaftpflicht" }
+            {
+              "$ref": "#/$defs/SchadenKfz"
+            },
+            {
+              "$ref": "#/$defs/SchadenHausrat"
+            },
+            {
+              "$ref": "#/$defs/SchadenHaftpflicht"
+            }
           ]
         }
       }
     },
     "beteiligte": {
       "type": "object",
-      "title": "Beteiligte",
+      "title": "Involved",
       "properties": {
         "zeugen": {
           "type": "array",
-          "title": "Zeugen",
+          "title": "Witnesses",
           "items": {
             "type": "object",
-            "title": "Zeuge",
-            "required": ["name"],
+            "title": "Witness",
+            "required": [
+              "name"
+            ],
             "properties": {
-              "name": { "type": "string", "title": "Name" },
-              "telefon": { "type": "string", "format": "phone", "title": "Telefon" },
-              "aussageKurz": { "type": "string", "title": "Kurznotiz" }
+              "name": {
+                "type": "string",
+                "title": "Name"
+              },
+              "telefon": {
+                "type": "string",
+                "format": "phone",
+                "title": "Phone"
+              },
+              "aussageKurz": {
+                "type": "string",
+                "title": "Quick note"
+              }
             }
           }
         },
         "gegnerischePartei": {
           "type": "object",
-          "title": "Gegnerische Partei (optional)",
+          "title": "Opposing party (optional)",
           "properties": {
-            "name": { "type": "string", "title": "Name / Kennzeichen" },
-            "versicherung": { "type": "string", "title": "Versicherung" },
-            "kontakt": { "type": "string", "format": "phone", "title": "Kontakt" }
+            "name": {
+              "type": "string",
+              "title": "Name / license plate"
+            },
+            "versicherung": {
+              "type": "string",
+              "title": "Insurance"
+            },
+            "kontakt": {
+              "type": "string",
+              "format": "phone",
+              "title": "Contact"
+            }
           }
         }
       }
     },
     "abschluss": {
       "type": "object",
-      "title": "Abschluss",
+      "title": "Diploma",
       "properties": {
         "fotosVorhanden": {
           "type": "boolean",
-          "title": "Fotos / Belege liegen vor"
+          "title": "Photos/documents are available"
         },
         "schadenfotos": {
           "type": "array",
-          "title": "Schadenfotos & Belege",
-          "description": "Fotos vom Schaden, Rechnungen oder Polizeiberichte hochladen",
+          "title": "Damage photos & receipts",
+          "description": "Upload photos of the damage, invoices or police reports",
           "x-file": {
             "multiple": true,
-            "accept": ["image/*", "application/pdf"],
+            "accept": [
+              "image/*",
+              "application/pdf"
+            ],
             "maxFiles": 8,
             "maxSize": 10485760
           },
           "items": {
             "type": "object",
             "properties": {
-              "id": { "type": "string" },
-              "name": { "type": "string" },
-              "mimeType": { "type": "string" },
-              "size": { "type": "integer", "minimum": 0 }
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "mimeType": {
+                "type": "string"
+              },
+              "size": {
+                "type": "integer",
+                "minimum": 0
+              }
             },
-            "required": ["id", "name", "mimeType", "size"]
+            "required": [
+              "id",
+              "name",
+              "mimeType",
+              "size"
+            ]
           }
         },
         "iban": {
           "type": "string",
-          "title": "IBAN für Erstattung",
-          "description": "Optional, falls Auszahlung gewünscht"
+          "title": "IBAN for reimbursement",
+          "description": "Optional if payment is desired"
         },
         "datenschutzEinwilligung": {
           "type": "boolean",
-          "title": "Einwilligung zur Datenverarbeitung"
+          "title": "Consent to data processing"
         },
         "wahrheitsgemasseAngaben": {
           "type": "boolean",
-          "title": "Angaben sind wahrheitsgemäß"
+          "title": "Information is truthful"
         }
       }
     },
     "bearbeitungsStatus": {
       "type": "string",
-      "title": "Bearbeitungsstand",
-      "description": "Wird automatisch aus dem Formularfortschritt abgeleitet",
-      "enum": ["NEU", "GEMELDET", "SCHADEN_BESCHRIEBEN", "UNTERLAGEN_OFFEN", "EINGEGANGEN"],
+      "title": "Processing status",
+      "description": "Automatically derived from form progress",
+      "enum": [
+        "NEU",
+        "GEMELDET",
+        "SCHADEN_BESCHRIEBEN",
+        "UNTERLAGEN_OFFEN",
+        "EINGEGANGEN"
+      ],
       "x-computed": {
         "expression": "!has(data.vorgang.meldedatum) || data.vorgang.meldedatum == '' ? 'NEU' : (!has(data.schadenfall.schadenDatum) || data.schadenfall.schadenDatum == '') ? 'GEMELDET' : (!has(data.schadendetails.art) || !has(data.schadendetails.art.typ)) ? 'SCHADEN_BESCHRIEBEN' : (!data.abschluss.datenschutzEinwilligung || !data.abschluss.wahrheitsgemasseAngaben) ? 'UNTERLAGEN_OFFEN' : 'EINGEGANGEN'"
       }
@@ -197,63 +267,111 @@
   "$defs": {
     "SchadenKfz": {
       "type": "object",
-      "title": "Kfz-Schaden",
-      "required": ["typ", "kennzeichen", "fahrbereit"],
+      "title": "Motor vehicle damage",
+      "required": [
+        "typ",
+        "kennzeichen",
+        "fahrbereit"
+      ],
       "properties": {
-        "typ": { "type": "string", "const": "kfz", "title": "Art" },
-        "kennzeichen": { "type": "string", "title": "Kennzeichen" },
+        "typ": {
+          "type": "string",
+          "const": "kfz",
+          "title": "Art"
+        },
+        "kennzeichen": {
+          "type": "string",
+          "title": "Mark"
+        },
         "fahrzeugart": {
           "type": "string",
-          "title": "Fahrzeugart",
-          "enum": ["PKW", "Transporter", "Motorrad", "Anhänger"]
+          "title": "Vehicle type",
+          "enum": [
+            "PKW",
+            "Transporter",
+            "Motorrad",
+            "Anhänger"
+          ]
         },
         "fahrtzweck": {
           "type": "string",
-          "title": "Fahrtzweck",
-          "enum": ["Privat", "Dienst", "Arbeitsweg"]
+          "title": "Purpose of trip",
+          "enum": [
+            "Privat",
+            "Dienst",
+            "Arbeitsweg"
+          ]
         },
         "beschaedigung": {
           "type": "string",
-          "title": "Schwere der Beschädigung",
-          "enum": ["leicht", "mittel", "Totalschaden"]
+          "title": "Severity of damage",
+          "enum": [
+            "leicht",
+            "mittel",
+            "Totalschaden"
+          ]
         },
         "fahrbereit": {
           "type": "boolean",
-          "title": "Fahrzeug noch fahrbereit"
+          "title": "Vehicle still ready to drive"
         },
         "mietwagenErforderlich": {
           "type": "boolean",
-          "title": "Mietwagen erforderlich"
+          "title": "Rental car required"
         }
       }
     },
     "SchadenHausrat": {
       "type": "object",
-      "title": "Hausrat-Schaden",
-      "required": ["typ", "ursache"],
+      "title": "Household contents damage",
+      "required": [
+        "typ",
+        "ursache"
+      ],
       "properties": {
-        "typ": { "type": "string", "const": "hausrat", "title": "Art" },
+        "typ": {
+          "type": "string",
+          "const": "hausrat",
+          "title": "Art"
+        },
         "ursache": {
           "type": "string",
-          "title": "Schadenursache",
-          "enum": ["Wasser", "Feuer", "Einbruch", "Sturm", "Sonstiges"]
+          "title": "Cause of damage",
+          "enum": [
+            "Wasser",
+            "Feuer",
+            "Einbruch",
+            "Sturm",
+            "Sonstiges"
+          ]
         },
         "betroffeneRaeume": {
           "type": "string",
-          "title": "Betroffene Räume",
-          "description": "z. B. Küche, Wohnzimmer"
+          "title": "Affected rooms",
+          "description": "E.g. E.g. kitchen, living room"
         },
         "gegenstaende": {
           "type": "array",
-          "title": "Beschädigte Gegenstände",
+          "title": "Damaged items",
           "minItems": 1,
           "items": {
             "type": "object",
-            "required": ["bezeichnung"],
+            "required": [
+              "bezeichnung"
+            ],
             "properties": {
-              "bezeichnung": { "type": "string", "title": "Bezeichnung" },
-              "anschaffungsjahr": { "type": "integer", "title": "Anschaffungsjahr" },
-              "geschaetzterWert": { "type": "number", "title": "Geschätzter Wert (EUR)" }
+              "bezeichnung": {
+                "type": "string",
+                "title": "Designation"
+              },
+              "anschaffungsjahr": {
+                "type": "integer",
+                "title": "Year of purchase"
+              },
+              "geschaetzterWert": {
+                "type": "number",
+                "title": "Estimated value (EUR)"
+              }
             }
           }
         }
@@ -261,30 +379,37 @@
     },
     "SchadenHaftpflicht": {
       "type": "object",
-      "title": "Haftpflicht-Schaden",
-      "required": ["typ", "gegenstand"],
+      "title": "Liability damage",
+      "required": [
+        "typ",
+        "gegenstand"
+      ],
       "properties": {
-        "typ": { "type": "string", "const": "haftpflicht", "title": "Art" },
+        "typ": {
+          "type": "string",
+          "const": "haftpflicht",
+          "title": "Art"
+        },
         "gegenstand": {
           "type": "string",
-          "title": "Was wurde beschädigt?",
-          "description": "Sache oder Anlage eines Dritten"
+          "title": "What was damaged?",
+          "description": "Property or installation of a third party"
         },
         "personenSchaden": {
           "type": "boolean",
-          "title": "Personenschaden"
+          "title": "Personal injury"
         },
         "verletztePerson": {
           "type": "string",
-          "title": "Verletzte Person (Name)"
+          "title": "Injured person (name)"
         },
         "aerztlichBehandelt": {
           "type": "boolean",
-          "title": "Ärztlich behandelt"
+          "title": "Medically treated"
         },
         "geschaetzteHoehe": {
           "type": "number",
-          "title": "Geschätzte Schadenhöhe (EUR)"
+          "title": "Estimated amount of damage (EUR)"
         }
       }
     }

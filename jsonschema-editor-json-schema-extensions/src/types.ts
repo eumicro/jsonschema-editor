@@ -1,6 +1,6 @@
 import type { JsonSchemaObject } from "@jsonschema-editor/json-schema";
 
-export type FormatExtensionId = "email" | "url" | "phone";
+export type FormatExtensionId = "email" | "url" | "phone" | "date-today";
 
 export interface JsonSchemaFormatExtension {
   readonly id: FormatExtensionId;

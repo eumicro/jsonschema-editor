@@ -1,0 +1,38 @@
+{
+  "en": {
+    "assign-resource.ui.0.label": "Person",
+    "assign-resource.ui.0.description": "Enter a person or equipment using type selection"
+  },
+  "de": {
+    "assign-resource.ui.0.label": "Person",
+    "assign-resource.ui.0.description": "Person oder Betriebsmittel per Typauswahl erfassen"
+  },
+  "fr": {
+    "assign-resource.ui.0.label": "Personne",
+    "assign-resource.ui.0.description": "Entrez une personne ou un équipement à l'aide de la sélection de type"
+  },
+  "it": {
+    "assign-resource.ui.0.label": "Persona",
+    "assign-resource.ui.0.description": "Inserisci una persona o un'attrezzatura utilizzando la selezione del tipo"
+  },
+  "pl": {
+    "assign-resource.ui.0.label": "Osoba",
+    "assign-resource.ui.0.description": "Wprowadź osobę lub sprzęt, korzystając z opcji wyboru typu"
+  },
+  "uk": {
+    "assign-resource.ui.0.label": "Людина",
+    "assign-resource.ui.0.description": "Введіть особу або обладнання за допомогою вибору типу"
+  },
+  "ru": {
+    "assign-resource.ui.0.label": "Человек",
+    "assign-resource.ui.0.description": "Введите человека или оборудование, используя выбор типа."
+  },
+  "zh": {
+    "assign-resource.ui.0.label": "人",
+    "assign-resource.ui.0.description": "使用类型选择输入人员或设备"
+  },
+  "ja": {
+    "assign-resource.ui.0.label": "人",
+    "assign-resource.ui.0.description": "タイプ選択を使用して人物または機器を入力します"
+  }
+}

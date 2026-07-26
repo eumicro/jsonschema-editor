@@ -3,6 +3,7 @@ import {
   IntegerSchema,
   NumberSchema,
   StringSchema,
+  applyCustomAttributeWithComposition,
   globalJsonSchemaAttributeRegistry,
   type SchemaDocument,
   type SchemaNode,
@@ -55,6 +56,12 @@ export function listSchemaAttributeFields(node: SchemaNode): SchemaAttributeFiel
   }
 
   for (const definition of globalJsonSchemaAttributeRegistry.listFieldScoped()) {
+    if (!fields.some((field) => field.name === definition.name)) {
+      fields.push({ name: definition.name, labelKey: `schemaAttributes.${definition.name}` });
+    }
+  }
+
+  for (const definition of globalJsonSchemaAttributeRegistry.listOfferedForKind(node.kind)) {
     if (!fields.some((field) => field.name === definition.name)) {
       fields.push({ name: definition.name, labelKey: `schemaAttributes.${definition.name}` });
     }
@@ -157,7 +164,12 @@ export function setSchemaAttributeValue(node: SchemaNode, name: string, value: u
         }
         return;
       }
-      node.setCustomAttribute(name, value);
+      applyCustomAttributeWithComposition(
+        node,
+        globalJsonSchemaAttributeRegistry,
+        name,
+        value,
+      );
     }
   }
 }

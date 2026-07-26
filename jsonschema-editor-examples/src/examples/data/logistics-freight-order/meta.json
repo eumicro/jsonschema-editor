@@ -1,7 +1,49 @@
 {
-  "label": "Speditionsauftrag",
-  "tagline": "Transport von Abholung bis Disposition — Route, Ladung, Kalkulation",
-  "description": "Umfassender Logistik-Workflow: Auftraggeber, Abhol- und Zustellort mit Karte, Sendungspositionen, Leistungsart (Standard/Express/Kühlkette), Fahrzeugbedarf, automatische Gewichts- und Frachtkostenkalkulation sowie Dispositionsstatus.",
+  "label": "Shipping order",
+  "tagline": "Transport from collection to dispatch – route, load, calculation",
+  "description": "Comprehensive logistics workflow: client, pickup and delivery location with map, shipment positions, service type (standard/express/cold chain), vehicle requirements, automatic weight and freight cost calculation as well as scheduling status.",
   "category": "Logistik & Transport",
-  "visibility": "public"
+  "visibility": "public",
+  "locales": {
+    "de": {
+      "label": "Speditionsauftrag",
+      "tagline": "Transport von Abholung bis Disposition — Route, Ladung, Kalkulation",
+      "description": "Umfassender Logistik-Workflow: Auftraggeber, Abhol- und Zustellort mit Karte, Sendungspositionen, Leistungsart (Standard/Express/Kühlkette), Fahrzeugbedarf, automatische Gewichts- und Frachtkostenkalkulation sowie Dispositionsstatus."
+    },
+    "fr": {
+      "label": "Commande d'expédition",
+      "tagline": "Transport de la collecte à l’expédition – itinéraire, chargement, calcul",
+      "description": "Flux de travail logistique complet : client, lieu de ramassage et de livraison avec carte, positions d'expédition, type de service (standard/express/chaîne du froid), exigences en matière de véhicule, calcul automatique du poids et des coûts de transport ainsi que statut de planification."
+    },
+    "it": {
+      "label": "Ordine di spedizione",
+      "tagline": "Trasporto dal ritiro alla spedizione: percorso, carico, calcolo",
+      "description": "Flusso di lavoro logistico completo: cliente, luogo di ritiro e consegna con mappa, posizioni di spedizione, tipo di servizio (standard/espresso/catena del freddo), requisiti del veicolo, calcolo automatico del peso e dei costi di trasporto, nonché stato della pianificazione."
+    },
+    "pl": {
+      "label": "Zamówienie wysyłki",
+      "tagline": "Transport od odbioru do wysyłki – trasa, ładunek, kalkulacja",
+      "description": "Kompleksowy przepływ logistyki: klient, miejsce odbioru i dostawy z mapą, pozycje przesyłek, rodzaj usługi (standardowa/ekspresowa/łańcuch chłodniczy), wymagania dotyczące pojazdów, automatyczne obliczanie wagi i kosztów frachtu, a także status harmonogramu."
+    },
+    "uk": {
+      "label": "Порядок доставки",
+      "tagline": "Транспорт від збору до відправлення – маршрут, вантаж, розрахунок",
+      "description": "Комплексний робочий процес логістики: клієнт, місце отримання та доставки з картою, позиції відправлення, тип послуги (стандартний/експрес/холодовий ланцюг), вимоги до транспортних засобів, автоматичний розрахунок ваги та вартості вантажу, а також статус планування."
+    },
+    "ru": {
+      "label": "Заказ на доставку",
+      "tagline": "Транспорт от сбора до отправки – маршрут, загрузка, расчет",
+      "description": "Комплексный логистический рабочий процесс: клиент, место получения и доставки с картой, позиции отгрузки, тип услуги (стандартная/экспресс/холодная цепь), требования к транспортному средству, автоматический расчет веса и стоимости перевозки, а также статус планирования."
+    },
+    "zh": {
+      "label": "发货订单",
+      "tagline": "从收集到发送的运输 – 路线、负载、计算",
+      "description": "全面的物流工作流程：客户、提货和送货地点及地图、发货位置、服务类型（标准/快递/冷链）、车辆要求、自动重量和运费计算以及调度状态。"
+    },
+    "ja": {
+      "label": "発送注文",
+      "tagline": "収集から発送までの輸送 - ルート、積載、計算",
+      "description": "包括的な物流ワークフロー: 顧客、地図付きの集配場所、出荷位置、サービスの種類 (標準/特急/コールド チェーン)、車両要件、重量と運賃の自動計算、スケジュール ステータス。"
+    }
+  }
 }

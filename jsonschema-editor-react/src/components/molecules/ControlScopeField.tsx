@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import type { SchemaDocument } from "@jsonschema-editor/json-schema";
+import type { SchemaDocument, SchemaNode } from "@jsonschema-editor/json-schema";
 import { JseFormField } from "./JseFormField.js";
 import { JseSuggestionInput } from "../atoms/JseSuggestionInput.js";
 import {
@@ -10,6 +10,9 @@ import { useJseI18n } from "../../context/JseI18nContext.js";
 
 export interface ControlScopeFieldProps {
   document?: SchemaDocument | null;
+  /** Schema-Wurzel für relative Scopes (z. B. Array-Item / $defs in options.detail). */
+  suggestionSchema?: SchemaNode | null;
+  suggestionBaseScope?: string;
   /** Scopes, die aus der Suggestion-Liste ausgeblendet werden. */
   usedScopes?: readonly string[];
   /** Scopes, die eine „bereits in Verwendung“-Warnung auslösen (Standard: usedScopes). */
@@ -23,6 +26,8 @@ export interface ControlScopeFieldProps {
 
 export function ControlScopeField({
   document,
+  suggestionSchema,
+  suggestionBaseScope,
   usedScopes = [],
   conflictScopes,
   modelValue,
@@ -36,12 +41,14 @@ export function ControlScopeField({
   const suggestions = useMemo(
     () =>
       listControlScopeSuggestions(document, {
+        schema: suggestionSchema ?? undefined,
+        baseScope: suggestionBaseScope,
         excludeScopes: usedScopes,
       }).map((entry) => ({
         value: entry.scope,
         label: entry.display,
       })),
-    [document, usedScopes],
+    [document, suggestionBaseScope, suggestionSchema, usedScopes],
   );
 
   const scopeInUse = isControlScopeInUse(modelValue, conflictScopes ?? usedScopes);

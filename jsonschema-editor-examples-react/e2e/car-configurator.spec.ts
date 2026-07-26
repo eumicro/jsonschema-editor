@@ -3,7 +3,6 @@ import { openEditorMode, openFormMode, readFormOutput, selectExample } from "./h
 
 test.describe("Auto-Konfigurator (verschachtelt)", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/");
     await selectExample(page, "car-configurator");
     await openFormMode(page);
   });

@@ -1,7 +1,49 @@
 {
-  "label": "Auftraggeber erfassen",
-  "tagline": "Privatperson oder Unternehmen mit gemeinsamen Pflichtfeldern",
-  "description": "Internes Beispiel: gemeinsame Stammdaten mit unterschiedlichen Varianten für Privat- und Geschäftskunden.",
+  "label": "Enter clients",
+  "tagline": "Private individual or company with common mandatory fields",
+  "description": "Internal example: common master data with different variants for private and business customers.",
   "category": "Stammdaten",
-  "visibility": "internal"
+  "visibility": "internal",
+  "locales": {
+    "de": {
+      "label": "Auftraggeber erfassen",
+      "tagline": "Privatperson oder Unternehmen mit gemeinsamen Pflichtfeldern",
+      "description": "Internes Beispiel: gemeinsame Stammdaten mit unterschiedlichen Varianten für Privat- und Geschäftskunden."
+    },
+    "fr": {
+      "label": "Saisir les clients",
+      "tagline": "Particulier ou entreprise avec champs obligatoires communs",
+      "description": "Exemple interne : données de base communes avec différentes variantes pour les clients privés et professionnels."
+    },
+    "it": {
+      "label": "Inserisci i clienti",
+      "tagline": "Privato o azienda con campi obbligatori comuni",
+      "description": "Esempio interno: dati anagrafici comuni con diverse varianti per clienti privati ​​e commerciali."
+    },
+    "pl": {
+      "label": "Wprowadź klientów",
+      "tagline": "Osoba prywatna lub firma ze wspólnymi polami obowiązkowymi",
+      "description": "Przykład wewnętrzny: wspólne dane podstawowe z różnymi wariantami dla klientów prywatnych i biznesowych."
+    },
+    "uk": {
+      "label": "Введіть клієнтів",
+      "tagline": "Фізична особа чи компанія із загальними обов’язковими полями",
+      "description": "Внутрішній приклад: загальні основні дані з різними варіантами для приватних і бізнес-клієнтів."
+    },
+    "ru": {
+      "label": "Введите клиентов",
+      "tagline": "Частное лицо или компания с общими обязательными полями",
+      "description": "Внутренний пример: общие основные данные с разными вариантами для частных и корпоративных клиентов."
+    },
+    "zh": {
+      "label": "输入客户",
+      "tagline": "具有共同必填字段的私人或公司",
+      "description": "内部示例：针对私人和企业客户具有不同变体的通用主数据。"
+    },
+    "ja": {
+      "label": "クライアントを入力してください",
+      "tagline": "共通の必須フィールドを持つ個人または会社",
+      "description": "内部例: 個人顧客と法人顧客向けに異なるバリアントを持つ共通のマスター データ。"
+    }
+  }
 }

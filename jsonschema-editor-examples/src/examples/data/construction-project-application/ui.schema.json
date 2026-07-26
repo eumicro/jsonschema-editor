@@ -3,7 +3,7 @@
   "elements": [
     {
       "type": "Step",
-      "label": "Antrag",
+      "label": "Application",
       "elements": [
         {
           "type": "VerticalLayout",
@@ -11,141 +11,270 @@
             {
               "type": "HorizontalLayout",
               "elements": [
-                { "type": "Control", "scope": "#/properties/antrag/properties/antragsnummer" },
-                { "type": "Control", "scope": "#/properties/antrag/properties/antragsdatum" }
+                {
+                  "type": "Control",
+                  "scope": "#/properties/antrag/properties/antragsnummer",
+                  "i18n": "construction-project-registration.antrag.antragsnummer",
+                  "label": "Application number"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/antrag/properties/antragsdatum",
+                  "i18n": "construction-project-registration.antrag.antragsdatum",
+                  "label": "Application date"
+                }
               ]
             },
             {
               "type": "HorizontalLayout",
               "elements": [
-                { "type": "Control", "scope": "#/properties/antrag/properties/verfahrensart" },
-                { "type": "Control", "scope": "#/properties/antrag/properties/bauvorhabenBezeichnung" }
+                {
+                  "type": "Control",
+                  "scope": "#/properties/antrag/properties/verfahrensart",
+                  "i18n": "construction-project-registration.antrag.verfahrensart",
+                  "label": "Type of procedure"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/antrag/properties/bauvorhabenBezeichnung",
+                  "i18n": "construction-project-registration.antrag.bauvorhabenBezeichnung",
+                  "label": "Name of the construction project"
+                }
               ]
             },
-            { "type": "Control", "scope": "#/properties/antragsStatus", "label": "Bearbeitungsstand" },
+            {
+              "type": "Control",
+              "scope": "#/properties/antragsStatus",
+              "label": "Processing status",
+              "i18n": "construction-project-registration.antragsStatus"
+            },
             {
               "type": "Group",
-              "label": "Bauherr",
+              "label": "Builder",
               "elements": [
                 {
                   "type": "HorizontalLayout",
                   "elements": [
-                    { "type": "Control", "scope": "#/properties/bauherr/properties/name" },
-                    { "type": "Control", "scope": "#/properties/bauherr/properties/ansprechpartner" }
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/bauherr/properties/name",
+                      "i18n": "construction-project-registration.bauherr.name",
+                      "label": "Name/Company"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/bauherr/properties/ansprechpartner",
+                      "i18n": "construction-project-registration.bauherr.ansprechpartner",
+                      "label": "Contact Person"
+                    }
                   ]
                 },
                 {
                   "type": "HorizontalLayout",
                   "elements": [
-                    { "type": "Control", "scope": "#/properties/bauherr/properties/email" },
-                    { "type": "Control", "scope": "#/properties/bauherr/properties/telefon" }
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/bauherr/properties/email",
+                      "i18n": "construction-project-registration.bauherr.email",
+                      "label": "Email"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/bauherr/properties/telefon",
+                      "i18n": "construction-project-registration.bauherr.telefon",
+                      "label": "Phone"
+                    }
                   ]
                 },
-                { "type": "Control", "scope": "#/properties/bauherr/properties/steuerId" }
-              ]
+                {
+                  "type": "Control",
+                  "scope": "#/properties/bauherr/properties/steuerId",
+                  "i18n": "construction-project-registration.bauherr.steuerId",
+                  "label": "Tax ID / VAT ID no."
+                }
+              ],
+              "i18n": "construction-project-registration.ui.0.0.3"
             }
           ]
         }
-      ]
+      ],
+      "i18n": "construction-project-registration.ui.0"
     },
     {
       "type": "Step",
-      "label": "Grundstück",
+      "label": "Property",
       "elements": [
         {
           "type": "Group",
-          "label": "Lage & Flurstück",
+          "label": "City & parcel",
           "elements": [
-            { "type": "Control", "scope": "#/properties/grundstueck/properties/adresse" },
+            {
+              "type": "Control",
+              "scope": "#/properties/grundstueck/properties/adresse",
+              "i18n": "construction-project-registration.grundstueck.adresse",
+              "label": "City (address)"
+            },
             {
               "type": "HorizontalLayout",
               "elements": [
-                { "type": "Control", "scope": "#/properties/grundstueck/properties/gemarkung" },
-                { "type": "Control", "scope": "#/properties/grundstueck/properties/flurstueck" }
+                {
+                  "type": "Control",
+                  "scope": "#/properties/grundstueck/properties/gemarkung",
+                  "i18n": "construction-project-registration.grundstueck.gemarkung",
+                  "label": "District"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/grundstueck/properties/flurstueck",
+                  "i18n": "construction-project-registration.grundstueck.flurstueck",
+                  "label": "Parcel"
+                }
               ]
             },
-            { "type": "Control", "scope": "#/properties/grundstueck/properties/grundstuecksflaecheQm" },
+            {
+              "type": "Control",
+              "scope": "#/properties/grundstueck/properties/grundstuecksflaecheQm",
+              "i18n": "construction-project-registration.grundstueck.grundstuecksflaecheQm",
+              "label": "Property area (m²)"
+            },
             {
               "type": "Control",
               "scope": "#/properties/grundstueck/properties/grundstueckKarte",
-              "label": "Grundstücksgrenze (Karte)"
+              "label": "Property boundary (map)",
+              "i18n": "construction-project-registration.grundstueck.grundstueckKarte"
             },
             {
               "type": "HorizontalLayout",
               "elements": [
-                { "type": "Control", "scope": "#/properties/grundstueck/properties/denkmalschutz" },
-                { "type": "Control", "scope": "#/properties/grundstueck/properties/altlastenVerdacht" }
+                {
+                  "type": "Control",
+                  "scope": "#/properties/grundstueck/properties/denkmalschutz",
+                  "i18n": "construction-project-registration.grundstueck.denkmalschutz",
+                  "label": "Monument protection/ensemble protection"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/grundstueck/properties/altlastenVerdacht",
+                  "i18n": "construction-project-registration.grundstueck.altlastenVerdacht",
+                  "label": "Suspicion of contaminated sites known"
+                }
               ]
             }
-          ]
+          ],
+          "i18n": "construction-project-registration.ui.1.0"
         }
-      ]
+      ],
+      "i18n": "construction-project-registration.ui.1"
     },
     {
       "type": "Step",
-      "label": "Vorhaben",
+      "label": "Plan",
       "elements": [
         {
           "type": "Group",
-          "label": "Art des Vorhabens",
+          "label": "Type of project",
           "elements": [
-            { "type": "Control", "scope": "#/properties/vorhaben", "label": "Vorhabenart" }
-          ]
+            {
+              "type": "Control",
+              "scope": "#/properties/vorhaben",
+              "label": "Project type",
+              "i18n": "construction-project-registration.vorhaben"
+            }
+          ],
+          "i18n": "construction-project-registration.ui.2.0"
         }
-      ]
+      ],
+      "i18n": "construction-project-registration.ui.2"
     },
     {
       "type": "Step",
-      "label": "Nutzung",
+      "label": "Use",
       "elements": [
         {
           "type": "Categorization",
           "elements": [
             {
               "type": "Category",
-              "label": "Nutzungsart",
+              "label": "Type of use",
               "elements": [
-                { "type": "Control", "scope": "#/properties/nutzung", "label": "Nutzung" }
-              ]
+                {
+                  "type": "Control",
+                  "scope": "#/properties/nutzung",
+                  "label": "Use",
+                  "i18n": "construction-project-registration.nutzung"
+                }
+              ],
+              "i18n": "construction-project-registration.ui.3.0.0"
             },
             {
               "type": "Category",
-              "label": "Gebäude",
+              "label": "Building",
               "elements": [
                 {
                   "type": "HorizontalLayout",
                   "elements": [
-                    { "type": "Control", "scope": "#/properties/gebaeude/properties/geschosse" },
-                    { "type": "Control", "scope": "#/properties/gebaeude/properties/firstHoeheM" }
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/gebaeude/properties/geschosse",
+                      "i18n": "construction-project-registration.gebaeude.geschosse",
+                      "label": "Number of floors"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/gebaeude/properties/firstHoeheM",
+                      "i18n": "construction-project-registration.gebaeude.firstHoeheM",
+                      "label": "Ridge height (m)"
+                    }
                   ]
                 },
                 {
                   "type": "HorizontalLayout",
                   "elements": [
-                    { "type": "Control", "scope": "#/properties/gebaeude/properties/stellplaetze" },
-                    { "type": "Control", "scope": "#/properties/gebaeude/properties/barrierefrei" }
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/gebaeude/properties/stellplaetze",
+                      "i18n": "construction-project-registration.gebaeude.stellplaetze",
+                      "label": "Pitches"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/gebaeude/properties/barrierefrei",
+                      "i18n": "construction-project-registration.gebaeude.barrierefrei",
+                      "label": "Barrier-free access planned"
+                    }
                   ]
                 }
-              ]
+              ],
+              "i18n": "construction-project-registration.ui.3.0.1"
             }
           ]
         }
-      ]
+      ],
+      "i18n": "construction-project-registration.ui.3"
     },
     {
       "type": "Step",
-      "label": "Gewerke",
+      "label": "Trades",
       "elements": [
         {
           "type": "Group",
-          "label": "Leistungspakete",
-          "elements": [{ "type": "Control", "scope": "#/properties/gewerke" }]
+          "label": "Service packages",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/gewerke",
+              "i18n": "construction-project-registration.gewerke",
+              "label": "Trades/service packages"
+            }
+          ],
+          "i18n": "construction-project-registration.ui.4.0"
         }
-      ]
+      ],
+      "i18n": "construction-project-registration.ui.4"
     },
     {
       "type": "Step",
-      "label": "Baustelle",
+      "label": "Construction site",
       "elements": [
         {
           "type": "VerticalLayout",
@@ -153,153 +282,265 @@
             {
               "type": "Control",
               "scope": "#/properties/baustelle/properties/zufahrtKarte",
-              "label": "Baustellenzufahrt (Karte)"
+              "label": "Construction site access (map)",
+              "i18n": "construction-project-registration.baustelle.zufahrtKarte"
             },
             {
               "type": "Control",
               "scope": "#/properties/baustelle/properties/baustellenbereich",
-              "label": "Baustellenverkehr (Karte)"
+              "label": "Construction site traffic (map)",
+              "i18n": "construction-project-registration.baustelle.baustellenbereich"
             },
             {
               "type": "Group",
-              "label": "Einrichtung & Zeiten",
+              "label": "Facility & Times",
               "elements": [
                 {
                   "type": "HorizontalLayout",
                   "elements": [
                     {
                       "type": "Control",
-                      "scope": "#/properties/baustelle/properties/baustelleneinrichtung/properties/container"
+                      "scope": "#/properties/baustelle/properties/baustelleneinrichtung/properties/container",
+                      "i18n": "construction-project-registration.baustelle.baustelleneinrichtung.container",
+                      "label": "Office container"
                     },
                     {
                       "type": "Control",
-                      "scope": "#/properties/baustelle/properties/baustelleneinrichtung/properties/kran"
+                      "scope": "#/properties/baustelle/properties/baustelleneinrichtung/properties/kran",
+                      "i18n": "construction-project-registration.baustelle.baustelleneinrichtung.kran",
+                      "label": "Tower crane"
                     }
                   ]
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/baustelle/properties/baustelleneinrichtung/properties/materialLagerflaecheQm"
+                  "scope": "#/properties/baustelle/properties/baustelleneinrichtung/properties/materialLagerflaecheQm",
+                  "i18n": "construction-project-registration.baustelle.baustelleneinrichtung.materialLagerflaecheQm",
+                  "label": "Material storage area (m²)"
                 },
-                { "type": "Control", "scope": "#/properties/baustelle/properties/arbeitszeiten" }
-              ]
+                {
+                  "type": "Control",
+                  "scope": "#/properties/baustelle/properties/arbeitszeiten",
+                  "i18n": "construction-project-registration.baustelle.arbeitszeiten",
+                  "label": "Regular working hours"
+                }
+              ],
+              "i18n": "construction-project-registration.ui.5.0.2"
             }
           ]
         }
-      ]
+      ],
+      "i18n": "construction-project-registration.ui.5"
     },
     {
       "type": "Step",
-      "label": "Umwelt",
+      "label": "Environment",
       "elements": [
         {
           "type": "Categorization",
           "elements": [
             {
               "type": "Category",
-              "label": "Lärmschutz",
+              "label": "Noise protection",
               "elements": [
                 {
                   "type": "HorizontalLayout",
                   "elements": [
-                    { "type": "Control", "scope": "#/properties/umwelt/properties/laerm/properties/laermempfindlich" },
-                    { "type": "Control", "scope": "#/properties/umwelt/properties/laerm/properties/nachtarbeit" }
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/umwelt/properties/laerm/properties/laermempfindlich",
+                      "i18n": "construction-project-registration.umwelt.laerm.laermempfindlich",
+                      "label": "Noise-sensitive zone"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/umwelt/properties/laerm/properties/nachtarbeit",
+                      "i18n": "construction-project-registration.umwelt.laerm.nachtarbeit",
+                      "label": "Night or special work planned"
+                    }
                   ]
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/umwelt/properties/laerm/properties/schallschutzMassnahmen"
+                  "scope": "#/properties/umwelt/properties/laerm/properties/schallschutzMassnahmen",
+                  "i18n": "construction-project-registration.umwelt.laerm.schallschutzMassnahmen",
+                  "label": "Planned noise protection measures"
                 }
-              ]
+              ],
+              "i18n": "construction-project-registration.ui.6.0.0"
             },
             {
               "type": "Category",
-              "label": "Abfall",
+              "label": "Waste",
               "elements": [
                 {
                   "type": "HorizontalLayout",
                   "elements": [
-                    { "type": "Control", "scope": "#/properties/umwelt/properties/abfall/properties/bautrocknung" },
-                    { "type": "Control", "scope": "#/properties/umwelt/properties/abfall/properties/asbestVerdacht" }
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/umwelt/properties/abfall/properties/bautrocknung",
+                      "i18n": "construction-project-registration.umwelt.abfall.bautrocknung",
+                      "label": "Building drying required"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/umwelt/properties/abfall/properties/asbestVerdacht",
+                      "i18n": "construction-project-registration.umwelt.abfall.asbestVerdacht",
+                      "label": "Suspected asbestos"
+                    }
                   ]
                 },
                 {
                   "type": "Control",
-                  "scope": "#/properties/umwelt/properties/abfall/properties/entsorgungskonzept"
+                  "scope": "#/properties/umwelt/properties/abfall/properties/entsorgungskonzept",
+                  "i18n": "construction-project-registration.umwelt.abfall.entsorgungskonzept",
+                  "label": "Disposal concept"
+                }
+              ],
+              "i18n": "construction-project-registration.ui.6.0.1"
+            },
+            {
+              "type": "Category",
+              "label": "Neighbors",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/umwelt/properties/nachbarn",
+                  "i18n": "construction-project-registration.umwelt.nachbarn",
+                  "label": "Neighborhood (notification)"
+                }
+              ],
+              "i18n": "construction-project-registration.ui.6.0.2"
+            }
+          ]
+        }
+      ],
+      "i18n": "construction-project-registration.ui.6"
+    },
+    {
+      "type": "Step",
+      "label": "Calculation",
+      "elements": [
+        {
+          "type": "Group",
+          "label": "Automatic evaluation",
+          "elements": [
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/kalkulation/properties/baukostenSumme",
+                  "i18n": "construction-project-registration.kalkulation.baukostenSumme",
+                  "label": "Total construction costs (EUR)"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/kalkulation/properties/geschaetzteFlaecheQm",
+                  "i18n": "construction-project-registration.kalkulation.geschaetzteFlaecheQm",
+                  "label": "Estimated relevant area (m²)"
                 }
               ]
             },
             {
-              "type": "Category",
-              "label": "Nachbarn",
+              "type": "HorizontalLayout",
               "elements": [
-                { "type": "Control", "scope": "#/properties/umwelt/properties/nachbarn" }
+                {
+                  "type": "Control",
+                  "scope": "#/properties/kalkulation/properties/co2SchaetzungKg",
+                  "i18n": "construction-project-registration.kalkulation.co2SchaetzungKg",
+                  "label": "CO₂ estimate construction (kg)"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/kalkulation/properties/vollstaendigkeitProzent",
+                  "i18n": "construction-project-registration.kalkulation.vollstaendigkeitProzent",
+                  "label": "Document completeness (%)"
+                }
               ]
             }
-          ]
+          ],
+          "i18n": "construction-project-registration.ui.7.0"
         }
-      ]
+      ],
+      "i18n": "construction-project-registration.ui.7"
     },
     {
       "type": "Step",
-      "label": "Kalkulation",
+      "label": "Submission",
       "elements": [
         {
           "type": "Group",
-          "label": "Automatische Auswertung",
+          "label": "Documents & release",
           "elements": [
             {
               "type": "HorizontalLayout",
               "elements": [
-                { "type": "Control", "scope": "#/properties/kalkulation/properties/baukostenSumme" },
-                { "type": "Control", "scope": "#/properties/kalkulation/properties/geschaetzteFlaecheQm" }
+                {
+                  "type": "Control",
+                  "scope": "#/properties/einreichung/properties/lageplanVorhanden",
+                  "i18n": "construction-project-registration.einreichung.lageplanVorhanden",
+                  "label": "Site map attached"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/einreichung/properties/statikVorhanden",
+                  "i18n": "construction-project-registration.einreichung.statikVorhanden",
+                  "label": "Statics/structural plan attached"
+                }
+              ]
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/einreichung/properties/energieNachweisVorhanden",
+              "i18n": "construction-project-registration.einreichung.energieNachweisVorhanden",
+              "label": "Energy certificate attached"
+            },
+            {
+              "type": "HorizontalLayout",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/einreichung/properties/bauherrBestaetigt",
+                  "i18n": "construction-project-registration.einreichung.bauherrBestaetigt",
+                  "label": "Builder confirms accuracy"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/einreichung/properties/architektBestaetigt",
+                  "i18n": "construction-project-registration.einreichung.architektBestaetigt",
+                  "label": "Draft author confirms completeness"
+                }
               ]
             },
             {
               "type": "HorizontalLayout",
               "elements": [
-                { "type": "Control", "scope": "#/properties/kalkulation/properties/co2SchaetzungKg" },
-                { "type": "Control", "scope": "#/properties/kalkulation/properties/vollstaendigkeitProzent" }
+                {
+                  "type": "Control",
+                  "scope": "#/properties/einreichung/properties/einreichungsDatum",
+                  "i18n": "construction-project-registration.einreichung.einreichungsDatum",
+                  "label": "Submission date"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/einreichung/properties/sachbearbeiter",
+                  "i18n": "construction-project-registration.einreichung.sachbearbeiter",
+                  "label": "Building department clerk"
+                }
               ]
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/einreichung/properties/interneNotiz",
+              "i18n": "construction-project-registration.einreichung.interneNotiz",
+              "label": "Internal note"
             }
-          ]
+          ],
+          "i18n": "construction-project-registration.ui.8.0"
         }
-      ]
-    },
-    {
-      "type": "Step",
-      "label": "Einreichung",
-      "elements": [
-        {
-          "type": "Group",
-          "label": "Unterlagen & Freigabe",
-          "elements": [
-            {
-              "type": "HorizontalLayout",
-              "elements": [
-                { "type": "Control", "scope": "#/properties/einreichung/properties/lageplanVorhanden" },
-                { "type": "Control", "scope": "#/properties/einreichung/properties/statikVorhanden" }
-              ]
-            },
-            { "type": "Control", "scope": "#/properties/einreichung/properties/energieNachweisVorhanden" },
-            {
-              "type": "HorizontalLayout",
-              "elements": [
-                { "type": "Control", "scope": "#/properties/einreichung/properties/bauherrBestaetigt" },
-                { "type": "Control", "scope": "#/properties/einreichung/properties/architektBestaetigt" }
-              ]
-            },
-            {
-              "type": "HorizontalLayout",
-              "elements": [
-                { "type": "Control", "scope": "#/properties/einreichung/properties/einreichungsDatum" },
-                { "type": "Control", "scope": "#/properties/einreichung/properties/sachbearbeiter" }
-              ]
-            },
-            { "type": "Control", "scope": "#/properties/einreichung/properties/interneNotiz" }
-          ]
-        }
-      ]
+      ],
+      "i18n": "construction-project-registration.ui.8"
     }
   ]
 }

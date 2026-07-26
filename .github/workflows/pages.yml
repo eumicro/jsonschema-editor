@@ -36,17 +36,29 @@ jobs:
       - name: Build packages
         run: pnpm run build
 
-      - name: Build examples site
+      - name: Build Vue examples
         working-directory: jsonschema-editor-examples
         env:
-          # Root base path for custom domain (jsonschema-editor.cloudapplication.net).
           VITE_BASE_PATH: /
+          VITE_ASSETS_DIR: assets/vue
+          VITE_ENTRY_FILE: assets/vue/main.js
         run: pnpm run build
+
+      - name: Build React examples
+        working-directory: jsonschema-editor-examples-react
+        env:
+          VITE_BASE_PATH: /
+          VITE_ASSETS_DIR: assets/react
+          VITE_ENTRY_FILE: assets/react/main.js
+        run: pnpm run build
+
+      - name: Assemble site
+        run: node scripts/assemble-examples-site.mjs
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: jsonschema-editor-examples/dist
+          path: site
 
   deploy:
     needs: build

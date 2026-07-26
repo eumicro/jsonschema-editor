@@ -1,17 +1,110 @@
 {
-  "type": "VerticalLayout",
+  "type": "Categorization",
   "elements": [
-    { "type": "Control", "scope": "#/properties/name" },
-    { "type": "Control", "scope": "#/properties/email" },
-    { "type": "Control", "scope": "#/properties/phone" },
-    { "type": "Control", "scope": "#/properties/internalNote" },
     {
-      "type": "Group",
-      "label": "Adresse",
+      "type": "Category",
+      "label": "General",
+      "i18n": "customer-contact.ui.0",
       "elements": [
-        { "type": "Control", "scope": "#/properties/address/properties/street" },
-        { "type": "Control", "scope": "#/properties/address/properties/city" },
-        { "type": "Control", "scope": "#/properties/address/properties/zip" }
+        {
+          "type": "Control",
+          "scope": "#/properties/name",
+          "i18n": "customer-contact.name",
+          "label": "Name"
+        },
+        {
+          "type": "Control",
+          "scope": "#/properties/email",
+          "i18n": "customer-contact.email",
+          "label": "Email"
+        },
+        {
+          "type": "Control",
+          "scope": "#/properties/phone",
+          "i18n": "customer-contact.phone",
+          "label": "Phone"
+        },
+        {
+          "type": "Control",
+          "scope": "#/properties/internalNote",
+          "i18n": "customer-contact.internalNote",
+          "label": "Internal note"
+        },
+        {
+          "type": "Group",
+          "label": "Address",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/address/properties/street",
+              "i18n": "customer-contact.address.street",
+              "label": "Street"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/address/properties/city",
+              "i18n": "customer-contact.address.city",
+              "label": "City"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/address/properties/zip",
+              "i18n": "customer-contact.address.zip",
+              "label": "ZIP code"
+            }
+          ],
+          "i18n": "customer-contact.ui.0.4"
+        },
+        {
+          "type": "Control",
+          "scope": "#/properties/progress",
+          "label": "Progress",
+          "i18n": "customer-contact.progress"
+        }
+      ]
+    },
+    {
+      "type": "Category",
+      "label": "Conversation",
+      "i18n": "customer-contact.ui.1",
+      "elements": [
+        {
+          "type": "Control",
+          "scope": "#/properties/kontakte",
+          "label": "Contacts",
+          "options": {
+            "elementLabelProp": "kommentar",
+            "detail": {
+              "type": "VerticalLayout",
+              "elements": [
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/datum",
+                      "label": "Date",
+                      "i18n": "customer-contact.datum"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/kommentar",
+                      "label": "Comment",
+                      "i18n": "customer-contact.kommentar"
+                    }
+                  ]
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/zufriedenheit",
+                  "label": "Satisfaction",
+                  "i18n": "customer-contact.zufriedenheit"
+                }
+              ]
+            }
+          },
+          "i18n": "customer-contact.kontakte"
+        }
       ]
     }
   ]

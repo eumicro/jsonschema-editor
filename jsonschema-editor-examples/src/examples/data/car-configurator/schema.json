@@ -1,38 +1,58 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Fahrzeugbestellung",
-  "description": "Bestellung mit Fahrzeugkonfiguration, Kundendaten und Finanzierung",
+  "title": "Vehicle order",
+  "description": "Order with vehicle configuration, customer data and financing",
   "type": "object",
-  "required": ["fahrzeug", "kunde", "bestellung"],
+  "required": [
+    "fahrzeug",
+    "kunde",
+    "bestellung"
+  ],
   "properties": {
     "fahrzeug": {
       "type": "object",
-      "title": "Fahrzeug",
-      "description": "Modell, Antrieb und Lackierung",
-      "required": ["modell", "antrieb", "lackierung"],
+      "title": "Vehicle",
+      "description": "Model, drive and paint",
+      "required": [
+        "modell",
+        "antrieb",
+        "lackierung"
+      ],
       "properties": {
         "modell": {
-          "title": "Modelllinie",
-          "description": "Karosserie-Variante wählen",
+          "title": "Model Line",
+          "description": "Choose body variant",
           "oneOf": [
-            { "$ref": "#/$defs/ModellLimousine" },
-            { "$ref": "#/$defs/ModellSuv" }
+            {
+              "$ref": "#/$defs/ModellLimousine"
+            },
+            {
+              "$ref": "#/$defs/ModellSuv"
+            }
           ]
         },
         "antrieb": {
-          "title": "Antrieb",
-          "description": "Verbrenner oder Elektroantrieb",
+          "title": "Drive",
+          "description": "Combustion engine or electric drive",
           "oneOf": [
-            { "$ref": "#/$defs/AntriebVerbrenner" },
-            { "$ref": "#/$defs/AntriebElektro" }
+            {
+              "$ref": "#/$defs/AntriebVerbrenner"
+            },
+            {
+              "$ref": "#/$defs/AntriebElektro"
+            }
           ]
         },
         "lackierung": {
-          "title": "Lackierung",
-          "description": "Serienfarbe oder Individual-Lack",
+          "title": "Painting",
+          "description": "Standard color or individual paint",
           "anyOf": [
-            { "$ref": "#/$defs/LackSerie" },
-            { "$ref": "#/$defs/LackIndividual" }
+            {
+              "$ref": "#/$defs/LackSerie"
+            },
+            {
+              "$ref": "#/$defs/LackIndividual"
+            }
           ]
         }
       }
@@ -42,22 +62,33 @@
     },
     "bestellung": {
       "type": "object",
-      "title": "Bestellung",
-      "description": "Ausstattungspaket und Zahlungsweise",
-      "required": ["ausstattung", "finanzierung"],
+      "title": "Order",
+      "description": "Equipment package and method of payment",
+      "required": [
+        "ausstattung",
+        "finanzierung"
+      ],
       "properties": {
         "ausstattung": {
-          "title": "Ausstattungspaket",
+          "title": "Equipment package",
           "oneOf": [
-            { "$ref": "#/$defs/PaketComfort" },
-            { "$ref": "#/$defs/PaketSport" }
+            {
+              "$ref": "#/$defs/PaketComfort"
+            },
+            {
+              "$ref": "#/$defs/PaketSport"
+            }
           ]
         },
         "finanzierung": {
-          "title": "Finanzierung",
+          "title": "Financing",
           "anyOf": [
-            { "$ref": "#/$defs/FinanzKauf" },
-            { "$ref": "#/$defs/FinanzLeasing" }
+            {
+              "$ref": "#/$defs/FinanzKauf"
+            },
+            {
+              "$ref": "#/$defs/FinanzLeasing"
+            }
           ]
         }
       }
@@ -67,118 +98,264 @@
     "ModellLimousine": {
       "type": "object",
       "title": "Limousine",
-      "required": ["karosserie", "tueren"],
+      "required": [
+        "karosserie",
+        "tueren"
+      ],
       "properties": {
-        "karosserie": { "type": "string", "const": "limousine", "title": "Typ" },
-        "tueren": { "type": "integer", "title": "Türen", "enum": [4, 5] },
-        "radstandMm": { "type": "integer", "title": "Radstand (mm)" }
+        "karosserie": {
+          "type": "string",
+          "const": "limousine",
+          "title": "Type"
+        },
+        "tueren": {
+          "type": "integer",
+          "title": "Doors",
+          "enum": [
+            4,
+            5
+          ]
+        },
+        "radstandMm": {
+          "type": "integer",
+          "title": "Wheelbase (mm)"
+        }
       }
     },
     "ModellSuv": {
       "type": "object",
       "title": "SUV",
-      "required": ["karosserie", "tueren"],
+      "required": [
+        "karosserie",
+        "tueren"
+      ],
       "properties": {
-        "karosserie": { "type": "string", "const": "suv", "title": "Typ" },
-        "tueren": { "type": "integer", "title": "Türen", "const": 5 },
-        "bodenhoeheMm": { "type": "integer", "title": "Bodenfreiheit (mm)" }
+        "karosserie": {
+          "type": "string",
+          "const": "suv",
+          "title": "Type"
+        },
+        "tueren": {
+          "type": "integer",
+          "title": "Doors",
+          "const": 5
+        },
+        "bodenhoeheMm": {
+          "type": "integer",
+          "title": "Ground clearance (mm)"
+        }
       }
     },
     "AntriebVerbrenner": {
       "type": "object",
-      "title": "Verbrenner",
-      "required": ["art", "hubraum", "leistungPs"],
+      "title": "Combustor",
+      "required": [
+        "art",
+        "hubraum",
+        "leistungPs"
+      ],
       "properties": {
-        "art": { "type": "string", "const": "verbrenner", "title": "Art" },
-        "hubraum": { "type": "integer", "title": "Hubraum (cm³)" },
-        "leistungPs": { "type": "integer", "title": "Leistung (PS)" },
+        "art": {
+          "type": "string",
+          "const": "verbrenner",
+          "title": "Art"
+        },
+        "hubraum": {
+          "type": "integer",
+          "title": "Displacement (cm³)"
+        },
+        "leistungPs": {
+          "type": "integer",
+          "title": "Power (HP)"
+        },
         "getriebe": {
           "type": "string",
-          "title": "Getriebe",
-          "enum": ["Schaltung", "Automatik"]
+          "title": "Gearbox",
+          "enum": [
+            "Schaltung",
+            "Automatik"
+          ]
         }
       }
     },
     "AntriebElektro": {
       "type": "object",
-      "title": "Elektro",
-      "required": ["art", "batterieKwh", "reichweiteKm"],
+      "title": "Electric",
+      "required": [
+        "art",
+        "batterieKwh",
+        "reichweiteKm"
+      ],
       "properties": {
-        "art": { "type": "string", "const": "elektro", "title": "Art" },
-        "batterieKwh": { "type": "number", "title": "Batterie (kWh)" },
-        "reichweiteKm": { "type": "integer", "title": "Reichweite WLTP (km)" }
+        "art": {
+          "type": "string",
+          "const": "elektro",
+          "title": "Art"
+        },
+        "batterieKwh": {
+          "type": "number",
+          "title": "Battery (kWh)"
+        },
+        "reichweiteKm": {
+          "type": "integer",
+          "title": "Range WLTP (km)"
+        }
       }
     },
     "LackSerie": {
       "type": "object",
-      "title": "Serienlack",
-      "required": ["lackArt", "farbe"],
+      "title": "Series paint",
+      "required": [
+        "lackArt",
+        "farbe"
+      ],
       "properties": {
-        "lackArt": { "type": "string", "const": "serie", "title": "Art" },
+        "lackArt": {
+          "type": "string",
+          "const": "serie",
+          "title": "Art"
+        },
         "farbe": {
           "type": "string",
-          "title": "Farbe",
-          "enum": ["Schwarz", "Weiß", "Grau"]
+          "title": "Color",
+          "enum": [
+            "Schwarz",
+            "Weiß",
+            "Grau"
+          ]
         }
       }
     },
     "LackIndividual": {
       "type": "object",
       "title": "Individual",
-      "required": ["lackArt", "farbcode"],
+      "required": [
+        "lackArt",
+        "farbcode"
+      ],
       "properties": {
-        "lackArt": { "type": "string", "const": "individual", "title": "Art" },
-        "farbcode": { "type": "string", "title": "Farbcode" },
-        "aufpreis": { "type": "number", "title": "Aufpreis (€)" }
+        "lackArt": {
+          "type": "string",
+          "const": "individual",
+          "title": "Art"
+        },
+        "farbcode": {
+          "type": "string",
+          "title": "Color code"
+        },
+        "aufpreis": {
+          "type": "number",
+          "title": "Surcharge (€)"
+        }
       }
     },
     "Kunde": {
       "type": "object",
-      "title": "Kunde",
-      "required": ["vorname", "nachname", "email"],
+      "title": "Customer",
+      "required": [
+        "vorname",
+        "nachname",
+        "email"
+      ],
       "properties": {
-        "vorname": { "type": "string", "title": "Vorname" },
-        "nachname": { "type": "string", "title": "Nachname" },
-        "email": { "type": "string", "title": "E-Mail" }
+        "vorname": {
+          "type": "string",
+          "title": "First name"
+        },
+        "nachname": {
+          "type": "string",
+          "title": "Last name"
+        },
+        "email": {
+          "type": "string",
+          "title": "Email"
+        }
       }
     },
     "PaketComfort": {
       "type": "object",
       "title": "Comfort",
-      "required": ["paket"],
+      "required": [
+        "paket"
+      ],
       "properties": {
-        "paket": { "type": "string", "const": "comfort", "title": "Paket" },
-        "klimaautomatik": { "type": "boolean", "title": "Klimaautomatik" },
-        "sitzheizung": { "type": "boolean", "title": "Sitzheizung" }
+        "paket": {
+          "type": "string",
+          "const": "comfort",
+          "title": "Package"
+        },
+        "klimaautomatik": {
+          "type": "boolean",
+          "title": "Automatic climate control"
+        },
+        "sitzheizung": {
+          "type": "boolean",
+          "title": "Heated seats"
+        }
       }
     },
     "PaketSport": {
       "type": "object",
       "title": "Sport",
-      "required": ["paket", "sportfahrwerk"],
+      "required": [
+        "paket",
+        "sportfahrwerk"
+      ],
       "properties": {
-        "paket": { "type": "string", "const": "sport", "title": "Paket" },
-        "sportfahrwerk": { "type": "boolean", "title": "Sportfahrwerk" },
-        "felgenZoll": { "type": "integer", "title": "Felgen (Zoll)" }
+        "paket": {
+          "type": "string",
+          "const": "sport",
+          "title": "Package"
+        },
+        "sportfahrwerk": {
+          "type": "boolean",
+          "title": "Sports suspension"
+        },
+        "felgenZoll": {
+          "type": "integer",
+          "title": "Rims (inch)"
+        }
       }
     },
     "FinanzKauf": {
       "type": "object",
-      "title": "Kauf",
-      "required": ["finanzArt"],
+      "title": "Purchase",
+      "required": [
+        "finanzArt"
+      ],
       "properties": {
-        "finanzArt": { "type": "string", "const": "kauf", "title": "Art" },
-        "anzahlung": { "type": "number", "title": "Anzahlung (€)" }
+        "finanzArt": {
+          "type": "string",
+          "const": "kauf",
+          "title": "Art"
+        },
+        "anzahlung": {
+          "type": "number",
+          "title": "Deposit (€)"
+        }
       }
     },
     "FinanzLeasing": {
       "type": "object",
       "title": "Leasing",
-      "required": ["finanzArt", "laufzeitMonate"],
+      "required": [
+        "finanzArt",
+        "laufzeitMonate"
+      ],
       "properties": {
-        "finanzArt": { "type": "string", "const": "leasing", "title": "Art" },
-        "laufzeitMonate": { "type": "integer", "title": "Laufzeit (Monate)" },
-        "jahreskilometer": { "type": "integer", "title": "Jahreskilometer" }
+        "finanzArt": {
+          "type": "string",
+          "const": "leasing",
+          "title": "Art"
+        },
+        "laufzeitMonate": {
+          "type": "integer",
+          "title": "Duration (months)"
+        },
+        "jahreskilometer": {
+          "type": "integer",
+          "title": "Annual kilometers"
+        }
       }
     }
   }

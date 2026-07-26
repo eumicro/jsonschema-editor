@@ -8,3 +8,4 @@ packages:
   - "jsonschema-editor-react-extensions"
   - "jsonschema-editor-examples"
   - "jsonschema-editor-examples-react"
+  - "jsonschema-editor-examples-site"

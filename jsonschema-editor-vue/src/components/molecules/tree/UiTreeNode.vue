@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
+import type { SchemaDocument } from "@jsonschema-editor/json-schema";
 import type { UiElement } from "@jsonschema-editor/ui-schema";
 import { Control } from "@jsonschema-editor/ui-schema";
 import {
+  controlAllowsDetail,
   getUiElementAt,
   getUiElementLabel,
   isLayoutElement,
@@ -12,6 +14,7 @@ import {
 } from "../../../utils/ui-editor";
 import { canAcceptUiChildren, canDeleteUiElement } from "../../../utils/ui-tree-actions";
 import { useTreeNodeActionLabels } from "../../../composables/useTreeNodeActionLabels";
+import { useJseI18n } from "../../../composables/useJseI18n";
 import JseTreeToggle from "../../atoms/JseTreeToggle.vue";
 import JseTreeNodeActions from "../JseTreeNodeActions.vue";
 
@@ -24,6 +27,7 @@ const props = defineProps<{
   expandedKeys: ReadonlySet<string>;
   depth?: number;
   dragSourcePath: UiPath | null;
+  document?: SchemaDocument | null;
 }>();
 
 const emit = defineEmits<{
@@ -36,10 +40,9 @@ const emit = defineEmits<{
   drop: [targetPath: UiPath, sourcePath: UiPath];
 }>();
 
+const { t } = useJseI18n();
 const element = computed(() => getUiElementAt(props.root, props.path));
-const children = computed(() =>
-  isLayoutElement(element.value) ? listUiChildren(element.value, props.path) : [],
-);
+const children = computed(() => listUiChildren(element.value, props.path));
 const label = computed(() => getUiElementLabel(element.value));
 const pathKey = computed(() => uiPathKey(props.path));
 const isSelected = computed(() => uiPathKey(props.selectedPath) === pathKey.value);
@@ -47,8 +50,11 @@ const isExpanded = computed(
   () => props.path.length === 0 || props.expandedKeys.has(pathKey.value),
 );
 const isLayout = computed(() => isLayoutElement(element.value));
+const hasDetail = computed(() => controlAllowsDetail(element.value, props.document));
+const hasChildren = computed(() => children.value.length > 0);
+const isContainer = computed(() => isLayout.value || hasDetail.value);
 const isDragOver = ref(false);
-const showAdd = computed(() => canAcceptUiChildren(element.value));
+const showAdd = computed(() => canAcceptUiChildren(element.value, props.document));
 const showDelete = computed(() => canDeleteUiElement(props.path));
 const { addLabel, editLabel, deleteLabel } = useTreeNodeActionLabels(label, "ui");
 
@@ -59,7 +65,7 @@ function onDragStart(event: DragEvent) {
 }
 
 function onDragOver(event: DragEvent) {
-  if (!isLayout.value || !props.dragSourcePath) return;
+  if (!isContainer.value || !props.dragSourcePath) return;
   event.preventDefault();
   isDragOver.value = true;
 }
@@ -72,7 +78,9 @@ function onDrop(event: DragEvent) {
   event.preventDefault();
   isDragOver.value = false;
   if (!props.dragSourcePath) return;
-  emit("drop", props.path, props.dragSourcePath);
+  const targetPath =
+    hasDetail.value && !isLayout.value ? ([...props.path, "detail"] as UiPath) : props.path;
+  emit("drop", targetPath, props.dragSourcePath);
 }
 </script>
 
@@ -93,7 +101,7 @@ function onDrop(event: DragEvent) {
       @drop="onDrop"
     >
       <JseTreeToggle
-        :has-children="isLayout && children.length > 0"
+        :has-children="isContainer && hasChildren"
         :expanded="isExpanded"
         @toggle="emit('toggle', path)"
       />
@@ -101,6 +109,7 @@ function onDrop(event: DragEvent) {
       <span class="jse-tree-node__kind">{{ element.elementKind }}</span>
       <span class="jse-tree-node__label">{{ label }}</span>
       <span v-if="element instanceof Control" class="jse-tree-node__meta">{{ element.scope }}</span>
+      <span v-if="hasDetail && !isLayout" class="jse-tree-node__meta">{{ t("layout.detailHint") }}</span>
 
       <JseTreeNodeActions
         :show-add="showAdd"
@@ -115,7 +124,7 @@ function onDrop(event: DragEvent) {
       />
     </div>
 
-    <div v-if="isExpanded && isLayout && children.length" class="jse-tree-node__children">
+    <div v-if="isExpanded && hasChildren" class="jse-tree-node__children">
       <UiTreeNode
         v-for="childPath in children"
         :key="uiPathKey(childPath)"
@@ -124,6 +133,7 @@ function onDrop(event: DragEvent) {
         :selected-path="selectedPath"
         :expanded-keys="expandedKeys"
         :drag-source-path="dragSourcePath"
+        :document="document"
         :depth="(depth ?? 0) + 1"
         @select="emit('select', $event)"
         @toggle="emit('toggle', $event)"

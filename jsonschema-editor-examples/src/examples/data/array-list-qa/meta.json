@@ -1,7 +1,49 @@
 {
-  "label": "Leistungsverzeichnis",
-  "tagline": "Dynamische Liste von Positionen mit hinzufügen und entfernen",
-  "description": "Internes Beispiel: Positionen als bearbeitbare Liste ohne automatische Summenbildung.",
+  "label": "List of services",
+  "tagline": "Dynamic list of positions with add and remove",
+  "description": "Internal example: Items as an editable list without automatic total formation.",
   "category": "Anträge & Prozesse",
-  "visibility": "internal"
+  "visibility": "internal",
+  "locales": {
+    "de": {
+      "label": "Leistungsverzeichnis",
+      "tagline": "Dynamische Liste von Positionen mit hinzufügen und entfernen",
+      "description": "Internes Beispiel: Positionen als bearbeitbare Liste ohne automatische Summenbildung."
+    },
+    "fr": {
+      "label": "Liste des prestations",
+      "tagline": "Liste dynamique des postes avec ajout et suppression",
+      "description": "Exemple interne : éléments sous forme de liste modifiable sans formation totale automatique."
+    },
+    "it": {
+      "label": "Elenco dei servizi",
+      "tagline": "Elenco dinamico delle posizioni con aggiunta e rimozione",
+      "description": "Esempio interno: Articoli come elenco modificabile senza formazione automatica del totale."
+    },
+    "pl": {
+      "label": "Lista usług",
+      "tagline": "Dynamiczna lista pozycji z możliwością dodawania i usuwania",
+      "description": "Przykład wewnętrzny: Pozycje jako lista edytowalna bez automatycznego tworzenia sumy."
+    },
+    "uk": {
+      "label": "Перелік послуг",
+      "tagline": "Динамічний список позицій з додаванням і видаленням",
+      "description": "Внутрішній приклад: елементи як редагований список без автоматичного формування підсумків."
+    },
+    "ru": {
+      "label": "Список услуг",
+      "tagline": "Динамический список позиций с возможностью добавления и удаления",
+      "description": "Внутренний пример: Товары в виде редактируемого списка без автоматического формирования итогов."
+    },
+    "zh": {
+      "label": "服务清单",
+      "tagline": "具有添加和删除功能的动态职位列表",
+      "description": "内部示例：项目作为可编辑列表，没有自动总计形成。"
+    },
+    "ja": {
+      "label": "サービス一覧",
+      "tagline": "追加および削除を伴う位置の動的なリスト",
+      "description": "内部例: 自動合計形成を行わない編集可能なリストとしての項目。"
+    }
+  }
 }

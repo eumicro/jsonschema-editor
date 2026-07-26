@@ -1,7 +1,9 @@
 import { useMemo, useState } from "react";
+import type { SchemaDocument } from "@jsonschema-editor/json-schema";
 import type { UiElement } from "@jsonschema-editor/ui-schema";
 import { Control } from "@jsonschema-editor/ui-schema";
 import {
+  controlAllowsDetail,
   getUiElementAt,
   getUiElementLabel,
   isLayoutElement,
@@ -10,6 +12,7 @@ import {
   type UiPath,
 } from "../../../utils/ui-editor.js";
 import { canAcceptUiChildren, canDeleteUiElement } from "../../../utils/ui-tree-actions.js";
+import { useJseI18n } from "../../../context/JseI18nContext.js";
 import { useTreeNodeActionLabels } from "../../../hooks/useTreeNodeActionLabels.js";
 import { JseTreeToggle } from "../../atoms/JseTreeToggle.js";
 import { JseTreeNodeActions } from "../JseTreeNodeActions.js";
@@ -21,6 +24,7 @@ export interface UiTreeNodeProps {
   expandedKeys: ReadonlySet<string>;
   depth?: number;
   dragSourcePath: UiPath | null;
+  document?: SchemaDocument | null;
   onSelect: (path: UiPath) => void;
   onToggle: (path: UiPath) => void;
   onAdd: (path: UiPath, event: React.MouseEvent) => void;
@@ -37,6 +41,7 @@ export function UiTreeNode({
   expandedKeys,
   depth = 0,
   dragSourcePath,
+  document,
   onSelect,
   onToggle,
   onAdd,
@@ -46,18 +51,18 @@ export function UiTreeNode({
   onDrop,
 }: UiTreeNodeProps) {
   const [isDragOver, setIsDragOver] = useState(false);
+  const { t } = useJseI18n();
 
   const element = getUiElementAt(root, path);
-  const children = useMemo(
-    () => (isLayoutElement(element) ? listUiChildren(element, path) : []),
-    [element, path],
-  );
+  const children = useMemo(() => listUiChildren(element, path), [element, path]);
   const label = getUiElementLabel(element);
   const pathKey = uiPathKey(path);
   const isSelected = uiPathKey(selectedPath) === pathKey;
   const isExpanded = path.length === 0 || expandedKeys.has(pathKey);
   const isLayout = isLayoutElement(element);
-  const showAdd = canAcceptUiChildren(element);
+  const hasDetail = controlAllowsDetail(element, document);
+  const isContainer = isLayout || hasDetail;
+  const showAdd = canAcceptUiChildren(element, document);
   const showDelete = canDeleteUiElement(path);
   const { addLabel, editLabel, deleteLabel } = useTreeNodeActionLabels(label, "ui");
 
@@ -68,7 +73,7 @@ export function UiTreeNode({
   }
 
   function handleDragOver(event: React.DragEvent) {
-    if (!isLayout || !dragSourcePath) return;
+    if (!isContainer || !dragSourcePath) return;
     event.preventDefault();
     setIsDragOver(true);
   }
@@ -77,7 +82,9 @@ export function UiTreeNode({
     event.preventDefault();
     setIsDragOver(false);
     if (!dragSourcePath) return;
-    onDrop(path, dragSourcePath);
+    const targetPath =
+      hasDetail && !isLayout ? ([...path, "detail"] as UiPath) : path;
+    onDrop(targetPath, dragSourcePath);
   }
 
   return (
@@ -99,7 +106,7 @@ export function UiTreeNode({
         onDrop={handleDrop}
       >
         <JseTreeToggle
-          hasChildren={isLayout && children.length > 0}
+          hasChildren={isContainer && children.length > 0}
           expanded={isExpanded}
           onToggle={() => onToggle(path)}
         />
@@ -107,6 +114,9 @@ export function UiTreeNode({
         <span className="jse-tree-node__label">{label}</span>
         {element instanceof Control ? (
           <span className="jse-tree-node__meta">{element.scope}</span>
+        ) : null}
+        {hasDetail && !isLayout ? (
+          <span className="jse-tree-node__meta">{t("layout.detailHint")}</span>
         ) : null}
         <JseTreeNodeActions
           showAdd={showAdd}
@@ -121,7 +131,7 @@ export function UiTreeNode({
         />
       </div>
 
-      {isExpanded && isLayout && children.length > 0 ? (
+      {isExpanded && children.length > 0 ? (
         <div className="jse-tree-node__children">
           {children.map((childPath) => (
             <UiTreeNode
@@ -131,6 +141,7 @@ export function UiTreeNode({
               selectedPath={selectedPath}
               expandedKeys={expandedKeys}
               dragSourcePath={dragSourcePath}
+              document={document}
               depth={depth + 1}
               onSelect={onSelect}
               onToggle={onToggle}

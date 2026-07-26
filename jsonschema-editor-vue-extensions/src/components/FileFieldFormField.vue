@@ -14,6 +14,7 @@ import {
   JseSchemaFormField,
   useArrayFieldValue,
   useFormFieldLabel,
+  useJseI18n,
   useScopedField,
 } from "@jsonschema-editor/vue";
 import FileGalleryDialog from "./FileGalleryDialog.vue";
@@ -33,6 +34,7 @@ const documentRef = toRef(props, "document");
 const labelRef = toRef(props, "label");
 const i18nKeyRef = toRef(props, "i18nKey");
 const rootData = defineModel<Record<string, unknown>>({ required: true });
+const { t } = useJseI18n();
 
 const { fieldSchema, value, path } = useScopedField(rootSchema, rootData, props.scope, documentRef);
 const arrayValue = useArrayFieldValue(rootData, path);
@@ -235,8 +237,8 @@ function formatSize(size: number): string {
               v-if="isPreviewableMimeType(file.mimeType)"
               type="button"
               class="jse-file-field__icon-btn"
-              title="Preview"
-              aria-label="Preview file"
+              :title="t('extensions.file.preview')"
+              :aria-label="t('extensions.file.previewAria')"
               @click="openGallery(file)"
             >
               <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
@@ -250,8 +252,8 @@ function formatSize(size: number): string {
               v-if="!readonly"
               type="button"
               class="jse-file-field__icon-btn jse-file-field__icon-btn--danger"
-              title="Delete"
-              aria-label="Delete file"
+              :title="t('extensions.file.delete')"
+              :aria-label="t('extensions.file.deleteAria')"
               @click="removeFile(file)"
             >
               <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">

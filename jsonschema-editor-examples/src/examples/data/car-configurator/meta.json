@@ -1,7 +1,49 @@
 {
-  "label": "Fahrzeugbestellung",
-  "tagline": "Mehrstufige Bestellung mit Modell, Antrieb und Finanzierung",
-  "description": "Konfigurieren Sie Fahrzeug, Ausstattung und Zahlungsweise in einem geführten Bestellprozess — typisch für Flotten- oder Händlerportale.",
+  "label": "Vehicle order",
+  "tagline": "Multi-stage order with model, drive and financing",
+  "description": "Configure the vehicle, equipment and payment method in a guided ordering process - typical for fleet or dealer portals.",
   "category": "Vertrieb & Konfiguration",
-  "visibility": "public"
+  "visibility": "public",
+  "locales": {
+    "de": {
+      "label": "Fahrzeugbestellung",
+      "tagline": "Mehrstufige Bestellung mit Modell, Antrieb und Finanzierung",
+      "description": "Konfigurieren Sie Fahrzeug, Ausstattung und Zahlungsweise in einem geführten Bestellprozess — typisch für Flotten- oder Händlerportale."
+    },
+    "fr": {
+      "label": "Commande de véhicule",
+      "tagline": "Commande en plusieurs étapes avec modèle, entraînement et financement",
+      "description": "Configurez le véhicule, l'équipement et le mode de paiement dans le cadre d'un processus de commande guidé, typique des portails de flotte ou de concessionnaires."
+    },
+    "it": {
+      "label": "Ordine del veicolo",
+      "tagline": "Ordine in più fasi con modello, iniziativa e finanziamento",
+      "description": "Configura il veicolo, l'equipaggiamento e il metodo di pagamento in un processo di ordinazione guidato, tipico dei portali di flotte o concessionari."
+    },
+    "pl": {
+      "label": "Zamówienie pojazdu",
+      "tagline": "Zamówienie wieloetapowe z modelem, napędem i finansowaniem",
+      "description": "Skonfiguruj pojazd, wyposażenie i metodę płatności w procesie zamawiania z przewodnikiem - typowym dla portali flotowych lub dealerskich."
+    },
+    "uk": {
+      "label": "Замовлення автомобіля",
+      "tagline": "Багатоетапне замовлення з моделлю, приводом та фінансуванням",
+      "description": "Налаштуйте транспортний засіб, обладнання та спосіб оплати в керованому процесі замовлення - типово для автопарків або дилерських порталів."
+    },
+    "ru": {
+      "label": "Заказ автомобиля",
+      "tagline": "Многоэтапный заказ с моделью, приводом и финансированием",
+      "description": "Настройте транспортное средство, оборудование и способ оплаты в управляемом процессе заказа, типичном для автопарков или дилерских порталов."
+    },
+    "zh": {
+      "label": "车辆订单",
+      "tagline": "具有模型、驱动器和融资的多阶段订单",
+      "description": "在引导式订购流程中配置车辆、设备和付款方式 - 典型的车队或经销商门户。"
+    },
+    "ja": {
+      "label": "車両の注文",
+      "tagline": "モデル、推進、資金調達を伴う多段階の注文",
+      "description": "フリートやディーラーのポータルでは一般的な、ガイド付きの注文プロセスで車両、機器、支払い方法を設定します。"
+    }
+  }
 }

@@ -7,7 +7,7 @@ import {
   type GeometryExtensionConfig,
   type NormalizedGeometryConfig,
 } from "@jsonschema-editor/json-schema-extensions";
-import { JseInput, JseSelect } from "@jsonschema-editor/vue";
+import { JseInput, JseSelect, useJseI18n } from "@jsonschema-editor/vue";
 
 defineProps<{
   label: string;
@@ -15,6 +15,7 @@ defineProps<{
 }>();
 
 const modelValue = defineModel<unknown>();
+const { t } = useJseI18n();
 
 type CountMode = "range" | "exact";
 
@@ -147,7 +148,7 @@ function updateExact(value: string | number): void {
         :disabled="readonly"
         @change="toggleType('point', ($event.target as HTMLInputElement).checked)"
       />
-      Punkt
+      {{ t("extensions.geometry.point") }}
     </label>
 
     <label class="jse-geometry-attr__check">
@@ -157,7 +158,7 @@ function updateExact(value: string | number): void {
         :disabled="readonly"
         @change="toggleType('line', ($event.target as HTMLInputElement).checked)"
       />
-      Linie
+      {{ t("extensions.geometry.line") }}
     </label>
 
     <label class="jse-geometry-attr__check">
@@ -167,19 +168,19 @@ function updateExact(value: string | number): void {
         :disabled="readonly"
         @change="toggleType('polygon', ($event.target as HTMLInputElement).checked)"
       />
-      Polygon
+      {{ t("extensions.geometry.polygon") }}
     </label>
 
     <label class="jse-geometry-attr__row">
-      <span>Anzahl-Modus</span>
+      <span>{{ t("schemaAttributes.x-geometry.countMode") }}</span>
       <JseSelect
         :model-value="countMode"
         class="jse-field__input"
         :disabled="readonly"
         @update:model-value="(value) => setCountMode(String(value) as CountMode)"
       >
-        <option value="range">Bereich (min–max)</option>
-        <option value="exact">Exakt</option>
+        <option value="range">{{ t("schemaAttributes.x-geometry.countModeRange") }}</option>
+        <option value="exact">{{ t("schemaAttributes.x-geometry.countModeExact") }}</option>
       </JseSelect>
     </label>
 
@@ -218,7 +219,7 @@ function updateExact(value: string | number): void {
     </label>
 
     <p v-if="!atLeastOneType" class="jse-field__hint jse-field__hint--error">
-      Mindestens ein Geometrietyp muss aktiv sein.
+      {{ t("schemaAttributes.x-geometry.typeRequired") }}
     </p>
   </fieldset>
 </template>

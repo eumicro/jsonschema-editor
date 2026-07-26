@@ -8,6 +8,7 @@ defineProps<{
   schema: SchemaNode;
   document?: SchemaDocument;
   readonly?: boolean;
+  scopePrefix?: string;
 }>();
 
 const data = defineModel<Record<string, unknown>>({ required: true });
@@ -29,6 +30,7 @@ const data = defineModel<Record<string, unknown>>({ required: true });
       :schema="schema"
       :document="document"
       :readonly="readonly"
+      :scope-prefix="scopePrefix"
     />
   </div>
 </template>

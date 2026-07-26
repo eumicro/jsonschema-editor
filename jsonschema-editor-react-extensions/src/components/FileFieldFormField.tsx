@@ -13,6 +13,7 @@ import {
   JseSchemaFormField,
   useArrayFieldValue,
   useFormFieldLabel,
+  useJseI18n,
   useScopedField,
   type FormFieldProps,
 } from "@jsonschema-editor/react";
@@ -33,21 +34,28 @@ export function FileFieldFormField({
   i18nKey,
   readonly,
 }: FormFieldProps) {
-  const { fieldSchema, value, setValue } = useScopedField(schema, scope, document);
+  const { t } = useJseI18n();
+  const { fieldSchema, value, setValue } = useScopedField(
+    schema,
+    scope,
+    document
+  );
   const { items, setItems } = useArrayFieldValue(scope);
   const { resolvedSchema, displayLabel, description } = useFormFieldLabel(
     schema,
     scope,
     label,
     fieldSchema,
-    i18nKey,
+    i18nKey
   );
 
   const provider = useFileFieldProvider();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
-  const [thumbnails, setThumbnails] = useState<Record<string, string | undefined>>({});
+  const [thumbnails, setThumbnails] = useState<
+    Record<string, string | undefined>
+  >({});
   const [galleryOpen, setGalleryOpen] = useState(false);
   const [galleryStartIndex, setGalleryStartIndex] = useState(0);
 
@@ -85,7 +93,10 @@ export function FileFieldFormField({
     async function refreshThumbnails(list: FileDescriptor[]): Promise<void> {
       const next: Record<string, string | undefined> = {};
       for (const file of list) {
-        if (!isPreviewableMimeType(file.mimeType) || !provider.renderThumbnail) {
+        if (
+          !isPreviewableMimeType(file.mimeType) ||
+          !provider.renderThumbnail
+        ) {
           next[file.id] = undefined;
           continue;
         }
@@ -135,21 +146,25 @@ export function FileFieldFormField({
         setValue(null);
       }
     },
-    [fieldContext, files, isMultiple, provider, readonly, setItems, setValue],
+    [fieldContext, files, isMultiple, provider, readonly, setItems, setValue]
   );
 
   const openGallery = useCallback(
     (file: FileDescriptor): void => {
-      const previewable = files.filter((entry) => isPreviewableMimeType(entry.mimeType));
+      const previewable = files.filter((entry) =>
+        isPreviewableMimeType(entry.mimeType)
+      );
       const index = previewable.findIndex((entry) => entry.id === file.id);
       if (index < 0) return;
       setGalleryStartIndex(index);
       setGalleryOpen(true);
     },
-    [files],
+    [files]
   );
 
-  async function onInputChange(event: React.ChangeEvent<HTMLInputElement>): Promise<void> {
+  async function onInputChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): Promise<void> {
     const input = event.target;
     const batch = Array.from(input.files ?? []);
     input.value = "";
@@ -164,7 +179,10 @@ export function FileFieldFormField({
       const uploaded: typeof files = [];
 
       for (const file of filesToUpload) {
-        if (fileConfig.maxSize !== undefined && file.size > fileConfig.maxSize) {
+        if (
+          fileConfig.maxSize !== undefined &&
+          file.size > fileConfig.maxSize
+        ) {
           setUploadError(`File too large: ${file.name}`);
           continue;
         }
@@ -196,7 +214,11 @@ export function FileFieldFormField({
   }
 
   return (
-    <JseSchemaFormField label={displayLabel} description={description} scope={scope}>
+    <JseSchemaFormField
+      label={displayLabel}
+      description={description}
+      scope={scope}
+    >
       <div className="jse-file-field">
         <input
           ref={fileInputRef}
@@ -220,7 +242,10 @@ export function FileFieldFormField({
                       className="jse-file-field__thumb-image"
                     />
                   ) : (
-                    <div className="jse-file-field__thumb-fallback" aria-hidden="true">
+                    <div
+                      className="jse-file-field__thumb-fallback"
+                      aria-hidden="true"
+                    >
                       <svg viewBox="0 0 24 24" width="28" height="28">
                         <path
                           fill="currentColor"
@@ -233,7 +258,9 @@ export function FileFieldFormField({
 
                 <div className="jse-file-field__meta">
                   <span className="jse-file-field__name">{file.name}</span>
-                  <span className="jse-file-field__size">{formatSize(file.size)}</span>
+                  <span className="jse-file-field__size">
+                    {formatSize(file.size)}
+                  </span>
                 </div>
 
                 <div className="jse-file-field__actions">
@@ -241,11 +268,16 @@ export function FileFieldFormField({
                     <button
                       type="button"
                       className="jse-file-field__icon-btn"
-                      title="Preview"
-                      aria-label="Preview file"
+                      title={t("extensions.file.preview")}
+                      aria-label={t("extensions.file.previewAria")}
                       onClick={() => openGallery(file)}
                     >
-                      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="18"
+                        height="18"
+                        aria-hidden="true"
+                      >
                         <path
                           fill="currentColor"
                           d="M12 4.5C7 4.5 2.7 7.6 1 12c1.7 4.4 6 7.5 11 7.5s9.3-3.1 11-7.5C21.3 7.6 17 4.5 12 4.5Zm0 12a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9Zm0-2.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"
@@ -257,11 +289,16 @@ export function FileFieldFormField({
                     <button
                       type="button"
                       className="jse-file-field__icon-btn jse-file-field__icon-btn--danger"
-                      title="Delete"
-                      aria-label="Delete file"
+                      title={t("extensions.file.delete")}
+                      aria-label={t("extensions.file.deleteAria")}
                       onClick={() => void removeFile(file)}
                     >
-                      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="18"
+                        height="18"
+                        aria-hidden="true"
+                      >
                         <path
                           fill="currentColor"
                           d="M9 3h6l1 2h4v2H4V5h4l1-2Zm1 6h2v9h-2V9Zm4 0h2v9h-2V9ZM7 9h2v9H7V9Z"
@@ -282,7 +319,11 @@ export function FileFieldFormField({
             disabled={uploading}
             onClick={openFilePicker}
           >
-            {uploading ? "Uploading…" : isMultiple ? "Add files" : "Choose file"}
+            {uploading
+              ? "Uploading…"
+              : isMultiple
+              ? "Add files"
+              : "Choose file"}
           </button>
         ) : null}
 

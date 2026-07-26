@@ -1,0 +1,110 @@
+{
+  "en": {
+    "funding-application.ui.0.label": "Application header",
+    "funding-application.antragskopf.antragsdatum.label": "Application date",
+    "funding-application.status.label": "Processing status",
+    "funding-application.status.description": "Automatically derived from the completed application",
+    "funding-application.ui.1.label": "Order data",
+    "funding-application.auftragsdaten.adresse.label": "Address for the application",
+    "funding-application.ui.2.label": "Implementation",
+    "funding-application.durchfuehrung.datum.label": "Date of implementation",
+    "funding-application.ui.3.label": "Invoice",
+    "funding-application.abrechnung.beglichen.label": "Bill paid"
+  },
+  "de": {
+    "funding-application.ui.0.label": "Antragskopf",
+    "funding-application.antragskopf.antragsdatum.label": "Antragsdatum",
+    "funding-application.status.label": "Bearbeitungsstand",
+    "funding-application.status.description": "Wird automatisch aus dem ausgefüllten Antrag abgeleitet",
+    "funding-application.ui.1.label": "Auftragsdaten",
+    "funding-application.auftragsdaten.adresse.label": "Adresse zum Antrag",
+    "funding-application.ui.2.label": "Durchführung",
+    "funding-application.durchfuehrung.datum.label": "Datum der Durchführung",
+    "funding-application.ui.3.label": "Abrechnung",
+    "funding-application.abrechnung.beglichen.label": "Rechnung beglichen"
+  },
+  "fr": {
+    "funding-application.ui.0.label": "En-tête de l'application",
+    "funding-application.antragskopf.antragsdatum.label": "Date de candidature",
+    "funding-application.status.label": "Statut de traitement",
+    "funding-application.status.description": "Dérivé automatiquement de la demande complétée",
+    "funding-application.ui.1.label": "Données de commande",
+    "funding-application.auftragsdaten.adresse.label": "Adresse pour la candidature",
+    "funding-application.ui.2.label": "Mise en œuvre",
+    "funding-application.durchfuehrung.datum.label": "Date de mise en œuvre",
+    "funding-application.ui.3.label": "Facture",
+    "funding-application.abrechnung.beglichen.label": "Facture payée"
+  },
+  "it": {
+    "funding-application.ui.0.label": "Intestazione dell'applicazione",
+    "funding-application.antragskopf.antragsdatum.label": "Data della domanda",
+    "funding-application.status.label": "Stato dell'elaborazione",
+    "funding-application.status.description": "Derivato automaticamente dall'applicazione completata",
+    "funding-application.ui.1.label": "Dati dell'ordine",
+    "funding-application.auftragsdaten.adresse.label": "Indirizzo per la domanda",
+    "funding-application.ui.2.label": "Attuazione",
+    "funding-application.durchfuehrung.datum.label": "Data di implementazione",
+    "funding-application.ui.3.label": "Fattura",
+    "funding-application.abrechnung.beglichen.label": "Conto pagato"
+  },
+  "pl": {
+    "funding-application.ui.0.label": "Nagłówek aplikacji",
+    "funding-application.antragskopf.antragsdatum.label": "Data złożenia wniosku",
+    "funding-application.status.label": "Stan przetwarzania",
+    "funding-application.status.description": "Automatycznie pobierane z wypełnionego wniosku",
+    "funding-application.ui.1.label": "Dane zamówienia",
+    "funding-application.auftragsdaten.adresse.label": "Adres do aplikacji",
+    "funding-application.ui.2.label": "Realizacja",
+    "funding-application.durchfuehrung.datum.label": "Data realizacji",
+    "funding-application.ui.3.label": "Faktura",
+    "funding-application.abrechnung.beglichen.label": "Rachunek zapłacony"
+  },
+  "uk": {
+    "funding-application.ui.0.label": "Заголовок програми",
+    "funding-application.antragskopf.antragsdatum.label": "Дата звернення",
+    "funding-application.status.label": "Статус обробки",
+    "funding-application.status.description": "Автоматично виводиться із заповненої заявки",
+    "funding-application.ui.1.label": "Дані замовлення",
+    "funding-application.auftragsdaten.adresse.label": "Адреса для звернення",
+    "funding-application.ui.2.label": "Реалізація",
+    "funding-application.durchfuehrung.datum.label": "Дата реалізації",
+    "funding-application.ui.3.label": "Рахунок-фактура",
+    "funding-application.abrechnung.beglichen.label": "Рахунок оплачено"
+  },
+  "ru": {
+    "funding-application.ui.0.label": "Заголовок приложения",
+    "funding-application.antragskopf.antragsdatum.label": "Дата подачи заявления",
+    "funding-application.status.label": "Статус обработки",
+    "funding-application.status.description": "Автоматически извлекается из заполненного приложения",
+    "funding-application.ui.1.label": "Данные заказа",
+    "funding-application.auftragsdaten.adresse.label": "Адрес для подачи заявления",
+    "funding-application.ui.2.label": "Выполнение",
+    "funding-application.durchfuehrung.datum.label": "Дата реализации",
+    "funding-application.ui.3.label": "Счет",
+    "funding-application.abrechnung.beglichen.label": "Счет оплачен"
+  },
+  "zh": {
+    "funding-application.ui.0.label": "应用程序标头",
+    "funding-application.antragskopf.antragsdatum.label": "申请日期",
+    "funding-application.status.label": "处理状态",
+    "funding-application.status.description": "从已完成的申请中自动得出",
+    "funding-application.ui.1.label": "订单数据",
+    "funding-application.auftragsdaten.adresse.label": "申请地址",
+    "funding-application.ui.2.label": "执行",
+    "funding-application.durchfuehrung.datum.label": "实施日期",
+    "funding-application.ui.3.label": "发票",
+    "funding-application.abrechnung.beglichen.label": "账单已付"
+  },
+  "ja": {
+    "funding-application.ui.0.label": "アプリケーションヘッダー",
+    "funding-application.antragskopf.antragsdatum.label": "申請日",
+    "funding-application.status.label": "処理状況",
+    "funding-application.status.description": "完成したアプリケーションから自動的に派生",
+    "funding-application.ui.1.label": "注文データ",
+    "funding-application.auftragsdaten.adresse.label": "申請先住所",
+    "funding-application.ui.2.label": "実装",
+    "funding-application.durchfuehrung.datum.label": "施行日",
+    "funding-application.ui.3.label": "請求書",
+    "funding-application.abrechnung.beglichen.label": "請求書が支払われました"
+  }
+}

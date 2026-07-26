@@ -11,6 +11,8 @@ import {
 import { UiElementActions } from "../molecules/UiElementActions.js";
 import { UiAddToolbar } from "../molecules/UiAddToolbar.js";
 import {
+  controlPathOfDetail,
+  ensureControlDetailLayout,
   getUiElementAt,
   getUiElementLabel,
   isLayoutElement,
@@ -20,7 +22,10 @@ import {
   uiPathKey,
   type UiPath,
 } from "../../utils/ui-editor.js";
+import { syncUiI18nPrefix } from "../../utils/sync-ui-i18n-prefix.js";
 import { useJseI18n } from "../../context/JseI18nContext.js";
+import type { JseLocale } from "../../i18n/types.js";
+import type { UiLabelMessages } from "../../utils/ui-label-messages.js";
 
 export interface UiStructureEditorProps {
   root: UiElement;
@@ -28,6 +33,9 @@ export interface UiStructureEditorProps {
   document?: SchemaDocument | null;
   onRootChange: (root: UiElement) => void;
   onSelectedPathChange: (path: UiPath) => void;
+  labelLocales?: readonly JseLocale[];
+  messages?: UiLabelMessages;
+  onMessagesChange?: (messages: UiLabelMessages) => void;
 }
 
 export function UiStructureEditor({
@@ -36,6 +44,9 @@ export function UiStructureEditor({
   document,
   onRootChange,
   onSelectedPathChange,
+  labelLocales,
+  messages,
+  onMessagesChange,
 }: UiStructureEditorProps) {
   const { t } = useJseI18n();
 
@@ -122,10 +133,28 @@ export function UiStructureEditor({
       setAddDialogOpen(false);
       setAttributesTargetPath(path);
       onSelectedPathChange(path);
+      if (labelLocales && labelLocales.length > 0) {
+        const synced = syncUiI18nPrefix(root, path, document, messages);
+        if (synced.changed) {
+          onRootChange(synced.root);
+          if (synced.messages && onMessagesChange) {
+            onMessagesChange(synced.messages);
+          }
+        }
+      }
       setAttributesDialogOpen(true);
       anchorPanel(attributesPanelRef, event);
     },
-    [anchorPanel, onSelectedPathChange],
+    [
+      anchorPanel,
+      document,
+      labelLocales,
+      messages,
+      onMessagesChange,
+      onRootChange,
+      onSelectedPathChange,
+      root,
+    ],
   );
 
   const deleteAtPath = useCallback(
@@ -146,6 +175,21 @@ export function UiStructureEditor({
 
       if (uiPathKey(sourceParent) === uiPathKey(targetParent)) {
         patchRoot(moveUiElement(root, sourcePath, targetPath));
+        return;
+      }
+
+      if (targetPath[targetPath.length - 1] === "detail") {
+        const withDetail = ensureControlDetailLayout(
+          root,
+          controlPathOfDetail(targetPath),
+        );
+        const detail = getUiElementAt(withDetail, targetPath);
+        if (isLayoutElement(detail)) {
+          patchRoot(
+            moveUiElementTo(withDetail, sourcePath, targetPath, detail.elements.length),
+            sourcePath,
+          );
+        }
         return;
       }
 
@@ -231,6 +275,7 @@ export function UiStructureEditor({
         <UiAddToolbar
           root={root}
           selectedPath={selectedPath}
+          document={document}
           onPaletteDrag={setPaletteKind}
         />
       ) : null}
@@ -248,6 +293,7 @@ export function UiStructureEditor({
             selectedPath={selectedPath}
             expandedKeys={expandedKeys}
             dragSourcePath={dragSourcePath}
+            document={document}
             onSelect={onSelectedPathChange}
             onToggle={togglePath}
             onAdd={openAddDialog}
@@ -294,7 +340,10 @@ export function UiStructureEditor({
           root={root}
           selectedPath={attributesTargetPath}
           document={document}
-          onRootChange={(next) => patchRoot(next)}
+          onRootChange={patchRoot}
+          labelLocales={labelLocales}
+          messages={messages}
+          onMessagesChange={onMessagesChange}
         />
       </JseFloatingPanel>
     </div>

@@ -171,7 +171,7 @@
   flex-wrap: wrap;
 }
 
-.jse-editor button:not(.jse-icon-btn) {
+.jse-editor button:not(.jse-icon-btn):not(.jse-rating__symbol):not(.jse-rating-attr__symbol-option) {
   cursor: pointer;
   border: 1px solid #d1d5db;
   background: #f9fafb;
@@ -179,7 +179,7 @@
   padding: 0.35rem 0.65rem;
 }
 
-.jse-editor button:not(.jse-icon-btn):hover {
+.jse-editor button:not(.jse-icon-btn):not(.jse-rating__symbol):not(.jse-rating-attr__symbol-option):hover {
   background: #f3f4f6;
 }
 
@@ -263,16 +263,43 @@
 
 .jse-stepper__steps {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 0.5rem;
   list-style: none;
   margin: 0;
   padding: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .jse-stepper__step-indicator {
-  flex: 1 1 8rem;
+  flex: 1 1 0;
   min-width: 0;
+}
+
+.jse-stepper__step-indicator--active {
+  flex: 0 0 auto;
+  min-width: max-content;
+}
+
+.jse-stepper__steps--compact .jse-stepper__step-indicator:not(.jse-stepper__step-indicator--active),
+.jse-stepper__steps--minimal .jse-stepper__step-indicator:not(.jse-stepper__step-indicator--active) {
+  flex: 0 0 auto;
+}
+
+.jse-stepper__steps--compact .jse-stepper__step-indicator--active,
+.jse-stepper__steps--minimal .jse-stepper__step-indicator--active {
+  flex: 0 0 auto;
+  min-width: max-content;
+}
+
+.jse-stepper__steps--compact .jse-stepper__step-indicator:not(.jse-stepper__step-indicator--active) .jse-stepper__step-button,
+.jse-stepper__steps--minimal .jse-stepper__step-indicator:not(.jse-stepper__step-indicator--active) .jse-stepper__step-button {
+  padding-inline: 0.5rem;
+}
+
+.jse-stepper__steps--compact .jse-stepper__step-indicator:not(.jse-stepper__step-indicator--active) .jse-stepper__step-label {
+  max-width: 3.25rem;
 }
 
 .jse-stepper__step-button {
@@ -288,6 +315,10 @@
   font: inherit;
   color: #6b7280;
   text-align: left;
+}
+
+.jse-stepper__step-indicator--active .jse-stepper__step-button {
+  width: auto;
 }
 
 .jse-stepper__step-indicator--active .jse-stepper__step-button {
@@ -330,6 +361,11 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.jse-stepper__step-indicator--active .jse-stepper__step-label {
+  overflow: visible;
+  text-overflow: clip;
 }
 
 .jse-stepper__panel {
@@ -950,6 +986,14 @@
   min-height: 3rem;
 }
 
+.jse-layout-editor__stack--detail {
+  margin-top: 0.35rem;
+  padding: 0.35rem;
+  border: 1px dashed color-mix(in srgb, currentColor 28%, transparent);
+  border-radius: 0.35rem;
+  background: color-mix(in srgb, currentColor 4%, transparent);
+}
+
 .jse-layout-dropzone {
   min-height: 0.35rem;
   border-radius: 0.25rem;
@@ -1009,6 +1053,24 @@
   justify-content: space-between;
   gap: 0.75rem;
   margin-bottom: 0.75rem;
+}
+
+.jse-array-item__title-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  padding: 0.15rem 0.35rem;
+  border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+  border-radius: 0.25rem;
+  background: transparent;
+  font: inherit;
+  font-weight: 600;
+  color: inherit;
+}
+
+.jse-array-item__title-input:focus {
+  outline: 2px solid color-mix(in srgb, #2563eb 55%, transparent);
+  outline-offset: 1px;
 }
 
 .jse-array-item__title {

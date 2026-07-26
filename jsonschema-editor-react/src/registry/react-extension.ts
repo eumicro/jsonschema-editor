@@ -1,5 +1,5 @@
 import type { ComponentType } from "react";
-import type { SchemaNode } from "@jsonschema-editor/json-schema";
+import type { SchemaDocument, SchemaNode } from "@jsonschema-editor/json-schema";
 import type { SchemaTypeExtensionDescriptor } from "./schema-type-extension-registry.js";
 import {
   registerSchemaTypeExtension,
@@ -19,12 +19,27 @@ export interface ReactFormFieldExtension {
   component: ComponentType<any>;
 }
 
+/**
+ * Framework-agnostic form-data derivation hook.
+ * Use for values that must stay in sync with other instance data
+ * (e.g. `x-computed`) without owning the field UI.
+ */
+export interface FormDataSyncExtension {
+  id: string;
+  sync: (
+    schema: SchemaDocument,
+    data: Record<string, unknown>,
+  ) => Record<string, unknown>;
+}
+
 export type SchemaTypeExtension = SchemaTypeExtensionDescriptor;
 
 export interface JseReactExtension {
   id: string;
   formFields?: ReactFormFieldExtension[];
   schemaTypes?: SchemaTypeExtension[];
+  /** Optional instance-data sync plugins (computed values, future derived fields). */
+  formDataSync?: FormDataSyncExtension[];
 }
 
 export interface RegisterReactExtensionOptions {
@@ -36,6 +51,7 @@ export interface RegisterReactExtensionOptions {
 const registeredExtensionIds = new Set<string>();
 const registeredFieldIdsByExtension = new Map<string, string[]>();
 const registeredSchemaTypeIdsByExtension = new Map<string, string[]>();
+const registeredFormDataSyncByExtension = new Map<string, FormDataSyncExtension[]>();
 
 export function isReactExtensionRegistered(id: string): boolean {
   return registeredExtensionIds.has(id);
@@ -81,6 +97,7 @@ export function registerReactExtension(
   registeredExtensionIds.add(extension.id);
   registeredFieldIdsByExtension.set(extension.id, fieldIds);
   registeredSchemaTypeIdsByExtension.set(extension.id, schemaTypeIds);
+  registeredFormDataSyncByExtension.set(extension.id, [...(extension.formDataSync ?? [])]);
 }
 
 export function registerReactExtensions(
@@ -116,6 +133,23 @@ export function unregisterReactExtension(
   registeredExtensionIds.delete(id);
   registeredFieldIdsByExtension.delete(id);
   registeredSchemaTypeIdsByExtension.delete(id);
+  registeredFormDataSyncByExtension.delete(id);
+}
+
+export function listRegisteredFormDataSyncExtensions(): FormDataSyncExtension[] {
+  return [...registeredFormDataSyncByExtension.values()].flat();
+}
+
+/** Applies all registered form-data sync plugins. Returns `data` when unchanged. */
+export function applyRegisteredFormDataSync(
+  schema: SchemaDocument,
+  data: Record<string, unknown>,
+): Record<string, unknown> {
+  let current = data;
+  for (const syncer of listRegisteredFormDataSyncExtensions()) {
+    current = syncer.sync(schema, current);
+  }
+  return current;
 }
 
 export function setupJseReactExtensions(extensions?: JseReactExtension[]): void {

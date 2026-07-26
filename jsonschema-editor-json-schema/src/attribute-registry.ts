@@ -1,4 +1,4 @@
-import type { AttributeDefinition, JsonSchemaObject } from "./types.js";
+import type { AttributeDefinition, AttributeOfferKind, JsonSchemaObject } from "./types.js";
 
 const RESERVED_KEYS = new Set([
   "$schema",
@@ -54,6 +54,13 @@ export class JsonSchemaAttributeRegistry {
 
   listFieldScoped(): AttributeDefinition[] {
     return this.list().filter((definition) => definition.scope === "field");
+  }
+
+  /** Attributes always offered in the schema editor for the given JSON Schema kind. */
+  listOfferedForKind(kind: AttributeOfferKind | string): AttributeDefinition[] {
+    return this.list().filter((definition) =>
+      definition.offerForKinds?.includes(kind as AttributeOfferKind),
+    );
   }
 
   isRegistered(name: string): boolean {

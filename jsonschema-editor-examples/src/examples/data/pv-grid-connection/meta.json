@@ -1,0 +1,49 @@
+{
+  "label": "PV grid connection",
+  "tagline": "From roof polygon to kWp – modules, inverter and calculated yield",
+  "description": "Complex energy workflow: applicant and grid operator, site with roof/ground polygon on the map, mounting type (roof/ground) and inverter topology via oneOf, module batches with automatic kWp/yield/storage calculation (CEL), document uploads and application status.",
+  "category": "Standort & Planung",
+  "visibility": "public",
+  "locales": {
+    "de": {
+      "label": "PV-Netzanschluss",
+      "tagline": "Vom Dachpolygon bis kWp — Module, Wechselrichter und berechneter Ertrag",
+      "description": "Komplexer Energie-Workflow: Antragsteller und Netzbetreiber, Standort mit Dach-/Freiflächen-Polygon auf der Karte, Montageart (Dach/Freifläche) und Wechselrichter-Topologie per oneOf, Modulchargen mit automatischer kWp-/Ertrags-/Speicher-Kalkulation (CEL), Dokument-Uploads und Antragsstatus."
+    },
+    "fr": {
+      "label": "Raccordement PV",
+      "tagline": "Du polygone de toiture au kWc – modules, onduleur et production calculée",
+      "description": "Flux énergétique complexe : demandeur et gestionnaire de réseau, site avec polygone toiture/sol sur la carte, type de montage et topologie d'onduleur via oneOf, lots de modules avec calcul automatique kWc/production/stockage (CEL), téléversements et statut de demande."
+    },
+    "it": {
+      "label": "Allaccio FV",
+      "tagline": "Dal poligono del tetto al kWp – moduli, inverter e resa calcolata",
+      "description": "Flusso energetico complesso: richiedente e gestore di rete, sito con poligono tetto/suolo sulla mappa, tipo di montaggio e topologia inverter tramite oneOf, lotti moduli con calcolo automatico kWp/resa/accumulo (CEL), caricamenti e stato della domanda."
+    },
+    "pl": {
+      "label": "Przyłączenie PV",
+      "tagline": "Od poligonu dachu do kWp – moduły, falownik i wyliczona produkcja",
+      "description": "Złożony proces energetyczny: wnioskodawca i operator sieci, lokalizacja z poligonem dachu/gruntu na mapie, typ montażu i topologia falownika (oneOf), partie modułów z automatycznym wyliczeniem kWp/produkcji/magazynu (CEL), załączniki i status wniosku."
+    },
+    "uk": {
+      "label": "Приєднання PV",
+      "tagline": "Від полігону даху до кВтп – модулі, інвертор і розрахований виробіток",
+      "description": "Складний енергетичний процес: заявник і оператор мережі, майданчик з полігоном даху/ґрунту на карті, тип монтажу та топологія інвертора (oneOf), партії модулів з автоматичним розрахунком кВтп/виробітку/ЗБЕ (CEL), завантаження документів і статус заявки."
+    },
+    "ru": {
+      "label": "Подключение PV",
+      "tagline": "От полигона крыши до кВтп – модули, инвертор и расчётная выработка",
+      "description": "Сложный энергетический процесс: заявитель и сетевой оператор, площадка с полигоном крыши/земли на карте, тип монтажа и топология инвертора (oneOf), партии модулей с автоматическим расчётом кВтп/выработки/накопителя (CEL), загрузки и статус заявки."
+    },
+    "zh": {
+      "label": "光伏并网申请",
+      "tagline": "从屋面多边形到千瓦峰 – 组件、逆变器与计算发电量",
+      "description": "复杂能源流程：申请人与电网运营商、带屋面/地面多边形的站点、通过 oneOf 的安装类型与逆变器拓扑、带自动 kWp/发电量/储能计算（CEL）的组件批次、文件上传与申请状态。"
+    },
+    "ja": {
+      "label": "PV系統連系申請",
+      "tagline": "屋根ポリゴンからkWpまで – モジュール・パワコン・算出発電量",
+      "description": "複雑なエネルギー業務フロー: 申請者と系統運用者、地図上の屋根/地上ポリゴン、oneOf による設置方式とパワコン構成、CEL による kWp/発電量/蓄電池の自動計算、書類アップロードと申請ステータス。"
+    }
+  }
+}

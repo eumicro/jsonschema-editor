@@ -1,7 +1,49 @@
 {
-  "label": "Bauprojekt-Anmeldung",
-  "tagline": "Genehmigungsverfahren von Antrag bis Einreichung — Grundstück, Vorhaben, Gewerke",
-  "description": "Umfassender Bauantrags-Workflow: Bauherr und Antrag, Grundstück mit Flurstückskarte, Vorhabenart (Neubau/Umbau/Abbruch) und Nutzung per oneOf, Gewerke- und Nachbarschaftslisten, Baustellenzufahrt und -bereich auf der Karte, Umweltangaben, automatische Kosten-/Flächen-/CO₂-Kalkulation sowie Bearbeitungsstand.",
+  "label": "Construction project registration",
+  "tagline": "Approval process from application to submission - property, project, trades",
+  "description": "Comprehensive building application workflow: builder and application, property with parcel map, project type (new construction/conversion/demolition) and use via oneOf, trade and neighborhood lists, construction site access and area on the map, environmental information, automatic cost/area/CO₂ calculation and processing status.",
   "category": "Anträge & Prozesse",
-  "visibility": "public"
+  "visibility": "public",
+  "locales": {
+    "de": {
+      "label": "Bauprojekt-Anmeldung",
+      "tagline": "Genehmigungsverfahren von Antrag bis Einreichung — Grundstück, Vorhaben, Gewerke",
+      "description": "Umfassender Bauantrags-Workflow: Bauherr und Antrag, Grundstück mit Flurstückskarte, Vorhabenart (Neubau/Umbau/Abbruch) und Nutzung per oneOf, Gewerke- und Nachbarschaftslisten, Baustellenzufahrt und -bereich auf der Karte, Umweltangaben, automatische Kosten-/Flächen-/CO₂-Kalkulation sowie Bearbeitungsstand."
+    },
+    "fr": {
+      "label": "Enregistrement du projet de construction",
+      "tagline": "Processus d'approbation de la demande à la soumission - propriété, projet, métiers",
+      "description": "Workflow complet de demande de construction : constructeur et demande, propriété avec plan parcellaire, type de projet (nouvelle construction/conversion/démolition) et utilisation via oneOf, listes de commerces et de quartiers, accès au chantier et superficie sur la carte, informations environnementales, calcul automatique coût/superficie/CO₂ et état du traitement."
+    },
+    "it": {
+      "label": "Registrazione del progetto di costruzione",
+      "tagline": "Processo di approvazione dalla domanda alla presentazione: proprietà, progetto, compravendita",
+      "description": "Flusso di lavoro completo per la richiesta di un edificio: costruttore e richiesta, proprietà con mappa delle parcelle, tipo di progetto (nuova costruzione/riconversione/demolizione) e utilizzo tramite oneOf, elenchi commerciali e di quartiere, accesso al cantiere e area sulla mappa, informazioni ambientali, calcolo automatico di costi/superficie/CO₂ e stato di elaborazione."
+    },
+    "pl": {
+      "label": "Rejestracja projektu budowlanego",
+      "tagline": "Proces zatwierdzania od wniosku do złożenia - nieruchomość, projekt, branże",
+      "description": "Kompleksowy przepływ pracy w aplikacji budowlanej: budowniczy i wniosek, nieruchomość z mapą działek, typ projektu (nowa budowa/przebudowa/rozbiórka) i wykorzystanie za pośrednictwem oneOf, listy branż i sąsiedztw, dostęp do placu budowy i obszar na mapie, informacje środowiskowe, automatyczne obliczanie kosztów/obszaru/CO₂ i status przetwarzania."
+    },
+    "uk": {
+      "label": "Реєстрація проекту будівництва",
+      "tagline": "Процес схвалення від заявки до подання – майно, проект, угоди",
+      "description": "Комплексний робочий процес будівельних додатків: будівельник і додаток, майно з картою земельних ділянок, тип проекту (нове будівництво/переобладнання/знесення) і використання через oneOf, торгові та сусідні списки, доступ до будівельного майданчика та територія на карті, екологічна інформація, автоматичний розрахунок вартості/площі/CO₂ і статус обробки."
+    },
+    "ru": {
+      "label": "Регистрация строительного проекта",
+      "tagline": "Процесс утверждения от заявки до подачи - недвижимость, проект, сделки",
+      "description": "Комплексный рабочий процесс подачи заявки на строительство: строитель и заявка, недвижимость с картой участка, тип проекта (новое строительство/переоборудование/снос) и использование через oneOf, списки торговцев и соседей, доступ к строительной площадке и территория на карте, экологическая информация, автоматический расчет стоимости/площади/CO₂ и статус обработки."
+    },
+    "zh": {
+      "label": "建设工程登记",
+      "tagline": "从申请到提交的审批流程 - 财产、项目、交易",
+      "description": "全面的建筑应用工作流程：建筑商和应用、带有地块地图的房产、项目类型（新建/改造/拆除）以及通过 oneOf 使用、贸易和邻里列表、建筑工地访问和地图上的区域、环境信息、自动成本/面积/二氧化碳计算和处理状态。"
+    },
+    "ja": {
+      "label": "建設プロジェクト登録",
+      "tagline": "申請から提出までの承認プロセス - 不動産、プロジェクト、取引",
+      "description": "包括的な建築申請ワークフロー: 建設者と申請、土地区画図付きの物件、プロジェクト タイプ (新築/改築/取り壊し) と oneOf を介した使用、取引先と近隣リスト、建設現場へのアクセスと地図上のエリア、環境情報、コスト/面積/CO₂ の自動計算と処理ステータス。"
+    }
+  }
 }

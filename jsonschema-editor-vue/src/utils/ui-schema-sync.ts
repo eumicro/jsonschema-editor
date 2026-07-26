@@ -52,6 +52,10 @@ export function collectControlScopesFromUi(root: UiElement): string[] {
 
 function walkUi(element: UiElement, visit: (element: UiElement) => void): void {
   visit(element);
+  if (element.elementKind === "Control") {
+    const detail = (element as Control).detail;
+    if (detail) walkUi(detail, visit);
+  }
   if (!isLayoutElement(element)) return;
   for (const child of element.elements) {
     walkUi(child, visit);
@@ -171,8 +175,11 @@ export function insertControlForScope(
     const controlPath = findControlPathByScope(root, lastSibling.scope);
     if (controlPath) {
       const parentPath = getUiParentPath(controlPath);
-      const insertIndex = controlPath[controlPath.length - 1] + 1;
-      return insertUiElement(root, parentPath, new Control(scope, label), insertIndex);
+      const last = controlPath[controlPath.length - 1];
+      if (typeof last !== "number") {
+        return insertControlAtDefaultLocation(root, parentScope, scope, label);
+      }
+      return insertUiElement(root, parentPath, new Control(scope, label), last + 1);
     }
   }
 

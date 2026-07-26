@@ -4,7 +4,11 @@ import {
   normalizeFileConfig,
   type FileExtensionConfig,
 } from "@jsonschema-editor/json-schema-extensions";
-import { JseInput, type AttributeControlProps } from "@jsonschema-editor/react";
+import {
+  JseInput,
+  useJseI18n,
+  type AttributeControlProps,
+} from "@jsonschema-editor/react";
 
 function readConfig(value: unknown): FileExtensionConfig {
   return isFileExtensionConfig(value) ? value : {};
@@ -16,13 +20,19 @@ export function FileAttributeControl({
   modelValue,
   onModelValueChange,
 }: AttributeControlProps) {
-  const [draft, setDraft] = useState<FileExtensionConfig>(() => readConfig(modelValue));
+  const { t } = useJseI18n();
+  const [draft, setDraft] = useState<FileExtensionConfig>(() =>
+    readConfig(modelValue)
+  );
 
   useEffect(() => {
     setDraft(readConfig(modelValue));
   }, [modelValue]);
 
-  const acceptText = useMemo(() => (draft.accept ?? []).join(", "), [draft.accept]);
+  const acceptText = useMemo(
+    () => (draft.accept ?? []).join(", "),
+    [draft.accept]
+  );
 
   function commit(next: FileExtensionConfig): void {
     onModelValueChange?.(normalizeFileConfig(next));
@@ -43,11 +53,13 @@ export function FileAttributeControl({
           disabled={readonly}
           onChange={(event) => setMultiple(event.target.checked)}
         />
-        <span>Multiple files</span>
+        <span>{t("schemaAttributes.x-file.multiple")}</span>
       </label>
 
       <label className="jse-file-attr__field">
-        <span className="jse-file-attr__label">Accepted types</span>
+        <span className="jse-file-attr__label">
+          {t("schemaAttributes.x-file.acceptTypes")}
+        </span>
         <JseInput
           modelValue={acceptText}
           readOnly={readonly}
@@ -67,12 +79,14 @@ export function FileAttributeControl({
       </label>
 
       <label className="jse-file-attr__field">
-        <span className="jse-file-attr__label">Max size (bytes)</span>
+        <span className="jse-file-attr__label">
+          {t("schemaAttributes.x-file.maxSize")}
+        </span>
         <JseInput
           modelValue={draft.maxSize?.toString() ?? ""}
           readOnly={readonly}
           inputMode="numeric"
-          placeholder="optional"
+          placeholder={t("schemaAttributes.x-file.optionalPlaceholder")}
           onModelValueChange={(text) => {
             const next = { ...draft, maxSize: text ? Number(text) : undefined };
             setDraft(next);
@@ -83,7 +97,9 @@ export function FileAttributeControl({
 
       {draft.multiple ? (
         <label className="jse-file-attr__field">
-          <span className="jse-file-attr__label">Max files</span>
+          <span className="jse-file-attr__label">
+            {t("schemaAttributes.x-file.maxFiles")}
+          </span>
           <JseInput
             modelValue={(draft.maxFiles ?? 10).toString()}
             readOnly={readonly}

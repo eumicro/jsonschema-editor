@@ -3,7 +3,7 @@
   "elements": [
     {
       "type": "Step",
-      "label": "Auftrag",
+      "label": "Order",
       "elements": [
         {
           "type": "VerticalLayout",
@@ -11,202 +11,404 @@
             {
               "type": "HorizontalLayout",
               "elements": [
-                { "type": "Control", "scope": "#/properties/auftrag/properties/auftragsnummer" },
-                { "type": "Control", "scope": "#/properties/auftrag/properties/auftragsdatum" }
+                {
+                  "type": "Control",
+                  "scope": "#/properties/auftrag/properties/auftragsnummer",
+                  "i18n": "shipping-order.auftrag.auftragsnummer",
+                  "label": "Order Number"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/auftrag/properties/auftragsdatum",
+                  "i18n": "shipping-order.auftrag.auftragsdatum",
+                  "label": "Order date"
+                }
               ]
             },
-            { "type": "Control", "scope": "#/properties/auftrag/properties/kundenreferenz" },
-            { "type": "Control", "scope": "#/properties/auftragsStatus", "label": "Auftragsstatus" },
+            {
+              "type": "Control",
+              "scope": "#/properties/auftrag/properties/kundenreferenz",
+              "i18n": "shipping-order.auftrag.kundenreferenz",
+              "label": "Customer reference"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/auftragsStatus",
+              "label": "Order status",
+              "i18n": "shipping-order.auftragsStatus"
+            },
             {
               "type": "Group",
-              "label": "Auftraggeber",
+              "label": "Client",
               "elements": [
                 {
                   "type": "HorizontalLayout",
                   "elements": [
-                    { "type": "Control", "scope": "#/properties/auftraggeber/properties/firma" },
-                    { "type": "Control", "scope": "#/properties/auftraggeber/properties/rechnungskonto" }
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/auftraggeber/properties/firma",
+                      "i18n": "shipping-order.auftraggeber.firma",
+                      "label": "Company"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/auftraggeber/properties/rechnungskonto",
+                      "i18n": "shipping-order.auftraggeber.rechnungskonto",
+                      "label": "Billing Account"
+                    }
                   ]
                 },
                 {
                   "type": "HorizontalLayout",
                   "elements": [
-                    { "type": "Control", "scope": "#/properties/auftraggeber/properties/ansprechpartner" },
-                    { "type": "Control", "scope": "#/properties/auftraggeber/properties/telefon" }
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/auftraggeber/properties/ansprechpartner",
+                      "i18n": "shipping-order.auftraggeber.ansprechpartner",
+                      "label": "Contact Person"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/auftraggeber/properties/telefon",
+                      "i18n": "shipping-order.auftraggeber.telefon",
+                      "label": "Phone"
+                    }
                   ]
                 },
-                { "type": "Control", "scope": "#/properties/auftraggeber/properties/email" }
-              ]
+                {
+                  "type": "Control",
+                  "scope": "#/properties/auftraggeber/properties/email",
+                  "i18n": "shipping-order.auftraggeber.email",
+                  "label": "Email"
+                }
+              ],
+              "i18n": "shipping-order.ui.0.0.3"
             }
           ]
         }
-      ]
+      ],
+      "i18n": "shipping-order.ui.0"
     },
     {
       "type": "Step",
-      "label": "Abholung",
+      "label": "Pickup",
       "elements": [
         {
           "type": "Group",
-          "label": "Abholung & Ladestelle",
+          "label": "Pick up & loading point",
           "elements": [
-            { "type": "Control", "scope": "#/properties/abholung/properties/adresse" },
+            {
+              "type": "Control",
+              "scope": "#/properties/abholung/properties/adresse",
+              "i18n": "shipping-order.abholung.adresse",
+              "label": "Pickup address"
+            },
             {
               "type": "HorizontalLayout",
               "elements": [
-                { "type": "Control", "scope": "#/properties/abholung/properties/abholDatum" },
-                { "type": "Control", "scope": "#/properties/abholung/properties/ladestelle" }
+                {
+                  "type": "Control",
+                  "scope": "#/properties/abholung/properties/abholDatum",
+                  "i18n": "shipping-order.abholung.abholDatum",
+                  "label": "Pickup date"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/abholung/properties/ladestelle",
+                  "i18n": "shipping-order.abholung.ladestelle",
+                  "label": "Loading point"
+                }
               ]
             },
             {
               "type": "HorizontalLayout",
               "elements": [
-                { "type": "Control", "scope": "#/properties/abholung/properties/zeitfensterVon" },
-                { "type": "Control", "scope": "#/properties/abholung/properties/zeitfensterBis" }
+                {
+                  "type": "Control",
+                  "scope": "#/properties/abholung/properties/zeitfensterVon",
+                  "i18n": "shipping-order.abholung.zeitfensterVon",
+                  "label": "Time Window From"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/abholung/properties/zeitfensterBis",
+                  "i18n": "shipping-order.abholung.zeitfensterBis",
+                  "label": "Time window until"
+                }
               ]
             },
             {
               "type": "Control",
               "scope": "#/properties/abholung/properties/standortKarte",
-              "label": "Abholort (Karte)"
+              "label": "Pickup location (map)",
+              "i18n": "shipping-order.abholung.standortKarte"
             },
-            { "type": "Control", "scope": "#/properties/abholung/properties/hinweise" }
-          ]
+            {
+              "type": "Control",
+              "scope": "#/properties/abholung/properties/hinweise",
+              "i18n": "shipping-order.abholung.hinweise",
+              "label": "Information for drivers"
+            }
+          ],
+          "i18n": "shipping-order.ui.1.0"
         }
-      ]
+      ],
+      "i18n": "shipping-order.ui.1"
     },
     {
       "type": "Step",
-      "label": "Zustellung",
+      "label": "Delivery",
       "elements": [
         {
           "type": "Group",
-          "label": "Zustellung & Empfänger",
+          "label": "Delivery & Recipient",
           "elements": [
-            { "type": "Control", "scope": "#/properties/zustellung/properties/adresse" },
+            {
+              "type": "Control",
+              "scope": "#/properties/zustellung/properties/adresse",
+              "i18n": "shipping-order.zustellung.adresse",
+              "label": "Delivery address"
+            },
             {
               "type": "HorizontalLayout",
               "elements": [
-                { "type": "Control", "scope": "#/properties/zustellung/properties/zustellDatum" },
-                { "type": "Control", "scope": "#/properties/zustellung/properties/avisierungErforderlich" }
+                {
+                  "type": "Control",
+                  "scope": "#/properties/zustellung/properties/zustellDatum",
+                  "i18n": "shipping-order.zustellung.zustellDatum",
+                  "label": "Delivery date"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/zustellung/properties/avisierungErforderlich",
+                  "i18n": "shipping-order.zustellung.avisierungErforderlich",
+                  "label": "Notification before delivery"
+                }
               ]
             },
             {
               "type": "HorizontalLayout",
               "elements": [
-                { "type": "Control", "scope": "#/properties/zustellung/properties/zeitfensterVon" },
-                { "type": "Control", "scope": "#/properties/zustellung/properties/zeitfensterBis" }
+                {
+                  "type": "Control",
+                  "scope": "#/properties/zustellung/properties/zeitfensterVon",
+                  "i18n": "shipping-order.zustellung.zeitfensterVon",
+                  "label": "Time Window From"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/zustellung/properties/zeitfensterBis",
+                  "i18n": "shipping-order.zustellung.zeitfensterBis",
+                  "label": "Time window until"
+                }
               ]
             },
             {
               "type": "HorizontalLayout",
               "elements": [
-                { "type": "Control", "scope": "#/properties/zustellung/properties/empfaenger" },
-                { "type": "Control", "scope": "#/properties/zustellung/properties/empfaengerTelefon" }
+                {
+                  "type": "Control",
+                  "scope": "#/properties/zustellung/properties/empfaenger",
+                  "i18n": "shipping-order.zustellung.empfaenger",
+                  "label": "Receiver on site"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/zustellung/properties/empfaengerTelefon",
+                  "i18n": "shipping-order.zustellung.empfaengerTelefon",
+                  "label": "Telephone receiver"
+                }
               ]
             },
             {
               "type": "Control",
               "scope": "#/properties/zustellung/properties/standortKarte",
-              "label": "Zustellort (Karte)"
+              "label": "Delivery location (map)",
+              "i18n": "shipping-order.zustellung.standortKarte"
             }
-          ]
+          ],
+          "i18n": "shipping-order.ui.2.0"
         }
-      ]
+      ],
+      "i18n": "shipping-order.ui.2"
     },
     {
       "type": "Step",
-      "label": "Sendung",
+      "label": "Broadcast",
       "elements": [
         {
           "type": "Group",
-          "label": "Leistung & Ladung",
+          "label": "Power & Charge",
           "elements": [
-            { "type": "Control", "scope": "#/properties/sendung/properties/leistungsart", "label": "Leistungsart" },
-            { "type": "Control", "scope": "#/properties/sendung/properties/positionen" }
-          ]
+            {
+              "type": "Control",
+              "scope": "#/properties/sendung/properties/leistungsart",
+              "label": "Service type",
+              "i18n": "shipping-order.sendung.leistungsart"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/sendung/properties/positionen",
+              "i18n": "shipping-order.sendung.positionen",
+              "label": "Shipment positions"
+            }
+          ],
+          "i18n": "shipping-order.ui.3.0"
         }
-      ]
+      ],
+      "i18n": "shipping-order.ui.3"
     },
     {
       "type": "Step",
-      "label": "Fahrzeug",
+      "label": "Vehicle",
       "elements": [
         {
           "type": "Categorization",
           "elements": [
             {
               "type": "Category",
-              "label": "Fahrzeug",
+              "label": "Vehicle",
               "elements": [
-                { "type": "Control", "scope": "#/properties/fahrzeug/properties/fahrzeugklasse" },
-                { "type": "Control", "scope": "#/properties/fahrzeug/properties/besonderheiten" }
-              ]
+                {
+                  "type": "Control",
+                  "scope": "#/properties/fahrzeug/properties/fahrzeugklasse",
+                  "i18n": "shipping-order.fahrzeug.fahrzeugklasse",
+                  "label": "Vehicle class"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/fahrzeug/properties/besonderheiten",
+                  "i18n": "shipping-order.fahrzeug.besonderheiten",
+                  "label": "Special features"
+                }
+              ],
+              "i18n": "shipping-order.ui.4.0.0"
             },
             {
               "type": "Category",
-              "label": "Zusatzleistungen",
+              "label": "Additional services",
               "elements": [
                 {
                   "type": "HorizontalLayout",
                   "elements": [
-                    { "type": "Control", "scope": "#/properties/fahrzeug/properties/zusatzleistungen/properties/hebebuehne" },
-                    { "type": "Control", "scope": "#/properties/fahrzeug/properties/zusatzleistungen/properties/fixierung" }
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/fahrzeug/properties/zusatzleistungen/properties/hebebuehne",
+                      "i18n": "shipping-order.fahrzeug.zusatzleistungen.hebebuehne",
+                      "label": "Lift"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/fahrzeug/properties/zusatzleistungen/properties/fixierung",
+                      "i18n": "shipping-order.fahrzeug.zusatzleistungen.fixierung",
+                      "label": "Lashing straps/fixation"
+                    }
                   ]
                 },
                 {
                   "type": "HorizontalLayout",
                   "elements": [
-                    { "type": "Control", "scope": "#/properties/fahrzeug/properties/zusatzleistungen/properties/zweiFahrer" },
-                    { "type": "Control", "scope": "#/properties/fahrzeug/properties/zusatzleistungen/properties/adrAusstattung" }
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/fahrzeug/properties/zusatzleistungen/properties/zweiFahrer",
+                      "i18n": "shipping-order.fahrzeug.zusatzleistungen.zweiFahrer",
+                      "label": "Two driver crew"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/fahrzeug/properties/zusatzleistungen/properties/adrAusstattung",
+                      "i18n": "shipping-order.fahrzeug.zusatzleistungen.adrAusstattung",
+                      "label": "ADR equipment required"
+                    }
                   ]
                 }
-              ]
+              ],
+              "i18n": "shipping-order.ui.4.0.1"
             }
           ]
         }
-      ]
+      ],
+      "i18n": "shipping-order.ui.4"
     },
     {
       "type": "Step",
-      "label": "Kalkulation",
+      "label": "Calculation",
       "elements": [
         {
           "type": "Group",
-          "label": "Automatische Kalkulation",
+          "label": "Automatic calculation",
           "elements": [
             {
               "type": "HorizontalLayout",
               "elements": [
-                { "type": "Control", "scope": "#/properties/kalkulation/properties/gesamtGewichtKg" },
-                { "type": "Control", "scope": "#/properties/kalkulation/properties/gesamtVolumenM3" }
+                {
+                  "type": "Control",
+                  "scope": "#/properties/kalkulation/properties/gesamtGewichtKg",
+                  "i18n": "shipping-order.kalkulation.gesamtGewichtKg",
+                  "label": "Total weight (kg)"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/kalkulation/properties/gesamtVolumenM3",
+                  "i18n": "shipping-order.kalkulation.gesamtVolumenM3",
+                  "label": "Total volume (m³)"
+                }
               ]
             },
-            { "type": "Control", "scope": "#/properties/kalkulation/properties/frachtkostenSchaetzung" }
-          ]
+            {
+              "type": "Control",
+              "scope": "#/properties/kalkulation/properties/frachtkostenSchaetzung",
+              "i18n": "shipping-order.kalkulation.frachtkostenSchaetzung",
+              "label": "Freight cost estimate (EUR)"
+            }
+          ],
+          "i18n": "shipping-order.ui.5.0"
         }
-      ]
+      ],
+      "i18n": "shipping-order.ui.5"
     },
     {
       "type": "Step",
-      "label": "Freigabe",
+      "label": "Release",
       "elements": [
         {
           "type": "Group",
           "label": "Disposition",
           "elements": [
-            { "type": "Control", "scope": "#/properties/freigabe/properties/disponent" },
-            { "type": "Control", "scope": "#/properties/freigabe/properties/interneNotiz" },
+            {
+              "type": "Control",
+              "scope": "#/properties/freigabe/properties/disponent",
+              "i18n": "shipping-order.freigabe.disponent",
+              "label": "Dispatcher"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/freigabe/properties/interneNotiz",
+              "i18n": "shipping-order.freigabe.interneNotiz",
+              "label": "Internal note"
+            },
             {
               "type": "HorizontalLayout",
               "elements": [
-                { "type": "Control", "scope": "#/properties/freigabe/properties/freigegeben" },
-                { "type": "Control", "scope": "#/properties/freigabe/properties/bestaetigungAuftraggeber" }
+                {
+                  "type": "Control",
+                  "scope": "#/properties/freigabe/properties/freigegeben",
+                  "i18n": "shipping-order.freigabe.freigegeben",
+                  "label": "Released for disposition"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/freigabe/properties/bestaetigungAuftraggeber",
+                  "i18n": "shipping-order.freigabe.bestaetigungAuftraggeber",
+                  "label": "Client confirms order data"
+                }
               ]
             }
-          ]
+          ],
+          "i18n": "shipping-order.ui.6.0"
         }
-      ]
+      ],
+      "i18n": "shipping-order.ui.6"
     }
   ]
 }

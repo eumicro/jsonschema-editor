@@ -1,16 +1,37 @@
 import { useEffect, useMemo } from "react";
 import type { ArraySchema } from "@jsonschema-editor/json-schema";
 import { buildArrayItemScope } from "@jsonschema-editor/json-schema";
+import { resolveControlDetailSchema } from "@jsonschema-editor/ui-schema";
 import { useFormFieldLabel } from "../../../hooks/useFormFieldLabel.js";
 import { useJseI18n } from "../../../context/JseI18nContext.js";
 import { useArrayFieldValue, useScopedField } from "../../../hooks/useScopedField.js";
+import {
+  getArrayItemLabelValue,
+  resolveItemLabelProp,
+  setArrayItemLabelValue,
+} from "../../../utils/array-item-label.js";
 import { isSchemaFieldHidden, isSchemaFieldReadOnly } from "../../../utils/field-behavior.js";
 import type { FormFieldProps } from "../../../types/form-field-props.js";
 import { JseButton } from "../../atoms/JseButton.js";
 import { SchemaFormFieldResolver } from "./SchemaFormFieldResolver.js";
+import { UiFormElementResolver } from "../ui/UiFormElementResolver.js";
 
-export function ArrayFormField(props: FormFieldProps) {
-  const { schema, document, scope, label, i18nKey, readonly, data, onDataChange } = props;
+export type ArrayFormFieldProps = FormFieldProps;
+
+export function ArrayFormField(props: ArrayFormFieldProps) {
+  const {
+    schema,
+    document,
+    scope,
+    label,
+    i18nKey,
+    readonly,
+    data,
+    onDataChange,
+    detail,
+    elementLabelProp,
+    controlOptions,
+  } = props;
   const { t } = useJseI18n();
   const { fieldSchema } = useScopedField(schema, scope, document);
   const { displayLabel, description } = useFormFieldLabel(
@@ -27,6 +48,20 @@ export function ArrayFormField(props: FormFieldProps) {
     return node?.nodeKind === "array" ? (node as ArraySchema) : undefined;
   }, [fieldSchema]);
 
+  const itemSchema = useMemo(
+    () => resolveControlDetailSchema(document ?? null, scope),
+    [document, scope],
+  );
+
+  const labelProp = useMemo(
+    () =>
+      resolveItemLabelProp(
+        elementLabelProp !== undefined ? { elementLabelProp } : controlOptions,
+        itemSchema,
+      ),
+    [controlOptions, elementLabelProp, itemSchema],
+  );
+
   useEffect(() => {
     if (arraySchema && !Array.isArray(items)) {
       setItems([]);
@@ -38,6 +73,19 @@ export function ArrayFormField(props: FormFieldProps) {
   const effectiveReadonly = isSchemaFieldReadOnly(fieldSchema, readonly);
   const canAdd = !effectiveReadonly && arraySchema.canAddItem(items.length);
   const canRemove = !effectiveReadonly && arraySchema.canRemoveItem(items.length);
+
+  function itemTitle(index: number): string {
+    if (!labelProp) return t("arrayList.itemTitle", { index: index + 1 });
+    const value = getArrayItemLabelValue(items[index], labelProp).trim();
+    return value || t("arrayList.itemTitle", { index: index + 1 });
+  }
+
+  function onItemLabelInput(index: number, value: string): void {
+    if (!labelProp || effectiveReadonly) return;
+    const next = [...items];
+    next[index] = setArrayItemLabelValue(next[index], labelProp, value);
+    setItems(next);
+  }
 
   function addItem() {
     if (!arraySchema || !canAdd) return;
@@ -61,9 +109,19 @@ export function ArrayFormField(props: FormFieldProps) {
       {items.map((_, index) => (
         <article key={`${scope}-item-${index}-of-${items.length}`} className="jse-array-item">
           <header className="jse-array-item__header">
-            <span className="jse-array-item__title">
-              {t("arrayList.itemTitle", { index: index + 1 })}
-            </span>
+            {labelProp ? (
+              <input
+                type="text"
+                className="jse-array-item__title-input"
+                value={getArrayItemLabelValue(items[index], labelProp)}
+                placeholder={t("arrayList.itemTitle", { index: index + 1 })}
+                readOnly={effectiveReadonly}
+                aria-label={t("arrayList.itemLabelAria", { index: index + 1 })}
+                onChange={(event) => onItemLabelInput(index, event.target.value)}
+              />
+            ) : (
+              <span className="jse-array-item__title">{itemTitle(index)}</span>
+            )}
             {canRemove ? (
               <JseButton
                 type="button"
@@ -74,14 +132,26 @@ export function ArrayFormField(props: FormFieldProps) {
               </JseButton>
             ) : null}
           </header>
-          <SchemaFormFieldResolver
-            schema={schema}
-            document={document}
-            scope={buildArrayItemScope(scope, index)}
-            readonly={effectiveReadonly}
-            data={data}
-            onDataChange={onDataChange}
-          />
+          {detail ? (
+            <UiFormElementResolver
+              element={detail}
+              schema={schema}
+              document={document}
+              data={data}
+              onDataChange={onDataChange}
+              readonly={effectiveReadonly}
+              scopePrefix={buildArrayItemScope(scope, index)}
+            />
+          ) : (
+            <SchemaFormFieldResolver
+              schema={schema}
+              document={document}
+              scope={buildArrayItemScope(scope, index)}
+              readonly={effectiveReadonly}
+              data={data}
+              onDataChange={onDataChange}
+            />
+          )}
         </article>
       ))}
 

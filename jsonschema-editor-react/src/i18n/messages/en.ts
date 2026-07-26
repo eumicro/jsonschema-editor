@@ -92,7 +92,28 @@ export const enMessages = {
   "schemaAttributes.x-read-only": "Read-only (x-read-only)",
   "schemaAttributes.x-hidden": "Hidden (x-hidden)",
   "schemaAttributes.x-computed": "Computed (CEL, x-computed)",
+  "schemaAttributes.x-computed.hint":
+    "CEL expression with root binding \"data\" (entire form data).",
   "schemaAttributes.x-file": "File upload (x-file)",
+  "schemaAttributes.x-progress-bar": "Progress bar (x-progress-bar)",
+  "schemaAttributes.x-progress-bar.hint":
+    "Range via minimum/maximum. Color: solid or gradient by value.",
+  "schemaAttributes.x-rating": "Rating (x-rating)",
+  "schemaAttributes.x-rating.hint":
+    "Pick any symbol from the palette or enter your own. Color solid/gradient; range via minimum/maximum.",
+  "schemaAttributes.x-rating.symbolPalette": "Symbol palette",
+  "schemaAttributes.x-rating.customSymbol": "Selection / custom symbol",
+  "schemaAttributes.x-rating.customSymbolPlaceholder": "any Unicode symbol",
+  "schemaAttributes.extensionEnabled": "Enabled",
+  "schemaAttributes.x-file.multiple": "Multiple files",
+  "schemaAttributes.x-file.acceptTypes": "Accepted types",
+  "schemaAttributes.x-file.maxSize": "Max size (bytes)",
+  "schemaAttributes.x-file.maxFiles": "Max files",
+  "schemaAttributes.x-file.optionalPlaceholder": "optional",
+  "schemaAttributes.x-geometry.countMode": "Count mode",
+  "schemaAttributes.x-geometry.countModeRange": "Range (min–max)",
+  "schemaAttributes.x-geometry.countModeExact": "Exact",
+  "schemaAttributes.x-geometry.typeRequired": "At least one geometry type must be enabled.",
   "schemaAttributes.bulkFieldExtensions": "Field extensions (bulk)",
   "schemaAttributes.bulkFieldExtensionsHint":
     "Applies the attribute to this object and all nested fields.",
@@ -112,6 +133,16 @@ export const enMessages = {
   "uiAttributes.scopeSuggestionEmpty": "All schema fields are already linked as controls.",
   "uiAttributes.scopeAlreadyInUse": "The attribute “{scope}” is already in use.",
   "uiAttributes.label": "label",
+  "uiAttributes.i18n": "i18n (prefix)",
+  "uiAttributes.i18nPlaceholder": "automatic",
+  "uiAttributes.i18nHint":
+    "Derived from schema title (slug) and scope or UI path. Translations: «prefix».label / «prefix».text.",
+  "uiAttributes.translatedLabel": "Translation ({locale})",
+  "uiAttributes.translatedLabelNeedsI18n": "Prefix is set automatically",
+  "uiAttributes.elementLabelProp": "elementLabelProp (item label)",
+  "uiAttributes.elementLabelPropHint":
+    "JSON Forms option: item property used as the editable entry label.",
+  "uiAttributes.elementLabelPropPlaceholder": "e.g. name",
   "uiAttributes.text": "Text",
 
   "arrayItems.current": "Current items type: {kind}",
@@ -123,6 +154,7 @@ export const enMessages = {
 
   "arrayList.empty": "No entries yet.",
   "arrayList.itemTitle": "Entry {index}",
+  "arrayList.itemLabelAria": "Label of entry {index}",
   "arrayList.addItem": "Add entry",
   "arrayList.removeItem": "Remove",
 
@@ -132,6 +164,8 @@ export const enMessages = {
 
   "layout.dropHere": "Drop here",
   "layout.dropElement": "Drop element here",
+  "layout.detailHint": "options.detail",
+  "layout.detailTarget": "{label} · detail",
 
   "form.fallbackLabel": "Field",
   "form.oneOf.type": "Type",
@@ -157,4 +191,31 @@ export const enMessages = {
   "uiDefaults.labelText": "Label",
   "uiDefaults.categoryLabel": "Category",
   "uiDefaults.stepLabel": "Step",
+
+  "extensions.dateToday.today": "Today",
+  "extensions.geometry.point": "Point",
+  "extensions.geometry.line": "Line",
+  "extensions.geometry.polygon": "Polygon",
+  "extensions.geometry.edit": "Edit",
+  "extensions.geometry.remove": "Delete",
+  "extensions.geometry.drawPoint": "Place point",
+  "extensions.geometry.drawLine": "Draw line",
+  "extensions.geometry.drawPolygon": "Draw polygon",
+  "extensions.geometry.modeHint":
+    "· \"Edit\" → move vertices · \"Delete\" → click a geometry",
+  "extensions.geometry.mapLoadError": "Map could not be loaded.",
+  "extensions.geometry.countExact": "{count} / exactly {max} geometry/geometries",
+  "extensions.geometry.countRange": "{count} / {min}–{max} geometry/geometries",
+  "extensions.geometry.countMax": "{count} / max. {max} geometry/geometries",
+  "extensions.geometry.minRequired": "At least {min} geometry/geometries required.",
+  "extensions.geometry.maxAllowed": "At most {max} geometry/geometries allowed.",
+  "extensions.file.preview": "Preview",
+  "extensions.file.previewAria": "Preview file",
+  "extensions.file.delete": "Delete",
+  "extensions.file.deleteAria": "Delete file",
+  "extensions.file.galleryAria": "File preview gallery",
+  "extensions.file.closeGallery": "Close",
+  "extensions.file.closeGalleryAria": "Close gallery",
+  "extensions.file.prevImage": "Previous image",
+  "extensions.file.nextImage": "Next image",
 } as const;

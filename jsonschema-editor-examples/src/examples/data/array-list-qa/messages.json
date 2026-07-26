@@ -1,0 +1,47 @@
+{
+  "en": {
+    "list-of-services.positionen.label": "Cost items",
+    "list-of-services.bezeichnung.label": "Designation",
+    "list-of-services.betrag.label": "Amount (EUR)"
+  },
+  "de": {
+    "list-of-services.positionen.label": "Kostenpositionen",
+    "list-of-services.bezeichnung.label": "Bezeichnung",
+    "list-of-services.betrag.label": "Betrag (EUR)"
+  },
+  "fr": {
+    "list-of-services.positionen.label": "Éléments de coûts",
+    "list-of-services.bezeichnung.label": "Désignation",
+    "list-of-services.betrag.label": "Montant (EUR)"
+  },
+  "it": {
+    "list-of-services.positionen.label": "Voci di costo",
+    "list-of-services.bezeichnung.label": "Designazione",
+    "list-of-services.betrag.label": "Importo (EUR)"
+  },
+  "pl": {
+    "list-of-services.positionen.label": "Pozycje kosztowe",
+    "list-of-services.bezeichnung.label": "Oznaczenie",
+    "list-of-services.betrag.label": "Kwota (EUR)"
+  },
+  "uk": {
+    "list-of-services.positionen.label": "Статті витрат",
+    "list-of-services.bezeichnung.label": "Позначення",
+    "list-of-services.betrag.label": "Сума (євро)"
+  },
+  "ru": {
+    "list-of-services.positionen.label": "Статьи затрат",
+    "list-of-services.bezeichnung.label": "Обозначение",
+    "list-of-services.betrag.label": "Сумма (евро)"
+  },
+  "zh": {
+    "list-of-services.positionen.label": "成本项目",
+    "list-of-services.bezeichnung.label": "指定",
+    "list-of-services.betrag.label": "金额（欧元）"
+  },
+  "ja": {
+    "list-of-services.positionen.label": "費用項目",
+    "list-of-services.bezeichnung.label": "指定",
+    "list-of-services.betrag.label": "金額（ユーロ）"
+  }
+}

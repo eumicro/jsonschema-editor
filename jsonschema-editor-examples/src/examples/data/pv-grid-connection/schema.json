@@ -1,0 +1,472 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PV plant grid connection",
+  "description": "Register a photovoltaic plant for grid connection – site, modules, inverter and documents",
+  "type": "object",
+  "properties": {
+    "vorgang": {
+      "type": "object",
+      "title": "Application",
+      "required": ["antragsnummer", "antragsdatum"],
+      "properties": {
+        "antragsnummer": {
+          "type": "string",
+          "title": "Application number",
+          "description": "Internal process ID from the grid operator portal"
+        },
+        "antragsdatum": {
+          "type": "string",
+          "format": "date",
+          "title": "Application date"
+        },
+        "netzbetreiber": {
+          "type": "string",
+          "title": "Grid operator",
+          "description": "Distribution system operator (DSO)"
+        }
+      }
+    },
+    "antragsteller": {
+      "type": "object",
+      "title": "Applicant",
+      "required": ["nachname", "email", "rolle"],
+      "properties": {
+        "vorname": {
+          "type": "string",
+          "title": "First name"
+        },
+        "nachname": {
+          "type": "string",
+          "title": "Last name"
+        },
+        "firma": {
+          "type": "string",
+          "title": "Company",
+          "description": "Optional – e.g. installer company"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "title": "Email"
+        },
+        "telefon": {
+          "type": "string",
+          "format": "phone",
+          "title": "Phone"
+        },
+        "rolle": {
+          "type": "string",
+          "title": "Role",
+          "enum": ["Eigentümer", "Installateur", "Planer", "Bevollmächtigter"]
+        }
+      }
+    },
+    "standort": {
+      "type": "object",
+      "title": "Site",
+      "required": ["adresse", "marktlokation"],
+      "properties": {
+        "adresse": {
+          "type": "string",
+          "title": "Plant address",
+          "description": "Street, ZIP, city"
+        },
+        "marktlokation": {
+          "type": "string",
+          "title": "Market location (MaLo)",
+          "description": "11-digit market location ID"
+        },
+        "flurstueck": {
+          "type": "string",
+          "title": "Parcel / cadastral reference"
+        },
+        "dachflaecheKarte": {
+          "type": "object",
+          "title": "Installation area (map)",
+          "description": "Roof or ground area as polygon",
+          "x-geometry": {
+            "styleUrl": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+            "point": false,
+            "line": false,
+            "polygon": true,
+            "maxObjects": 1
+          }
+        },
+        "neigungGrad": {
+          "type": "number",
+          "title": "Tilt (degrees)",
+          "minimum": 0,
+          "maximum": 90
+        },
+        "ausrichtung": {
+          "type": "string",
+          "title": "Orientation",
+          "enum": ["Süd", "Südost", "Südwest", "Ost", "West", "Nord", "Flach"]
+        },
+        "verschattung": {
+          "type": "boolean",
+          "title": "Significant shading expected"
+        }
+      }
+    },
+    "anlage": {
+      "type": "object",
+      "title": "Plant",
+      "required": ["montageart", "module"],
+      "properties": {
+        "montageart": {
+          "title": "Mounting type",
+          "description": "Roof-mounted or ground-mounted plant",
+          "oneOf": [
+            { "$ref": "#/$defs/MontageDach" },
+            { "$ref": "#/$defs/MontageFreiflaeche" }
+          ]
+        },
+        "module": {
+          "type": "array",
+          "title": "Module strings / batches",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "title": "Module batch",
+            "required": ["hersteller", "typ", "wp", "anzahl"],
+            "properties": {
+              "hersteller": {
+                "type": "string",
+                "title": "Manufacturer"
+              },
+              "typ": {
+                "type": "string",
+                "title": "Module type"
+              },
+              "wp": {
+                "type": "number",
+                "title": "Module power (Wp)",
+                "minimum": 1
+              },
+              "anzahl": {
+                "type": "integer",
+                "title": "Quantity",
+                "minimum": 1
+              },
+              "technologie": {
+                "type": "string",
+                "title": "Cell technology",
+                "enum": ["mono", "poly", "hetero", "duennschicht"]
+              }
+            }
+          }
+        },
+        "geplanteInbetriebnahme": {
+          "type": "string",
+          "format": "date",
+          "title": "Planned commissioning"
+        }
+      }
+    },
+    "technik": {
+      "type": "object",
+      "title": "Technology",
+      "required": ["wechselrichter"],
+      "properties": {
+        "wechselrichter": {
+          "title": "Inverter",
+          "description": "Topology determines additional fields",
+          "oneOf": [
+            { "$ref": "#/$defs/WrString" },
+            { "$ref": "#/$defs/WrHybrid" },
+            { "$ref": "#/$defs/WrZentral" }
+          ]
+        },
+        "speicher": {
+          "type": "object",
+          "title": "Battery storage (optional)",
+          "properties": {
+            "vorhanden": {
+              "type": "boolean",
+              "title": "Battery storage planned"
+            },
+            "hersteller": {
+              "type": "string",
+              "title": "Storage manufacturer"
+            },
+            "nutzbareKwh": {
+              "type": "number",
+              "title": "Usable capacity (kWh)",
+              "minimum": 0
+            },
+            "leistungKw": {
+              "type": "number",
+              "title": "Charge/discharge power (kW)",
+              "minimum": 0
+            }
+          }
+        },
+        "einspeiseart": {
+          "type": "string",
+          "title": "Feed-in mode",
+          "enum": ["Überschuss", "Voll", "ohne Einspeisung"]
+        }
+      }
+    },
+    "kalkulation": {
+      "type": "object",
+      "title": "Calculation",
+      "properties": {
+        "gesamtKwp": {
+          "type": "number",
+          "title": "Total DC power (kWp)",
+          "description": "Sum of module power × quantity / 1000",
+          "x-computed": {
+            "expression": "data.anlage.module.map(m, double(m.wp) * double(m.anzahl)).sum() / 1000.0"
+          }
+        },
+        "modulAnzahl": {
+          "type": "number",
+          "title": "Total modules",
+          "x-computed": {
+            "expression": "data.anlage.module.map(m, double(m.anzahl)).sum()"
+          }
+        },
+        "jahresertragKwh": {
+          "type": "number",
+          "title": "Estimated annual yield (kWh)",
+          "description": "Simplified: kWp × 950 kWh/kWp (site-dependent)",
+          "x-computed": {
+            "expression": "(data.anlage.module.map(m, double(m.wp) * double(m.anzahl)).sum() / 1000.0) * 950.0"
+          }
+        },
+        "speicherKwh": {
+          "type": "number",
+          "title": "Storage capacity (kWh)",
+          "description": "From storage block when present",
+          "x-computed": {
+            "expression": "has(data.technik.speicher.nutzbareKwh) ? double(data.technik.speicher.nutzbareKwh) : 0.0"
+          }
+        }
+      }
+    },
+    "unterlagen": {
+      "type": "object",
+      "title": "Documents & declarations",
+      "properties": {
+        "lageplanVorhanden": {
+          "type": "boolean",
+          "title": "Site plan available"
+        },
+        "dokumente": {
+          "type": "array",
+          "title": "Uploads",
+          "description": "Site plan, datasheets, grid connection agreement",
+          "x-file": {
+            "multiple": true,
+            "accept": ["image/*", "application/pdf"],
+            "maxFiles": 10,
+            "maxSize": 15728640
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" },
+              "mimeType": { "type": "string" },
+              "size": { "type": "integer", "minimum": 0 }
+            },
+            "required": ["id", "name", "mimeType", "size"]
+          }
+        },
+        "datenschutzEinwilligung": {
+          "type": "boolean",
+          "title": "Consent to data processing"
+        },
+        "richtigkeitBestaetigt": {
+          "type": "boolean",
+          "title": "Information is complete and correct"
+        }
+      }
+    },
+    "antragsStatus": {
+      "type": "string",
+      "title": "Application status",
+      "description": "Automatically derived from form progress",
+      "enum": [
+        "NEU",
+        "ANTRAGSTELLER",
+        "STANDORT",
+        "ANLAGE",
+        "TECHNIK",
+        "UNTERLAGEN_OFFEN",
+        "EINGEREICHT"
+      ],
+      "x-computed": {
+        "expression": "!has(data.vorgang.antragsdatum) || data.vorgang.antragsdatum == '' ? 'NEU' : (!has(data.antragsteller.nachname) || data.antragsteller.nachname == '') ? 'ANTRAGSTELLER' : (!has(data.standort.adresse) || data.standort.adresse == '') ? 'STANDORT' : (!has(data.anlage.montageart) || !has(data.anlage.montageart.typ)) ? 'ANLAGE' : (!has(data.technik.wechselrichter) || !has(data.technik.wechselrichter.typ)) ? 'TECHNIK' : (!data.unterlagen.datenschutzEinwilligung || !data.unterlagen.richtigkeitBestaetigt) ? 'UNTERLAGEN_OFFEN' : 'EINGEREICHT'"
+      }
+    }
+  },
+  "$defs": {
+    "MontageDach": {
+      "type": "object",
+      "title": "Roof-mounted",
+      "required": ["typ", "dachart"],
+      "properties": {
+        "typ": {
+          "type": "string",
+          "const": "dach",
+          "title": "Type"
+        },
+        "dachart": {
+          "type": "string",
+          "title": "Roof type",
+          "enum": ["Satteldach", "Flachdach", "Pultdach", "Walmdach", "Sonstiges"]
+        },
+        "eindeckung": {
+          "type": "string",
+          "title": "Roof covering",
+          "enum": ["Ziegel", "Beton", "Bitumen", "Metall", "Gründach", "Sonstiges"]
+        },
+        "statikGeprueft": {
+          "type": "boolean",
+          "title": "Structural assessment available"
+        },
+        "firstabstandCm": {
+          "type": "integer",
+          "title": "Ridge clearance (cm)",
+          "minimum": 0
+        }
+      }
+    },
+    "MontageFreiflaeche": {
+      "type": "object",
+      "title": "Ground-mounted",
+      "required": ["typ", "gestellTyp"],
+      "properties": {
+        "typ": {
+          "type": "string",
+          "const": "freiflaeche",
+          "title": "Type"
+        },
+        "gestellTyp": {
+          "type": "string",
+          "title": "Mounting structure",
+          "enum": ["Festaufständerung", "Tracker 1-achsig", "Tracker 2-achsig"]
+        },
+        "bodenbeschaffenheit": {
+          "type": "string",
+          "title": "Ground condition",
+          "enum": ["Wiese", "Acker", "Schotter", "Versiegelt", "Sonstiges"]
+        },
+        "einzaeunung": {
+          "type": "boolean",
+          "title": "Fencing planned"
+        },
+        "flaecheQm": {
+          "type": "number",
+          "title": "Occupied area (m²)",
+          "minimum": 0
+        }
+      }
+    },
+    "WrString": {
+      "type": "object",
+      "title": "String inverter",
+      "required": ["typ", "hersteller", "nennleistungKw", "anzahl"],
+      "properties": {
+        "typ": {
+          "type": "string",
+          "const": "string",
+          "title": "Topology"
+        },
+        "hersteller": {
+          "type": "string",
+          "title": "Manufacturer"
+        },
+        "modell": {
+          "type": "string",
+          "title": "Model"
+        },
+        "nennleistungKw": {
+          "type": "number",
+          "title": "Rated AC power (kW)",
+          "minimum": 0
+        },
+        "anzahl": {
+          "type": "integer",
+          "title": "Number of inverters",
+          "minimum": 1
+        },
+        "mpptTracker": {
+          "type": "integer",
+          "title": "MPPT trackers per unit",
+          "minimum": 1
+        }
+      }
+    },
+    "WrHybrid": {
+      "type": "object",
+      "title": "Hybrid inverter",
+      "required": ["typ", "hersteller", "nennleistungKw"],
+      "properties": {
+        "typ": {
+          "type": "string",
+          "const": "hybrid",
+          "title": "Topology"
+        },
+        "hersteller": {
+          "type": "string",
+          "title": "Manufacturer"
+        },
+        "modell": {
+          "type": "string",
+          "title": "Model"
+        },
+        "nennleistungKw": {
+          "type": "number",
+          "title": "Rated AC power (kW)",
+          "minimum": 0
+        },
+        "batteriebereit": {
+          "type": "boolean",
+          "title": "Battery-ready / DC-coupled"
+        },
+        "notstrom": {
+          "type": "boolean",
+          "title": "Backup power / EPS"
+        }
+      }
+    },
+    "WrZentral": {
+      "type": "object",
+      "title": "Central inverter",
+      "required": ["typ", "hersteller", "nennleistungKw"],
+      "properties": {
+        "typ": {
+          "type": "string",
+          "const": "zentral",
+          "title": "Topology"
+        },
+        "hersteller": {
+          "type": "string",
+          "title": "Manufacturer"
+        },
+        "modell": {
+          "type": "string",
+          "title": "Model"
+        },
+        "nennleistungKw": {
+          "type": "number",
+          "title": "Rated AC power (kW)",
+          "minimum": 0
+        },
+        "trafoVorhanden": {
+          "type": "boolean",
+          "title": "Medium-voltage transformer on site"
+        },
+        "spannungKv": {
+          "type": "number",
+          "title": "Grid voltage (kV)",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

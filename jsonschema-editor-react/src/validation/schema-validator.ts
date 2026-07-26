@@ -1,7 +1,7 @@
 import Ajv, { type ErrorObject, type ValidateFunction } from "ajv";
 import addFormats from "ajv-formats";
 import type { JsonSchemaObject, SchemaDocument, SchemaNode } from "@jsonschema-editor/json-schema";
-import { phoneExtension } from "@jsonschema-editor/json-schema-extensions";
+import { dateTodayExtension, phoneExtension } from "@jsonschema-editor/json-schema-extensions";
 import {
   CompositionSchema,
   ObjectSchema,
@@ -28,6 +28,10 @@ function getAjv(): Ajv {
     sharedAjv.addFormat(phoneExtension.format, {
       type: "string",
       validate: phoneExtension.validate,
+    });
+    sharedAjv.addFormat(dateTodayExtension.format, {
+      type: "string",
+      validate: dateTodayExtension.validate,
     });
   }
   return sharedAjv;

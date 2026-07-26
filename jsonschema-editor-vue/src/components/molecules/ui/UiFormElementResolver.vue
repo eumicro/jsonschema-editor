@@ -10,6 +10,7 @@ const props = defineProps<{
   schema: SchemaNode;
   document?: SchemaDocument;
   readonly?: boolean;
+  scopePrefix?: string;
 }>();
 
 const data = defineModel<Record<string, unknown>>({ required: true });
@@ -28,5 +29,6 @@ const resolvedComponent = computed(
     :schema="schema"
     :document="document"
     :readonly="readonly"
+    :scope-prefix="scopePrefix"
   />
 </template>

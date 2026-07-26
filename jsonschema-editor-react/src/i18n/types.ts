@@ -1,4 +1,14 @@
-export type JseLocale = "de" | "en" | (string & {});
+export type JseLocale =
+  | "de"
+  | "en"
+  | "fr"
+  | "it"
+  | "pl"
+  | "uk"
+  | "ru"
+  | "zh"
+  | "ja"
+  | (string & {});
 
 export type JseTranslateParams = Record<string, string | number>;
 

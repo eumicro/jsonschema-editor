@@ -6,27 +6,31 @@
         "name": {
           "type": "string",
           "title": "Name",
-          "description": "Vollständiger Name"
+          "description": "Full name"
         }
       },
-      "required": ["name"],
+      "required": [
+        "name"
+      ],
       "title": "Person",
-      "description": "Mitarbeiter oder Ansprechpartner"
+      "description": "Employee or contact person"
     },
     {
       "type": "object",
       "properties": {
         "nummer": {
           "type": "string",
-          "title": "Nummer",
-          "description": "Serien- oder Inventarnummer"
+          "title": "Number",
+          "description": "Serial or inventory number"
         }
       },
-      "required": ["nummer"],
-      "title": "Betriebsmittel",
-      "description": "Gerät oder Anlage"
+      "required": [
+        "nummer"
+      ],
+      "title": "Operating resources",
+      "description": "Device or system"
     }
   ],
-  "title": "Ressource zuweisen",
-  "description": "Person oder Betriebsmittel per Typauswahl erfassen"
+  "title": "Assign resource",
+  "description": "Enter a person or equipment using type selection"
 }

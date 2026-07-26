@@ -6,13 +6,13 @@
         "name": {
           "type": "string",
           "title": "Name",
-          "description": "Anzeigename der Person"
+          "description": "Person's display name"
         }
       },
       "required": [
         "name"
       ],
-      "title": "Person (Basis)"
+      "title": "Person (Base)"
     }
   ],
   "oneOf": [
@@ -26,11 +26,11 @@
         },
         "firstName": {
           "type": "string",
-          "title": "Vorname"
+          "title": "First name"
         },
         "lastName": {
           "type": "string",
-          "title": "Nachname"
+          "title": "Last name"
         }
       },
       "required": [
@@ -38,7 +38,7 @@
         "firstName",
         "lastName"
       ],
-      "title": "Natürliche Person"
+      "title": "Natural person"
     },
     {
       "type": "object",
@@ -50,20 +50,20 @@
         },
         "companyName": {
           "type": "string",
-          "title": "Firma"
+          "title": "Company"
         },
         "vatId": {
           "type": "string",
-          "title": "USt-IdNr."
+          "title": "VAT ID number"
         }
       },
       "required": [
         "kind",
         "companyName"
       ],
-      "title": "Juristische Person"
+      "title": "Legal entity"
     }
   ],
-  "title": "Auftraggeber erfassen",
-  "description": "Privatperson oder Unternehmen mit gemeinsamen Pflichtfeldern"
+  "title": "Enter clients",
+  "description": "Private individual or company with common mandatory fields"
 }

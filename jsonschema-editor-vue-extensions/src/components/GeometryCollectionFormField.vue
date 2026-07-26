@@ -10,7 +10,12 @@ import {
   type GeoJsonGeometryCollection,
   type NormalizedGeometryConfig,
 } from "@jsonschema-editor/json-schema-extensions";
-import { JseSchemaFormField, useFormFieldLabel, useScopedField } from "@jsonschema-editor/vue";
+import {
+  JseSchemaFormField,
+  useFormFieldLabel,
+  useJseI18n,
+  useScopedField,
+} from "@jsonschema-editor/vue";
 import L from "leaflet";
 import "@geoman-io/leaflet-geoman-free";
 import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
@@ -31,6 +36,7 @@ const documentRef = toRef(props, "document");
 const labelRef = toRef(props, "label");
 const i18nKeyRef = toRef(props, "i18nKey");
 const rootData = defineModel<Record<string, unknown>>({ required: true });
+const { t } = useJseI18n();
 
 const { fieldSchema, value } = useScopedField(rootSchema, rootData, props.scope, documentRef);
 const { resolvedSchema, displayLabel, description } = useFormFieldLabel(
@@ -332,9 +338,9 @@ const allowedTypesLabel = computed(() => {
   const config = geometryConfig.value;
   if (!config) return "";
   const labels: string[] = [];
-  if (config.point) labels.push("Punkt");
-  if (config.line) labels.push("Linie");
-  if (config.polygon) labels.push("Polygon");
+  if (config.point) labels.push(t("extensions.geometry.point"));
+  if (config.line) labels.push(t("extensions.geometry.line"));
+  if (config.polygon) labels.push(t("extensions.geometry.polygon"));
   return labels.join(", ");
 });
 
@@ -342,12 +348,22 @@ const countHint = computed(() => {
   const config = geometryConfig.value;
   if (!config) return "";
   if (config.exactObjects !== undefined) {
-    return `${objectCount.value} / exakt ${config.maxObjects} Geometrie(n)`;
+    return t("extensions.geometry.countExact", {
+      count: objectCount.value,
+      max: config.maxObjects,
+    });
   }
   if (config.minObjects > 0) {
-    return `${objectCount.value} / ${config.minObjects}–${config.maxObjects} Geometrie(n)`;
+    return t("extensions.geometry.countRange", {
+      count: objectCount.value,
+      min: config.minObjects,
+      max: config.maxObjects,
+    });
   }
-  return `${objectCount.value} / max. ${config.maxObjects} Geometrie(n)`;
+  return t("extensions.geometry.countMax", {
+    count: objectCount.value,
+    max: config.maxObjects,
+  });
 });
 
 let lastValidCollection: GeoJsonGeometryCollection = createEmptyGeometryCollection();
@@ -361,7 +377,7 @@ function handleGeometryMapChange(): void {
   syncValueFromMap();
   const count = geometriesFromGroup(group).length;
   if (count < config.minObjects) {
-    mapError.value = `Mindestens ${config.minObjects} Geometrie(n) erforderlich.`;
+    mapError.value = t("extensions.geometry.minRequired", { min: config.minObjects });
     loadCollectionOnMap(map, group, lastValidCollection);
     suppressValueReload = true;
     value.value = cloneCollection(lastValidCollection);
@@ -379,7 +395,7 @@ function attachMapEvents(map: L.Map, group: L.FeatureGroup, config: NormalizedGe
     if (props.readonly) return;
     if (!mapPm()?.globalRemovalModeEnabled()) return;
     if (geometriesFromGroup(group).length > config.minObjects) return;
-    mapError.value = `Mindestens ${config.minObjects} Geometrie(n) erforderlich.`;
+    mapError.value = t("extensions.geometry.minRequired", { min: config.minObjects });
   });
 
   map.on("pm:create", (event: L.LeafletEvent & { layer: L.Layer }) => {
@@ -389,7 +405,7 @@ function attachMapEvents(map: L.Map, group: L.FeatureGroup, config: NormalizedGe
     }
     if (group.getLayers().length > config.maxObjects) {
       group.removeLayer(event.layer);
-      mapError.value = `Maximal ${config.maxObjects} Geometrie(n) erlaubt.`;
+      mapError.value = t("extensions.geometry.maxAllowed", { max: config.maxObjects });
       return;
     }
     enableGeomanForLayer(event.layer);
@@ -465,7 +481,7 @@ onMounted(() => {
   try {
     initMap(config);
   } catch (error) {
-    mapError.value = error instanceof Error ? error.message : "Karte konnte nicht geladen werden.";
+    mapError.value = error instanceof Error ? error.message : t("extensions.geometry.mapLoadError");
   }
 });
 
@@ -512,10 +528,10 @@ watch(
       <div ref="mapContainer" class="jse-geometry-map" role="application" :aria-label="displayLabel" />
       <div v-if="!readonly" class="jse-geometry-actions">
         <button type="button" class="jse-btn" @click="activateEditMode">
-          Bearbeiten
+          {{ t("extensions.geometry.edit") }}
         </button>
         <button type="button" class="jse-btn" @click="activateRemovalMode">
-          Löschen
+          {{ t("extensions.geometry.remove") }}
         </button>
         <button
           v-if="canDrawPoint"
@@ -523,7 +539,7 @@ watch(
           class="jse-btn"
           @click="activateDrawMarker"
         >
-          Punkt setzen
+          {{ t("extensions.geometry.drawPoint") }}
         </button>
         <button
           v-if="canDrawLine"
@@ -531,7 +547,7 @@ watch(
           class="jse-btn"
           @click="activateDrawLine"
         >
-          Linie zeichnen
+          {{ t("extensions.geometry.drawLine") }}
         </button>
         <button
           v-if="canDrawPolygon"
@@ -539,13 +555,13 @@ watch(
           class="jse-btn"
           @click="activateDrawPolygon"
         >
-          Polygon zeichnen
+          {{ t("extensions.geometry.drawPolygon") }}
         </button>
       </div>
       <p v-if="geometryConfig && !readonly" class="jse-field__hint">
         {{ countHint }}
         <span v-if="allowedTypesLabel"> · {{ allowedTypesLabel }}</span>
-        · „Bearbeiten“ → Eckpunkte verschieben · „Löschen“ → Geometrie anklicken
+        <span>{{ t("extensions.geometry.modeHint") }}</span>
       </p>
       <p v-if="mapError" class="jse-field__hint jse-field__hint--error">{{ mapError }}</p>
     </div>

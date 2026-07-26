@@ -8,6 +8,11 @@ export interface SchemaTypeExtensionDescriptor {
   create: () => SchemaNode;
   /** Recognize an existing node as this type (labels, active state). */
   match?: (node: SchemaNode) => boolean;
+  /**
+   * When multiple extensions match the same node (e.g. computed + presentation),
+   * the highest priority wins for the display/selected kind.
+   */
+  matchPriority?: number;
 }
 
 const registeredExtensions = new Map<string, SchemaTypeExtensionDescriptor>();
@@ -36,10 +41,17 @@ export function getSchemaTypeExtension(id: string): SchemaTypeExtensionDescripto
 }
 
 export function resolveSchemaTypeExtensionId(node: SchemaNode): string | undefined {
+  let bestId: string | undefined;
+  let bestPriority = Number.NEGATIVE_INFINITY;
   for (const extension of registeredExtensions.values()) {
-    if (extension.match?.(node)) return extension.id;
+    if (!extension.match?.(node)) continue;
+    const priority = extension.matchPriority ?? 0;
+    if (priority > bestPriority) {
+      bestPriority = priority;
+      bestId = extension.id;
+    }
   }
-  return undefined;
+  return bestId;
 }
 
 export function clearSchemaTypeExtensions(): void {

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import type { SchemaNode } from "@jsonschema-editor/json-schema";
+import type { SchemaDocument, SchemaNode } from "@jsonschema-editor/json-schema";
 import type { UiElement } from "@jsonschema-editor/ui-schema";
 import {
   useSchemaAttributeControlRegistry,
@@ -14,6 +14,7 @@ const props = defineProps<{
   label: string;
   readonly?: boolean;
   mode: "schema" | "ui";
+  document?: SchemaDocument;
 }>();
 
 const modelValue = defineModel<unknown>();
@@ -43,5 +44,6 @@ const resolvedComponent = computed(() => {
     v-model="modelValue"
     :label="label"
     :readonly="readonly"
+    :document="document"
   />
 </template>

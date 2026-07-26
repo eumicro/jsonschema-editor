@@ -2,6 +2,7 @@
 import { computed, onBeforeUnmount, ref, watch } from "vue";
 import type { FileDescriptor } from "@jsonschema-editor/json-schema-extensions";
 import { isPreviewableMimeType } from "@jsonschema-editor/json-schema-extensions";
+import { useJseI18n } from "@jsonschema-editor/vue";
 
 const props = defineProps<{
   open: boolean;
@@ -17,6 +18,7 @@ const emit = defineEmits<{
 }>();
 
 const activeIndex = ref(0);
+const { t } = useJseI18n();
 
 watch(
   () => [props.open, props.startIndex] as const,
@@ -81,7 +83,7 @@ onBeforeUnmount(() => {
       class="jse-file-gallery"
       role="dialog"
       aria-modal="true"
-      aria-label="File preview gallery"
+      :aria-label="t('extensions.file.galleryAria')"
       tabindex="-1"
       @click="onBackdropClick"
       @keydown="onKeydown"
@@ -97,8 +99,8 @@ onBeforeUnmount(() => {
               v-if="!readonly"
               type="button"
               class="jse-file-gallery__icon-btn jse-file-gallery__icon-btn--danger"
-              title="Delete"
-              aria-label="Delete file"
+              :title="t('extensions.file.delete')"
+              :aria-label="t('extensions.file.deleteAria')"
               @click="deleteActive"
             >
               <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
@@ -111,8 +113,8 @@ onBeforeUnmount(() => {
             <button
               type="button"
               class="jse-file-gallery__icon-btn"
-              title="Close"
-              aria-label="Close gallery"
+              :title="t('extensions.file.closeGallery')"
+              :aria-label="t('extensions.file.closeGalleryAria')"
               @click="close"
             >
               <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
@@ -130,7 +132,7 @@ onBeforeUnmount(() => {
             v-if="previewableFiles.length > 1"
             type="button"
             class="jse-file-gallery__nav"
-            aria-label="Previous image"
+            :aria-label="t('extensions.file.prevImage')"
             @click="activeIndex = (activeIndex - 1 + previewableFiles.length) % previewableFiles.length"
           >
             ‹
@@ -147,7 +149,7 @@ onBeforeUnmount(() => {
             v-if="previewableFiles.length > 1"
             type="button"
             class="jse-file-gallery__nav"
-            aria-label="Next image"
+            :aria-label="t('extensions.file.nextImage')"
             @click="activeIndex = (activeIndex + 1) % previewableFiles.length"
           >
             ›

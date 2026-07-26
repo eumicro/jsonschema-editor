@@ -1,5 +1,12 @@
 export { deMessages } from "./messages/de.js";
 export { enMessages } from "./messages/en.js";
+export { frMessages } from "./messages/fr.js";
+export { itMessages } from "./messages/it.js";
+export { plMessages } from "./messages/pl.js";
+export { ukMessages } from "./messages/uk.js";
+export { ruMessages } from "./messages/ru.js";
+export { zhMessages } from "./messages/zh.js";
+export { jaMessages } from "./messages/ja.js";
 export type { JseMessageKey } from "./messages/de.js";
 export {
   builtInMessages,

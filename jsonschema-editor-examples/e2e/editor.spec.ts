@@ -3,7 +3,6 @@ import { openEditorMode, selectExample } from "./helpers";
 
 test.describe("Form-Editor", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/");
     await selectExample(page, "person-with-defs");
     await openEditorMode(page);
   });
@@ -22,7 +21,7 @@ test.describe("Form-Editor", () => {
   });
 
   test("Attribute-Dialog für Definition", async ({ page }) => {
-    await page.getByRole("button", { name: "Attribute von Mensch bearbeiten" }).click();
+    await page.getByRole("button", { name: "Edit attributes of Mensch" }).click();
 
     const panel = page.getByRole("dialog", { name: /Attribute – Mensch/ });
     await expect(panel).toBeVisible();
@@ -34,7 +33,7 @@ test.describe("Form-Editor", () => {
   });
 
   test("oneOf-$ref-Knoten auswählbar ohne Fehler", async ({ page }) => {
-    await page.getByRole("button", { name: "Attribute von oneOf[0] bearbeiten" }).click();
+    await page.getByRole("button", { name: "Edit attributes of oneOf[0]" }).click();
     await expect(page.locator(".jse-floating-panel")).toBeVisible();
     await page.getByRole("button", { name: "Schließen" }).click();
   });
@@ -44,15 +43,15 @@ test.describe("Form-Editor", () => {
     page.on("pageerror", (error) => errors.push(error.message));
 
     await page.getByRole("button", { name: "Ausklappen", exact: true }).first().click();
-    await page.getByRole("button", { name: "Attribute von oneOf[0] bearbeiten" }).click();
+    await page.getByRole("button", { name: "Edit attributes of oneOf[0]" }).click();
     await expect(page.locator(".jse-floating-panel")).toBeVisible();
     await page.getByRole("button", { name: "Schließen" }).click();
 
-    await page.getByRole("button", { name: "Attribute von oneOf[1] bearbeiten" }).click();
+    await page.getByRole("button", { name: "Edit attributes of oneOf[1]" }).click();
     await expect(page.locator(".jse-floating-panel")).toBeVisible();
     await page.getByRole("button", { name: "Schließen" }).click();
 
-    await page.getByRole("button", { name: "Attribute von Mensch bearbeiten" }).click();
+    await page.getByRole("button", { name: "Edit attributes of Mensch" }).click();
     await expect(page.locator(".jse-floating-panel")).toBeVisible();
     await page.getByRole("button", { name: "Schließen" }).click();
 

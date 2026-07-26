@@ -1,0 +1,31 @@
+.jse-date-today {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.jse-date-today__input {
+  flex: 1 1 10rem;
+  min-width: 0;
+}
+
+.jse-date-today__today {
+  flex: 0 0 auto;
+  padding: 0.35rem 0.65rem;
+  border: 1px solid var(--jse-border, #c8c8c8);
+  border-radius: 0.25rem;
+  background: var(--jse-surface, #fff);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.jse-date-today__today:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.jse-date-today__today:not(:disabled):hover {
+  border-color: color-mix(in srgb, currentColor 35%, transparent);
+}

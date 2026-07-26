@@ -1,6 +1,7 @@
 import { computed, type Ref } from "vue";
+import type { SchemaDocument } from "@jsonschema-editor/json-schema";
 import type { UiElement } from "@jsonschema-editor/ui-schema";
-import { Group, HorizontalLayout, VerticalLayout } from "@jsonschema-editor/ui-schema";
+import { Group, HorizontalLayout, Label, VerticalLayout } from "@jsonschema-editor/ui-schema";
 import {
   changeUiLayoutKind,
   getUiElementAt,
@@ -14,6 +15,7 @@ import {
   listUiAttributeFields,
   patchUiAttribute,
 } from "../utils/ui-attributes";
+import type { JseLocale } from "../i18n/types.js";
 import { useJseI18n } from "./useJseI18n";
 
 export interface UiAttributesPanelEmits {
@@ -24,8 +26,14 @@ export function useUiAttributesPanel(
   root: Ref<UiElement>,
   selectedPath: Ref<UiPath>,
   emit: UiAttributesPanelEmits,
+  document?: Ref<SchemaDocument | null | undefined>,
+  labelLocales?: Ref<readonly JseLocale[] | undefined>,
 ) {
   const { t } = useJseI18n();
+
+  const multilangEnabled = computed(
+    () => (labelLocales?.value?.length ?? 0) > 0,
+  );
 
   const selectedElement = computed(() => {
     try {
@@ -36,7 +44,15 @@ export function useUiAttributesPanel(
   });
 
   const isLayout = computed(() => isLayoutElement(selectedElement.value));
-  const attributeFields = computed(() => listUiAttributeFields(selectedElement.value));
+  const attributeFields = computed(() =>
+    listUiAttributeFields(selectedElement.value, document?.value, {
+      includeI18n: multilangEnabled.value,
+    }),
+  );
+
+  const i18nSuffix = computed(() =>
+    selectedElement.value instanceof Label ? ("text" as const) : ("label" as const),
+  );
 
   const layoutKind = computed((): UiLayoutKind | null => {
     const element = selectedElement.value;
@@ -72,6 +88,8 @@ export function useUiAttributesPanel(
     isLayout,
     layoutKind,
     attributeFields,
+    multilangEnabled,
+    i18nSuffix,
     readAttribute,
     updateAttribute,
     setLayoutKind,

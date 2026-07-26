@@ -1,7 +1,49 @@
 {
-  "label": "G37 Bildschirm-Vorsorge",
-  "tagline": "Vorsorge am Bildschirmarbeitsplatz — vollständiger G37-Ablauf",
-  "description": "Arbeitsmedizinische Vorsorge von Vorgeschichte und Anamnese über Siebtest und Beurteilung bis zur Mitteilung an den Arbeitgeber — inklusive Betriebsgelände auf der Karte.",
+  "label": "G37 screen precaution",
+  "tagline": "Precaution at the computer workstation — complete G37 process",
+  "description": "Occupational health care from previous history and anamnesis to screening test and assessment through to notification to the employer - including the company premises on the map.",
   "category": "Gesundheit & Arbeitsschutz",
-  "visibility": "public"
+  "visibility": "public",
+  "locales": {
+    "de": {
+      "label": "G37 Bildschirm-Vorsorge",
+      "tagline": "Vorsorge am Bildschirmarbeitsplatz — vollständiger G37-Ablauf",
+      "description": "Arbeitsmedizinische Vorsorge von Vorgeschichte und Anamnese über Siebtest und Beurteilung bis zur Mitteilung an den Arbeitgeber — inklusive Betriebsgelände auf der Karte."
+    },
+    "fr": {
+      "label": "Précaution de l'écran G37",
+      "tagline": "Précaution au poste informatique — processus G37 complet",
+      "description": "Soins de santé au travail, depuis les antécédents et l'anamnèse jusqu'au test de dépistage et à l'évaluation jusqu'à la notification à l'employeur - y compris les locaux de l'entreprise sur le plan."
+    },
+    "it": {
+      "label": "Precauzione sullo schermo G37",
+      "tagline": "Precauzioni sulla postazione di lavoro del computer: completare il processo G37",
+      "description": "Assistenza sanitaria sul lavoro dalla storia pregressa e anamnesi al test di screening e valutazione fino alla notifica al datore di lavoro - comprese le sedi aziendali sulla mappa."
+    },
+    "pl": {
+      "label": "Środki ostrożności dotyczące ekranu G37",
+      "tagline": "Środki ostrożności na stanowisku komputerowym — wykonaj proces G37",
+      "description": "Opieka medyczna pracy od dotychczasowej historii i wywiadu, poprzez badania przesiewowe i ocenę, aż do powiadomienia pracodawcy - łącznie z lokalizacją firmy na mapie."
+    },
+    "uk": {
+      "label": "Застереження щодо екрану G37",
+      "tagline": "Запобіжні заходи на комп’ютерній робочій станції — завершіть процес G37",
+      "description": "Охорона здоров'я на виробництві від попередньої історії та анамнезу до скринінгового тесту та оцінки до повідомлення роботодавцю - включаючи приміщення компанії на карті."
+    },
+    "ru": {
+      "label": "Меры предосторожности при использовании экрана G37",
+      "tagline": "Меры предосторожности на компьютерной рабочей станции — завершение процесса G37",
+      "description": "Гигиена труда, от предыдущей истории и анамнеза до скринингового тестирования и оценки, вплоть до уведомления работодателя - включая помещение компании на карте."
+    },
+    "zh": {
+      "label": "G37屏幕注意事项",
+      "tagline": "计算机工作站的预防措施——完整的G37过程",
+      "description": "职业保健从既往病史和病史到筛查测试和评估，直至通知雇主 - 包括地图上的公司场所。"
+    },
+    "ja": {
+      "label": "G37画面の注意事項",
+      "tagline": "コンピュータワークステーションでの注意事項 — G37 プロセスを完了する",
+      "description": "前歴と既往歴からスクリーニング検査と評価、雇用主への通知までの産業保健ケア (地図上の会社の敷地も含む)。"
+    }
+  }
 }

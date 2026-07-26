@@ -18,6 +18,7 @@ import {
 import {
   JseSchemaFormField,
   useFormFieldLabel,
+  useJseI18n,
   useScopedField,
   type FormFieldProps,
 } from "@jsonschema-editor/react";
@@ -44,7 +45,9 @@ function layersFromGeometry(geometry: GeoJsonGeometry): L.Layer[] {
   return layers;
 }
 
-function cloneCollection(collection: GeoJsonGeometryCollection): GeoJsonGeometryCollection {
+function cloneCollection(
+  collection: GeoJsonGeometryCollection
+): GeoJsonGeometryCollection {
   return JSON.parse(JSON.stringify(collection)) as GeoJsonGeometryCollection;
 }
 
@@ -57,11 +60,13 @@ function isNestedLayerGroup(layer: L.Layer): layer is L.LayerGroup {
 }
 
 function geometryFromLayer(layer: L.Layer): GeoJsonGeometry | undefined {
-  const toGeoJSON = (layer as L.Layer & { toGeoJSON?: () => GeoJSON.Feature }).toGeoJSON;
+  const toGeoJSON = (layer as L.Layer & { toGeoJSON?: () => GeoJSON.Feature })
+    .toGeoJSON;
   if (typeof toGeoJSON !== "function") return undefined;
 
   const geo = toGeoJSON.call(layer);
-  if (!geo.geometry || geo.geometry.type === "GeometryCollection") return undefined;
+  if (!geo.geometry || geo.geometry.type === "GeometryCollection")
+    return undefined;
 
   switch (geo.geometry.type) {
     case "Point":
@@ -89,7 +94,9 @@ function geometriesFromGroup(group: L.FeatureGroup): GeoJsonGeometry[] {
   return geometries;
 }
 
-function boundsForCollection(collection: GeoJsonGeometryCollection): L.LatLngBounds | null {
+function boundsForCollection(
+  collection: GeoJsonGeometryCollection
+): L.LatLngBounds | null {
   const group = L.featureGroup();
   for (const geometry of collection.geometries) {
     for (const layer of layersFromGeometry(geometry)) {
@@ -100,7 +107,10 @@ function boundsForCollection(collection: GeoJsonGeometryCollection): L.LatLngBou
   return group.getBounds();
 }
 
-function updateRemovalPolicy(group: L.FeatureGroup, config: NormalizedGeometryConfig): void {
+function updateRemovalPolicy(
+  group: L.FeatureGroup,
+  config: NormalizedGeometryConfig
+): void {
   const count = geometriesFromGroup(group).length;
   const allowRemoval = count > config.minObjects;
   group.eachLayer((layer) => {
@@ -112,10 +122,7 @@ function updateRemovalPolicy(group: L.FeatureGroup, config: NormalizedGeometryCo
   });
 }
 
-function attachLayerSyncEvents(
-  layer: L.Layer,
-  onChange: () => void,
-): void {
+function attachLayerSyncEvents(layer: L.Layer, onChange: () => void): void {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const tagged = layer as any;
   if (tagged._jseGeometrySync) return;
@@ -130,10 +137,12 @@ function attachLayerSyncEvents(
 function enableGeomanForLayer(
   layer: L.Layer,
   onChange: () => void,
-  attachSync = true,
+  attachSync = true
 ): void {
   if (isNestedLayerGroup(layer)) {
-    layer.eachLayer((child) => enableGeomanForLayer(child, onChange, attachSync));
+    layer.eachLayer((child) =>
+      enableGeomanForLayer(child, onChange, attachSync)
+    );
     return;
   }
 
@@ -152,12 +161,15 @@ function enableGeomanForLayer(
 function enableGeomanForGroup(
   group: L.FeatureGroup,
   onChange: () => void,
-  attachSync = true,
+  attachSync = true
 ): void {
   group.eachLayer((layer) => enableGeomanForLayer(layer, onChange, attachSync));
 }
 
-function attachSyncEventsForGroup(group: L.FeatureGroup, onChange: () => void): void {
+function attachSyncEventsForGroup(
+  group: L.FeatureGroup,
+  onChange: () => void
+): void {
   group.eachLayer((layer) => {
     if (isNestedLayerGroup(layer)) {
       attachSyncEventsForGroup(layer as L.FeatureGroup, onChange);
@@ -170,7 +182,7 @@ function attachSyncEventsForGroup(group: L.FeatureGroup, onChange: () => void): 
 function applyDrawControls(
   map: L.Map,
   config: NormalizedGeometryConfig,
-  readonly: boolean,
+  readonly: boolean
 ): void {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const pm = (map as any).pm;
@@ -201,12 +213,14 @@ function applyDrawControls(
   }
 }
 
-function mapPm(map: L.Map | null): {
-  enableDraw: (shape: string) => void;
-  toggleGlobalEditMode: () => void;
-  enableGlobalRemovalMode: () => void;
-  globalRemovalModeEnabled: () => boolean;
-} | undefined {
+function mapPm(map: L.Map | null):
+  | {
+      enableDraw: (shape: string) => void;
+      toggleGlobalEditMode: () => void;
+      enableGlobalRemovalMode: () => void;
+      globalRemovalModeEnabled: () => boolean;
+    }
+  | undefined {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (map as any)?.pm;
 }
@@ -219,13 +233,18 @@ export function GeometryCollectionFormField({
   i18nKey,
   readonly = false,
 }: FormFieldProps) {
-  const { fieldSchema, value, setValue } = useScopedField(schema, scope, document);
+  const { t } = useJseI18n();
+  const { fieldSchema, value, setValue } = useScopedField(
+    schema,
+    scope,
+    document
+  );
   const { resolvedSchema, displayLabel, description } = useFormFieldLabel(
     schema,
     scope,
     label,
     fieldSchema,
-    i18nKey,
+    i18nKey
   );
 
   const geometryConfig = useMemo(() => {
@@ -238,14 +257,18 @@ export function GeometryCollectionFormField({
   const featureGroupRef = useRef<L.FeatureGroup | null>(null);
   const suppressValueReloadRef = useRef(false);
   const mapInitializingRef = useRef(false);
-  const lastValidCollectionRef = useRef<GeoJsonGeometryCollection>(createEmptyGeometryCollection());
+  const lastValidCollectionRef = useRef<GeoJsonGeometryCollection>(
+    createEmptyGeometryCollection()
+  );
 
   const [mapError, setMapError] = useState<string | null>(null);
 
   const objectCount = isGeometryCollection(value) ? value.geometries.length : 0;
 
   const currentCollection = useCallback((): GeoJsonGeometryCollection => {
-    return isGeometryCollection(value) ? value : createEmptyGeometryCollection();
+    return isGeometryCollection(value)
+      ? value
+      : createEmptyGeometryCollection();
   }, [value]);
 
   const syncValueFromMap = useCallback(() => {
@@ -281,7 +304,7 @@ export function GeometryCollectionFormField({
       map: L.Map,
       group: L.FeatureGroup,
       collection: GeoJsonGeometryCollection,
-      onChange: () => void,
+      onChange: () => void
     ) => {
       group.clearLayers();
       for (const geometry of collection.geometries) {
@@ -302,7 +325,7 @@ export function GeometryCollectionFormField({
         }
       }
     },
-    [geometryConfig, readonly],
+    [geometryConfig, readonly]
   );
 
   const handleGeometryMapChange = useCallback(() => {
@@ -313,8 +336,15 @@ export function GeometryCollectionFormField({
     syncValueFromMap();
     const count = geometriesFromGroup(group).length;
     if (count < geometryConfig.minObjects) {
-      setMapError(`Mindestens ${geometryConfig.minObjects} Geometrie(n) erforderlich.`);
-      loadCollectionOnMap(map, group, lastValidCollectionRef.current, syncValueFromMap);
+      setMapError(
+        t("extensions.geometry.minRequired", { min: geometryConfig.minObjects })
+      );
+      loadCollectionOnMap(
+        map,
+        group,
+        lastValidCollectionRef.current,
+        syncValueFromMap
+      );
       suppressValueReloadRef.current = true;
       setValue(cloneCollection(lastValidCollectionRef.current));
       queueMicrotask(() => {
@@ -324,7 +354,14 @@ export function GeometryCollectionFormField({
     }
     setMapError(null);
     lastValidCollectionRef.current = cloneCollection(currentCollection());
-  }, [currentCollection, geometryConfig, loadCollectionOnMap, setValue, syncValueFromMap]);
+  }, [
+    currentCollection,
+    geometryConfig,
+    loadCollectionOnMap,
+    setValue,
+    syncValueFromMap,
+    t,
+  ]);
 
   useEffect(() => {
     const config = geometryConfig;
@@ -366,7 +403,9 @@ export function GeometryCollectionFormField({
           if (readonly) return;
           if (!mapPm(map)?.globalRemovalModeEnabled()) return;
           if (geometriesFromGroup(group).length > config.minObjects) return;
-          setMapError(`Mindestens ${config.minObjects} Geometrie(n) erforderlich.`);
+          setMapError(
+            t("extensions.geometry.minRequired", { min: config.minObjects })
+          );
         });
 
         map.on("pm:create", (event: L.LeafletEvent & { layer: L.Layer }) => {
@@ -376,7 +415,9 @@ export function GeometryCollectionFormField({
           }
           if (group.getLayers().length > config.maxObjects) {
             group.removeLayer(event.layer);
-            setMapError(`Maximal ${config.maxObjects} Geometrie(n) erlaubt.`);
+            setMapError(
+              t("extensions.geometry.maxAllowed", { max: config.maxObjects })
+            );
             return;
           }
           enableGeomanForLayer(event.layer, syncValueFromMap);
@@ -401,7 +442,11 @@ export function GeometryCollectionFormField({
         }
       });
     } catch (error) {
-      setMapError(error instanceof Error ? error.message : "Karte konnte nicht geladen werden.");
+      setMapError(
+        error instanceof Error
+          ? error.message
+          : t("extensions.geometry.mapLoadError")
+      );
     } finally {
       mapInitializingRef.current = false;
     }
@@ -418,6 +463,7 @@ export function GeometryCollectionFormField({
     loadCollectionOnMap,
     readonly,
     syncValueFromMap,
+    t,
   ]);
 
   useEffect(() => {
@@ -448,26 +494,40 @@ export function GeometryCollectionFormField({
     const config = geometryConfig;
     if (!config) return "";
     const labels: string[] = [];
-    if (config.point) labels.push("Punkt");
-    if (config.line) labels.push("Linie");
-    if (config.polygon) labels.push("Polygon");
+    if (config.point) labels.push(t("extensions.geometry.point"));
+    if (config.line) labels.push(t("extensions.geometry.line"));
+    if (config.polygon) labels.push(t("extensions.geometry.polygon"));
     return labels.join(", ");
-  }, [geometryConfig]);
+  }, [geometryConfig, t]);
 
   const countHint = useMemo(() => {
     const config = geometryConfig;
     if (!config) return "";
     if (config.exactObjects !== undefined) {
-      return `${objectCount} / exakt ${config.maxObjects} Geometrie(n)`;
+      return t("extensions.geometry.countExact", {
+        count: objectCount,
+        max: config.maxObjects,
+      });
     }
     if (config.minObjects > 0) {
-      return `${objectCount} / ${config.minObjects}–${config.maxObjects} Geometrie(n)`;
+      return t("extensions.geometry.countRange", {
+        count: objectCount,
+        min: config.minObjects,
+        max: config.maxObjects,
+      });
     }
-    return `${objectCount} / max. ${config.maxObjects} Geometrie(n)`;
-  }, [geometryConfig, objectCount]);
+    return t("extensions.geometry.countMax", {
+      count: objectCount,
+      max: config.maxObjects,
+    });
+  }, [geometryConfig, objectCount, t]);
 
   return (
-    <JseSchemaFormField label={displayLabel} description={description} scope={scope}>
+    <JseSchemaFormField
+      label={displayLabel}
+      description={description}
+      scope={scope}
+    >
       <div className="jse-geometry-field">
         <div
           ref={mapContainerRef}
@@ -480,9 +540,11 @@ export function GeometryCollectionFormField({
             <button
               type="button"
               className="jse-geometry-actions__btn"
-              onClick={() => mapPm(mapInstanceRef.current)?.toggleGlobalEditMode()}
+              onClick={() =>
+                mapPm(mapInstanceRef.current)?.toggleGlobalEditMode()
+              }
             >
-              Bearbeiten
+              {t("extensions.geometry.edit")}
             </button>
             <button
               type="button"
@@ -494,33 +556,39 @@ export function GeometryCollectionFormField({
                 }
               }}
             >
-              Löschen
+              {t("extensions.geometry.remove")}
             </button>
             {canDrawPoint ? (
               <button
                 type="button"
                 className="jse-geometry-actions__btn"
-                onClick={() => mapPm(mapInstanceRef.current)?.enableDraw("Marker")}
+                onClick={() =>
+                  mapPm(mapInstanceRef.current)?.enableDraw("Marker")
+                }
               >
-                Punkt setzen
+                {t("extensions.geometry.drawPoint")}
               </button>
             ) : null}
             {canDrawLine ? (
               <button
                 type="button"
                 className="jse-geometry-actions__btn"
-                onClick={() => mapPm(mapInstanceRef.current)?.enableDraw("Line")}
+                onClick={() =>
+                  mapPm(mapInstanceRef.current)?.enableDraw("Line")
+                }
               >
-                Linie zeichnen
+                {t("extensions.geometry.drawLine")}
               </button>
             ) : null}
             {canDrawPolygon ? (
               <button
                 type="button"
                 className="jse-geometry-actions__btn"
-                onClick={() => mapPm(mapInstanceRef.current)?.enableDraw("Polygon")}
+                onClick={() =>
+                  mapPm(mapInstanceRef.current)?.enableDraw("Polygon")
+                }
               >
-                Polygon zeichnen
+                {t("extensions.geometry.drawPolygon")}
               </button>
             ) : null}
           </div>
@@ -528,11 +596,13 @@ export function GeometryCollectionFormField({
         {geometryConfig && !readonly ? (
           <p className="jse-field__hint">
             {countHint}
-            {allowedTypesLabel ? ` · ${allowedTypesLabel}` : ""}
-            {" · „Bearbeiten“ → Eckpunkte verschieben · „Löschen“ → Geometrie anklicken"}
+            {allowedTypesLabel ? ` · ${allowedTypesLabel}` : ""}{" "}
+            {t("extensions.geometry.modeHint")}
           </p>
         ) : null}
-        {mapError ? <p className="jse-field__hint jse-field__hint--error">{mapError}</p> : null}
+        {mapError ? (
+          <p className="jse-field__hint jse-field__hint--error">{mapError}</p>
+        ) : null}
       </div>
     </JseSchemaFormField>
   );

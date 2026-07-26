@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import type { SchemaDocument } from "@jsonschema-editor/json-schema";
+import type { SchemaDocument, SchemaNode } from "@jsonschema-editor/json-schema";
 import JseFormField from "./JseFormField.vue";
 import JseSuggestionInput from "../atoms/JseSuggestionInput.vue";
 import {
@@ -11,6 +11,9 @@ import { useJseI18n } from "../../composables/useJseI18n";
 
 const props = defineProps<{
   document?: SchemaDocument | null;
+  /** Schema-Wurzel für relative Scopes (z. B. Array-Item / $defs in options.detail). */
+  suggestionSchema?: SchemaNode | null;
+  suggestionBaseScope?: string;
   /** Scopes, die aus der Suggestion-Liste ausgeblendet werden. */
   usedScopes?: readonly string[];
   /** Scopes, die eine „bereits in Verwendung“-Warnung auslösen (Standard: usedScopes). */
@@ -25,6 +28,8 @@ const { t } = useJseI18n();
 
 const suggestions = computed(() =>
   listControlScopeSuggestions(props.document, {
+    schema: props.suggestionSchema ?? undefined,
+    baseScope: props.suggestionBaseScope,
     excludeScopes: props.usedScopes,
   }).map((entry) => ({
     value: entry.scope,

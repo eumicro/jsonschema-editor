@@ -1,44 +1,76 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Datei-Upload QA",
+  "title": "File upload QA",
   "type": "object",
   "properties": {
     "avatar": {
       "type": "object",
-      "title": "Profilbild",
-      "description": "Einzelnes Bild",
+      "title": "Profile picture",
+      "description": "Single image",
       "x-file": {
         "multiple": false,
-        "accept": ["image/*"],
+        "accept": [
+          "image/*"
+        ],
         "maxSize": 5242880
       },
       "properties": {
-        "id": { "type": "string" },
-        "name": { "type": "string" },
-        "mimeType": { "type": "string" },
-        "size": { "type": "integer", "minimum": 0 }
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "mimeType": {
+          "type": "string"
+        },
+        "size": {
+          "type": "integer",
+          "minimum": 0
+        }
       },
-      "required": ["id", "name", "mimeType", "size"]
+      "required": [
+        "id",
+        "name",
+        "mimeType",
+        "size"
+      ]
     },
     "anhaenge": {
       "type": "array",
-      "title": "Anhänge",
-      "description": "Mehrere Bilder mit Galerie-Vorschau",
+      "title": "Attachments",
+      "description": "Multiple images with gallery preview",
       "x-file": {
         "multiple": true,
-        "accept": ["image/*"],
+        "accept": [
+          "image/*"
+        ],
         "maxFiles": 6,
         "maxSize": 5242880
       },
       "items": {
         "type": "object",
         "properties": {
-          "id": { "type": "string" },
-          "name": { "type": "string" },
-          "mimeType": { "type": "string" },
-          "size": { "type": "integer", "minimum": 0 }
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "mimeType": {
+            "type": "string"
+          },
+          "size": {
+            "type": "integer",
+            "minimum": 0
+          }
         },
-        "required": ["id", "name", "mimeType", "size"]
+        "required": [
+          "id",
+          "name",
+          "mimeType",
+          "size"
+        ]
       }
     }
   }

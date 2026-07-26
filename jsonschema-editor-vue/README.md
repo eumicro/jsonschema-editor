@@ -128,7 +128,7 @@ Validation uses `ajv` + `ajv-formats` internally. Custom `phone` format validati
 
 ## Internationalization (i18n)
 
-The library includes built-in strings for **German** (`de`, default) and **English** (`en`). There is **no** required peer dependency on `vue-i18n` — translations use provide/inject.
+The library includes built-in strings for **German** (`de`, default), **English** (`en`), **French** (`fr`), **Italian** (`it`), **Polish** (`pl`), **Ukrainian** (`uk`), **Russian** (`ru`), **Chinese** (`zh`), and **Japanese** (`ja`). There is **no** required peer dependency on `vue-i18n` — translations use provide/inject.
 
 ### Override locale and messages
 

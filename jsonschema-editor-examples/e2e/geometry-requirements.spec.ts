@@ -13,7 +13,6 @@ function readBetriebsgelaende(output: Record<string, unknown>): GeometryCollecti
 
 test.describe("Geometry-Anforderungen (Browser)", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/");
     await selectExample(page, "occupational-health-g37");
     await openFormMode(page);
   });
@@ -21,7 +20,7 @@ test.describe("Geometry-Anforderungen (Browser)", () => {
   test("1. Kartenfeld statt Textfeld (Custom Renderer)", async ({ page }) => {
     await expect(page.locator(".jse-geometry-map.leaflet-container")).toBeVisible();
     await expect(page.locator(".jse-geometry-map")).not.toContainText("[object Object]");
-    await expect(page.getByText("Betriebsgelände (Karte)")).toBeVisible();
+    await expect(page.getByText("Company premises (map)")).toBeVisible();
   });
 
   test("2. OpenStreetMap als Kartenhintergrund (styleUrl)", async ({ page }) => {
@@ -53,27 +52,27 @@ test.describe("Geometry-Anforderungen (Browser)", () => {
   });
 
   test("5. Konfiguration polygon-only, maxObjects=1 (G37 x-geometry)", async ({ page }) => {
-    await expect(page.getByText(/1 \/ max\. 1 Geometrie\(n\)/)).toBeVisible();
+    await expect(page.getByText(/1 \/ max\. 1 geometry\/geometries/)).toBeVisible();
     await expect(page.getByText(/· Polygon/)).toBeVisible();
-    await expect(page.getByRole("button", { name: "Polygon zeichnen" })).toHaveCount(0);
-    await expect(page.getByRole("button", { name: "Punkt setzen" })).toHaveCount(0);
-    await expect(page.getByRole("button", { name: "Linie zeichnen" })).toHaveCount(0);
+    await expect(page.getByRole("button", { name: "Draw polygon" })).toHaveCount(0);
+    await expect(page.getByRole("button", { name: "Place point" })).toHaveCount(0);
+    await expect(page.getByRole("button", { name: "Draw line" })).toHaveCount(0);
   });
 
   test("6. Löschen und neu zeichnen", async ({ page }) => {
     const map = page.locator(".jse-geometry-map.leaflet-container");
     await map.scrollIntoViewIfNeeded();
 
-    await page.getByRole("button", { name: "Löschen" }).click();
+    await page.getByRole("button", { name: "Delete" }).click();
     await map.locator("path.leaflet-interactive, .leaflet-interactive").first().click({ force: true });
 
     await expect
       .poll(async () => readBetriebsgelaende(await readFormOutput(page)).geometries.length)
       .toBe(0);
 
-    await expect(page.getByRole("button", { name: "Polygon zeichnen" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Draw polygon" })).toBeVisible();
 
-    await page.getByRole("button", { name: "Polygon zeichnen" }).click();
+    await page.getByRole("button", { name: "Draw polygon" }).click();
     const box = await map.boundingBox();
     expect(box).toBeTruthy();
     if (!box) return;
@@ -99,7 +98,7 @@ test.describe("Geometry-Anforderungen (Browser)", () => {
     const before = readBetriebsgelaende(await readFormOutput(page));
     const beforeRing = JSON.stringify(before.geometries[0]?.coordinates);
 
-    await page.getByRole("button", { name: "Bearbeiten", exact: true }).click();
+    await page.getByRole("button", { name: "Edit", exact: true }).click();
     const map = page.locator(".jse-geometry-map.leaflet-container");
     await map.scrollIntoViewIfNeeded();
     const vertex = map.locator(".leaflet-marker-pane .leaflet-marker-icon").first();
@@ -123,7 +122,6 @@ test.describe("Geometry-Anforderungen (Browser)", () => {
   });
 
   test("8. Schema-Editor: geometry-collection Typ mit Punkt/Linie/Polygon", async ({ page }) => {
-    await page.goto("/");
     await selectExample(page, "person-with-defs");
     await openEditorMode(page);
 
@@ -150,6 +148,6 @@ test.describe("Geometry-Anforderungen (Browser)", () => {
     await expect(geoMap.locator(".leaflet-pm-icon-marker")).toBeVisible();
     await expect(geoMap.locator(".leaflet-pm-icon-polyline")).toBeVisible();
     await expect(geoMap.locator(".leaflet-pm-icon-polygon")).toBeVisible();
-    await expect(geoField.getByText(/0 \/ max\. 5 Geometrie\(n\)/)).toBeVisible();
+    await expect(geoField.getByText(/0 \/ max\. 5 geometry\/geometries/)).toBeVisible();
   });
 });

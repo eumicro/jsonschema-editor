@@ -1,56 +1,90 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { SchemaDocument } from "@jsonschema-editor/json-schema";
 import type { UiSchema } from "@jsonschema-editor/ui-schema/bridge";
-import { JsonSchemaForm, JsonSchemaFormEditor } from "@jsonschema-editor/react";
+import type { JseLocale } from "@jsonschema-editor/react";
 import {
   createInMemoryFileFieldProvider,
   FileFieldProvider,
 } from "@jsonschema-editor/react-extensions";
-import type { AppLocale } from "./types/locale.js";
+import { appUiFor, fallbackLocaleFor } from "../../jsonschema-editor-examples/src/site/i18n/app-ui.js";
+import { writePreferredStack } from "../../jsonschema-editor-examples/src/site/stack-preference.js";
 import {
-  appUiFor,
-  categoryLabelFor,
-  fallbackLocaleFor,
-  localeOptions,
-} from "./app-i18n.js";
-import {
-  navigateToPage,
-  pageFromHash,
+  hrefForStackExample,
+  navigateTo,
+  parseAppLocation,
+  pathFor,
+  type AppLocale,
   type AppPage,
+  type AppStack,
 } from "./app-routing.js";
 import {
   defaultReactExampleId,
   exampleCatalog,
   exampleCategoryOrder,
+  exampleCopyFor,
   examplesByCategory,
-  exampleManifests,
   type ExampleCategory,
   type ExampleId,
 } from "./examples/catalog.js";
 import { loadExampleFromJson } from "./examples/load-example.js";
 import { seedDemoFilesForExample } from "../../jsonschema-editor-examples/src/examples/demo-file-seeds.js";
-import { GetStartedPage } from "./pages/GetStartedPage.js";
-import { ImprintPage } from "./pages/ImprintPage.js";
+import { SiteShell } from "./site/components/templates/SiteShell.js";
+import { ExamplesWorkspace } from "./site/components/organisms/ExamplesWorkspace.js";
+import { GetStartedPage } from "./site/pages/GetStartedPage.js";
+import { ImprintPage } from "./site/pages/ImprintPage.js";
 
-type WorkspaceMode = "form" | "editor" | "json";
+type WorkspaceMode = "form" | "editor" | "json" | "code";
 type JsonPane = "schema" | "ui" | "data";
 
-const initial = loadExampleFromJson(exampleCatalog[defaultReactExampleId]);
+const OWNED_STACK = "react" as const;
+const knownExampleIds = new Set<string>(Object.keys(exampleCatalog));
+
+function readLocation() {
+  return parseAppLocation(window.location.pathname, {
+    defaultExampleId: defaultReactExampleId,
+    ownedStack: OWNED_STACK,
+    knownExampleIds,
+  });
+}
+
+const boot = readLocation();
+const initialExampleId = (
+  boot.exampleId in exampleCatalog ? boot.exampleId : defaultReactExampleId
+) as ExampleId;
+const initial = loadExampleFromJson(exampleCatalog[initialExampleId]);
 const fileProvider = createInMemoryFileFieldProvider();
+const labelLocales: readonly JseLocale[] = [
+  "de",
+  "en",
+  "fr",
+  "it",
+  "pl",
+  "uk",
+  "ru",
+  "zh",
+  "ja",
+];
 
 export function App() {
-  const [activePage, setActivePage] = useState<AppPage>(() => pageFromHash());
-  const [activeExampleId, setActiveExampleId] = useState<ExampleId>(defaultReactExampleId);
-  const [locale, setLocale] = useState<AppLocale>("de");
+  const [activePage, setActivePage] = useState<AppPage>(boot.page);
+  const [activeExampleId, setActiveExampleId] = useState<ExampleId>(initialExampleId);
+  const [locale, setLocale] = useState<AppLocale>(boot.locale);
   const [schema, setSchema] = useState<SchemaDocument>(initial.schema);
   const [uiSchema, setUiSchema] = useState<UiSchema>(initial.uiSchema);
   const [formData, setFormData] = useState<Record<string, unknown>>(initial.defaults);
+  const [uiLabelMessages, setUiLabelMessages] = useState(() =>
+    structuredClone(exampleCatalog[initialExampleId].messages),
+  );
   const [mode, setMode] = useState<WorkspaceMode>("form");
   const [jsonPane, setJsonPane] = useState<JsonPane>("schema");
+  const syncingFromUrl = useRef(false);
+  const stateRef = useRef({ activePage, locale, activeExampleId });
+  stateRef.current = { activePage, locale, activeExampleId };
 
   const ui = appUiFor(locale);
   const fallbackLocale = fallbackLocaleFor(locale);
   const activeExample = exampleCatalog[activeExampleId];
+  const activeExampleCopy = exampleCopyFor(activeExample, locale);
 
   const visibleCategories = useMemo(
     () =>
@@ -63,22 +97,88 @@ export function App() {
   const schemaJson = useMemo(() => JSON.stringify(schema.toJSON(), null, 2), [schema]);
   const uiSchemaJson = useMemo(() => JSON.stringify(uiSchema.toJSON(), null, 2), [uiSchema]);
   const dataJson = useMemo(() => JSON.stringify(formData, null, 2), [formData]);
-
   const activeJsonContent =
     jsonPane === "schema" ? schemaJson : jsonPane === "ui" ? uiSchemaJson : dataJson;
 
-  const syncPageFromHash = useCallback(() => {
-    setActivePage(pageFromHash());
+  const examplesHref = pathFor({
+    locale,
+    page: "examples",
+    stack: OWNED_STACK,
+    exampleId: activeExampleId,
+    defaultExampleId: defaultReactExampleId,
+    ownedStack: OWNED_STACK,
+  });
+  const getStartedHref = pathFor({
+    locale,
+    page: "get-started",
+    defaultExampleId: defaultReactExampleId,
+    ownedStack: OWNED_STACK,
+  });
+  const imprintHref = pathFor({
+    locale,
+    page: "imprint",
+    defaultExampleId: defaultReactExampleId,
+    ownedStack: OWNED_STACK,
+  });
+
+  const pushCurrentUrl = useCallback(
+    (overrides?: Partial<{ page: AppPage; locale: AppLocale; exampleId: ExampleId }>) => {
+      if (syncingFromUrl.current) return;
+      const current = stateRef.current;
+      navigateTo(
+        pathFor({
+          locale: overrides?.locale ?? current.locale,
+          page: overrides?.page ?? current.activePage,
+          stack: OWNED_STACK,
+          exampleId: overrides?.exampleId ?? current.activeExampleId,
+          defaultExampleId: defaultReactExampleId,
+          ownedStack: OWNED_STACK,
+        }),
+      );
+    },
+    [],
+  );
+
+  const applyLocationFromUrl = useCallback(() => {
+    const loc = readLocation();
+    syncingFromUrl.current = true;
+    setActivePage(loc.page);
+    setLocale(loc.locale);
+    let exampleId = stateRef.current.activeExampleId;
+    if (loc.exampleId in exampleCatalog) {
+      exampleId = loc.exampleId as ExampleId;
+      setActiveExampleId(exampleId);
+    }
+
+    const canonical = pathFor({
+      locale: loc.locale,
+      page: loc.page,
+      stack: OWNED_STACK,
+      exampleId,
+      defaultExampleId: defaultReactExampleId,
+      ownedStack: OWNED_STACK,
+    });
+    if (window.location.pathname !== canonical) {
+      window.history.replaceState(null, "", canonical);
+    }
+    setTimeout(() => {
+      syncingFromUrl.current = false;
+    }, 0);
   }, []);
 
   useEffect(() => {
-    syncPageFromHash();
-    window.addEventListener("hashchange", syncPageFromHash);
-    return () => window.removeEventListener("hashchange", syncPageFromHash);
-  }, [syncPageFromHash]);
+    writePreferredStack(OWNED_STACK);
+    applyLocationFromUrl();
+    const onPopState = () => {
+      applyLocationFromUrl();
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, [applyLocationFromUrl]);
 
   useEffect(() => {
-    const loaded = loadExampleFromJson(exampleCatalog[activeExampleId]);
+    const manifest = exampleCatalog[activeExampleId];
+    const loaded = loadExampleFromJson(manifest);
     let cancelled = false;
 
     void (async () => {
@@ -87,6 +187,7 @@ export function App() {
       setSchema(loaded.schema);
       setUiSchema(loaded.uiSchema);
       setFormData(loaded.defaults);
+      setUiLabelMessages(structuredClone(manifest.messages));
     })();
 
     return () => {
@@ -94,292 +195,117 @@ export function App() {
     };
   }, [activeExampleId]);
 
+  const skipExampleUrlPush = useRef(true);
+  useEffect(() => {
+    if (skipExampleUrlPush.current) {
+      skipExampleUrlPush.current = false;
+      return;
+    }
+    if (!syncingFromUrl.current) pushCurrentUrl();
+  }, [activeExampleId, pushCurrentUrl]);
+
+  const skipLocaleUrlPush = useRef(true);
+  useEffect(() => {
+    if (skipLocaleUrlPush.current) {
+      skipLocaleUrlPush.current = false;
+      return;
+    }
+    if (!syncingFromUrl.current) pushCurrentUrl();
+  }, [locale, pushCurrentUrl]);
+
   function openGetStarted() {
-    navigateToPage("get-started");
+    setActivePage("get-started");
+    pushCurrentUrl({ page: "get-started" });
   }
 
   function openImprint() {
-    navigateToPage("imprint");
+    setActivePage("imprint");
+    pushCurrentUrl({ page: "imprint" });
   }
 
   function openExamples() {
-    navigateToPage("examples");
+    setActivePage("examples");
+    pushCurrentUrl({ page: "examples" });
   }
 
   function selectExample(id: ExampleId) {
-    openExamples();
+    setActivePage("examples");
     setActiveExampleId(id);
+    pushCurrentUrl({ page: "examples", exampleId: id });
+  }
+
+  function exampleHref(id: ExampleId): string {
+    return hrefForStackExample(OWNED_STACK, {
+      locale,
+      stack: OWNED_STACK,
+      exampleId: id,
+    });
+  }
+
+  function stackHref(stack: AppStack): string {
+    return hrefForStackExample(OWNED_STACK, {
+      locale,
+      stack,
+      exampleId: activeExampleId,
+    });
+  }
+
+  function onSelectStack(stack: AppStack) {
+    writePreferredStack(stack);
   }
 
   return (
     <FileFieldProvider provider={fileProvider}>
-      <div className="app">
-      <header className="app__topbar">
-        <div className="app__topbar-start">
-          <a
-            href="#/"
-            className="app__brand"
-            aria-label="JSON Schema Editor"
-            onClick={(event) => {
-              event.preventDefault();
-              openExamples();
-            }}
-          >
-            <span className="app__brand-prefix">{ui.brandPrefix}</span>
-            <span className="app__brand-suffix">{ui.brandSuffix}</span>
-            <span className="app__react-badge">{ui.reactBadge}</span>
-          </a>
-          <nav className="app__topnav" aria-label={ui.topNavAria}>
-            <a
-              href="#/get-started"
-              className={`app__topnav-link${activePage === "get-started" ? " app__topnav-link--active" : ""}`}
-              aria-current={activePage === "get-started" ? "page" : undefined}
-              onClick={(event) => {
-                event.preventDefault();
-                openGetStarted();
-              }}
-            >
-              {ui.navGetStarted}
-            </a>
-            <a
-              href="#/"
-              className={`app__topnav-link${activePage === "examples" ? " app__topnav-link--active" : ""}`}
-              aria-current={activePage === "examples" ? "page" : undefined}
-              onClick={(event) => {
-                event.preventDefault();
-                openExamples();
-              }}
-            >
-              {ui.navExamples}
-            </a>
-            <a
-              href="#/imprint"
-              className={`app__topnav-link${activePage === "imprint" ? " app__topnav-link--active" : ""}`}
-              aria-current={activePage === "imprint" ? "page" : undefined}
-              onClick={(event) => {
-                event.preventDefault();
-                openImprint();
-              }}
-            >
-              {ui.navImprint}
-            </a>
-          </nav>
-        </div>
-        <div className="app__topbar-actions">
-          <label className="app__locale-picker" htmlFor="app-locale-select">
-            <span className="app__locale-label">{ui.localeLabel}</span>
-            <select
-              id="app-locale-select"
-              className="app__select"
-              value={locale}
-              onChange={(event) => setLocale(event.target.value as AppLocale)}
-            >
-              {localeOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
-      </header>
-
-      {activePage === "examples" ? (
-        <section className="app__hero">
-          <p className="app__tagline">{ui.tagline}</p>
-          <p className="app__subtitle">{ui.subtitle}</p>
-        </section>
-      ) : null}
-
-      {activePage === "get-started" ? (
-        <GetStartedPage locale={locale} onOpenExamples={openExamples} />
-      ) : null}
-
-      {activePage === "imprint" ? <ImprintPage locale={locale} /> : null}
-
-      {activePage === "examples" ? (
-        <div className="app__workspace">
-          <aside className="app__sidebar" aria-label={ui.scenariosHeading}>
-            <h2 className="app__sidebar-heading">{ui.scenariosHeading}</h2>
-            {visibleCategories.map((category: ExampleCategory) => (
-              <nav key={category} className="app__nav-group">
-                <h3 className="app__nav-group-title">{categoryLabelFor(locale, category)}</h3>
-                <ul className="app__nav-list">
-                  {examplesByCategory[category].map((entry) => (
-                    <li key={entry.id}>
-                      <button
-                        type="button"
-                        className={`app__nav-item${activeExampleId === entry.id ? " app__nav-item--active" : ""}`}
-                        aria-current={activeExampleId === entry.id ? "page" : undefined}
-                        onClick={() => selectExample(entry.id)}
-                      >
-                        <span className="app__nav-item-label">{entry.label}</span>
-                        <span className="app__nav-item-tagline">{entry.tagline}</span>
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            ))}
-          </aside>
-
-          <main className="app__main">
-            <select
-              id="app-example-select"
-              className="app__example-select-hidden"
-              tabIndex={-1}
-              aria-hidden="true"
-              value={activeExampleId}
-              onChange={(event) => setActiveExampleId(event.target.value as ExampleId)}
-            >
-              {exampleManifests.map((entry) => (
-                <option key={entry.id} value={entry.id}>
-                  {entry.label}
-                </option>
-              ))}
-            </select>
-
-            {activeExample ? (
-              <header className="app__scenario-header">
-                <h1 id="json-schema-editor-beispiel" className="app__scenario-title">
-                  {activeExample.label}
-                </h1>
-                <p className="app__scenario-desc">{activeExample.description}</p>
-              </header>
-            ) : null}
-
-            <div className="app__react-notice" role="note">
-              <strong>{ui.reactNoticeTitle}:</strong> {ui.reactNoticeBody}
-            </div>
-
-            <section className="app__panel">
-              <div className="app__view-tabs" role="tablist" aria-label={ui.tabsAria}>
-                <button
-                  type="button"
-                  role="tab"
-                  className={`app__view-tab${mode === "form" ? " app__view-tab--active" : ""}`}
-                  aria-selected={mode === "form"}
-                  aria-controls="app-panel-form"
-                  onClick={() => setMode("form")}
-                >
-                  {ui.tabForm}
-                </button>
-                <button
-                  type="button"
-                  role="tab"
-                  className={`app__view-tab${mode === "editor" ? " app__view-tab--active" : ""}`}
-                  aria-selected={mode === "editor"}
-                  aria-controls="app-panel-editor"
-                  onClick={() => setMode("editor")}
-                >
-                  {ui.tabEditor}
-                </button>
-                <button
-                  type="button"
-                  role="tab"
-                  className={`app__view-tab${mode === "json" ? " app__view-tab--active" : ""}`}
-                  aria-selected={mode === "json"}
-                  aria-controls="app-panel-json"
-                  onClick={() => setMode("json")}
-                >
-                  {ui.tabJson}
-                </button>
-              </div>
-
-              {mode === "form" ? (
-                <div
-                  id="app-panel-form"
-                  className="app__panel-body app__split"
-                  role="tabpanel"
-                  aria-label={ui.formPanelAria}
-                >
-                  <div className="app__split-main">
-                    <JsonSchemaForm
-                      schema={schema}
-                      uiSchema={uiSchema}
-                      data={formData}
-                      onDataChange={setFormData}
-                      locale={locale}
-                      fallbackLocale={fallbackLocale}
-                      validationMode="blur"
-                    />
-                  </div>
-                  <aside className="app__split-side">
-                    <div className="app__code-header">{ui.dataPanelTitle}</div>
-                    <pre className="app__form-data-output app__code-block">{dataJson}</pre>
-                  </aside>
-                </div>
-              ) : null}
-
-              {mode === "editor" ? (
-                <div
-                  id="app-panel-editor"
-                  className="app__panel-body"
-                  role="tabpanel"
-                  aria-label={ui.editorPanelAria}
-                >
-                  <JsonSchemaFormEditor
-                    key={activeExampleId}
-                    schema={schema}
-                    uiSchema={uiSchema}
-                    onSchemaChange={setSchema}
-                    onUiSchemaChange={setUiSchema}
-                    locale={locale}
-                    fallbackLocale={fallbackLocale}
-                  />
-                </div>
-              ) : null}
-
-              {mode === "json" ? (
-                <div
-                  id="app-panel-json"
-                  className="app__panel-body app__json-view"
-                  role="tabpanel"
-                  aria-label={ui.jsonPanelAria}
-                >
-                  <div className="app__json-tabs" role="tablist" aria-label={ui.jsonTabsAria}>
-                    {(["schema", "ui", "data"] as const).map((pane) => (
-                      <button
-                        key={pane}
-                        type="button"
-                        role="tab"
-                        className={`app__json-tab${jsonPane === pane ? " app__json-tab--active" : ""}`}
-                        aria-selected={jsonPane === pane}
-                        onClick={() => setJsonPane(pane)}
-                      >
-                        {pane === "schema"
-                          ? ui.jsonSchema
-                          : pane === "ui"
-                            ? ui.jsonUi
-                            : ui.jsonData}
-                      </button>
-                    ))}
-                  </div>
-                  <pre className="app__json-output app__code-block app__code-block--full">
-                    {activeJsonContent}
-                  </pre>
-                </div>
-              ) : null}
-            </section>
-          </main>
-        </div>
-      ) : null}
-
-      <footer className="app__footer">
-        <p className="app__footer-copy">{ui.footerCopyright}</p>
-        <a
-          href="#/imprint"
-          className="app__footer-link"
-          aria-current={activePage === "imprint" ? "page" : undefined}
-          onClick={(event) => {
-            event.preventDefault();
-            openImprint();
-          }}
-        >
-          {ui.footerImprint}
-        </a>
-      </footer>
-      </div>
+      <SiteShell
+        ui={ui}
+        activePage={activePage}
+        ownedStack={OWNED_STACK}
+        locale={locale}
+        examplesHref={examplesHref}
+        getStartedHref={getStartedHref}
+        imprintHref={imprintHref}
+        vueHref={stackHref("vue")}
+        reactHref={stackHref("react")}
+        onLocaleChange={setLocale}
+        onOpenExamples={openExamples}
+        onOpenGetStarted={openGetStarted}
+        onOpenImprint={openImprint}
+        onSelectStack={onSelectStack}
+      >
+        {activePage === "get-started" ? (
+          <GetStartedPage locale={locale} stack="react" onOpenExamples={openExamples} />
+        ) : null}
+        {activePage === "imprint" ? <ImprintPage locale={locale} /> : null}
+        {activePage === "examples" ? (
+          <ExamplesWorkspace
+            locale={locale}
+            fallbackLocale={fallbackLocale}
+            labelLocales={labelLocales}
+            ui={ui}
+            visibleCategories={visibleCategories}
+            activeExampleId={activeExampleId}
+            activeExample={activeExample}
+            activeExampleCopy={activeExampleCopy}
+            schema={schema}
+            uiSchema={uiSchema}
+            formData={formData}
+            uiLabelMessages={uiLabelMessages}
+            mode={mode}
+            jsonPane={jsonPane}
+            dataJson={dataJson}
+            activeJsonContent={activeJsonContent}
+            exampleHref={exampleHref}
+            onSelectExample={selectExample}
+            onActiveExampleIdChange={setActiveExampleId}
+            onFormDataChange={setFormData}
+            onSchemaChange={setSchema}
+            onUiSchemaChange={setUiSchema}
+            onMessagesChange={setUiLabelMessages}
+            onModeChange={setMode}
+            onJsonPaneChange={setJsonPane}
+          />
+        ) : null}
+      </SiteShell>
     </FileFieldProvider>
   );
 }

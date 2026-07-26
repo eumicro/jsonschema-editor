@@ -1,5 +1,10 @@
 export * from "./types.js";
 export * from "./attribute-registry.js";
+export {
+  transferCompatibleCustomAttributes,
+  enforceExclusiveCustomAttributes,
+  applyCustomAttributeWithComposition,
+} from "./attribute-composition.js";
 export type { SchemaNode } from "./model/node.js";
 export {
   SchemaMetadata,

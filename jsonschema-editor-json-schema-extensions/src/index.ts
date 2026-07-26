@@ -11,6 +11,10 @@ export {
   validatePhone,
   PHONE_PATTERN,
   PHONE_FORMAT,
+  dateTodayExtension,
+  validateDateToday,
+  todayIsoDate,
+  DATE_TODAY_FORMAT,
 } from "./formats/index.js";
 
 export {
@@ -98,6 +102,12 @@ export {
 export type { ComputedEvaluationResult } from "./computed-cel.js";
 
 export {
+  collectComputedFieldBindings,
+  syncComputedFormData,
+} from "./computed-sync.js";
+export type { ComputedFieldBinding } from "./computed-sync.js";
+
+export {
   FILE_ATTRIBUTE,
   createMultipleFileSchema,
   createSingleFileSchema,
@@ -119,3 +129,54 @@ export type {
   FileFieldProvider,
   NormalizedFileConfig,
 } from "./file.js";
+
+export {
+  PROGRESS_BAR_ATTRIBUTE,
+  DEFAULT_PROGRESS_BAR_COLOR,
+  DEFAULT_PROGRESS_BAR_COLOR_HIGH,
+  DEFAULT_PROGRESS_BAR_COLOR_LOW,
+  DEFAULT_PROGRESS_BAR_COLOR_MID,
+  createProgressBarSchema,
+  isCssHexColor,
+  isProgressBarExtensionConfig,
+  mixHexColors,
+  normalizeProgressBarConfig,
+  progressBarFillColor,
+  progressBarRatio,
+  progressBarTrackBackground,
+  progressBarTrackGradient,
+  readProgressBarConfig,
+} from "./progress-bar.js";
+export type {
+  NormalizedProgressBarConfig,
+  ProgressBarColorMode,
+  ProgressBarExtensionConfig,
+} from "./progress-bar.js";
+
+export {
+  RATING_ATTRIBUTE,
+  RATING_SYMBOLS,
+  RATING_SYMBOL_CHARS,
+  RATING_SYMBOL_PALETTE,
+  DEFAULT_RATING_SYMBOL,
+  DEFAULT_RATING_COLOR,
+  DEFAULT_RATING_COLOR_HIGH,
+  DEFAULT_RATING_COLOR_LOW,
+  DEFAULT_RATING_COLOR_MID,
+  createRatingSchema,
+  isRatingExtensionConfig,
+  isRatingSymbol,
+  isRatingSymbolGlyph,
+  normalizeRatingConfig,
+  ratingFillColor,
+  ratingLevels,
+  ratingRatio,
+  readRatingConfig,
+  resolveRatingSymbolGlyph,
+} from "./rating.js";
+export type {
+  NormalizedRatingConfig,
+  RatingColorMode,
+  RatingExtensionConfig,
+  RatingSymbol,
+} from "./rating.js";

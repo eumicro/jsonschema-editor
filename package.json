@@ -7,6 +7,8 @@
     "typecheck": "pnpm -r --filter @jsonschema-editor/json-schema --filter @jsonschema-editor/json-schema-extensions --filter @jsonschema-editor/ui-schema --filter @jsonschema-editor/vue --filter @jsonschema-editor/vue-extensions --filter @jsonschema-editor/react --filter @jsonschema-editor/react-extensions run typecheck",
     "test": "pnpm -r --filter @jsonschema-editor/json-schema --filter @jsonschema-editor/json-schema-extensions --filter @jsonschema-editor/ui-schema run test",
     "test:e2e": "pnpm --filter jsonschema-editor-examples run test:e2e && pnpm --filter jsonschema-editor-examples-react run test:e2e",
+    "dev:site": "pnpm --filter jsonschema-editor-examples-site run dev",
+    "build:site": "pnpm run build && node scripts/build-examples-site.mjs",
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "pnpm run build && pnpm run test && changeset publish"

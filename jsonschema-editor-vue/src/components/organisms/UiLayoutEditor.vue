@@ -2,8 +2,11 @@
 import { ref } from "vue";
 import type { SchemaDocument } from "@jsonschema-editor/json-schema";
 import type { UiElement } from "@jsonschema-editor/ui-schema";
+import { VerticalLayout } from "@jsonschema-editor/ui-schema";
 import {
   canAcceptUiChild,
+  controlPathOfDetail,
+  ensureControlDetailLayout,
   getUiElementAt,
   insertUiElement,
   moveUiElementTo,
@@ -68,18 +71,35 @@ function resolvePaletteKind(event?: DragEvent): string | null {
 function onDropAt(parentPath: UiPath, insertIndex: number, event?: DragEvent) {
   const paletteKind = resolvePaletteKind(event);
   if (paletteKind) {
-    const parent = getUiElementAt(props.root, parentPath);
+    let workingRoot = props.root;
+    let workingParentPath = parentPath;
+    if (workingParentPath[workingParentPath.length - 1] === "detail") {
+      workingRoot = ensureControlDetailLayout(
+        workingRoot,
+        controlPathOfDetail(workingParentPath),
+      );
+    }
+
+    let parent;
+    try {
+      parent = getUiElementAt(workingRoot, workingParentPath);
+    } catch {
+      parent = new VerticalLayout();
+    }
+
     const element = createPaletteUiElement(paletteKind as UiPaletteKind, {
-      root: props.root,
+      root: workingRoot,
       document: props.document,
       translate: t,
+      parentPath: workingParentPath,
     });
     if (!canAcceptUiChild(parent, element)) return;
-    const next = insertUiElement(props.root, parentPath, element, insertIndex);
+
+    const next = insertUiElement(workingRoot, workingParentPath, element, insertIndex);
     dragSourcePath.value = null;
     clearLayoutDragState();
     emit("palette-drag-end");
-    patchRoot(next, [...parentPath, insertIndex]);
+    patchRoot(next, [...workingParentPath, insertIndex]);
     return;
   }
 
@@ -108,6 +128,7 @@ function onDropAt(parentPath: UiPath, insertIndex: number, event?: DragEvent) {
       :path="[]"
       :selected-path="selectedPath"
       :drag-source-path="dragSourcePath"
+      :document="document"
       :palette-kind="paletteKind"
       @select="emit('update:selectedPath', $event)"
       @add="(path, event) => emit('add', path, event)"

@@ -22,6 +22,8 @@ export function useSchemaFormEditorState(
   callbacks: SchemaFormEditorCallbacks,
 ) {
   const { t } = useJseI18n();
+  const onSchemaChange = callbacks.onSchemaChange;
+  const onUiSchemaChange = callbacks.onUiSchemaChange;
 
   const editorTabs = useMemo(
     () => [
@@ -52,23 +54,26 @@ export function useSchemaFormEditorState(
   }, [schema]);
 
   useEffect(() => {
+    // Do not clobber in-progress UI edits when a sibling state update
+    // (e.g. messages) re-renders with a briefly stale uiSchema prop.
+    if (uiManualEdit) return;
     setUiSchemaRef(uiSchema);
-  }, [uiSchema]);
+  }, [uiSchema, uiManualEdit]);
 
   const uiRoot = uiSchemaRef.root;
 
   const updateDocument = useCallback(
     (next: SchemaDocument) => {
       setDocumentRef(next);
-      callbacks.onSchemaChange(next);
+      onSchemaChange(next);
       const syncedRoot = syncUiSchemaWithSchema(next, uiSchemaRef.root);
       if (syncedRoot !== uiSchemaRef.root) {
         const nextUi = new UiSchema(syncedRoot);
         setUiSchemaRef(nextUi);
-        callbacks.onUiSchemaChange(nextUi);
+        onUiSchemaChange(nextUi);
       }
     },
-    [callbacks, uiSchemaRef.root],
+    [onSchemaChange, onUiSchemaChange, uiSchemaRef.root],
   );
 
   const updateUiRoot = useCallback(
@@ -76,9 +81,9 @@ export function useSchemaFormEditorState(
       setUiManualEdit(true);
       const nextUi = new UiSchema(next);
       setUiSchemaRef(nextUi);
-      callbacks.onUiSchemaChange(nextUi);
+      onUiSchemaChange(nextUi);
     },
-    [callbacks],
+    [onUiSchemaChange],
   );
 
   const regenerateUiFromSchema = useCallback(() => {
@@ -87,16 +92,16 @@ export function useSchemaFormEditorState(
       documentRef.resolveRef(ref),
     );
     setUiSchemaRef(generated);
-    callbacks.onUiSchemaChange(generated);
-  }, [callbacks, documentRef]);
+    onUiSchemaChange(generated);
+  }, [documentRef, onUiSchemaChange]);
 
   const updateUiSchema = useCallback(
     (next: UiSchema, manual = true) => {
       if (manual) setUiManualEdit(true);
       setUiSchemaRef(next);
-      callbacks.onUiSchemaChange(next);
+      onUiSchemaChange(next);
     },
-    [callbacks],
+    [onUiSchemaChange],
   );
 
   const schemaJson = useMemo(
@@ -128,12 +133,12 @@ export function useSchemaFormEditorState(
         setUiManualEdit(true);
         const next = UiSchema.fromJSON(parsed);
         setUiSchemaRef(next);
-        callbacks.onUiSchemaChange(next);
+        onUiSchemaChange(next);
       } catch {
         /* invalid JSON while typing */
       }
     },
-    [callbacks],
+    [onUiSchemaChange],
   );
 
   const editorContext = useMemo(

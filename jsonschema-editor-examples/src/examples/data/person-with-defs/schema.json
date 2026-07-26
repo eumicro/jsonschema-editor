@@ -7,8 +7,8 @@
       "$ref": "#/$defs/Maschine"
     }
   ],
-  "title": "Ansprechpartner",
-  "description": "Erfassen Sie eine Person oder ein zugeordnetes Betriebsmittel mit Kontaktdaten",
+  "title": "Contact Person",
+  "description": "Enter a person or an assigned asset with contact details",
   "$defs": {
     "Mensch": {
       "type": "object",
@@ -16,40 +16,48 @@
         "name": {
           "type": "string",
           "title": "Name",
-          "description": "Vollständiger Name"
+          "description": "Full name"
         },
         "email": {
           "type": "string",
           "format": "email",
-          "title": "E-Mail",
-          "description": "Geschäftliche E-Mail-Adresse"
+          "title": "Email",
+          "description": "Business email address"
         },
         "website": {
           "type": "string",
           "format": "uri",
           "title": "Website",
-          "description": "Website der Abteilung oder des Unternehmens"
+          "description": "Department or company website"
         },
         "phone": {
           "type": "string",
           "format": "phone",
-          "title": "Telefon",
-          "description": "Telefonnummer mit Ländervorwahl"
+          "title": "Phone",
+          "description": "Telephone number with country code"
         },
         "abteilung": {
           "type": "string",
-          "title": "Abteilung",
-          "description": "Zuständige Abteilung",
-          "enum": ["Vertrieb", "Entwicklung", "Support"],
+          "title": "Department",
+          "description": "Responsible department",
+          "enum": [
+            "Vertrieb",
+            "Entwicklung",
+            "Support"
+          ],
           "x-values-source": {
             "kind": "static",
-            "values": ["Vertrieb", "Entwicklung", "Support"]
+            "values": [
+              "Vertrieb",
+              "Entwicklung",
+              "Support"
+            ]
           }
         },
         "manager": {
           "type": "string",
-          "title": "Vorgesetzter",
-          "description": "Auswahl aus der Mitarbeiterliste",
+          "title": "Superior",
+          "description": "Selection from the employee list",
           "x-values-source": {
             "kind": "fetch",
             "url": "https://jsonplaceholder.typicode.com/users",
@@ -62,22 +70,22 @@
         "name"
       ],
       "title": "Person",
-      "description": "Natürliche Person mit Kontaktdaten"
+      "description": "Natural person with contact details"
     },
     "Maschine": {
       "type": "object",
       "properties": {
         "nummer": {
           "type": "string",
-          "title": "Nummer",
-          "description": "Serien- oder Inventarnummer"
+          "title": "Number",
+          "description": "Serial or inventory number"
         }
       },
       "required": [
         "nummer"
       ],
-      "title": "Betriebsmittel",
-      "description": "Gerät oder Anlage mit Inventarnummer"
+      "title": "Operating resources",
+      "description": "Device or system with inventory number"
     }
   }
 }

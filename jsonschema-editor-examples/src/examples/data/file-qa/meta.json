@@ -1,7 +1,49 @@
 {
-  "label": "Datei-Upload (QA)",
-  "tagline": "Einzel- und Mehrfach-Upload mit Vorschau-Galerie",
-  "description": "Internes QA-Szenario für x-file: Einzelbild, Bildergalerie, FileFieldProvider-Schnittstelle.",
+  "label": "File upload (QA)",
+  "tagline": "Single and multiple upload with preview gallery",
+  "description": "Internal QA scenario for x-file: single image, image gallery, FileFieldProvider interface.",
   "category": "Stammdaten",
-  "visibility": "internal"
+  "visibility": "internal",
+  "locales": {
+    "de": {
+      "label": "Datei-Upload (QA)",
+      "tagline": "Einzel- und Mehrfach-Upload mit Vorschau-Galerie",
+      "description": "Internes QA-Szenario für x-file: Einzelbild, Bildergalerie, FileFieldProvider-Schnittstelle."
+    },
+    "fr": {
+      "label": "Téléchargement de fichiers (AQ)",
+      "tagline": "Téléchargement unique et multiple avec galerie d'aperçu",
+      "description": "Scénario d'assurance qualité interne pour x-file : image unique, galerie d'images, interface FileFieldProvider."
+    },
+    "it": {
+      "label": "Caricamento file (QA)",
+      "tagline": "Caricamento singolo e multiplo con gallery di anteprima",
+      "description": "Scenario di QA interno per x-file: immagine singola, galleria di immagini, interfaccia FileFieldProvider."
+    },
+    "pl": {
+      "label": "Przesyłanie plików (QA)",
+      "tagline": "Przesyłanie pojedyncze i wielokrotne z galerią podglądu",
+      "description": "Wewnętrzny scenariusz kontroli jakości dla pliku x: pojedynczy obraz, galeria obrazów, interfejs FileFieldProvider."
+    },
+    "uk": {
+      "label": "Завантаження файлу (QA)",
+      "tagline": "Одне та багаторазове завантаження з галереєю попереднього перегляду",
+      "description": "Внутрішній сценарій контролю якості для x-file: одне зображення, галерея зображень, інтерфейс FileFieldProvider."
+    },
+    "ru": {
+      "label": "Загрузка файла (QA)",
+      "tagline": "Одиночная и множественная загрузка с галереей предварительного просмотра",
+      "description": "Сценарий внутреннего контроля качества для x-file: одно изображение, галерея изображений, интерфейс FileFieldProvider."
+    },
+    "zh": {
+      "label": "文件上传（质量检查）",
+      "tagline": "带预览图库的单个和多个上传",
+      "description": "X-file 的内部 QA 场景：单个图像、图像库、FileFieldProvider 接口。"
+    },
+    "ja": {
+      "label": "ファイルのアップロード (QA)",
+      "tagline": "プレビューギャラリー付きの単一および複数のアップロード",
+      "description": "X ファイルの内部 QA シナリオ: 単一イメージ、イメージ ギャラリー、FileFieldProvider インターフェイス。"
+    }
+  }
 }

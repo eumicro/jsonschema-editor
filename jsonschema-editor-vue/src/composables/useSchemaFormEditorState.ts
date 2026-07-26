@@ -54,6 +54,8 @@ export function useSchemaFormEditorState(
   );
 
   watch(uiSchema, (next) => {
+    // Keep local UI edits when sibling state (e.g. messages) updates the parent.
+    if (uiManualEdit.value) return;
     uiSchemaRef.value = next;
   });
 

@@ -3,12 +3,12 @@ import { chromium } from "playwright";
 const demos = [
   {
     name: "Vue Examples",
-    url: "http://localhost:5173",
+    url: "http://127.0.0.1:5173/en/examples/vue/occupational-health-g37",
     react: false,
   },
   {
     name: "React Examples",
-    url: "http://localhost:5174",
+    url: "http://127.0.0.1:5173/en/examples/react/field-extensions-qa",
     react: true,
   },
 ];

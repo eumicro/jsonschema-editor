@@ -9,7 +9,6 @@ import {
 
 test.describe("oneOf-Formular", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/");
     await selectExample(page, "person-one-of");
     await openFormMode(page);
   });

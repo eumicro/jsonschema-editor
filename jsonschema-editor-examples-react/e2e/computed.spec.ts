@@ -3,7 +3,6 @@ import { openEditorMode, openFormMode, readFormOutput, selectExample } from "./h
 
 test.describe("x-computed (CEL)", () => {
   test("Kostensumme aktualisiert sich bei Betragsänderung", async ({ page }) => {
-    await page.goto("/");
     await selectExample(page, "computed-cost-qa");
     await openFormMode(page);
 
@@ -29,7 +28,6 @@ test.describe("x-computed (CEL)", () => {
   });
 
   test("Kostensumme berücksichtigt neu hinzugefügte Positionen", async ({ page }) => {
-    await page.goto("/");
     await selectExample(page, "computed-cost-qa");
     await openFormMode(page);
 
@@ -56,7 +54,6 @@ test.describe("x-computed (CEL)", () => {
   });
 
   test("Antragsstatus folgt Antragsdatum", async ({ page }) => {
-    await page.goto("/");
     await selectExample(page, "computed-status-qa");
     await openFormMode(page);
 
@@ -64,19 +61,19 @@ test.describe("x-computed (CEL)", () => {
     const statusField = panel.locator(".jse-field").filter({
       has: page.locator(".jse-field__label", { hasText: "Bearbeitungsstand" }),
     });
-    await expect(statusField.locator("input")).toHaveValue("NEU");
+    await expect(statusField.locator("select")).toHaveValue("NEU");
+    await expect(statusField.locator("select")).toBeDisabled();
 
     await panel.locator(".jse-field").filter({
       has: page.locator(".jse-field__label", { hasText: "Antragsdatum" }),
     }).locator("input").fill("2026-06-01");
-    await expect(statusField.locator("input")).toHaveValue("ANTRAG_ANGELEGT");
+    await expect(statusField.locator("select")).toHaveValue("ANTRAG_ANGELEGT");
 
     const output = await readFormOutput(page);
     expect(output.status).toBe("ANTRAG_ANGELEGT");
   });
 
   test("Antragsstatus durchläuft alle Stepper-Schritte", async ({ page }) => {
-    await page.goto("/");
     await selectExample(page, "computed-status-qa");
     await openFormMode(page);
 
@@ -89,7 +86,7 @@ test.describe("x-computed (CEL)", () => {
     await panel().locator(".jse-field").filter({
       has: page.locator(".jse-field__label", { hasText: "Antragsdatum" }),
     }).locator("input").fill("2026-06-01");
-    await expect(statusField().locator("input")).toHaveValue("ANTRAG_ANGELEGT");
+    await expect(statusField().locator("select")).toHaveValue("ANTRAG_ANGELEGT");
 
     await page.getByRole("button", { name: "Weiter" }).click();
     await expect(
@@ -98,41 +95,39 @@ test.describe("x-computed (CEL)", () => {
     await panel().locator(".jse-field").filter({
       has: page.locator(".jse-field__label", { hasText: "Adresse zum Antrag" }),
     }).locator("input").fill("Musterstraße 1");
-    await expect(statusField().locator("input")).toHaveValue("BEREIT_ZUR_DURCHFUEHRUNG");
+    await expect(statusField().locator("select")).toHaveValue("BEREIT_ZUR_DURCHFUEHRUNG");
 
     await page.getByRole("button", { name: "Weiter" }).click();
     await panel().locator(".jse-field").filter({
       has: page.locator(".jse-field__label", { hasText: "Datum der Durchführung" }),
     }).locator("input").fill("2026-07-01");
-    await expect(statusField().locator("input")).toHaveValue("DURCHGEFUEHRT");
+    await expect(statusField().locator("select")).toHaveValue("DURCHGEFUEHRT");
 
     await page.getByRole("button", { name: "Weiter" }).click();
     await panel().locator(".jse-field").filter({
       has: page.locator(".jse-field__label", { hasText: "Rechnung beglichen" }),
     }).locator("input[type=checkbox]").check();
-    await expect(statusField().locator("input")).toHaveValue("ERLEDIGT");
+    await expect(statusField().locator("select")).toHaveValue("ERLEDIGT");
 
     const output = await readFormOutput(page);
     expect(output.status).toBe("ERLEDIGT");
   });
 
   test("G37: Vorsorge-Status wird berechnet", async ({ page }) => {
-    await page.goto("/");
     await selectExample(page, "occupational-health-g37");
     await openFormMode(page);
 
     const statusField = page.locator(".jse-field").filter({ hasText: "Vorsorge-Status" });
-    await expect(statusField.locator("input")).toBeDisabled();
-    await expect(statusField.locator("input")).not.toHaveValue("NEU");
+    await expect(statusField.locator("select")).toBeDisabled();
+    await expect(statusField.locator("select")).not.toHaveValue("NEU");
   });
 
   test("Schema-Editor: x-computed Attribut sichtbar", async ({ page }) => {
-    await page.goto("/");
     await selectExample(page, "computed-cost-qa");
     await openEditorMode(page);
-    await page.getByRole("button", { name: "Attribute von gesamtsumme bearbeiten" }).click();
+    await page.getByRole("button", { name: "Edit attributes of gesamtsumme" }).click();
 
     const panel = page.locator(".jse-attributes-panel");
-    await expect(panel.getByText("Berechnet (CEL, x-computed)")).toBeVisible();
+    await expect(panel.getByText("Computed (CEL, x-computed)")).toBeVisible();
   });
 });

@@ -3,45 +3,53 @@
   "elements": [
     {
       "type": "Group",
-      "label": "Basis",
+      "label": "Base",
       "elements": [
         {
           "type": "Control",
           "scope": "#/properties/name",
-          "label": "Name"
+          "label": "Name",
+          "i18n": "enter-clients.name"
         }
-      ]
+      ],
+      "i18n": "enter-clients.ui.0"
     },
     {
       "type": "Group",
-      "label": "Variante",
+      "label": "Variant",
       "elements": [
         {
           "type": "Control",
           "scope": "#/properties/kind",
-          "label": "Art"
+          "label": "Art",
+          "i18n": "enter-clients.kind"
         },
         {
           "type": "Control",
           "scope": "#/properties/firstName",
-          "label": "Vorname"
+          "label": "First name",
+          "i18n": "enter-clients.firstName"
         },
         {
           "type": "Control",
           "scope": "#/properties/lastName",
-          "label": "Nachname"
+          "label": "Last name",
+          "i18n": "enter-clients.lastName"
         },
         {
           "type": "Control",
           "scope": "#/properties/companyName",
-          "label": "Firma"
+          "label": "Company",
+          "i18n": "enter-clients.companyName"
         },
         {
           "type": "Control",
           "scope": "#/properties/vatId",
-          "label": "USt-IdNr."
+          "label": "VAT ID number",
+          "i18n": "enter-clients.vatId"
         }
-      ]
+      ],
+      "i18n": "enter-clients.ui.1"
     }
   ]
 }

@@ -4,7 +4,8 @@
     {
       "type": "Control",
       "scope": "#",
-      "label": "Person"
+      "label": "Person",
+      "i18n": "contact-person.ui.0"
     }
   ]
 }

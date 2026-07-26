@@ -1,8 +1,11 @@
 import { useState } from "react";
 import type { SchemaDocument } from "@jsonschema-editor/json-schema";
 import type { UiElement } from "@jsonschema-editor/ui-schema";
+import { VerticalLayout } from "@jsonschema-editor/ui-schema";
 import {
   canAcceptUiChild,
+  controlPathOfDetail,
+  ensureControlDetailLayout,
   getUiElementAt,
   insertUiElement,
   moveUiElementTo,
@@ -76,18 +79,35 @@ export function UiLayoutEditor({
   function onDropAt(parentPath: UiPath, insertIndex: number, event?: React.DragEvent) {
     const kind = resolvePaletteKind(event);
     if (kind) {
-      const parent = getUiElementAt(root, parentPath);
+      let workingRoot = root;
+      let workingParentPath = parentPath;
+      if (workingParentPath[workingParentPath.length - 1] === "detail") {
+        workingRoot = ensureControlDetailLayout(
+          workingRoot,
+          controlPathOfDetail(workingParentPath),
+        );
+      }
+
+      let parent;
+      try {
+        parent = getUiElementAt(workingRoot, workingParentPath);
+      } catch {
+        parent = new VerticalLayout();
+      }
+
       const element = createPaletteUiElement(kind as UiPaletteKind, {
-        root,
+        root: workingRoot,
         document,
         translate: t,
+        parentPath: workingParentPath,
       });
       if (!canAcceptUiChild(parent, element)) return;
-      const next = insertUiElement(root, parentPath, element, insertIndex);
+
+      const next = insertUiElement(workingRoot, workingParentPath, element, insertIndex);
       setDragSourcePath(null);
       clearLayoutDragState();
       onPaletteDragEnd?.();
-      patchRoot(next, [...parentPath, insertIndex]);
+      patchRoot(next, [...workingParentPath, insertIndex]);
       return;
     }
 
@@ -117,6 +137,7 @@ export function UiLayoutEditor({
         path={[]}
         selectedPath={selectedPath}
         dragSourcePath={dragSourcePath}
+        document={document}
         paletteKind={paletteKind}
         onSelect={onSelectedPathChange}
         onAdd={onAdd}

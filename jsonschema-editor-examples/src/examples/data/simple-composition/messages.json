@@ -1,0 +1,92 @@
+{
+  "en": {
+    "enter-clients.ui.0.label": "Base",
+    "enter-clients.name.label": "Name",
+    "enter-clients.ui.1.label": "Variant",
+    "enter-clients.kind.label": "Art",
+    "enter-clients.firstName.label": "First name",
+    "enter-clients.lastName.label": "Last name",
+    "enter-clients.companyName.label": "Company",
+    "enter-clients.vatId.label": "VAT ID number"
+  },
+  "de": {
+    "enter-clients.ui.0.label": "Basis",
+    "enter-clients.name.label": "Name",
+    "enter-clients.ui.1.label": "Variante",
+    "enter-clients.kind.label": "Art",
+    "enter-clients.firstName.label": "Vorname",
+    "enter-clients.lastName.label": "Nachname",
+    "enter-clients.companyName.label": "Firma",
+    "enter-clients.vatId.label": "USt-IdNr."
+  },
+  "fr": {
+    "enter-clients.ui.0.label": "Base",
+    "enter-clients.name.label": "Nom",
+    "enter-clients.ui.1.label": "Variante",
+    "enter-clients.kind.label": "Art",
+    "enter-clients.firstName.label": "Prénom",
+    "enter-clients.lastName.label": "Nom de famille",
+    "enter-clients.companyName.label": "Entreprise",
+    "enter-clients.vatId.label": "Numéro d'identification TVA"
+  },
+  "it": {
+    "enter-clients.ui.0.label": "Base",
+    "enter-clients.name.label": "Nome",
+    "enter-clients.ui.1.label": "Variante",
+    "enter-clients.kind.label": "Arte",
+    "enter-clients.firstName.label": "Nome di battesimo",
+    "enter-clients.lastName.label": "Cognome",
+    "enter-clients.companyName.label": "Azienda",
+    "enter-clients.vatId.label": "Partita IVA"
+  },
+  "pl": {
+    "enter-clients.ui.0.label": "Opierać",
+    "enter-clients.name.label": "Nazwa",
+    "enter-clients.ui.1.label": "Wariant",
+    "enter-clients.kind.label": "Sztuka",
+    "enter-clients.firstName.label": "Imię",
+    "enter-clients.lastName.label": "Nazwisko",
+    "enter-clients.companyName.label": "Firma",
+    "enter-clients.vatId.label": "Numer NIP"
+  },
+  "uk": {
+    "enter-clients.ui.0.label": "База",
+    "enter-clients.name.label": "Назва",
+    "enter-clients.ui.1.label": "Варіант",
+    "enter-clients.kind.label": "Ст",
+    "enter-clients.firstName.label": "ім'я",
+    "enter-clients.lastName.label": "Прізвище",
+    "enter-clients.companyName.label": "Компанії",
+    "enter-clients.vatId.label": "Ідентифікаційний номер ПДВ"
+  },
+  "ru": {
+    "enter-clients.ui.0.label": "База",
+    "enter-clients.name.label": "Имя",
+    "enter-clients.ui.1.label": "Вариант",
+    "enter-clients.kind.label": "Искусство",
+    "enter-clients.firstName.label": "Имя",
+    "enter-clients.lastName.label": "Фамилия",
+    "enter-clients.companyName.label": "Компания",
+    "enter-clients.vatId.label": "Идентификационный номер плательщика НДС"
+  },
+  "zh": {
+    "enter-clients.ui.0.label": "根据",
+    "enter-clients.name.label": "姓名",
+    "enter-clients.ui.1.label": "变体",
+    "enter-clients.kind.label": "艺术",
+    "enter-clients.firstName.label": "名",
+    "enter-clients.lastName.label": "姓",
+    "enter-clients.companyName.label": "公司",
+    "enter-clients.vatId.label": "增值税识别号"
+  },
+  "ja": {
+    "enter-clients.ui.0.label": "ベース",
+    "enter-clients.name.label": "名前",
+    "enter-clients.ui.1.label": "変異体",
+    "enter-clients.kind.label": "美術",
+    "enter-clients.firstName.label": "ファーストネーム",
+    "enter-clients.lastName.label": "苗字",
+    "enter-clients.companyName.label": "会社",
+    "enter-clients.vatId.label": "VAT ID 番号"
+  }
+}

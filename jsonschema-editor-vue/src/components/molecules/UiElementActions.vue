@@ -2,11 +2,13 @@
 import { computed, ref, watch } from "vue";
 import type { SchemaDocument } from "@jsonschema-editor/json-schema";
 import type { UiElement } from "@jsonschema-editor/ui-schema";
+import { Control, VerticalLayout, resolveControlDetailSchema } from "@jsonschema-editor/ui-schema";
 import JseButton from "../atoms/JseButton.vue";
 import ControlScopeField from "./ControlScopeField.vue";
 import {
   canAcceptUiChild,
   createUiElement,
+  findEnclosingDetailPath,
   getUiElementAt,
   getUiElementLabel,
   getUiInsertParentPath,
@@ -15,6 +17,7 @@ import {
 } from "../../utils/ui-editor";
 import {
   findControlScopeSuggestion,
+  listDetailControlScopeSuggestions,
   listControlScopeSuggestions,
   listUsedControlScopes,
 } from "../../utils/control-scope-suggestions";
@@ -57,13 +60,63 @@ const controlScope = ref("");
 
 const targetElement = computed(() => getUiElementAt(props.root, props.targetPath));
 const targetLabel = computed(() => getUiElementLabel(targetElement.value));
-const insertParentPath = computed(() => getUiInsertParentPath(props.root, props.targetPath));
-const insertParent = computed(() => getUiElementAt(props.root, insertParentPath.value));
-const usedScopes = computed(() => listUsedControlScopes(props.root));
-const availableSuggestions = computed(() =>
-  listControlScopeSuggestions(props.document, { excludeScopes: usedScopes.value }),
+const insertParentPath = computed(() =>
+  getUiInsertParentPath(props.root, props.targetPath, props.document),
 );
-const allSuggestions = computed(() => listControlScopeSuggestions(props.document));
+
+const insertParent = computed((): UiElement => {
+  const path = insertParentPath.value;
+  if (path[path.length - 1] === "detail") {
+    try {
+      return getUiElementAt(props.root, path);
+    } catch {
+      return new VerticalLayout();
+    }
+  }
+  return getUiElementAt(props.root, path);
+});
+
+const detailPath = computed(
+  () =>
+    (insertParentPath.value[insertParentPath.value.length - 1] === "detail"
+      ? insertParentPath.value
+      : findEnclosingDetailPath(insertParentPath.value)),
+);
+
+const suggestionSchema = computed(() => {
+  const path = detailPath.value;
+  if (!path || !props.document) return null;
+  try {
+    const control = getUiElementAt(props.root, path.slice(0, -1));
+    if (!(control instanceof Control)) return null;
+    return resolveControlDetailSchema(props.document, control.scope) ?? null;
+  } catch {
+    return null;
+  }
+});
+
+const usedScopes = computed(() => {
+  if (detailPath.value) {
+    return listUsedControlScopes(props.root, { subtreeRoot: detailPath.value });
+  }
+  return listUsedControlScopes(props.root, { skipDetail: true });
+});
+
+const availableSuggestions = computed(() => {
+  if (detailPath.value) {
+    return listDetailControlScopeSuggestions(props.document, props.root, detailPath.value, {
+      excludeScopes: usedScopes.value,
+    });
+  }
+  return listControlScopeSuggestions(props.document, { excludeScopes: usedScopes.value });
+});
+
+const allSuggestions = computed(() => {
+  if (detailPath.value) {
+    return listDetailControlScopeSuggestions(props.document, props.root, detailPath.value);
+  }
+  return listControlScopeSuggestions(props.document);
+});
 
 const compatibleKinds = computed(() =>
   LAYOUT_KINDS.filter((kind) =>
@@ -102,9 +155,13 @@ function addControl() {
     label: suggestion?.label,
   });
   emit("update:root", insertUiElement(props.root, insertParentPath.value, element));
-  const next = listControlScopeSuggestions(props.document, {
-    excludeScopes: [...usedScopes.value, scope],
-  });
+  const next = detailPath.value
+    ? listDetailControlScopeSuggestions(props.document, props.root, detailPath.value, {
+        excludeScopes: [...usedScopes.value, scope],
+      })
+    : listControlScopeSuggestions(props.document, {
+        excludeScopes: [...usedScopes.value, scope],
+      });
   controlScope.value = next[0]?.scope ?? "";
   emit("done");
 }
@@ -135,6 +192,7 @@ function addControl() {
       <ControlScopeField
         v-model="controlScope"
         :document="document"
+        :suggestion-schema="suggestionSchema"
         :used-scopes="usedScopes"
       />
       <div class="jse-structure-editor__buttons">

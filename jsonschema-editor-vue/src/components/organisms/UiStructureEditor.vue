@@ -9,6 +9,8 @@ import JseFloatingPanel from "../molecules/JseFloatingPanel.vue";
 import UiElementActions from "../molecules/UiElementActions.vue";
 import UiAddToolbar from "../molecules/UiAddToolbar.vue";
 import {
+  controlPathOfDetail,
+  ensureControlDetailLayout,
   getUiElementAt,
   getUiElementLabel,
   isLayoutElement,
@@ -19,16 +21,21 @@ import {
   type UiPath,
 } from "../../utils/ui-editor";
 import { useJseI18n } from "../../composables/useJseI18n";
+import type { JseLocale } from "../../i18n/types";
+import type { UiLabelMessages } from "../../utils/ui-label-messages";
 
 const props = defineProps<{
   root: UiElement;
   selectedPath: UiPath;
   document?: SchemaDocument | null;
+  labelLocales?: JseLocale[];
+  messages?: UiLabelMessages;
 }>();
 
 const emit = defineEmits<{
   "update:root": [root: UiElement];
   "update:selectedPath": [path: UiPath];
+  "update:messages": [messages: UiLabelMessages];
 }>();
 
 const { t } = useJseI18n();
@@ -143,6 +150,21 @@ function onTreeDrop(targetPath: UiPath, sourcePath: UiPath) {
     return;
   }
 
+  if (targetPath[targetPath.length - 1] === "detail") {
+    const withDetail = ensureControlDetailLayout(
+      props.root,
+      controlPathOfDetail(targetPath),
+    );
+    const detail = getUiElementAt(withDetail, targetPath);
+    if (isLayoutElement(detail)) {
+      patchRoot(
+        moveUiElementTo(withDetail, sourcePath, targetPath, detail.elements.length),
+        sourcePath,
+      );
+    }
+    return;
+  }
+
   const targetElement = getUiElementAt(props.root, targetPath);
   if (isLayoutElement(targetElement)) {
     patchRoot(
@@ -152,8 +174,11 @@ function onTreeDrop(targetPath: UiPath, sourcePath: UiPath) {
     return;
   }
 
+  const insertIndex = targetPath[targetPath.length - 1];
+  if (typeof insertIndex !== "number") return;
+
   patchRoot(
-    moveUiElementTo(props.root, sourcePath, targetParent, targetPath[targetPath.length - 1]),
+    moveUiElementTo(props.root, sourcePath, targetParent, insertIndex),
     sourcePath,
   );
 }
@@ -211,6 +236,7 @@ function onTreeDrop(targetPath: UiPath, sourcePath: UiPath) {
       v-if="viewMode === 'layout'"
       :root="root"
       :selected-path="selectedPath"
+      :document="document"
       @palette-drag="paletteKind = $event"
     />
 
@@ -227,6 +253,7 @@ function onTreeDrop(targetPath: UiPath, sourcePath: UiPath) {
         :selected-path="selectedPath"
         :expanded-keys="expandedKeys"
         :drag-source-path="dragSourcePath"
+        :document="document"
         @select="selectPath"
         @toggle="togglePath"
         @add="openAddDialog"
@@ -263,7 +290,10 @@ function onTreeDrop(targetPath: UiPath, sourcePath: UiPath) {
         :root="root"
         :selected-path="attributesTargetPath"
         :document="document"
+        :label-locales="labelLocales"
+        :messages="messages"
         @update:root="(next) => patchRoot(next)"
+        @update:messages="emit('update:messages', $event)"
       />
     </JseFloatingPanel>
   </div>

@@ -1,7 +1,10 @@
 import { useMemo } from "react";
+import type { SchemaDocument } from "@jsonschema-editor/json-schema";
 import type { UiElement } from "@jsonschema-editor/ui-schema";
+import { VerticalLayout } from "@jsonschema-editor/ui-schema";
 import {
   canAcceptUiChild,
+  controlPathOfDetail,
   createUiElement,
   getUiElementAt,
   getUiElementLabel,
@@ -18,21 +21,42 @@ import { useJseI18n } from "../../context/JseI18nContext.js";
 export interface UiAddToolbarProps {
   root: UiElement;
   selectedPath: UiPath;
+  document?: SchemaDocument | null;
   onPaletteDrag: (kind: string | null) => void;
 }
 
-export function UiAddToolbar({ root, selectedPath, onPaletteDrag }: UiAddToolbarProps) {
+export function UiAddToolbar({ root, selectedPath, document, onPaletteDrag }: UiAddToolbarProps) {
   const { t } = useJseI18n();
 
   const insertParentPath = useMemo(
-    () => getUiInsertParentPath(root, selectedPath),
-    [root, selectedPath],
+    () => getUiInsertParentPath(root, selectedPath, document),
+    [root, selectedPath, document],
   );
-  const insertParent = useMemo(
-    () => getUiElementAt(root, insertParentPath),
-    [root, insertParentPath],
-  );
-  const targetLabel = getUiElementLabel(insertParent);
+
+  const insertParent = useMemo((): UiElement => {
+    const path = insertParentPath;
+    if (path[path.length - 1] === "detail") {
+      try {
+        return getUiElementAt(root, path);
+      } catch {
+        return new VerticalLayout();
+      }
+    }
+    return getUiElementAt(root, path);
+  }, [root, insertParentPath]);
+
+  const targetLabel = useMemo(() => {
+    const path = insertParentPath;
+    if (path[path.length - 1] === "detail") {
+      try {
+        const control = getUiElementAt(root, controlPathOfDetail(path));
+        return t("layout.detailTarget", { label: getUiElementLabel(control) });
+      } catch {
+        return t("layout.detailHint");
+      }
+    }
+    return getUiElementLabel(insertParent);
+  }, [insertParent, insertParentPath, root, t]);
 
   function isKindAllowed(kind: UiPaletteKind): boolean {
     return canAcceptUiChild(insertParent, createUiElement(kind, { translate: t }));

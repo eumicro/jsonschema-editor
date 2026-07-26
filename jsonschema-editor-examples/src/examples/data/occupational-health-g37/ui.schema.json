@@ -3,7 +3,7 @@
   "elements": [
     {
       "type": "Step",
-      "label": "Aufnahme",
+      "label": "Recording",
       "elements": [
         {
           "type": "VerticalLayout",
@@ -11,276 +11,565 @@
             {
               "type": "HorizontalLayout",
               "elements": [
-                { "type": "Control", "scope": "#/properties/aktenzeichen", "label": "Aktenzeichen" },
-                { "type": "Control", "scope": "#/properties/untersuchungsdatum", "label": "Untersuchungsdatum" }
-              ]
-            },
-            { "type": "Control", "scope": "#/properties/vorsorgeStatus", "label": "Vorsorge-Status" },
-            {
-              "type": "Group",
-              "label": "Untersuchte Person",
-              "elements": [
                 {
-                  "type": "HorizontalLayout",
-                  "elements": [
-                    { "type": "Control", "scope": "#/properties/untersuchter/properties/vorname" },
-                    { "type": "Control", "scope": "#/properties/untersuchter/properties/nachname" }
-                  ]
+                  "type": "Control",
+                  "scope": "#/properties/aktenzeichen",
+                  "label": "File number",
+                  "i18n": "g37-screen-precaution.aktenzeichen"
                 },
                 {
-                  "type": "HorizontalLayout",
-                  "elements": [
-                    { "type": "Control", "scope": "#/properties/untersuchter/properties/geburtsdatum" },
-                    { "type": "Control", "scope": "#/properties/untersuchter/properties/geschlecht" }
-                  ]
-                },
-                {
-                  "type": "HorizontalLayout",
-                  "elements": [
-                    { "type": "Control", "scope": "#/properties/untersuchter/properties/personalnummer" },
-                    { "type": "Control", "scope": "#/properties/untersuchter/properties/versichertennummer" }
-                  ]
+                  "type": "Control",
+                  "scope": "#/properties/untersuchungsdatum",
+                  "label": "Examination date",
+                  "i18n": "g37-screen-precaution.untersuchungsdatum"
                 }
               ]
             },
             {
+              "type": "Control",
+              "scope": "#/properties/vorsorgeStatus",
+              "label": "Precaution status",
+              "i18n": "g37-screen-precaution.vorsorgeStatus"
+            },
+            {
               "type": "Group",
-              "label": "Arbeitgeber",
+              "label": "Examined person",
               "elements": [
                 {
                   "type": "HorizontalLayout",
                   "elements": [
-                    { "type": "Control", "scope": "#/properties/arbeitgeber/properties/firma" },
-                    { "type": "Control", "scope": "#/properties/arbeitgeber/properties/standort" }
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/untersuchter/properties/vorname",
+                      "i18n": "g37-screen-precaution.untersuchter.vorname",
+                      "label": "First name"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/untersuchter/properties/nachname",
+                      "i18n": "g37-screen-precaution.untersuchter.nachname",
+                      "label": "Last name"
+                    }
                   ]
                 },
-                { "type": "Control", "scope": "#/properties/arbeitgeber/properties/taetigkeit" },
                 {
                   "type": "HorizontalLayout",
                   "elements": [
-                    { "type": "Control", "scope": "#/properties/arbeitgeber/properties/vorgesetzter" },
-                    { "type": "Control", "scope": "#/properties/arbeitgeber/properties/kontaktEmail" }
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/untersuchter/properties/geburtsdatum",
+                      "i18n": "g37-screen-precaution.untersuchter.geburtsdatum",
+                      "label": "Birth Date"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/untersuchter/properties/geschlecht",
+                      "i18n": "g37-screen-precaution.untersuchter.geschlecht",
+                      "label": "Gender"
+                    }
                   ]
                 },
-                { "type": "Control", "scope": "#/properties/arbeitgeber/properties/betriebsgelaende", "label": "Betriebsgelände (Karte)" }
-              ]
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/untersuchter/properties/personalnummer",
+                      "i18n": "g37-screen-precaution.untersuchter.personalnummer",
+                      "label": "Personnel number"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/untersuchter/properties/versichertennummer",
+                      "i18n": "g37-screen-precaution.untersuchter.versichertennummer",
+                      "label": "Health insurance number"
+                    }
+                  ]
+                }
+              ],
+              "i18n": "g37-screen-precaution.ui.0.0.2"
+            },
+            {
+              "type": "Group",
+              "label": "Employer",
+              "elements": [
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/arbeitgeber/properties/firma",
+                      "i18n": "g37-screen-precaution.arbeitgeber.firma",
+                      "label": "Company"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/arbeitgeber/properties/standort",
+                      "i18n": "g37-screen-precaution.arbeitgeber.standort",
+                      "label": "City/Department"
+                    }
+                  ]
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/arbeitgeber/properties/taetigkeit",
+                  "i18n": "g37-screen-precaution.arbeitgeber.taetigkeit",
+                  "label": "Activity (short description)"
+                },
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/arbeitgeber/properties/vorgesetzter",
+                      "i18n": "g37-screen-precaution.arbeitgeber.vorgesetzter",
+                      "label": "Superior"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/arbeitgeber/properties/kontaktEmail",
+                      "i18n": "g37-screen-precaution.arbeitgeber.kontaktEmail",
+                      "label": "Contact email"
+                    }
+                  ]
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/arbeitgeber/properties/betriebsgelaende",
+                  "label": "Company premises (map)",
+                  "i18n": "g37-screen-precaution.arbeitgeber.betriebsgelaende"
+                }
+              ],
+              "i18n": "g37-screen-precaution.ui.0.0.3"
             }
           ]
         }
-      ]
+      ],
+      "i18n": "g37-screen-precaution.ui.0"
     },
     {
       "type": "Step",
-      "label": "Vorgeschichte",
+      "label": "Prehistory",
       "elements": [
         {
           "type": "Group",
-          "label": "Vorgeschichte & Einwilligungen (G37 3.1.1)",
+          "label": "History & consents (G37 3.1.1)",
           "elements": [
-            { "type": "Control", "scope": "#/properties/vorgeschichte/properties/fruehereVorsorge" },
-            { "type": "Control", "scope": "#/properties/vorgeschichte/properties/letzteVorsorgeDatum" },
-            { "type": "Control", "scope": "#/properties/vorgeschichte/properties/relevanteVorerkrankungen" },
+            {
+              "type": "Control",
+              "scope": "#/properties/vorgeschichte/properties/fruehereVorsorge",
+              "i18n": "g37-screen-precaution.vorgeschichte.fruehereVorsorge",
+              "label": "Previous G37/screen precaution taken"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/vorgeschichte/properties/letzteVorsorgeDatum",
+              "i18n": "g37-screen-precaution.vorgeschichte.letzteVorsorgeDatum",
+              "label": "Date of last preventive care"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/vorgeschichte/properties/relevanteVorerkrankungen",
+              "i18n": "g37-screen-precaution.vorgeschichte.relevanteVorerkrankungen",
+              "label": "Relevant previous illnesses/history"
+            },
             {
               "type": "HorizontalLayout",
               "elements": [
-                { "type": "Control", "scope": "#/properties/vorgeschichte/properties/einwilligungDatenverarbeitung" },
-                { "type": "Control", "scope": "#/properties/vorgeschichte/properties/einwilligungMitteilungArbeitgeber" }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": "Step",
-      "label": "Anamnese",
-      "elements": [
-        {
-          "type": "Categorization",
-          "elements": [
-            {
-              "type": "Category",
-              "label": "Allgemein",
-              "elements": [
-                { "type": "Control", "scope": "#/properties/anamnese/properties/allgemein/properties/beschwerdenFreitext" },
                 {
-                  "type": "HorizontalLayout",
-                  "elements": [
-                    { "type": "Control", "scope": "#/properties/anamnese/properties/allgemein/properties/augenbeschwerden" },
-                    { "type": "Control", "scope": "#/properties/anamnese/properties/allgemein/properties/bewegungsapparat" }
-                  ]
+                  "type": "Control",
+                  "scope": "#/properties/vorgeschichte/properties/einwilligungDatenverarbeitung",
+                  "i18n": "g37-screen-precaution.vorgeschichte.einwilligungDatenverarbeitung",
+                  "label": "Consent to processing the examination data"
                 },
                 {
-                  "type": "HorizontalLayout",
-                  "elements": [
-                    { "type": "Control", "scope": "#/properties/anamnese/properties/allgemein/properties/neurologisch" },
-                    { "type": "Control", "scope": "#/properties/anamnese/properties/allgemein/properties/stoffwechsel" }
-                  ]
-                },
-                {
-                  "type": "HorizontalLayout",
-                  "elements": [
-                    { "type": "Control", "scope": "#/properties/anamnese/properties/allgemein/properties/bluthochdruck" },
-                    { "type": "Control", "scope": "#/properties/anamnese/properties/allgemein/properties/sehhilfeVorhanden" }
-                  ]
-                },
-                { "type": "Control", "scope": "#/properties/anamnese/properties/allgemein/properties/medikation" },
-                { "type": "Control", "scope": "#/properties/anamnese/properties/allgemein/properties/sehhilfeArt" }
-              ]
-            },
-            {
-              "type": "Category",
-              "label": "Arbeitsplatz",
-              "elements": [
-                {
-                  "type": "HorizontalLayout",
-                  "elements": [
-                    { "type": "Control", "scope": "#/properties/anamnese/properties/arbeit/properties/arbeitsplatz" },
-                    { "type": "Control", "scope": "#/properties/anamnese/properties/arbeit/properties/arbeitsaufgabe" }
-                  ]
-                },
-                {
-                  "type": "HorizontalLayout",
-                  "elements": [
-                    { "type": "Control", "scope": "#/properties/anamnese/properties/arbeit/properties/arbeitseinweisungErfolgt" },
-                    { "type": "Control", "scope": "#/properties/anamnese/properties/arbeit/properties/farbsehenErforderlich" }
-                  ]
-                },
-                {
-                  "type": "HorizontalLayout",
-                  "elements": [
-                    { "type": "Control", "scope": "#/properties/anamnese/properties/arbeit/properties/bildschirmStundenProTag" },
-                    { "type": "Control", "scope": "#/properties/anamnese/properties/arbeit/properties/arbeitszeitStundenWoche" }
-                  ]
-                },
-                {
-                  "type": "HorizontalLayout",
-                  "elements": [
-                    { "type": "Control", "scope": "#/properties/anamnese/properties/arbeit/properties/pausenRegelung" },
-                    { "type": "Control", "scope": "#/properties/anamnese/properties/arbeit/properties/beleuchtungOk" }
-                  ]
-                },
-                {
-                  "type": "HorizontalLayout",
-                  "elements": [
-                    { "type": "Control", "scope": "#/properties/anamnese/properties/arbeit/properties/blendfrei" },
-                    { "type": "Control", "scope": "#/properties/anamnese/properties/arbeit/properties/abstandCm" }
-                  ]
+                  "type": "Control",
+                  "scope": "#/properties/vorgeschichte/properties/einwilligungMitteilungArbeitgeber",
+                  "i18n": "g37-screen-precaution.vorgeschichte.einwilligungMitteilungArbeitgeber",
+                  "label": "Consent notification to employer (without diagnoses)"
                 }
               ]
             }
-          ]
+          ],
+          "i18n": "g37-screen-precaution.ui.1.0"
         }
-      ]
+      ],
+      "i18n": "g37-screen-precaution.ui.1"
     },
     {
       "type": "Step",
-      "label": "Untersuchung",
+      "label": "Anamnesis",
       "elements": [
         {
           "type": "Categorization",
           "elements": [
             {
               "type": "Category",
-              "label": "Programm (oneOf)",
+              "label": "General",
+              "elements": [
+                {
+                  "type": "Control",
+                  "scope": "#/properties/anamnese/properties/allgemein/properties/beschwerdenFreitext",
+                  "i18n": "g37-screen-precaution.anamnese.allgemein.beschwerdenFreitext",
+                  "label": "Current complaints"
+                },
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/anamnese/properties/allgemein/properties/augenbeschwerden",
+                      "i18n": "g37-screen-precaution.anamnese.allgemein.augenbeschwerden",
+                      "label": "Eye problems/eye diseases"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/anamnese/properties/allgemein/properties/bewegungsapparat",
+                      "i18n": "g37-screen-precaution.anamnese.allgemein.bewegungsapparat",
+                      "label": "Musculoskeletal complaints"
+                    }
+                  ]
+                },
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/anamnese/properties/allgemein/properties/neurologisch",
+                      "i18n": "g37-screen-precaution.anamnese.allgemein.neurologisch",
+                      "label": "Neurological disorders"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/anamnese/properties/allgemein/properties/stoffwechsel",
+                      "i18n": "g37-screen-precaution.anamnese.allgemein.stoffwechsel",
+                      "label": "Metabolic diseases (e.g. diabetes)"
+                    }
+                  ]
+                },
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/anamnese/properties/allgemein/properties/bluthochdruck",
+                      "i18n": "g37-screen-precaution.anamnese.allgemein.bluthochdruck",
+                      "label": "High blood pressure"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/anamnese/properties/allgemein/properties/sehhilfeVorhanden",
+                      "i18n": "g37-screen-precaution.anamnese.allgemein.sehhilfeVorhanden",
+                      "label": "Visual aid available"
+                    }
+                  ]
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/anamnese/properties/allgemein/properties/medikation",
+                  "i18n": "g37-screen-precaution.anamnese.allgemein.medikation",
+                  "label": "Long-term medication"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/anamnese/properties/allgemein/properties/sehhilfeArt",
+                  "i18n": "g37-screen-precaution.anamnese.allgemein.sehhilfeArt",
+                  "label": "Type of visual aid"
+                }
+              ],
+              "i18n": "g37-screen-precaution.ui.2.0.0"
+            },
+            {
+              "type": "Category",
+              "label": "Workplace",
+              "elements": [
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/anamnese/properties/arbeit/properties/arbeitsplatz",
+                      "i18n": "g37-screen-precaution.anamnese.arbeit.arbeitsplatz",
+                      "label": "Workplace"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/anamnese/properties/arbeit/properties/arbeitsaufgabe",
+                      "i18n": "g37-screen-precaution.anamnese.arbeit.arbeitsaufgabe",
+                      "label": "Work Task"
+                    }
+                  ]
+                },
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/anamnese/properties/arbeit/properties/arbeitseinweisungErfolgt",
+                      "i18n": "g37-screen-precaution.anamnese.arbeit.arbeitseinweisungErfolgt",
+                      "label": "Work briefing/briefing at the screen location takes place"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/anamnese/properties/arbeit/properties/farbsehenErforderlich",
+                      "i18n": "g37-screen-precaution.anamnese.arbeit.farbsehenErforderlich",
+                      "label": "Color discrimination required for activity"
+                    }
+                  ]
+                },
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/anamnese/properties/arbeit/properties/bildschirmStundenProTag",
+                      "i18n": "g37-screen-precaution.anamnese.arbeit.bildschirmStundenProTag",
+                      "label": "Screen time (h/day)"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/anamnese/properties/arbeit/properties/arbeitszeitStundenWoche",
+                      "i18n": "g37-screen-precaution.anamnese.arbeit.arbeitszeitStundenWoche",
+                      "label": "Working hours (h/week)"
+                    }
+                  ]
+                },
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/anamnese/properties/arbeit/properties/pausenRegelung",
+                      "i18n": "g37-screen-precaution.anamnese.arbeit.pausenRegelung",
+                      "label": "Regular screen breaks"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/anamnese/properties/arbeit/properties/beleuchtungOk",
+                      "i18n": "g37-screen-precaution.anamnese.arbeit.beleuchtungOk",
+                      "label": "Lighting in the workplace is sufficient"
+                    }
+                  ]
+                },
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/anamnese/properties/arbeit/properties/blendfrei",
+                      "i18n": "g37-screen-precaution.anamnese.arbeit.blendfrei",
+                      "label": "Anti-glare screen placement"
+                    },
+                    {
+                      "type": "Control",
+                      "scope": "#/properties/anamnese/properties/arbeit/properties/abstandCm",
+                      "i18n": "g37-screen-precaution.anamnese.arbeit.abstandCm",
+                      "label": "Distance between eyes and screen (cm)"
+                    }
+                  ]
+                }
+              ],
+              "i18n": "g37-screen-precaution.ui.2.0.1"
+            }
+          ]
+        }
+      ],
+      "i18n": "g37-screen-precaution.ui.2"
+    },
+    {
+      "type": "Step",
+      "label": "Investigation",
+      "elements": [
+        {
+          "type": "Categorization",
+          "elements": [
+            {
+              "type": "Category",
+              "label": "Program (oneOf)",
               "elements": [
                 {
                   "type": "Control",
                   "scope": "#/properties/programm",
-                  "label": "Erst- / Nach- / Ergänzungsuntersuchung"
+                  "label": "Initial / follow-up / supplementary examination",
+                  "i18n": "g37-screen-precaution.programm"
                 }
-              ]
+              ],
+              "i18n": "g37-screen-precaution.ui.3.0.0"
             }
           ]
         }
-      ]
+      ],
+      "i18n": "g37-screen-precaution.ui.3"
     },
     {
       "type": "Step",
-      "label": "Beurteilung",
+      "label": "Assessment",
       "elements": [
         {
           "type": "Control",
           "scope": "#/properties/beurteilung",
-          "label": "Arbeitsmedizinisches Ergebnis"
+          "label": "Occupational health result",
+          "i18n": "g37-screen-precaution.beurteilung"
         }
-      ]
+      ],
+      "i18n": "g37-screen-precaution.ui.4"
     },
     {
       "type": "Step",
-      "label": "Beratung",
+      "label": "Advice",
       "elements": [
         {
           "type": "Group",
-          "label": "Beratung (G37 2.2)",
+          "label": "Advice (G37 2.2)",
           "elements": [
-            { "type": "Control", "scope": "#/properties/beratung/properties/durchgefuehrt" },
+            {
+              "type": "Control",
+              "scope": "#/properties/beratung/properties/durchgefuehrt",
+              "i18n": "g37-screen-precaution.beratung.durchgefuehrt",
+              "label": "Consultation carried out"
+            },
             {
               "type": "HorizontalLayout",
               "elements": [
-                { "type": "Control", "scope": "#/properties/beratung/properties/ergonomie" },
-                { "type": "Control", "scope": "#/properties/beratung/properties/bildschirmPausen" }
+                {
+                  "type": "Control",
+                  "scope": "#/properties/beratung/properties/ergonomie",
+                  "i18n": "g37-screen-precaution.beratung.ergonomie",
+                  "label": "Ergonomics/workplace design"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/beratung/properties/bildschirmPausen",
+                  "i18n": "g37-screen-precaution.beratung.bildschirmPausen",
+                  "label": "Screen breaks"
+                }
               ]
             },
             {
               "type": "HorizontalLayout",
               "elements": [
-                { "type": "Control", "scope": "#/properties/beratung/properties/sehhilfen" },
-                { "type": "Control", "scope": "#/properties/beratung/properties/arbeitsorganisation" }
+                {
+                  "type": "Control",
+                  "scope": "#/properties/beratung/properties/sehhilfen",
+                  "i18n": "g37-screen-precaution.beratung.sehhilfen",
+                  "label": "Visual aids / computer workstation glasses"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/beratung/properties/arbeitsorganisation",
+                  "i18n": "g37-screen-precaution.beratung.arbeitsorganisation",
+                  "label": "Work organization / working hours"
+                }
               ]
             },
-            { "type": "Control", "scope": "#/properties/beratung/properties/sonstiges" }
-          ]
+            {
+              "type": "Control",
+              "scope": "#/properties/beratung/properties/sonstiges",
+              "i18n": "g37-screen-precaution.beratung.sonstiges",
+              "label": "Further consulting topics"
+            }
+          ],
+          "i18n": "g37-screen-precaution.ui.5.0"
         }
-      ]
+      ],
+      "i18n": "g37-screen-precaution.ui.5"
     },
     {
       "type": "Step",
-      "label": "Mitteilung",
+      "label": "Notice",
       "elements": [
         {
           "type": "Group",
-          "label": "Mitteilung an den Arbeitgeber (G37 3.3)",
+          "label": "Notification to the employer (G37 3.3)",
           "elements": [
-            { "type": "Control", "scope": "#/properties/mitteilungArbeitgeber/properties/bedenkenKategorie" },
-            { "type": "Control", "scope": "#/properties/mitteilungArbeitgeber/properties/zusammenfassung" },
+            {
+              "type": "Control",
+              "scope": "#/properties/mitteilungArbeitgeber/properties/bedenkenKategorie",
+              "i18n": "g37-screen-precaution.mitteilungArbeitgeber.bedenkenKategorie",
+              "label": "Assessment category"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/mitteilungArbeitgeber/properties/zusammenfassung",
+              "i18n": "g37-screen-precaution.mitteilungArbeitgeber.zusammenfassung",
+              "label": "Summary for the employer"
+            },
             {
               "type": "HorizontalLayout",
               "elements": [
-                { "type": "Control", "scope": "#/properties/mitteilungArbeitgeber/properties/naechsteUntersuchungMonate" },
-                { "type": "Control", "scope": "#/properties/mitteilungArbeitgeber/properties/vorzeitigeNachuntersuchung" }
+                {
+                  "type": "Control",
+                  "scope": "#/properties/mitteilungArbeitgeber/properties/naechsteUntersuchungMonate",
+                  "i18n": "g37-screen-precaution.mitteilungArbeitgeber.naechsteUntersuchungMonate",
+                  "label": "Recommended period of next follow-up examination (months)"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/mitteilungArbeitgeber/properties/vorzeitigeNachuntersuchung",
+                  "i18n": "g37-screen-precaution.mitteilungArbeitgeber.vorzeitigeNachuntersuchung",
+                  "label": "Early follow-up is recommended"
+                }
               ]
             }
-          ]
+          ],
+          "i18n": "g37-screen-precaution.ui.6.0"
         }
-      ]
+      ],
+      "i18n": "g37-screen-precaution.ui.6"
     },
     {
       "type": "Step",
-      "label": "Attest",
+      "label": "Certificate",
       "elements": [
         {
           "type": "Group",
-          "label": "Attestierung",
+          "label": "Attestation",
           "elements": [
             {
               "type": "HorizontalLayout",
               "elements": [
-                { "type": "Control", "scope": "#/properties/attest/properties/arztName" },
-                { "type": "Control", "scope": "#/properties/attest/properties/arztNummer" }
+                {
+                  "type": "Control",
+                  "scope": "#/properties/attest/properties/arztName",
+                  "i18n": "g37-screen-precaution.attest.arztName",
+                  "label": "Name of the authorized doctor"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/attest/properties/arztNummer",
+                  "i18n": "g37-screen-precaution.attest.arztNummer",
+                  "label": "Company number / LANR"
+                }
               ]
             },
             {
               "type": "HorizontalLayout",
               "elements": [
-                { "type": "Control", "scope": "#/properties/attest/properties/ort" },
-                { "type": "Control", "scope": "#/properties/attest/properties/datum" }
+                {
+                  "type": "Control",
+                  "scope": "#/properties/attest/properties/ort",
+                  "i18n": "g37-screen-precaution.attest.ort",
+                  "label": "City"
+                },
+                {
+                  "type": "Control",
+                  "scope": "#/properties/attest/properties/datum",
+                  "i18n": "g37-screen-precaution.attest.datum",
+                  "label": "Date"
+                }
               ]
             },
-            { "type": "Control", "scope": "#/properties/attest/properties/unterschriftErteilt" }
-          ]
+            {
+              "type": "Control",
+              "scope": "#/properties/attest/properties/unterschriftErteilt",
+              "i18n": "g37-screen-precaution.attest.unterschriftErteilt",
+              "label": "Form issued in full"
+            }
+          ],
+          "i18n": "g37-screen-precaution.ui.7.0"
         }
-      ]
+      ],
+      "i18n": "g37-screen-precaution.ui.7"
     }
   ]
 }

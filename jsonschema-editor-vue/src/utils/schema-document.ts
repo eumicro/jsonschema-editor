@@ -8,7 +8,9 @@ import {
   SchemaNode,
   StringSchema,
   buildDefRef,
+  globalJsonSchemaAttributeRegistry,
   parseDefRef,
+  transferCompatibleCustomAttributes,
 } from "@jsonschema-editor/json-schema";
 import { formatToSchemaKind } from "./schema-type-kinds";
 import type { SchemaPath } from "./schema-editor";
@@ -315,6 +317,12 @@ export function setPropertyKindInDocument(
   const field = createSchemaByKind(kind);
   field.title = existing.title;
   field.description = existing.description;
+  transferCompatibleCustomAttributes(
+    existing,
+    field,
+    globalJsonSchemaAttributeRegistry,
+    { preserveOffered: getSchemaTypeExtension(kind) !== undefined },
+  );
   return replaceInDocument(document, propertyPath, field);
 }
 

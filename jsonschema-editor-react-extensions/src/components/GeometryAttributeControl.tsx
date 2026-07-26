@@ -6,17 +6,24 @@ import {
   type GeometryExtensionConfig,
   type NormalizedGeometryConfig,
 } from "@jsonschema-editor/json-schema-extensions";
-import { JseInput, JseSelect, type AttributeControlProps } from "@jsonschema-editor/react";
+import {
+  JseInput,
+  JseSelect,
+  useJseI18n,
+  type AttributeControlProps,
+} from "@jsonschema-editor/react";
 
 type CountMode = "range" | "exact";
 
 function readConfig(value: unknown): NormalizedGeometryConfig {
-  return isGeometryExtensionConfig(value) ? normalizeGeometryConfig(value) : normalizeGeometryConfig();
+  return isGeometryExtensionConfig(value)
+    ? normalizeGeometryConfig(value)
+    : normalizeGeometryConfig();
 }
 
 function toStoredConfig(
   draft: NormalizedGeometryConfig,
-  countMode: CountMode,
+  countMode: CountMode
 ): GeometryExtensionConfig {
   const base: GeometryExtensionConfig = {
     styleUrl: draft.styleUrl,
@@ -42,9 +49,12 @@ export function GeometryAttributeControl({
   modelValue,
   onModelValueChange,
 }: AttributeControlProps) {
-  const [draft, setDraft] = useState<NormalizedGeometryConfig>(() => readConfig(modelValue));
+  const { t } = useJseI18n();
+  const [draft, setDraft] = useState<NormalizedGeometryConfig>(() =>
+    readConfig(modelValue)
+  );
   const [countMode, setCountMode] = useState<CountMode>(() =>
-    readConfig(modelValue).exactObjects !== undefined ? "exact" : "range",
+    readConfig(modelValue).exactObjects !== undefined ? "exact" : "range"
   );
 
   useEffect(() => {
@@ -55,7 +65,10 @@ export function GeometryAttributeControl({
 
   const atLeastOneType = draft.point || draft.line || draft.polygon;
 
-  function commit(nextDraft: NormalizedGeometryConfig, mode: CountMode = countMode): void {
+  function commit(
+    nextDraft: NormalizedGeometryConfig,
+    mode: CountMode = countMode
+  ): void {
     if (!nextDraft.point && !nextDraft.line && !nextDraft.polygon) return;
     onModelValueChange?.(toStoredConfig(nextDraft, mode));
   }
@@ -91,7 +104,10 @@ export function GeometryAttributeControl({
           modelValue={draft.styleUrl}
           disabled={readonly}
           onModelValueChange={(value) => {
-            const next = { ...draft, styleUrl: value || DEFAULT_GEOMETRY_STYLE_URL };
+            const next = {
+              ...draft,
+              styleUrl: value || DEFAULT_GEOMETRY_STYLE_URL,
+            };
             setDraft(next);
             commit(next);
           }}
@@ -109,7 +125,7 @@ export function GeometryAttributeControl({
             commit(next);
           }}
         />
-        Punkt
+        {t("extensions.geometry.point")}
       </label>
 
       <label className="jse-geometry-attr__check">
@@ -123,7 +139,7 @@ export function GeometryAttributeControl({
             commit(next);
           }}
         />
-        Linie
+        {t("extensions.geometry.line")}
       </label>
 
       <label className="jse-geometry-attr__check">
@@ -137,19 +153,25 @@ export function GeometryAttributeControl({
             commit(next);
           }}
         />
-        Polygon
+        {t("extensions.geometry.polygon")}
       </label>
 
       <label className="jse-geometry-attr__row">
-        <span>Anzahl-Modus</span>
+        <span>{t("schemaAttributes.x-geometry.countMode")}</span>
         <JseSelect
           className="jse-field__input"
           modelValue={countMode}
           disabled={readonly}
-          onModelValueChange={(value) => setCountModeAndCommit(String(value) as CountMode)}
+          onModelValueChange={(value) =>
+            setCountModeAndCommit(String(value) as CountMode)
+          }
         >
-          <option value="range">Bereich (min–max)</option>
-          <option value="exact">Exakt</option>
+          <option value="range">
+            {t("schemaAttributes.x-geometry.countModeRange")}
+          </option>
+          <option value="exact">
+            {t("schemaAttributes.x-geometry.countModeExact")}
+          </option>
         </JseSelect>
       </label>
 
@@ -220,7 +242,7 @@ export function GeometryAttributeControl({
 
       {!atLeastOneType ? (
         <p className="jse-field__hint jse-field__hint--error">
-          Mindestens ein Geometrietyp muss aktiv sein.
+          {t("schemaAttributes.x-geometry.typeRequired")}
         </p>
       ) : null}
     </fieldset>
