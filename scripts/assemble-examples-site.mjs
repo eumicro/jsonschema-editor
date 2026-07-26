@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { cpSync, mkdirSync, readFileSync, rmSync, writeFileSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -14,12 +15,23 @@ function assertDist(label, dir) {
   }
 }
 
-/** Vite emits extracted CSS linked from dist/index.html — bootstrap must load those too. */
-function cssHrefsFromDist(dist) {
+/** Vite emits extracted CSS + JS linked from dist/index.html. */
+function assetsFromDist(dist) {
   const indexPath = join(dist, "index.html");
-  if (!existsSync(indexPath)) return [];
+  if (!existsSync(indexPath)) return { script: undefined, css: [] };
   const html = readFileSync(indexPath, "utf8");
-  return [...html.matchAll(/href="(\/assets\/[^"]+\.css)"/g)].map((m) => m[1]);
+  const script = html.match(/src="(\/assets\/[^"]+\.js)"/)?.[1];
+  const css = [...html.matchAll(/href="(\/assets\/[^"]+\.css)"/g)].map((m) => m[1]);
+  return { script, css };
+}
+
+/** Stable entry names (main.js) need a content hash or CDNs/browsers keep stale JS. */
+function withContentHash(urlPath) {
+  if (!urlPath) return urlPath;
+  const filePath = join(siteDir, urlPath.replace(/^\//, ""));
+  if (!existsSync(filePath)) return urlPath;
+  const hash = createHash("sha256").update(readFileSync(filePath)).digest("hex").slice(0, 8);
+  return `${urlPath}?v=${hash}`;
 }
 
 assertDist("Vue", vueDist);
@@ -31,8 +43,14 @@ mkdirSync(siteDir, { recursive: true });
 cpSync(join(vueDist, "assets"), join(siteDir, "assets"), { recursive: true });
 cpSync(join(reactDist, "assets"), join(siteDir, "assets"), { recursive: true });
 
-const vueCss = cssHrefsFromDist(vueDist);
-const reactCss = cssHrefsFromDist(reactDist);
+const vueAssets = assetsFromDist(vueDist);
+const reactAssets = assetsFromDist(reactDist);
+
+const vueCss = vueAssets.css;
+const reactCss = reactAssets.css;
+const vueEntry = withContentHash(vueAssets.script ?? "/assets/vue/main.js");
+const reactEntry = withContentHash(reactAssets.script ?? "/assets/react/main.js");
+
 if (vueCss.length === 0) {
   console.warn("Warning: no Vue CSS linked in dist/index.html — site will render unstyled.");
 }
@@ -51,6 +69,8 @@ const bootstrap = `<!doctype html>
         var STACK_KEY = "jse.site.stack";
         var VUE_CSS = ${JSON.stringify(vueCss)};
         var REACT_CSS = ${JSON.stringify(reactCss)};
+        var VUE_ENTRY = ${JSON.stringify(vueEntry)};
+        var REACT_ENTRY = ${JSON.stringify(reactEntry)};
         function preferredStack() {
           try {
             var raw = sessionStorage.getItem(STACK_KEY);
@@ -78,10 +98,9 @@ const bootstrap = `<!doctype html>
             ? parts[2]
             : preferredStack();
         injectStyles(stack === "react" ? REACT_CSS : VUE_CSS);
-        var entry = stack === "react" ? "/assets/react/main.js" : "/assets/vue/main.js";
         var s = document.createElement("script");
         s.type = "module";
-        s.src = entry;
+        s.src = stack === "react" ? REACT_ENTRY : VUE_ENTRY;
         document.head.appendChild(s);
       })();
     </script>
@@ -102,5 +121,5 @@ if (existsSync(publicDir)) {
 }
 
 console.log(`Assembled examples site at ${siteDir}`);
-console.log(`  Vue CSS: ${vueCss.join(", ") || "(none)"}`);
-console.log(`  React CSS: ${reactCss.join(", ") || "(none)"}`);
+console.log(`  Vue:  ${vueEntry} + ${vueCss.join(", ") || "(no css)"}`);
+console.log(`  React: ${reactEntry} + ${reactCss.join(", ") || "(no css)"}`);
