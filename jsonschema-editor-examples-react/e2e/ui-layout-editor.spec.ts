@@ -55,12 +55,16 @@ test.describe("UI-Schema Layout-Editor", () => {
 
     const panel = page.locator("#jse-editor-ui");
     const groupBlock = panel.locator(".jse-layout-block--group").filter({ hasText: "Untersuchte Person" });
+    await groupBlock.scrollIntoViewIfNeeded();
     const groupStack = groupBlock.locator(":scope > .jse-layout-editor__stack");
 
-    await groupBlock.locator(":scope > .jse-layout-block__header").click();
+    const groupHeader = groupBlock.locator(":scope > .jse-layout-block__header");
+    await groupHeader.click();
     const chip = panel.getByTestId("ui-add-toolbar").getByRole("button", { name: "+ VerticalLayout" });
     await expect(chip).toBeEnabled();
-    await chip.dragTo(groupStack);
+
+    // Drop on the group header (layout drop handler). Stack center hits nested HorizontalLayouts.
+    await chip.dragTo(groupHeader);
 
     const nameLayout = groupStack.locator(":scope > .jse-layout-block--vertical").last();
     await expect(nameLayout).toBeVisible();

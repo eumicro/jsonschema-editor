@@ -49,16 +49,22 @@ test.describe("UI-Schema Layout-Editor", () => {
   });
 
   test("G37: VerticalLayout per Palette-Drag und Drag-Handle anzeigen", async ({ page }) => {
-    await page.locator("#app-example-select").selectOption("occupational-health-g37");
+    await selectExample(page, "occupational-health-g37");
+    await openEditorMode(page);
+    await page.getByRole("tab", { name: "Schema-UI" }).click();
 
     const panel = page.locator("#jse-editor-ui");
     const groupBlock = panel.locator(".jse-layout-block--group").filter({ hasText: "Untersuchte Person" });
+    await groupBlock.scrollIntoViewIfNeeded();
     const groupStack = groupBlock.locator(":scope > .jse-layout-editor__stack");
 
-    await groupBlock.locator(":scope > .jse-layout-block__header").click();
+    const groupHeader = groupBlock.locator(":scope > .jse-layout-block__header");
+    await groupHeader.click();
     const chip = panel.getByTestId("ui-add-toolbar").getByRole("button", { name: "+ VerticalLayout" });
     await expect(chip).toBeEnabled();
-    await chip.dragTo(groupStack);
+
+    // Drop on the group header (layout drop handler). Stack center hits nested HorizontalLayouts.
+    await chip.dragTo(groupHeader);
 
     const nameLayout = groupStack.locator(":scope > .jse-layout-block--vertical").last();
     await expect(nameLayout).toBeVisible();
@@ -69,10 +75,11 @@ test.describe("UI-Schema Layout-Editor", () => {
   });
 
   test("G37: am Stepper-Root sind unverträgliche Palette-Chips ausgegraut", async ({ page }) => {
-    await page.locator("#app-example-select").selectOption("occupational-health-g37");
-    const panel = page.locator("#jse-editor-ui");
-    const toolbar = panel.getByTestId("ui-add-toolbar");
+    await selectExample(page, "occupational-health-g37");
+    await openEditorMode(page);
+    await page.getByRole("tab", { name: "Schema-UI" }).click();
 
+    const toolbar = page.locator("#jse-editor-ui").getByTestId("ui-add-toolbar");
     await expect(toolbar.getByRole("button", { name: "+ Step", exact: true })).toBeEnabled();
     await expect(toolbar.getByRole("button", { name: "+ VerticalLayout" })).toBeDisabled();
     await expect(toolbar.getByRole("button", { name: "+ Control" })).toBeDisabled();
