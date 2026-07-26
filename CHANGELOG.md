@@ -16,6 +16,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 
 
+## [0.1.13] - 2026-07-26
+
+
+
+### Added
+
+- Built-in editor locales: French, Italian, Polish, Ukrainian, Russian, Chinese, Japanese (`fr`, `it`, `pl`, `uk`, `ru`, `zh`, `ja`)
+- `@jsonschema-editor/json-schema-extensions` / Vue & React extensions: `x-rating`, `x-progress-bar`, `date-today`, CEL expression editor helpers, computed sync
+- Example site: shared Vue/React host, multilingual get-started, low-code hero messaging, scrollable form-data panel, additional scenario i18n
+
 ## [0.1.12] - 2026-07-26
 
 

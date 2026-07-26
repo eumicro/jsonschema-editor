@@ -1,5 +1,15 @@
 # @jsonschema-editor/react
 
+## 0.1.13
+
+### Patch Changes
+
+- e6f719d: Add built-in locales (fr, it, pl, uk, ru, zh, ja), rating/progress-bar/date-today field extensions, computed sync helpers, and example-site UX (low-code hero, multilingual get-started, scrollable form-data panel).
+- Updated dependencies [e6f719d]
+  - @jsonschema-editor/json-schema@0.1.13
+  - @jsonschema-editor/json-schema-extensions@0.1.13
+  - @jsonschema-editor/ui-schema@0.1.13
+
 ## 0.1.12
 
 ### Patch Changes
