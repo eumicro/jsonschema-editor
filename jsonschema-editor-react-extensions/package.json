@@ -1,6 +1,6 @@
 {
   "name": "@jsonschema-editor/react-extensions",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "React form field renderers for JSON Schema extensions (formats, values-source, computed, file, geometry)",
   "type": "module",
   "license": "MIT",
@@ -40,7 +40,9 @@
     "dist",
     "README.md"
   ],
-  "sideEffects": ["**/*.css"],
+  "sideEffects": [
+    "**/*.css"
+  ],
   "scripts": {
     "prebuild": "node --input-type=module -e \"import fs from 'node:fs'; fs.rmSync('dist',{recursive:true,force:true})\"",
     "build": "tsc -p tsconfig.json --noEmit && vite build",

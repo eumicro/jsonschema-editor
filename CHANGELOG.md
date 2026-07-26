@@ -16,6 +16,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 
 
+## [0.1.12] - 2026-07-26
+
+
+
+### Added
+
+- `@jsonschema-editor/vue` / `@jsonschema-editor/react`: UI layout palette with drag-and-drop chips (insert under selected layout parent; incompatible kinds grayed out)
+- `@jsonschema-editor/vue` / `@jsonschema-editor/react`: control scope suggestions from the JSON Schema (unused scopes only) with a warning when a scope is reused
+- `@jsonschema-editor/vue` / `@jsonschema-editor/react`: editable Category and Step labels in the UI attributes panel
+- Example apps: Playwright coverage for palette drag-and-drop and Stepper chip filtering
+
+
+
 ## [0.1.11] - 2026-07-12
 
 
