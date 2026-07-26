@@ -1,6 +1,6 @@
 node_modules/
 dist/
-site/
+/site/
 *.local
 .DS_Store
 .cursor/
