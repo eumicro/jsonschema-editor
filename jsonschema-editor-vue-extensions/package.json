@@ -1,10 +1,14 @@
 {
   "name": "@jsonschema-editor/vue-extensions",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "description": "Vue form field renderers for JSON Schema format extensions (email, url, phone) and map geometry (x-geometry)",
   "type": "module",
   "license": "MIT",
   "author": "JSON Schema Editor Contributors",
+  "funding": {
+    "type": "paypal",
+    "url": "https://paypal.me/eumicro"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/eumicro/jsonschema-editor.git",

@@ -2,6 +2,10 @@
   "name": "jsonschema-editor",
   "private": true,
   "description": "Monorepo for @jsonschema-editor — JSON Schema, UI Schema, Vue and React form editors",
+  "funding": {
+    "type": "paypal",
+    "url": "https://paypal.me/eumicro"
+  },
   "scripts": {
     "build": "pnpm -r --filter @jsonschema-editor/json-schema --filter @jsonschema-editor/json-schema-extensions --filter @jsonschema-editor/ui-schema --filter @jsonschema-editor/vue --filter @jsonschema-editor/vue-extensions --filter @jsonschema-editor/react --filter @jsonschema-editor/react-extensions run build",
     "typecheck": "pnpm -r --filter @jsonschema-editor/json-schema --filter @jsonschema-editor/json-schema-extensions --filter @jsonschema-editor/ui-schema --filter @jsonschema-editor/vue --filter @jsonschema-editor/vue-extensions --filter @jsonschema-editor/react --filter @jsonschema-editor/react-extensions run typecheck",

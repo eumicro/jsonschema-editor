@@ -1,5 +1,15 @@
 # @jsonschema-editor/vue-extensions
 
+## 0.1.14
+
+### Patch Changes
+
+- Add PayPal funding metadata for npm and GitHub Sponsors button.
+- Updated dependencies
+  - @jsonschema-editor/json-schema@0.1.14
+  - @jsonschema-editor/json-schema-extensions@0.1.14
+  - @jsonschema-editor/vue@0.1.14
+
 ## 0.1.13
 
 ### Patch Changes

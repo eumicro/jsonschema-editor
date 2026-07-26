@@ -1,10 +1,14 @@
 {
   "name": "@jsonschema-editor/vue",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "description": "JSON Schema form editor and fillable form for Vue 3",
   "type": "module",
   "license": "MIT",
   "author": "JSON Schema Editor Contributors",
+  "funding": {
+    "type": "paypal",
+    "url": "https://paypal.me/eumicro"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/eumicro/jsonschema-editor.git",
