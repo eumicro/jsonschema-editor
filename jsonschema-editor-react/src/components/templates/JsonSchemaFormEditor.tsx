@@ -114,6 +114,7 @@ function JsonSchemaFormEditorBody({
               <UiStructureEditor
                 root={uiRoot}
                 selectedPath={selectedUiPath}
+                document={documentRef}
                 onRootChange={updateUiRoot}
                 onSelectedPathChange={setSelectedUiPath}
               />

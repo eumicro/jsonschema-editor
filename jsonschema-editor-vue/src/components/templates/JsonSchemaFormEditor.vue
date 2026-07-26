@@ -90,6 +90,7 @@ const {
         <UiStructureEditor
           :root="uiRoot"
           :selected-path="selectedUiPath"
+          :document="documentRef"
           @update:root="updateUiRoot"
           @update:selected-path="selectedUiPath = $event"
         />

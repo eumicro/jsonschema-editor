@@ -2,7 +2,9 @@ import { Fragment, useMemo, useState } from "react";
 import type { UiElement } from "@jsonschema-editor/ui-schema";
 import { Control, HorizontalLayout } from "@jsonschema-editor/ui-schema";
 import {
+  canAcceptUiChild,
   canMoveUiElementTo,
+  createUiElement,
   getUiElementAt,
   getUiElementLabel,
   isLayoutElement,
@@ -13,10 +15,13 @@ import {
 } from "../../utils/ui-editor.js";
 import { canAcceptUiChildren, canDeleteUiElement } from "../../utils/ui-tree-actions.js";
 import {
+  getActiveLayoutDragSourcePath,
+  getActivePaletteKind,
+  parsePaletteDragData,
   resolveStackInsertIndex,
   setActiveLayoutDragSourcePath,
-  getActiveLayoutDragSourcePath,
 } from "../../utils/ui-layout-drag.js";
+import type { UiPaletteKind } from "../../utils/ui-palette.js";
 import { useJseI18n } from "../../context/JseI18nContext.js";
 import { useTreeNodeActionLabels } from "../../hooks/useTreeNodeActionLabels.js";
 import { UiLayoutDropZone } from "../atoms/UiLayoutDropZone.js";
@@ -27,6 +32,7 @@ export interface UiLayoutEditorNodeProps {
   path: UiPath;
   selectedPath: UiPath;
   dragSourcePath: UiPath | null;
+  paletteKind?: string | null;
   depth?: number;
   onSelect: (path: UiPath) => void;
   onAdd: (path: UiPath, event: React.MouseEvent) => void;
@@ -41,6 +47,7 @@ export function UiLayoutEditorNode({
   path,
   selectedPath,
   dragSourcePath,
+  paletteKind = null,
   depth = 0,
   onSelect,
   onAdd,
@@ -86,19 +93,35 @@ export function UiLayoutEditorNode({
     return "jse-layout-block--default";
   }, [element.elementKind]);
 
+  function resolvePaletteKind(event?: React.DragEvent): string | null {
+    if (paletteKind) return paletteKind;
+    const active = getActivePaletteKind();
+    if (active) return active;
+    return parsePaletteDragData(event?.dataTransfer?.getData("text/plain"));
+  }
+
   function resolveDragSourcePath(event?: React.DragEvent): UiPath | null {
+    if (resolvePaletteKind(event)) return null;
     if (dragSourcePath) return dragSourcePath;
     const activePath = getActiveLayoutDragSourcePath(parseUiPathKey);
     if (activePath) return activePath;
     const key = event?.dataTransfer?.getData("text/plain");
-    return key ? parseUiPathKey(key) : null;
+    if (!key || parsePaletteDragData(key)) return null;
+    return parseUiPathKey(key);
   }
 
   function canDropAt(insertIndex: number, event?: React.DragEvent): boolean {
+    const kind = resolvePaletteKind(event);
+    if (kind) {
+      if (!isLayoutElement(element)) return false;
+      return canAcceptUiChild(element, createUiElement(kind as UiPaletteKind));
+    }
     const sourcePath = resolveDragSourcePath(event);
     if (!sourcePath) return false;
     return canMoveUiElementTo(root, sourcePath, path, insertIndex);
   }
+
+  const hasActiveDrag = dragSourcePath !== null || Boolean(paletteKind);
 
   function handleDragStart(event: React.DragEvent) {
     onDragStart(path);
@@ -109,7 +132,7 @@ export function UiLayoutEditorNode({
 
   function onLayoutDragEnter(event: React.DragEvent) {
     if (!isLayout) return;
-    if (!resolveDragSourcePath(event)) return;
+    if (!resolveDragSourcePath(event) && !resolvePaletteKind(event)) return;
     event.preventDefault();
   }
 
@@ -243,7 +266,7 @@ export function UiLayoutEditorNode({
           {children.map((childPath, index) => (
             <Fragment key={uiPathKey(childPath)}>
               <UiLayoutDropZone
-                active={activeDropIndex === index && dragSourcePath !== null}
+                active={activeDropIndex === index && hasActiveDrag}
                 onDragOver={(event) => onDropZoneDragOver(index, event)}
                 onDragLeave={() => setActiveDropIndex(null)}
                 onDrop={(event) => onDropZoneDrop(index, event)}
@@ -253,6 +276,7 @@ export function UiLayoutEditorNode({
                 path={childPath}
                 selectedPath={selectedPath}
                 dragSourcePath={dragSourcePath}
+                paletteKind={paletteKind}
                 depth={depth + 1}
                 onSelect={onSelect}
                 onAdd={onAdd}
@@ -264,9 +288,9 @@ export function UiLayoutEditorNode({
             </Fragment>
           ))}
 
-          {children.length === 0 || dragSourcePath ? (
+          {children.length === 0 || hasActiveDrag ? (
             <UiLayoutDropZone
-              active={activeDropIndex === children.length && dragSourcePath !== null}
+              active={activeDropIndex === children.length && hasActiveDrag}
               label={children.length === 0 ? t("layout.dropElement") : undefined}
               onDragOver={(event) => onDropZoneDragOver(children.length, event)}
               onDragLeave={() => setActiveDropIndex(null)}

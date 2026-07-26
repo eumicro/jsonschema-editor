@@ -1,28 +1,53 @@
 import { useState } from "react";
+import type { SchemaDocument } from "@jsonschema-editor/json-schema";
 import type { UiElement } from "@jsonschema-editor/ui-schema";
-import { moveUiElementTo, parseUiPathKey, uiPathKey, type UiPath } from "../../utils/ui-editor.js";
-import { setActiveLayoutDragSourcePath } from "../../utils/ui-layout-drag.js";
+import {
+  canAcceptUiChild,
+  getUiElementAt,
+  insertUiElement,
+  moveUiElementTo,
+  parseUiPathKey,
+  uiPathKey,
+  type UiPath,
+} from "../../utils/ui-editor.js";
+import {
+  clearLayoutDragState,
+  parsePaletteDragData,
+  setActiveLayoutDragSourcePath,
+} from "../../utils/ui-layout-drag.js";
+import {
+  createPaletteUiElement,
+  type UiPaletteKind,
+} from "../../utils/ui-palette.js";
+import { useJseI18n } from "../../context/JseI18nContext.js";
 import { UiLayoutEditorNode } from "../molecules/UiLayoutEditorNode.js";
 
 export interface UiLayoutEditorProps {
   root: UiElement;
   selectedPath: UiPath;
+  document?: SchemaDocument | null;
+  paletteKind?: string | null;
   onRootChange: (root: UiElement, path?: UiPath) => void;
   onSelectedPathChange: (path: UiPath) => void;
   onAdd: (path: UiPath, event: React.MouseEvent) => void;
   onEdit: (path: UiPath, event: React.MouseEvent) => void;
   onDelete: (path: UiPath) => void;
+  onPaletteDragEnd?: () => void;
 }
 
 export function UiLayoutEditor({
   root,
   selectedPath,
+  document,
+  paletteKind = null,
   onRootChange,
   onSelectedPathChange,
   onAdd,
   onEdit,
   onDelete,
+  onPaletteDragEnd,
 }: UiLayoutEditorProps) {
+  const { t } = useJseI18n();
   const [dragSourcePath, setDragSourcePath] = useState<UiPath | null>(null);
 
   function patchRoot(next: UiElement, path?: UiPath) {
@@ -38,19 +63,42 @@ export function UiLayoutEditor({
   function onDragEnd() {
     window.setTimeout(() => {
       setDragSourcePath(null);
-      setActiveLayoutDragSourcePath(null, uiPathKey);
+      clearLayoutDragState();
+      onPaletteDragEnd?.();
     }, 0);
   }
 
+  function resolvePaletteKind(event?: React.DragEvent): string | null {
+    if (paletteKind) return paletteKind;
+    return parsePaletteDragData(event?.dataTransfer?.getData("text/plain"));
+  }
+
   function onDropAt(parentPath: UiPath, insertIndex: number, event?: React.DragEvent) {
+    const kind = resolvePaletteKind(event);
+    if (kind) {
+      const parent = getUiElementAt(root, parentPath);
+      const element = createPaletteUiElement(kind as UiPaletteKind, {
+        root,
+        document,
+        translate: t,
+      });
+      if (!canAcceptUiChild(parent, element)) return;
+      const next = insertUiElement(root, parentPath, element, insertIndex);
+      setDragSourcePath(null);
+      clearLayoutDragState();
+      onPaletteDragEnd?.();
+      patchRoot(next, [...parentPath, insertIndex]);
+      return;
+    }
+
     let sourcePath = dragSourcePath;
     if (!sourcePath && event?.dataTransfer) {
       const key = event.dataTransfer.getData("text/plain");
-      if (key) sourcePath = parseUiPathKey(key);
+      if (key && !parsePaletteDragData(key)) sourcePath = parseUiPathKey(key);
     }
     if (!sourcePath) return;
     setDragSourcePath(null);
-    setActiveLayoutDragSourcePath(null, uiPathKey);
+    clearLayoutDragState();
     patchRoot(moveUiElementTo(root, sourcePath, parentPath, insertIndex), sourcePath);
   }
 
@@ -58,7 +106,7 @@ export function UiLayoutEditor({
     <div
       className={[
         "jse-layout-editor",
-        dragSourcePath !== null ? "jse-layout-editor--dragging" : "",
+        dragSourcePath !== null || paletteKind ? "jse-layout-editor--dragging" : "",
       ]
         .filter(Boolean)
         .join(" ")}
@@ -69,6 +117,7 @@ export function UiLayoutEditor({
         path={[]}
         selectedPath={selectedPath}
         dragSourcePath={dragSourcePath}
+        paletteKind={paletteKind}
         onSelect={onSelectedPathChange}
         onAdd={onAdd}
         onEdit={onEdit}

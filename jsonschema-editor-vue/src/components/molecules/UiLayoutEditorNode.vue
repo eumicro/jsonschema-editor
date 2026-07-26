@@ -3,7 +3,9 @@ import { computed, ref } from "vue";
 import type { UiElement } from "@jsonschema-editor/ui-schema";
 import { Control, HorizontalLayout } from "@jsonschema-editor/ui-schema";
 import {
+  canAcceptUiChild,
   canMoveUiElementTo,
+  createUiElement,
   getUiElementAt,
   getUiElementLabel,
   isLayoutElement,
@@ -13,7 +15,14 @@ import {
   type UiPath,
 } from "../../utils/ui-editor";
 import { canAcceptUiChildren, canDeleteUiElement } from "../../utils/ui-tree-actions";
-import { resolveStackInsertIndex, setActiveLayoutDragSourcePath, getActiveLayoutDragSourcePath } from "../../utils/ui-layout-drag";
+import {
+  getActiveLayoutDragSourcePath,
+  getActivePaletteKind,
+  parsePaletteDragData,
+  resolveStackInsertIndex,
+  setActiveLayoutDragSourcePath,
+} from "../../utils/ui-layout-drag";
+import type { UiPaletteKind } from "../../utils/ui-palette";
 import { useJseI18n } from "../../composables/useJseI18n";
 import { useTreeNodeActionLabels } from "../../composables/useTreeNodeActionLabels";
 import UiLayoutDropZone from "../atoms/UiLayoutDropZone.vue";
@@ -26,6 +35,7 @@ const props = defineProps<{
   path: UiPath;
   selectedPath: UiPath;
   dragSourcePath: UiPath | null;
+  paletteKind?: string | null;
   depth?: number;
 }>();
 
@@ -75,19 +85,40 @@ const blockClass = computed(() => {
   return "jse-layout-block--default";
 });
 
+function resolvePaletteKind(event?: DragEvent): string | null {
+  if (props.paletteKind) return props.paletteKind;
+  const active = getActivePaletteKind();
+  if (active) return active;
+  return parsePaletteDragData(event?.dataTransfer?.getData("text/plain"));
+}
+
 function resolveDragSourcePath(event?: DragEvent): UiPath | null {
+  if (resolvePaletteKind(event)) return null;
   if (props.dragSourcePath) return props.dragSourcePath;
   const activePath = getActiveLayoutDragSourcePath(parseUiPathKey);
   if (activePath) return activePath;
   const key = event?.dataTransfer?.getData("text/plain");
-  return key ? parseUiPathKey(key) : null;
+  if (!key || parsePaletteDragData(key)) return null;
+  return parseUiPathKey(key);
 }
 
 function canDropAt(insertIndex: number, event?: DragEvent): boolean {
+  const paletteKind = resolvePaletteKind(event);
+  if (paletteKind) {
+    if (!isLayoutElement(element.value)) return false;
+    return canAcceptUiChild(
+      element.value,
+      createUiElement(paletteKind as UiPaletteKind),
+    );
+  }
   const sourcePath = resolveDragSourcePath(event);
   if (!sourcePath) return false;
   return canMoveUiElementTo(props.root, sourcePath, props.path, insertIndex);
 }
+
+const hasActiveDrag = computed(
+  () => props.dragSourcePath !== null || Boolean(props.paletteKind),
+);
 
 function onDragStart(event: DragEvent) {
   emit("dragStart", props.path);
@@ -98,7 +129,7 @@ function onDragStart(event: DragEvent) {
 
 function onLayoutDragEnter(event: DragEvent) {
   if (!isLayout.value) return;
-  if (!resolveDragSourcePath(event)) return;
+  if (!resolveDragSourcePath(event) && !resolvePaletteKind(event)) return;
   event.preventDefault();
 }
 
@@ -220,7 +251,7 @@ function onDropZoneDrop(insertIndex: number, event: DragEvent) {
     >
       <template v-for="(childPath, index) in children" :key="uiPathKey(childPath)">
         <UiLayoutDropZone
-          :active="activeDropIndex === index && dragSourcePath !== null"
+          :active="activeDropIndex === index && hasActiveDrag"
           @dragover="onDropZoneDragOver(index, $event)"
           @dragleave="onDropZoneDragLeave"
           @drop="onDropZoneDrop(index, $event)"
@@ -230,6 +261,7 @@ function onDropZoneDrop(insertIndex: number, event: DragEvent) {
           :path="childPath"
           :selected-path="selectedPath"
           :drag-source-path="dragSourcePath"
+          :palette-kind="paletteKind"
           :depth="(depth ?? 0) + 1"
           @select="emit('select', $event)"
           @add="(childPath, event) => emit('add', childPath, event)"
@@ -241,8 +273,8 @@ function onDropZoneDrop(insertIndex: number, event: DragEvent) {
       </template>
 
       <UiLayoutDropZone
-        v-if="children.length === 0 || dragSourcePath"
-        :active="activeDropIndex === children.length && dragSourcePath !== null"
+        v-if="children.length === 0 || hasActiveDrag"
+        :active="activeDropIndex === children.length && hasActiveDrag"
         :label="children.length === 0 ? t('layout.dropElement') : undefined"
         @dragover="onDropZoneDragOver(children.length, $event)"
         @dragleave="onDropZoneDragLeave"

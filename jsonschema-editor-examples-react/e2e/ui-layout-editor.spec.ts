@@ -13,6 +13,26 @@ test.describe("UI-Schema Layout-Editor", () => {
     await expect(page.getByRole("tab", { name: "Layout-Editor", selected: true })).toBeVisible();
     await expect(page.locator(".jse-layout-editor")).toBeVisible();
     await expect(page.locator(".jse-layout-block").first()).toBeVisible();
+    await expect(page.getByTestId("ui-add-toolbar")).toBeVisible();
+    await expect(page.getByRole("button", { name: "+ VerticalLayout" })).toBeVisible();
+  });
+
+  test("Palette liegt unter dem Layout-Editor", async ({ page }) => {
+    const panel = page.locator("#jse-editor-ui");
+    const layoutBox = await panel.locator(".jse-layout-editor").boundingBox();
+    const toolbarBox = await panel.getByTestId("ui-add-toolbar").boundingBox();
+    expect(layoutBox).toBeTruthy();
+    expect(toolbarBox).toBeTruthy();
+    expect(toolbarBox!.y).toBeGreaterThan(layoutBox!.y);
+  });
+
+  test("fügt VerticalLayout per Palette-Drag hinzu", async ({ page }) => {
+    const panel = page.locator("#jse-editor-ui");
+    const before = await panel.locator(".jse-layout-block--vertical").count();
+    const chip = panel.getByTestId("ui-add-toolbar").getByRole("button", { name: "+ VerticalLayout" });
+    const dropTarget = panel.locator(".jse-layout-editor__stack").first();
+    await chip.dragTo(dropTarget);
+    await expect(panel.locator(".jse-layout-block--vertical")).toHaveCount(before + 1);
   });
 
   test("wechselt zwischen Layout-Editor und Baumansicht", async ({ page }) => {
@@ -28,7 +48,7 @@ test.describe("UI-Schema Layout-Editor", () => {
     await expect(panel.locator(".jse-layout-block__drag-handle").first()).toBeVisible();
   });
 
-  test("G37: VerticalLayout hinzufügen und Drag-Handle anzeigen", async ({ page }) => {
+  test("G37: VerticalLayout per Palette-Drag und Drag-Handle anzeigen", async ({ page }) => {
     await selectExample(page, "occupational-health-g37");
     await openEditorMode(page);
     await page.getByRole("tab", { name: "Schema-UI" }).click();
@@ -37,8 +57,10 @@ test.describe("UI-Schema Layout-Editor", () => {
     const groupBlock = panel.locator(".jse-layout-block--group").filter({ hasText: "Untersuchte Person" });
     const groupStack = groupBlock.locator(":scope > .jse-layout-editor__stack");
 
-    await groupBlock.getByRole("button", { name: "Element zu Untersuchte Person hinzufügen" }).click();
-    await page.getByRole("button", { name: "+ VerticalLayout" }).click();
+    await groupBlock.locator(":scope > .jse-layout-block__header").click();
+    const chip = panel.getByTestId("ui-add-toolbar").getByRole("button", { name: "+ VerticalLayout" });
+    await expect(chip).toBeEnabled();
+    await chip.dragTo(groupStack);
 
     const nameLayout = groupStack.locator(":scope > .jse-layout-block--vertical").last();
     await expect(nameLayout).toBeVisible();
@@ -46,5 +68,16 @@ test.describe("UI-Schema Layout-Editor", () => {
 
     const nachname = groupStack.locator(".jse-layout-block--control").filter({ hasText: "nachname" });
     await expect(nachname.locator(".jse-layout-block__drag-handle")).toBeVisible();
+  });
+
+  test("G37: am Stepper-Root sind unverträgliche Palette-Chips ausgegraut", async ({ page }) => {
+    await selectExample(page, "occupational-health-g37");
+    await openEditorMode(page);
+    await page.getByRole("tab", { name: "Schema-UI" }).click();
+
+    const toolbar = page.locator("#jse-editor-ui").getByTestId("ui-add-toolbar");
+    await expect(toolbar.getByRole("button", { name: "+ Step", exact: true })).toBeEnabled();
+    await expect(toolbar.getByRole("button", { name: "+ VerticalLayout" })).toBeDisabled();
+    await expect(toolbar.getByRole("button", { name: "+ Control" })).toBeDisabled();
   });
 });

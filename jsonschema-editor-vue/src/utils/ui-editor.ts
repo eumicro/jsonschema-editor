@@ -311,9 +311,20 @@ export function changeUiLayoutKind(
 }
 
 export function updateGroupLabel(root: UiElement, path: UiPath, label: string): UiElement {
+  return updateElementLabel(root, path, label);
+}
+
+/** Label für Group, Category oder Step aktualisieren. */
+export function updateElementLabel(root: UiElement, path: UiPath, label: string): UiElement {
   const element = getUiElementAt(root, path);
-  if (!(element instanceof Group)) return root;
-  const next = element.clone() as Group;
+  if (
+    !(element instanceof Group) &&
+    !(element instanceof Category) &&
+    !(element instanceof Step)
+  ) {
+    return root;
+  }
+  const next = element.clone() as Group | Category | Step;
   next.label = label.trim() || undefined;
   return replaceUiAtPath(root, path, next);
 }

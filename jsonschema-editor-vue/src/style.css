@@ -410,6 +410,37 @@
   background: #fff;
 }
 
+.jse-structure-editor .jse-structure-editor__toolbar {
+  margin-top: 0.65rem;
+  margin-bottom: 0;
+}
+
+.jse-suggestion-input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  width: 100%;
+}
+
+.jse-suggestion-input__field {
+  width: 100%;
+}
+
+.jse-suggestion-input--warning .jse-suggestion-input__field {
+  border-color: #d97706;
+  background: #fffbeb;
+}
+
+.jse-scope-warning {
+  margin: 0.35rem 0 0;
+  font-size: 0.8rem;
+  color: #b45309;
+}
+
+.jse-element-actions__section + .jse-element-actions__section {
+  margin-top: 0.75rem;
+}
+
 .jse-structure-editor__heading,
 .jse-attributes-panel__heading {
   margin: 0 0 0.65rem;
@@ -435,6 +466,41 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.35rem;
+}
+
+.jse-structure-editor__buttons--palette {
+  gap: 0.4rem;
+}
+
+.jse-palette-chip {
+  padding: 0.35rem 0.65rem;
+  border: 1px dashed #94a3b8;
+  border-radius: 0.375rem;
+  background: #f8fafc;
+  color: #0f172a;
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: grab;
+  user-select: none;
+}
+
+.jse-palette-chip:active:not(:disabled) {
+  cursor: grabbing;
+}
+
+.jse-palette-chip:hover:not(:disabled) {
+  background: #eef2ff;
+  border-color: #6366f1;
+}
+
+.jse-palette-chip--disabled,
+.jse-palette-chip:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  background: #f1f5f9;
+  border-style: solid;
+  border-color: #cbd5e1;
+  color: #64748b;
 }
 
 .jse-structure-editor__note {

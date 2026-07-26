@@ -1,18 +1,28 @@
+import { useMemo } from "react";
+import type { SchemaDocument } from "@jsonschema-editor/json-schema";
 import type { UiElement } from "@jsonschema-editor/ui-schema";
 import { JseButton } from "../../atoms/JseButton.js";
 import { JseFormField } from "../JseFormField.js";
 import { AttributeControlResolver } from "../attributes/AttributeControlResolver.js";
+import { ControlScopeField } from "../ControlScopeField.js";
 import { useJseI18n } from "../../../context/JseI18nContext.js";
 import { useUiAttributesPanel } from "../../../hooks/useUiAttributesPanel.js";
+import { listUsedControlScopes } from "../../../utils/control-scope-suggestions.js";
 import type { UiPath } from "../../../utils/ui-editor.js";
 
 export interface UiAttributesPanelProps {
   root: UiElement;
   selectedPath: UiPath;
+  document?: SchemaDocument | null;
   onRootChange: (root: UiElement) => void;
 }
 
-export function UiAttributesPanel({ root, selectedPath, onRootChange }: UiAttributesPanelProps) {
+export function UiAttributesPanel({
+  root,
+  selectedPath,
+  document,
+  onRootChange,
+}: UiAttributesPanelProps) {
   const { t } = useJseI18n();
 
   const {
@@ -25,6 +35,12 @@ export function UiAttributesPanel({ root, selectedPath, onRootChange }: UiAttrib
     setLayoutKind,
     getUiElementLabel,
   } = useUiAttributesPanel(root, selectedPath, { onRootChange });
+
+  const usedScopes = useMemo(() => listUsedControlScopes(root), [root]);
+  const conflictScopes = useMemo(
+    () => listUsedControlScopes(root, { ignorePath: selectedPath }),
+    [root, selectedPath],
+  );
 
   return (
     <div className="jse-attributes-panel">
@@ -62,17 +78,33 @@ export function UiAttributesPanel({ root, selectedPath, onRootChange }: UiAttrib
         </JseFormField>
       ) : null}
 
-      {attributeFields.map((field) => (
-        <AttributeControlResolver
-          key={field.name}
-          node={selectedElement}
-          attributeName={field.name}
-          label={t(field.labelKey)}
-          mode="ui"
-          modelValue={readAttribute(field.name)}
-          onModelValueChange={(value) => updateAttribute(field.name, value)}
-        />
-      ))}
+      {attributeFields.map((field) => {
+        if (field.name === "scope") {
+          const value = readAttribute("scope");
+          return (
+            <ControlScopeField
+              key={field.name}
+              document={document}
+              usedScopes={usedScopes}
+              conflictScopes={conflictScopes}
+              modelValue={typeof value === "string" ? value : ""}
+              onModelValueChange={(next) => updateAttribute("scope", next)}
+            />
+          );
+        }
+
+        return (
+          <AttributeControlResolver
+            key={field.name}
+            node={selectedElement}
+            attributeName={field.name}
+            label={t(field.labelKey)}
+            mode="ui"
+            modelValue={readAttribute(field.name)}
+            onModelValueChange={(value) => updateAttribute(field.name, value)}
+          />
+        );
+      })}
     </div>
   );
 }

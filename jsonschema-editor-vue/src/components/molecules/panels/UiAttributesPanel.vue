@@ -1,16 +1,20 @@
 <script setup lang="ts">
-import { toRef } from "vue";
+import { computed, toRef } from "vue";
+import type { SchemaDocument } from "@jsonschema-editor/json-schema";
 import type { UiElement } from "@jsonschema-editor/ui-schema";
 import JseButton from "../../atoms/JseButton.vue";
 import JseFormField from "../JseFormField.vue";
 import AttributeControlResolver from "../attributes/AttributeControlResolver.vue";
+import ControlScopeField from "../ControlScopeField.vue";
 import { useJseI18n } from "../../../composables/useJseI18n";
 import { useUiAttributesPanel } from "../../../composables/useUiAttributesPanel";
+import { listUsedControlScopes } from "../../../utils/control-scope-suggestions";
 import type { UiPath } from "../../../utils/ui-editor";
 
 const props = defineProps<{
   root: UiElement;
   selectedPath: UiPath;
+  document?: SchemaDocument | null;
 }>();
 
 const emit = defineEmits<{
@@ -29,6 +33,16 @@ const {
   setLayoutKind,
   getUiElementLabel,
 } = useUiAttributesPanel(toRef(props, "root"), toRef(props, "selectedPath"), emit);
+
+const scopeValue = computed(() => {
+  const value = readAttribute("scope");
+  return typeof value === "string" ? value : "";
+});
+
+const usedScopes = computed(() => listUsedControlScopes(props.root));
+const conflictScopes = computed(() =>
+  listUsedControlScopes(props.root, { ignorePath: props.selectedPath }),
+);
 </script>
 
 <template>
@@ -63,15 +77,24 @@ const {
       </div>
     </JseFormField>
 
-    <AttributeControlResolver
-      v-for="field in attributeFields"
-      :key="field.name"
-      :node="selectedElement"
-      :attribute-name="field.name"
-      :label="t(field.labelKey)"
-      mode="ui"
-      :model-value="readAttribute(field.name)"
-      @update:model-value="updateAttribute(field.name, $event)"
-    />
+    <template v-for="field in attributeFields" :key="field.name">
+      <ControlScopeField
+        v-if="field.name === 'scope'"
+        :model-value="scopeValue"
+        :document="document"
+        :used-scopes="usedScopes"
+        :conflict-scopes="conflictScopes"
+        @update:model-value="updateAttribute('scope', $event)"
+      />
+      <AttributeControlResolver
+        v-else
+        :node="selectedElement"
+        :attribute-name="field.name"
+        :label="t(field.labelKey)"
+        mode="ui"
+        :model-value="readAttribute(field.name)"
+        @update:model-value="updateAttribute(field.name, $event)"
+      />
+    </template>
   </div>
 </template>

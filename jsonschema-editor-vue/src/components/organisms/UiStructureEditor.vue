@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { computed, nextTick, ref } from "vue";
+import type { SchemaDocument } from "@jsonschema-editor/json-schema";
 import type { UiElement } from "@jsonschema-editor/ui-schema";
 import UiTreeNode from "../molecules/tree/UiTreeNode.vue";
 import UiLayoutEditor from "./UiLayoutEditor.vue";
 import UiAttributesPanel from "../molecules/panels/UiAttributesPanel.vue";
 import JseFloatingPanel from "../molecules/JseFloatingPanel.vue";
 import UiElementActions from "../molecules/UiElementActions.vue";
+import UiAddToolbar from "../molecules/UiAddToolbar.vue";
 import {
   getUiElementAt,
   getUiElementLabel,
@@ -21,6 +23,7 @@ import { useJseI18n } from "../../composables/useJseI18n";
 const props = defineProps<{
   root: UiElement;
   selectedPath: UiPath;
+  document?: SchemaDocument | null;
 }>();
 
 const emit = defineEmits<{
@@ -33,6 +36,7 @@ const { t } = useJseI18n();
 const viewMode = ref<"tree" | "layout">("layout");
 const expandedKeys = ref(new Set<string>(["root"]));
 const dragSourcePath = ref<UiPath | null>(null);
+const paletteKind = ref<string | null>(null);
 const addDialogOpen = ref(false);
 const attributesDialogOpen = ref(false);
 const addTargetPath = ref<UiPath>([]);
@@ -193,11 +197,21 @@ function onTreeDrop(targetPath: UiPath, sourcePath: UiPath) {
       v-if="viewMode === 'layout'"
       :root="root"
       :selected-path="selectedPath"
+      :document="document"
+      :palette-kind="paletteKind"
       @update:root="patchRoot($event)"
       @update:selected-path="selectPath"
       @add="openAddDialog"
       @edit="openAttributesDialog"
       @delete="deleteAtPath"
+      @palette-drag-end="paletteKind = null"
+    />
+
+    <UiAddToolbar
+      v-if="viewMode === 'layout'"
+      :root="root"
+      :selected-path="selectedPath"
+      @palette-drag="paletteKind = $event"
     />
 
     <div
@@ -232,6 +246,7 @@ function onTreeDrop(targetPath: UiPath, sourcePath: UiPath) {
       <UiElementActions
         :root="root"
         :target-path="addTargetPath"
+        :document="document"
         @update:root="onRootUpdated"
         @done="addDialogOpen = false"
       />
@@ -247,6 +262,7 @@ function onTreeDrop(targetPath: UiPath, sourcePath: UiPath) {
       <UiAttributesPanel
         :root="root"
         :selected-path="attributesTargetPath"
+        :document="document"
         @update:root="(next) => patchRoot(next)"
       />
     </JseFloatingPanel>

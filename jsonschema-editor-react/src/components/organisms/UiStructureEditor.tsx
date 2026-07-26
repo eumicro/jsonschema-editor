@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useRef, useState } from "react";
+import type { SchemaDocument } from "@jsonschema-editor/json-schema";
 import type { UiElement } from "@jsonschema-editor/ui-schema";
 import { UiTreeNode } from "../molecules/tree/UiTreeNode.js";
 import { UiLayoutEditor } from "./UiLayoutEditor.js";
@@ -8,6 +9,7 @@ import {
   type JseFloatingPanelHandle,
 } from "../molecules/JseFloatingPanel.js";
 import { UiElementActions } from "../molecules/UiElementActions.js";
+import { UiAddToolbar } from "../molecules/UiAddToolbar.js";
 import {
   getUiElementAt,
   getUiElementLabel,
@@ -23,6 +25,7 @@ import { useJseI18n } from "../../context/JseI18nContext.js";
 export interface UiStructureEditorProps {
   root: UiElement;
   selectedPath: UiPath;
+  document?: SchemaDocument | null;
   onRootChange: (root: UiElement) => void;
   onSelectedPathChange: (path: UiPath) => void;
 }
@@ -30,6 +33,7 @@ export interface UiStructureEditorProps {
 export function UiStructureEditor({
   root,
   selectedPath,
+  document,
   onRootChange,
   onSelectedPathChange,
 }: UiStructureEditorProps) {
@@ -38,6 +42,7 @@ export function UiStructureEditor({
   const [viewMode, setViewMode] = useState<"tree" | "layout">("layout");
   const [expandedKeys, setExpandedKeys] = useState<Set<string>>(() => new Set(["root"]));
   const [dragSourcePath, setDragSourcePath] = useState<UiPath | null>(null);
+  const [paletteKind, setPaletteKind] = useState<string | null>(null);
   const [addDialogOpen, setAddDialogOpen] = useState(false);
   const [attributesDialogOpen, setAttributesDialogOpen] = useState(false);
   const [addTargetPath, setAddTargetPath] = useState<UiPath>([]);
@@ -211,13 +216,26 @@ export function UiStructureEditor({
         <UiLayoutEditor
           root={root}
           selectedPath={selectedPath}
+          document={document}
+          paletteKind={paletteKind}
           onRootChange={patchRoot}
           onSelectedPathChange={onSelectedPathChange}
           onAdd={openAddDialog}
           onEdit={openAttributesDialog}
           onDelete={deleteAtPath}
+          onPaletteDragEnd={() => setPaletteKind(null)}
         />
-      ) : (
+      ) : null}
+
+      {viewMode === "layout" ? (
+        <UiAddToolbar
+          root={root}
+          selectedPath={selectedPath}
+          onPaletteDrag={setPaletteKind}
+        />
+      ) : null}
+
+      {viewMode === "layout" ? null : (
         <div
           className="jse-structure-editor__tree"
           role="tree"
@@ -255,6 +273,7 @@ export function UiStructureEditor({
         <UiElementActions
           root={root}
           targetPath={addTargetPath}
+          document={document}
           onRootChange={(next) => {
             patchRoot(next);
             expandPath(addTargetPath);
@@ -274,6 +293,7 @@ export function UiStructureEditor({
         <UiAttributesPanel
           root={root}
           selectedPath={attributesTargetPath}
+          document={document}
           onRootChange={(next) => patchRoot(next)}
         />
       </JseFloatingPanel>
