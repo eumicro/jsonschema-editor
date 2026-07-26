@@ -10,6 +10,7 @@ import { appUiFor, fallbackLocaleFor } from "../../jsonschema-editor-examples/sr
 import { writePreferredStack } from "../../jsonschema-editor-examples/src/site/stack-preference.js";
 import {
   hrefForStackExample,
+  hrefForStackSwitch,
   navigateTo,
   parseAppLocation,
   pathFor,
@@ -111,6 +112,7 @@ export function App() {
   const getStartedHref = pathFor({
     locale,
     page: "get-started",
+    stack: OWNED_STACK,
     defaultExampleId: defaultReactExampleId,
     ownedStack: OWNED_STACK,
   });
@@ -243,8 +245,9 @@ export function App() {
   }
 
   function stackHref(stack: AppStack): string {
-    return hrefForStackExample(OWNED_STACK, {
+    return hrefForStackSwitch({
       locale,
+      page: activePage,
       stack,
       exampleId: activeExampleId,
     });
@@ -273,7 +276,7 @@ export function App() {
         onSelectStack={onSelectStack}
       >
         {activePage === "get-started" ? (
-          <GetStartedPage locale={locale} stack="react" onOpenExamples={openExamples} />
+          <GetStartedPage locale={locale} stack={OWNED_STACK} onOpenExamples={openExamples} />
         ) : null}
         {activePage === "imprint" ? <ImprintPage locale={locale} /> : null}
         {activePage === "examples" ? (

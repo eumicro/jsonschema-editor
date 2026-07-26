@@ -20,6 +20,7 @@ import { loadExampleFromJson } from "./examples/load-example";
 import { appUiFor, fallbackLocaleFor } from "./site/i18n/app-ui";
 import {
   hrefForStackExample,
+  hrefForStackSwitch,
   navigateTo,
   parseAppLocation,
   pathFor,
@@ -103,6 +104,7 @@ const getStartedHref = computed(() =>
   pathFor({
     locale: locale.value,
     page: "get-started",
+    stack: OWNED_STACK,
     defaultExampleId,
     ownedStack: OWNED_STACK,
   }),
@@ -194,8 +196,9 @@ function exampleHref(id: ExampleId): string {
 }
 
 function stackHref(stack: AppStack): string {
-  return hrefForStackExample(OWNED_STACK, {
+  return hrefForStackSwitch({
     locale: locale.value,
+    page: activePage.value,
     stack,
     exampleId: activeExampleId.value,
   });
@@ -246,7 +249,7 @@ onUnmounted(() => {
     <GetStartedPage
       v-if="activePage === 'get-started'"
       :locale="locale"
-      stack="vue"
+      :stack="OWNED_STACK"
       @open-examples="openExamples"
     />
     <ImprintPage v-else-if="activePage === 'imprint'" :locale="locale" />

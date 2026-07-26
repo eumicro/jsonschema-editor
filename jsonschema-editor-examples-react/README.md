@@ -26,7 +26,7 @@ Opens http://127.0.0.1:5173 as **one site**. Switch stacks via the topbar **Vue 
 
 - `/en/examples/react/field-extensions-qa` — React stack (default scenario)
 - `/en/examples/vue/...` — Vue stack
-- `/en/get-started` — install steps
+- `/en/get-started/react` — install steps (Vue: `/en/get-started/vue`)
 - `/en/imprint` — legal notice
 
 Isolated React-only Vite remains available via `pnpm --filter jsonschema-editor-examples-react run dev` (port 5174).

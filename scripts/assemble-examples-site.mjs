@@ -94,7 +94,8 @@ const bootstrap = `<!doctype html>
         }
         var parts = path.split("/").filter(Boolean);
         var stack =
-          parts[1] === "examples" && (parts[2] === "vue" || parts[2] === "react")
+          (parts[1] === "examples" || parts[1] === "get-started") &&
+          (parts[2] === "vue" || parts[2] === "react")
             ? parts[2]
             : preferredStack();
         injectStyles(stack === "react" ? REACT_CSS : VUE_CSS);

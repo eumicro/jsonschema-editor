@@ -14,9 +14,9 @@ export type AppStack = "vue" | "react";
 export interface AppLocation {
   locale: AppLocale;
   page: AppPage;
-  /** Present when `page === "examples"`. */
+  /** Stack segment for `examples` and `get-started` (imprint falls back to owned stack). */
   stack: AppStack;
-  /** Present when `page === "examples"`. */
+  /** Present when `page === "examples"`; otherwise the default example id. */
   exampleId: string;
 }
 
@@ -51,7 +51,7 @@ export function parseAppLocation(
     return {
       locale,
       page: "get-started",
-      stack: options.ownedStack,
+      stack: isAppStack(segments[2] ?? "") ? (segments[2] as AppStack) : options.ownedStack,
       exampleId: options.defaultExampleId,
     };
   }
@@ -92,9 +92,9 @@ export function pathFor(location: {
   ownedStack: AppStack;
 }): string {
   const locale = location.locale;
-  if (location.page === "get-started") return `/${locale}/get-started`;
-  if (location.page === "imprint") return `/${locale}/imprint`;
   const stack = location.stack ?? location.ownedStack;
+  if (location.page === "get-started") return `/${locale}/get-started/${stack}`;
+  if (location.page === "imprint") return `/${locale}/imprint`;
   const exampleId = location.exampleId ?? location.defaultExampleId;
   return `/${locale}/examples/${stack}/${exampleId}`;
 }
@@ -115,5 +115,18 @@ export function hrefForStackExample(
   _ownedStack: AppStack,
   target: { locale: AppLocale; stack: AppStack; exampleId: string },
 ): string {
+  return `/${target.locale}/examples/${target.stack}/${target.exampleId}`;
+}
+
+/** Stack-switch target: keep get-started on get-started; otherwise open examples. */
+export function hrefForStackSwitch(target: {
+  locale: AppLocale;
+  page: AppPage;
+  stack: AppStack;
+  exampleId: string;
+}): string {
+  if (target.page === "get-started") {
+    return `/${target.locale}/get-started/${target.stack}`;
+  }
   return `/${target.locale}/examples/${target.stack}/${target.exampleId}`;
 }

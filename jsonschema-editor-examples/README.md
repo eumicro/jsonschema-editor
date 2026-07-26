@@ -23,7 +23,7 @@ Opens http://127.0.0.1:5173 as **one site** for both stacks. Switch via the topb
 
 - `/en/examples/vue/occupational-health-g37` — Vue stack
 - `/en/examples/react/field-extensions-qa` — React stack
-- `/en/get-started` — install steps and package overview
+- `/en/get-started/vue` — install steps and package overview (React: `/en/get-started/react`)
 - `/en/imprint` — legal notice
 
 Isolated Vue-only Vite (without React entry) remains available via `pnpm --filter jsonschema-editor-examples run dev`.
