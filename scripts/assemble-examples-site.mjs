@@ -66,6 +66,12 @@ const bootstrap = `<!doctype html>
 writeFileSync(join(siteDir, "index.html"), bootstrap, "utf8");
 writeFileSync(join(siteDir, "404.html"), bootstrap, "utf8");
 
+// Static root files (e.g. Google Search Console verification).
+const publicDir = join(root, "jsonschema-editor-examples-site", "public");
+if (existsSync(publicDir)) {
+  cpSync(publicDir, siteDir, { recursive: true });
+}
+
 // Keep a copy of each app's built CSS entry references if emitted beside assets.
 for (const [label, dist] of [
   ["vue", vueDist],
