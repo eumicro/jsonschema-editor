@@ -24,8 +24,22 @@ export const DEFAULT_LOCALE: AppLocale = "en";
 export const DEFAULT_VUE_STACK: AppStack = "vue";
 export const DEFAULT_REACT_STACK: AppStack = "react";
 
-const LOCALES = new Set<string>(["de", "en", "fr", "it", "pl", "uk", "ru", "zh", "ja"]);
+export const APP_LOCALES: readonly AppLocale[] = [
+  "de",
+  "en",
+  "fr",
+  "it",
+  "pl",
+  "uk",
+  "ru",
+  "zh",
+  "ja",
+];
+const LOCALES = new Set<string>(APP_LOCALES);
 const STACKS = new Set<string>(["vue", "react"]);
+
+/** Public site origin used for absolute SEO URLs. */
+export const SITE_ORIGIN = "https://jsonschema-editor.cloudapplication.net";
 
 export function isAppLocale(value: string): value is AppLocale {
   return LOCALES.has(value);

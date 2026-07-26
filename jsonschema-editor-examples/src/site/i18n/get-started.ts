@@ -16,6 +16,11 @@ export type GetStartedPackage = {
   role: string;
 };
 
+export type GetStartedFeaturedLink = {
+  exampleId: string;
+  label: string;
+};
+
 export type GetStartedContent = {
   title: string;
   lead: string;
@@ -27,6 +32,8 @@ export type GetStartedContent = {
   steps: GetStartedStep[];
   packagesHeading: string;
   packages: GetStartedPackage[];
+  featuredHeading: string;
+  featured: GetStartedFeaturedLink[];
   tryHeading: string;
   tryBody: string;
   tryCta: string;
@@ -1006,9 +1013,88 @@ import "@jsonschema-editor/react/style.css";
   };
 }
 
+const featuredByLocale: Record<
+  AppLocale,
+  { heading: string; items: GetStartedFeaturedLink[] }
+> = {
+  de: {
+    heading: "Beliebte Szenarien",
+    items: [
+      { exampleId: "occupational-health-g37", label: "G37 Bildschirm-Vorsorge" },
+      { exampleId: "insurance-claim", label: "Schadensmeldung" },
+      { exampleId: "car-configurator", label: "Fahrzeugbestellung" },
+    ],
+  },
+  en: {
+    heading: "Popular scenarios",
+    items: [
+      { exampleId: "occupational-health-g37", label: "G37 screen precaution" },
+      { exampleId: "insurance-claim", label: "Insurance claim" },
+      { exampleId: "car-configurator", label: "Vehicle order" },
+    ],
+  },
+  fr: {
+    heading: "Scénarios populaires",
+    items: [
+      { exampleId: "occupational-health-g37", label: "Prévention écran G37" },
+      { exampleId: "insurance-claim", label: "Déclaration de sinistre" },
+      { exampleId: "car-configurator", label: "Commande de véhicule" },
+    ],
+  },
+  it: {
+    heading: "Scenari popolari",
+    items: [
+      { exampleId: "occupational-health-g37", label: "Prevenzione schermo G37" },
+      { exampleId: "insurance-claim", label: "Denuncia sinistro" },
+      { exampleId: "car-configurator", label: "Ordine veicolo" },
+    ],
+  },
+  pl: {
+    heading: "Popularne scenariusze",
+    items: [
+      { exampleId: "occupational-health-g37", label: "Badanie wzroku G37" },
+      { exampleId: "insurance-claim", label: "Zgłoszenie szkody" },
+      { exampleId: "car-configurator", label: "Zamówienie pojazdu" },
+    ],
+  },
+  uk: {
+    heading: "Популярні сценарії",
+    items: [
+      { exampleId: "occupational-health-g37", label: "Профілактика екрану G37" },
+      { exampleId: "insurance-claim", label: "Заява про збиток" },
+      { exampleId: "car-configurator", label: "Замовлення авто" },
+    ],
+  },
+  ru: {
+    heading: "Популярные сценарии",
+    items: [
+      { exampleId: "occupational-health-g37", label: "Профилактика экрана G37" },
+      { exampleId: "insurance-claim", label: "Заявление об убытке" },
+      { exampleId: "car-configurator", label: "Заказ автомобиля" },
+    ],
+  },
+  zh: {
+    heading: "热门场景",
+    items: [
+      { exampleId: "occupational-health-g37", label: "G37 屏幕防护" },
+      { exampleId: "insurance-claim", label: "理赔申报" },
+      { exampleId: "car-configurator", label: "车辆订购" },
+    ],
+  },
+  ja: {
+    heading: "人気のシナリオ",
+    items: [
+      { exampleId: "occupational-health-g37", label: "G37 画面作業健診" },
+      { exampleId: "insurance-claim", label: "保険金請求" },
+      { exampleId: "car-configurator", label: "車両注文" },
+    ],
+  },
+};
+
 export function getStartedFor(locale: AppLocale, stack: AppStack = "vue"): GetStartedContent {
   const concepts = sharedConcepts[locale];
   const features = sharedFeatures[locale];
+  const featured = featuredByLocale[locale];
   const stackPart =
     stack === "react"
       ? buildReactStack(locale, reactCopy[locale])
@@ -1020,5 +1106,7 @@ export function getStartedFor(locale: AppLocale, stack: AppStack = "vue"): GetSt
     concepts: concepts.concepts,
     featuresHeading: features.heading,
     features: features.features,
+    featuredHeading: featured.heading,
+    featured: featured.items,
   };
 }

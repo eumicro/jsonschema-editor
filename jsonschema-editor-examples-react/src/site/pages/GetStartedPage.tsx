@@ -5,12 +5,14 @@ interface GetStartedPageProps {
   locale: AppLocale;
   stack?: AppStack;
   onOpenExamples: () => void;
+  onOpenExample: (exampleId: string) => void;
 }
 
 export function GetStartedPage({
   locale,
   stack = "react",
   onOpenExamples,
+  onOpenExample,
 }: GetStartedPageProps) {
   const content = getStartedFor(locale, stack);
 
@@ -85,6 +87,28 @@ export function GetStartedPage({
             </div>
           ))}
         </div>
+      </section>
+
+      <section className="get-started__section" aria-labelledby="get-started-featured">
+        <h2 id="get-started-featured" className="get-started__section-title">
+          {content.featuredHeading}
+        </h2>
+        <ul className="get-started__featured">
+          {content.featured.map((item) => (
+            <li key={item.exampleId}>
+              <a
+                className="get-started__featured-link"
+                href={`/${locale}/examples/vue/${item.exampleId}`}
+                onClick={(event) => {
+                  event.preventDefault();
+                  onOpenExample(item.exampleId);
+                }}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <section className="get-started__cta" aria-labelledby="get-started-try">

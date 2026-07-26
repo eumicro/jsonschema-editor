@@ -62,7 +62,7 @@ if (reactCss.length === 0) {
 }
 
 const bootstrap = `<!doctype html>
-<html lang="de">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -70,6 +70,7 @@ const bootstrap = `<!doctype html>
     <script>
       (function () {
         var STACK_KEY = "jse.site.stack";
+        var LOCALES = { de:1, en:1, fr:1, it:1, pl:1, uk:1, ru:1, zh:1, ja:1 };
         var VUE_CSS = ${JSON.stringify(vueCss)};
         var REACT_CSS = ${JSON.stringify(reactCss)};
         var VUE_ENTRY = ${JSON.stringify(vueEntry)};
@@ -96,6 +97,9 @@ const bootstrap = `<!doctype html>
           return;
         }
         var parts = path.split("/").filter(Boolean);
+        if (parts[0] && LOCALES[parts[0]]) {
+          document.documentElement.lang = parts[0];
+        }
         var stack =
           (parts[1] === "examples" || parts[1] === "get-started") &&
           (parts[2] === "vue" || parts[2] === "react")

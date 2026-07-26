@@ -7,6 +7,12 @@ import {
   FileFieldProvider,
 } from "@jsonschema-editor/react-extensions";
 import { appUiFor, fallbackLocaleFor } from "../../jsonschema-editor-examples/src/site/i18n/app-ui.js";
+import { getStartedFor } from "../../jsonschema-editor-examples/src/site/i18n/get-started.js";
+import { imprintFor } from "../../jsonschema-editor-examples/src/site/i18n/imprint.js";
+import {
+  applyDocumentMeta,
+  buildPageMeta,
+} from "../../jsonschema-editor-examples/src/site/seo/index.js";
 import { writePreferredStack } from "../../jsonschema-editor-examples/src/site/stack-preference.js";
 import {
   hrefForStackExample,
@@ -179,6 +185,27 @@ export function App() {
   }, [applyLocationFromUrl]);
 
   useEffect(() => {
+    const getStarted = getStartedFor(locale, OWNED_STACK);
+    const imprint = imprintFor(locale);
+    applyDocumentMeta(
+      buildPageMeta({
+        locale,
+        page: activePage,
+        stack: OWNED_STACK,
+        exampleId: activeExampleId,
+        defaultExampleId: defaultReactExampleId,
+        exampleLabel: activeExampleCopy.label,
+        exampleTagline: activeExampleCopy.tagline,
+        exampleDescription: activeExampleCopy.description,
+        getStartedTitle: getStarted.title,
+        getStartedLead: getStarted.lead,
+        imprintTitle: imprint.pageTitle,
+        fallbackDescription: ui.subtitle,
+      }),
+    );
+  }, [activePage, locale, activeExampleId, activeExampleCopy, ui.subtitle]);
+
+  useEffect(() => {
     const manifest = exampleCatalog[activeExampleId];
     const loaded = loadExampleFromJson(manifest);
     let cancelled = false;
@@ -276,7 +303,12 @@ export function App() {
         onSelectStack={onSelectStack}
       >
         {activePage === "get-started" ? (
-          <GetStartedPage locale={locale} stack={OWNED_STACK} onOpenExamples={openExamples} />
+          <GetStartedPage
+            locale={locale}
+            stack={OWNED_STACK}
+            onOpenExamples={openExamples}
+            onOpenExample={(id) => selectExample(id as ExampleId)}
+          />
         ) : null}
         {activePage === "imprint" ? <ImprintPage locale={locale} /> : null}
         {activePage === "examples" ? (

@@ -2,11 +2,12 @@ import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 const LOCALES = ["de", "en", "fr", "it", "pl", "uk", "ru", "zh", "ja"];
-const STACKS = ["vue", "react"];
+/** SEO canonical stack only — React URLs stay reachable but are not listed. */
+const SEO_STACK = "vue";
 const DEFAULT_ORIGIN = "https://jsonschema-editor.cloudapplication.net";
 
 /**
- * Build sitemap.xml + robots.txt from public example metas and app locales.
+ * Build sitemap.xml + robots.txt from public example metas and app locales (Vue-only).
  *
  * @param {object} options
  * @param {string} options.dataRoot Absolute path to examples data (…/src/examples/data)
@@ -20,24 +21,20 @@ export function generateExamplesSitemap({ dataRoot, outDir, origin, cnamePath })
   const lastmod = new Date().toISOString().slice(0, 10);
 
   /** @type {{ pathTemplate: string, priority: string, changefreq: string }[]} */
-  const pages = [];
-
-  for (const stack of STACKS) {
-    pages.push({
-      pathTemplate: `/get-started/${stack}`,
-      priority: stack === "vue" ? "0.9" : "0.85",
+  const pages = [
+    {
+      pathTemplate: `/get-started/${SEO_STACK}`,
+      priority: "0.9",
       changefreq: "weekly",
-    });
-  }
+    },
+  ];
 
   for (const exampleId of exampleIds) {
-    for (const stack of STACKS) {
-      pages.push({
-        pathTemplate: `/examples/${stack}/${exampleId}`,
-        priority: stack === "vue" ? "0.8" : "0.75",
-        changefreq: "weekly",
-      });
-    }
+    pages.push({
+      pathTemplate: `/examples/${SEO_STACK}/${exampleId}`,
+      priority: "0.8",
+      changefreq: "weekly",
+    });
   }
 
   pages.push({
@@ -86,7 +83,21 @@ Sitemap: ${siteOrigin}/sitemap.xml
     origin: siteOrigin,
     exampleCount: exampleIds.length,
     urlCount: urlEntries.length,
+    paths: pages.flatMap((page) => LOCALES.map((locale) => `/${locale}${page.pathTemplate}`)),
   };
+}
+
+export function listSitemapPaths(dataRoot) {
+  const exampleIds = publicExampleIds(dataRoot);
+  const paths = [];
+  for (const locale of LOCALES) {
+    paths.push(`/${locale}/get-started/${SEO_STACK}`);
+    for (const exampleId of exampleIds) {
+      paths.push(`/${locale}/examples/${SEO_STACK}/${exampleId}`);
+    }
+    paths.push(`/${locale}/imprint`);
+  }
+  return paths;
 }
 
 function resolveOrigin(origin, cnamePath) {

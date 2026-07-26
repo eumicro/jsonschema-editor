@@ -18,6 +18,9 @@ import {
 import { seedDemoFilesForExample } from "./examples/demo-file-seeds";
 import { loadExampleFromJson } from "./examples/load-example";
 import { appUiFor, fallbackLocaleFor } from "./site/i18n/app-ui";
+import { getStartedFor } from "./site/i18n/get-started";
+import { imprintFor } from "./site/i18n/imprint";
+import { applyDocumentMeta, buildPageMeta } from "./site/seo";
 import {
   hrefForStackExample,
   hrefForStackSwitch,
@@ -217,6 +220,35 @@ watch(locale, () => {
   if (!syncingFromUrl.value) pushCurrentUrl();
 });
 
+function syncDocumentMeta() {
+  const getStarted = getStartedFor(locale.value, OWNED_STACK);
+  const imprint = imprintFor(locale.value);
+  applyDocumentMeta(
+    buildPageMeta({
+      locale: locale.value,
+      page: activePage.value,
+      stack: OWNED_STACK,
+      exampleId: activeExampleId.value,
+      defaultExampleId,
+      exampleLabel: activeExampleCopy.value.label,
+      exampleTagline: activeExampleCopy.value.tagline,
+      exampleDescription: activeExampleCopy.value.description,
+      getStartedTitle: getStarted.title,
+      getStartedLead: getStarted.lead,
+      imprintTitle: imprint.pageTitle,
+      fallbackDescription: ui.value.subtitle,
+    }),
+  );
+}
+
+watch(
+  [activePage, locale, activeExampleId, activeExampleCopy, ui],
+  () => {
+    syncDocumentMeta();
+  },
+  { immediate: true },
+);
+
 onMounted(() => {
   writePreferredStack(OWNED_STACK);
   void applyLocationFromUrl().then(() => loadExample(activeExampleId.value));
@@ -251,6 +283,7 @@ onUnmounted(() => {
       :locale="locale"
       :stack="OWNED_STACK"
       @open-examples="openExamples"
+      @open-example="selectExample($event as ExampleId)"
     />
     <ImprintPage v-else-if="activePage === 'imprint'" :locale="locale" />
     <ExamplesWorkspace

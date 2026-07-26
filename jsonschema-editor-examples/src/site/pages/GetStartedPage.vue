@@ -10,9 +10,14 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   openExamples: [];
+  openExample: [exampleId: string];
 }>();
 
 const content = computed(() => getStartedFor(props.locale, props.stack ?? "vue"));
+
+function featuredHref(exampleId: string): string {
+  return `/${props.locale}/examples/vue/${exampleId}`;
+}
 </script>
 
 <template>
@@ -70,6 +75,23 @@ const content = computed(() => getStartedFor(props.locale, props.stack ?? "vue")
           <span class="get-started__package-role">{{ pkg.role }}</span>
         </div>
       </div>
+    </section>
+
+    <section class="get-started__section" aria-labelledby="get-started-featured">
+      <h2 id="get-started-featured" class="get-started__section-title">
+        {{ content.featuredHeading }}
+      </h2>
+      <ul class="get-started__featured">
+        <li v-for="item in content.featured" :key="item.exampleId">
+          <a
+            class="get-started__featured-link"
+            :href="featuredHref(item.exampleId)"
+            @click.prevent="emit('openExample', item.exampleId)"
+          >
+            {{ item.label }}
+          </a>
+        </li>
+      </ul>
     </section>
 
     <section class="get-started__cta" aria-labelledby="get-started-try">

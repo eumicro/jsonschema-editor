@@ -29,3 +29,4 @@ run("pnpm", ["--filter", "jsonschema-editor-examples-react", "run", "build"], {
 });
 
 run("node", ["scripts/assemble-examples-site.mjs"]);
+run("node", ["scripts/prerender-examples-site.mjs"]);
