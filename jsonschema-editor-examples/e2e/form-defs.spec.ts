@@ -9,13 +9,13 @@ test.describe("$defs + oneOf-Formular", () => {
 
   test("Dropdown zeigt aufgelöste Definitions-Titel", async ({ page }) => {
     const options = await oneOfSelect(page).locator("option").allTextContents();
-    expect(options).toEqual(["Person", "Betriebsmittel"]);
+    expect(options).toEqual(["Person", "Operating resources"]);
   });
 
   test("Wechsel zu Maschine zeigt Nummer aus $defs", async ({ page }) => {
     await oneOfSelect(page).selectOption("1");
 
-    await expect(page.locator(".jse-field__label", { hasText: /^Nummer/ })).toBeVisible();
+    await expect(page.locator(".jse-field__label", { hasText: /^Number/ })).toBeVisible();
     await expect(page.locator(".jse-field__label", { hasText: /^Name/ })).toHaveCount(0);
 
     const output = await readFormOutput(page);

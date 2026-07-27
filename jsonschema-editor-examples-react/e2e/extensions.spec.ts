@@ -47,18 +47,18 @@ test.describe("React-Extensions", () => {
 
     await expect(fieldByLabel(page, /^Email/)).toBeVisible();
     await expect(fieldByLabel(page, /^Website/)).toBeVisible();
-    await expect(fieldByLabel(page, /^Telefon/)).toBeVisible();
-    await expect(fieldByLabel(page, /^Abteilung/)).toBeVisible();
-    await expect(fieldByLabel(page, /^Vorgesetzter/)).toBeVisible();
+    await expect(fieldByLabel(page, /^Phone/)).toBeVisible();
+    await expect(fieldByLabel(page, /^Department/)).toBeVisible();
+    await expect(fieldByLabel(page, /^Superior/)).toBeVisible();
 
     await expect(fieldByLabel(page, /^Email/).locator("input")).toHaveAttribute("type", "email");
 
-    const abteilungOptions = await fieldByLabel(page, /^Abteilung/)
+    const abteilungOptions = await fieldByLabel(page, /^Department/)
       .locator("select option")
       .allTextContents();
     expect(abteilungOptions).toEqual(expect.arrayContaining(["Vertrieb", "Entwicklung", "Support"]));
 
-    const managerSelect = fieldByLabel(page, /^Vorgesetzter/).locator("select");
+    const managerSelect = fieldByLabel(page, /^Superior/).locator("select");
     await expect
       .poll(async () => managerSelect.locator("option").count(), { timeout: 15_000 })
       .toBeGreaterThan(1);
