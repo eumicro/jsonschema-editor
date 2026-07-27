@@ -20,8 +20,10 @@ export function useSchemaFormEditorState(
   schema: SchemaDocument,
   uiSchema: UiSchema,
   callbacks: SchemaFormEditorCallbacks,
+  options: { readonly?: boolean } = {},
 ) {
   const { t } = useJseI18n();
+  const readonly = options.readonly ?? false;
   const onSchemaChange = callbacks.onSchemaChange;
   const onUiSchemaChange = callbacks.onUiSchemaChange;
 
@@ -64,6 +66,7 @@ export function useSchemaFormEditorState(
 
   const updateDocument = useCallback(
     (next: SchemaDocument) => {
+      if (readonly) return;
       setDocumentRef(next);
       onSchemaChange(next);
       const syncedRoot = syncUiSchemaWithSchema(next, uiSchemaRef.root);
@@ -73,35 +76,38 @@ export function useSchemaFormEditorState(
         onUiSchemaChange(nextUi);
       }
     },
-    [onSchemaChange, onUiSchemaChange, uiSchemaRef.root],
+    [onSchemaChange, onUiSchemaChange, readonly, uiSchemaRef.root],
   );
 
   const updateUiRoot = useCallback(
     (next: UiElement) => {
+      if (readonly) return;
       setUiManualEdit(true);
       const nextUi = new UiSchema(next);
       setUiSchemaRef(nextUi);
       onUiSchemaChange(nextUi);
     },
-    [onUiSchemaChange],
+    [onUiSchemaChange, readonly],
   );
 
   const regenerateUiFromSchema = useCallback(() => {
+    if (readonly) return;
     setUiManualEdit(false);
     const generated = UiSchema.generateForSchema(documentRef.root, "#", (ref) =>
       documentRef.resolveRef(ref),
     );
     setUiSchemaRef(generated);
     onUiSchemaChange(generated);
-  }, [documentRef, onUiSchemaChange]);
+  }, [documentRef, onUiSchemaChange, readonly]);
 
   const updateUiSchema = useCallback(
     (next: UiSchema, manual = true) => {
+      if (readonly) return;
       if (manual) setUiManualEdit(true);
       setUiSchemaRef(next);
       onUiSchemaChange(next);
     },
-    [onUiSchemaChange],
+    [onUiSchemaChange, readonly],
   );
 
   const schemaJson = useMemo(
@@ -116,6 +122,7 @@ export function useSchemaFormEditorState(
 
   const setSchemaJson = useCallback(
     (raw: string) => {
+      if (readonly) return;
       try {
         const parsed = JSON.parse(raw) as JsonSchemaObject;
         updateDocument(documentFromJSON(parsed));
@@ -123,11 +130,12 @@ export function useSchemaFormEditorState(
         /* invalid JSON while typing */
       }
     },
-    [updateDocument],
+    [readonly, updateDocument],
   );
 
   const setUiSchemaJson = useCallback(
     (raw: string) => {
+      if (readonly) return;
       try {
         const parsed = JSON.parse(raw) as UiSchemaObject;
         setUiManualEdit(true);
@@ -138,7 +146,7 @@ export function useSchemaFormEditorState(
         /* invalid JSON while typing */
       }
     },
-    [onUiSchemaChange],
+    [onUiSchemaChange, readonly],
   );
 
   const editorContext = useMemo(
@@ -149,8 +157,9 @@ export function useSchemaFormEditorState(
       updateDocument,
       updateSchema: updateDocument,
       updateUiSchema,
+      readonly,
     }),
-    [documentRef, uiSchemaRef, updateDocument, updateUiSchema],
+    [documentRef, readonly, uiSchemaRef, updateDocument, updateUiSchema],
   );
 
   return {
@@ -175,5 +184,6 @@ export function useSchemaFormEditorState(
     uiSchemaJson,
     setUiSchemaJson,
     editorContext,
+    readonly,
   };
 }

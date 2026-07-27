@@ -1,6 +1,7 @@
 import { useFormFieldLabel } from "../../../hooks/useFormFieldLabel.js";
 import { useScopedField } from "../../../hooks/useScopedField.js";
 import type { FormFieldProps } from "../../../types/form-field-props.js";
+import { JseCheckbox } from "../../atoms/JseCheckbox.js";
 import { JseSchemaFormField } from "./JseSchemaFormField.js";
 
 export function BooleanFormField({
@@ -27,12 +28,10 @@ export function BooleanFormField({
       scope={scope}
       boolean
     >
-      <input
-        className="jse-field__checkbox"
-        type="checkbox"
-        checked={value === true}
+      <JseCheckbox
+        modelValue={value === true}
         disabled={readonly}
-        onChange={(event) => setValue(event.target.checked)}
+        onModelValueChange={setValue}
       />
     </JseSchemaFormField>
   );

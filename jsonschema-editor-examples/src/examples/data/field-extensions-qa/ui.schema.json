@@ -60,6 +60,12 @@
           "scope": "#/properties/progress",
           "label": "Progress",
           "i18n": "customer-contact.progress"
+        },
+        {
+          "type": "Control",
+          "scope": "#/properties/newsletter",
+          "label": "Newsletter",
+          "i18n": "customer-contact.newsletter"
         }
       ]
     },

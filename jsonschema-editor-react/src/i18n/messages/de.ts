@@ -104,6 +104,8 @@ export const deMessages = {
   "schemaAttributes.x-rating.symbolPalette": "Symbolpalette",
   "schemaAttributes.x-rating.customSymbol": "Auswahl / eigenes Symbol",
   "schemaAttributes.x-rating.customSymbolPlaceholder": "beliebiges Unicode-Symbol",
+  "schemaAttributes.x-switch": "Switch (x-switch)",
+  "schemaAttributes.x-switch.hint": "Boolean-Feld als Schalter statt Checkbox darstellen.",
   "schemaAttributes.extensionEnabled": "Aktiv",
   "schemaAttributes.x-file.multiple": "Mehrere Dateien",
   "schemaAttributes.x-file.acceptTypes": "Erlaubte Typen",

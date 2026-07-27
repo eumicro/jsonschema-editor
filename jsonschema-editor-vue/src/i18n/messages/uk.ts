@@ -95,6 +95,8 @@ export const ukMessages = {
   "schemaAttributes.x-rating.symbolPalette": "Палітра символів",
   "schemaAttributes.x-rating.customSymbol": "Вибір / власний символ",
   "schemaAttributes.x-rating.customSymbolPlaceholder": "будь-який символ Unicode",
+  "schemaAttributes.x-switch": "Перемикач (x-switch)",
+  "schemaAttributes.x-switch.hint": "Показувати boolean як перемикач замість прапорця.",
   "schemaAttributes.extensionEnabled": "Активно",
   "schemaAttributes.x-file.multiple": "Кілька файлів",
   "schemaAttributes.x-file.acceptTypes": "Дозволені типи",

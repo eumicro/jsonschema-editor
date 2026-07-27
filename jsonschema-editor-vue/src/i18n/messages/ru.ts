@@ -96,6 +96,8 @@ export const ruMessages = {
   "schemaAttributes.x-rating.symbolPalette": "Палитра символов",
   "schemaAttributes.x-rating.customSymbol": "Выбор / свой символ",
   "schemaAttributes.x-rating.customSymbolPlaceholder": "любой символ Unicode",
+  "schemaAttributes.x-switch": "Переключатель (x-switch)",
+  "schemaAttributes.x-switch.hint": "Показывать boolean как переключатель вместо флажка.",
   "schemaAttributes.extensionEnabled": "Активно",
   "schemaAttributes.x-file.multiple": "Несколько файлов",
   "schemaAttributes.x-file.acceptTypes": "Допустимые типы",

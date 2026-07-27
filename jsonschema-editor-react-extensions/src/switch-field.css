@@ -1,0 +1,26 @@
+.jse-switch-attr {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+
+.jse-switch-attr__label {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.jse-switch-attr__hint {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #6b7280;
+  line-height: 1.4;
+}
+
+.jse-switch-attr__enable {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+}

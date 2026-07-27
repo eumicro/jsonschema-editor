@@ -4,6 +4,7 @@ import { DEFS_SEGMENT, listDocumentChildren } from "../../../utils/schema-docume
 import { schemaPathKey, type SchemaPath } from "../../../utils/schema-editor.js";
 import { JseTreeToggle } from "../../atoms/JseTreeToggle.js";
 import { JseTreeNodeActions } from "../JseTreeNodeActions.js";
+import { useEditorContext } from "../../../context/EditorContext.js";
 import { useJseI18n } from "../../../context/JseI18nContext.js";
 import { SchemaTreeNode } from "./SchemaTreeNode.js";
 
@@ -29,6 +30,7 @@ export function SchemaDefsTreeNode({
   onDelete,
 }: SchemaDefsTreeNodeProps) {
   const { t } = useJseI18n();
+  const { readonly } = useEditorContext();
   const defsPath = useMemo(() => [DEFS_SEGMENT] as SchemaPath, []);
   const defsChildren = useMemo(
     () => listDocumentChildren(document, defsPath),
@@ -53,7 +55,7 @@ export function SchemaDefsTreeNode({
         <span className="jse-tree-node__kind">$defs</span>
         <span className="jse-tree-node__label">{t("schemaStructure.defs.label")}</span>
         <JseTreeNodeActions
-          showAdd
+          showAdd={!readonly}
           showEdit={false}
           showDelete={false}
           addLabel={t("schemaStructure.defs.addDefinition")}

@@ -3,6 +3,7 @@ import { computed } from "vue";
 import type { SchemaDocument } from "@jsonschema-editor/json-schema";
 import { DEFS_SEGMENT, listDocumentChildren } from "../../../utils/schema-document";
 import { schemaPathKey, type SchemaPath } from "../../../utils/schema-editor";
+import { useEditorContext } from "../../../composables/useEditorContext";
 import JseTreeToggle from "../../atoms/JseTreeToggle.vue";
 import JseTreeNodeActions from "../JseTreeNodeActions.vue";
 import { useJseI18n } from "../../../composables/useJseI18n";
@@ -23,6 +24,7 @@ const emit = defineEmits<{
 }>();
 
 const { t } = useJseI18n();
+const { readonly } = useEditorContext();
 
 const defsPath = [DEFS_SEGMENT] as SchemaPath;
 const defsChildren = computed(() => listDocumentChildren(props.document, defsPath));
@@ -46,7 +48,7 @@ const defsSelected = computed(() => schemaPathKey(props.selectedPath) === DEFS_S
       <span class="jse-tree-node__kind">$defs</span>
       <span class="jse-tree-node__label">{{ t("schemaStructure.defs.label") }}</span>
       <JseTreeNodeActions
-        :show-add="true"
+        :show-add="!readonly"
         :show-edit="false"
         :show-delete="false"
         :add-label="t('schemaStructure.defs.addDefinition')"

@@ -21,6 +21,7 @@ import {
   type UiPath,
 } from "../../utils/ui-editor";
 import { useJseI18n } from "../../composables/useJseI18n";
+import { useEditorContext } from "../../composables/useEditorContext";
 import type { JseLocale } from "../../i18n/types";
 import type { UiLabelMessages } from "../../utils/ui-label-messages";
 
@@ -39,6 +40,7 @@ const emit = defineEmits<{
 }>();
 
 const { t } = useJseI18n();
+const { readonly } = useEditorContext();
 
 const viewMode = ref<"tree" | "layout">("layout");
 const expandedKeys = ref(new Set<string>(["root"]));
@@ -233,7 +235,7 @@ function onTreeDrop(targetPath: UiPath, sourcePath: UiPath) {
     />
 
     <UiAddToolbar
-      v-if="viewMode === 'layout'"
+      v-if="viewMode === 'layout' && !readonly"
       :root="root"
       :selected-path="selectedPath"
       :document="document"

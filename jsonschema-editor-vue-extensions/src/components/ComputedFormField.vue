@@ -14,6 +14,7 @@ import {
   useFormFieldLabel,
   useScopedField,
   JseInput,
+  JseCheckbox,
   JseSchemaFormField,
 } from "@jsonschema-editor/vue";
 
@@ -102,7 +103,7 @@ const displayValue = computed(() => {
       readonly
     />
     <label v-else class="jse-field__checkbox">
-      <input type="checkbox" :checked="value === true" disabled />
+      <JseCheckbox :model-value="value === true" disabled />
       <span>{{ displayValue === "true" ? "Ja" : "Nein" }}</span>
     </label>
     <p v-if="evaluationError" class="jse-field__hint jse-field__hint--error">
@@ -110,11 +111,3 @@ const displayValue = computed(() => {
     </p>
   </JseSchemaFormField>
 </template>
-
-<style scoped>
-.jse-field__checkbox {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-</style>

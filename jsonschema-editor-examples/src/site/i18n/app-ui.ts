@@ -29,6 +29,7 @@ const appUi = {
     formDataSummary: "Live-Daten",
     dataPanelTitle: "Formulardaten",
     editorPanelAria: "Schema- und UI-Editor",
+    editorReadonly: "Nur lesen",
     jsonPanelAria: "JSON-Quelltext",
     codePanelAria: "Einbettungs-Code",
     categoryLabels: {
@@ -69,6 +70,7 @@ const appUi = {
     formDataSummary: "Live data",
     dataPanelTitle: "Form data",
     editorPanelAria: "Schema and UI editor",
+    editorReadonly: "Read only",
     jsonPanelAria: "JSON source",
     codePanelAria: "Embed code",
     categoryLabels: {
@@ -109,6 +111,7 @@ const appUi = {
     formDataSummary: "Données en direct",
     dataPanelTitle: "Données du formulaire",
     editorPanelAria: "Éditeur de schéma et d’UI",
+    editorReadonly: "Lecture seule",
     jsonPanelAria: "Source JSON",
     codePanelAria: "Code d’intégration",
     categoryLabels: {
@@ -149,6 +152,7 @@ const appUi = {
     formDataSummary: "Dati live",
     dataPanelTitle: "Dati del modulo",
     editorPanelAria: "Editor di schema e UI",
+    editorReadonly: "Sola lettura",
     jsonPanelAria: "Sorgente JSON",
     codePanelAria: "Codice di integrazione",
     categoryLabels: {
@@ -189,6 +193,7 @@ const appUi = {
     formDataSummary: "Dane na żywo",
     dataPanelTitle: "Dane formularza",
     editorPanelAria: "Edytor schematu i UI",
+    editorReadonly: "Tylko odczyt",
     jsonPanelAria: "Źródło JSON",
     codePanelAria: "Kod osadzania",
     categoryLabels: {
@@ -229,6 +234,7 @@ const appUi = {
     formDataSummary: "Дані наживо",
     dataPanelTitle: "Дані форми",
     editorPanelAria: "Редактор схеми та UI",
+    editorReadonly: "Лише читання",
     jsonPanelAria: "Джерело JSON",
     codePanelAria: "Код вбудовування",
     categoryLabels: {
@@ -269,6 +275,7 @@ const appUi = {
     formDataSummary: "Данные в реальном времени",
     dataPanelTitle: "Данные формы",
     editorPanelAria: "Редактор схемы и UI",
+    editorReadonly: "Только чтение",
     jsonPanelAria: "Исходный JSON",
     codePanelAria: "Код встраивания",
     categoryLabels: {
@@ -308,6 +315,7 @@ const appUi = {
     formDataSummary: "实时数据",
     dataPanelTitle: "表单数据",
     editorPanelAria: "Schema 与 UI 编辑器",
+    editorReadonly: "只读",
     jsonPanelAria: "JSON 源码",
     codePanelAria: "嵌入代码",
     categoryLabels: {
@@ -348,6 +356,7 @@ const appUi = {
     formDataSummary: "ライブデータ",
     dataPanelTitle: "フォームデータ",
     editorPanelAria: "スキーマと UI エディター",
+    editorReadonly: "読み取り専用",
     jsonPanelAria: "JSON ソース",
     codePanelAria: "埋め込みコード",
     categoryLabels: {

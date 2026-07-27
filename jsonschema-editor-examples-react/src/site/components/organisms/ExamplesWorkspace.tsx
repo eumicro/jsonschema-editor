@@ -1,7 +1,7 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import type { SchemaDocument } from "@jsonschema-editor/json-schema";
 import type { UiSchema } from "@jsonschema-editor/ui-schema/bridge";
-import { JsonSchemaForm, JsonSchemaFormEditor, type JseLocale } from "@jsonschema-editor/react";
+import { JsonSchemaForm, JsonSchemaFormEditor, JseCheckbox, type JseLocale } from "@jsonschema-editor/react";
 import { exampleEmbedCode } from "../../../../../jsonschema-editor-examples/src/site/example-embed-code.js";
 import {
   exampleCopyFor,
@@ -31,6 +31,7 @@ interface ExamplesWorkspaceProps {
     formPanelAria: string;
     dataPanelTitle: string;
     editorPanelAria: string;
+    editorReadonly: string;
     jsonPanelAria: string;
     codePanelAria: string;
     jsonTabsAria: string;
@@ -97,6 +98,8 @@ export function ExamplesWorkspace({
       }),
     [activeExampleId, locale],
   );
+
+  const [editorReadonly, setEditorReadonly] = useState(false);
 
   return (
     <div className="app__workspace">
@@ -215,10 +218,17 @@ export function ExamplesWorkspace({
           {mode === "editor" ? (
             <div
               id="app-panel-editor"
-              className="app__panel-body"
+              className="app__panel-body app__panel-body--editor"
               role="tabpanel"
               aria-label={ui.editorPanelAria}
             >
+              <label className="app__editor-readonly">
+                <JseCheckbox
+                  modelValue={editorReadonly}
+                  onModelValueChange={setEditorReadonly}
+                />
+                <span className="app__editor-readonly__label">{ui.editorReadonly}</span>
+              </label>
               <JsonSchemaFormEditor
                 key={activeExampleId}
                 schema={schema}
@@ -230,6 +240,7 @@ export function ExamplesWorkspace({
                 labelLocales={labelLocales}
                 messages={uiLabelMessages}
                 onMessagesChange={onMessagesChange}
+                readonly={editorReadonly}
               />
             </div>
           ) : null}

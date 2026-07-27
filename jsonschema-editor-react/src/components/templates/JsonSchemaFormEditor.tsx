@@ -33,6 +33,8 @@ export interface JsonSchemaFormEditorProps {
   labelLocales?: readonly JseLocale[];
   onMessagesChange?: (messages: NonNullable<JseI18nOptions["messages"]>) => void;
   extensions?: JseReactExtension[];
+  /** When true, schema and UI schema stay visible but are not editable. */
+  readonly?: boolean;
 }
 
 function JsonSchemaFormEditorBody({
@@ -43,6 +45,7 @@ function JsonSchemaFormEditorBody({
   labelLocales,
   messages,
   onMessagesChange,
+  readonly = false,
 }: Pick<
   JsonSchemaFormEditorProps,
   | "schema"
@@ -52,6 +55,7 @@ function JsonSchemaFormEditorBody({
   | "labelLocales"
   | "messages"
   | "onMessagesChange"
+  | "readonly"
 >) {
   const { t } = useJseI18n();
 
@@ -76,10 +80,15 @@ function JsonSchemaFormEditorBody({
     uiSchemaJson,
     setUiSchemaJson,
     editorContext,
-  } = useSchemaFormEditorState(schema, uiSchema, {
-    onSchemaChange,
-    onUiSchemaChange,
-  });
+  } = useSchemaFormEditorState(
+    schema,
+    uiSchema,
+    {
+      onSchemaChange,
+      onUiSchemaChange,
+    },
+    { readonly },
+  );
 
   return (
     <EditorContextProvider value={editorContext}>
@@ -115,7 +124,7 @@ function JsonSchemaFormEditorBody({
               role="tabpanel"
               aria-labelledby="jse-editor-tab-ui"
             >
-              {uiManualEdit ? (
+              {uiManualEdit && !readonly ? (
                 <div className="jse-editor__banner">
                   {t("editor.banner.manualUi")}
                   <JseButton type="button" onClick={regenerateUiFromSchema}>
@@ -151,6 +160,7 @@ function JsonSchemaFormEditorBody({
                 <JseTextarea
                   modelValue={schemaJson}
                   rows={8}
+                  disabled={readonly}
                   onModelValueChange={setSchemaJson}
                 />
               </label>
@@ -161,6 +171,7 @@ function JsonSchemaFormEditorBody({
                 <JseTextarea
                   modelValue={uiSchemaJson}
                   rows={8}
+                  disabled={readonly}
                   onModelValueChange={setUiSchemaJson}
                 />
               </label>
@@ -197,6 +208,7 @@ export function JsonSchemaFormEditor(props: JsonSchemaFormEditorProps) {
           labelLocales={props.labelLocales}
           messages={props.messages}
           onMessagesChange={props.onMessagesChange}
+          readonly={props.readonly}
         />
       </RegistriesProvider>
     </JseI18nProvider>

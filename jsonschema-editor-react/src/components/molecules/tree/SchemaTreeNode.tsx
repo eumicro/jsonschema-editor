@@ -9,6 +9,7 @@ import {
   listDocumentChildren,
 } from "../../../utils/schema-document.js";
 import { schemaPathKey, type SchemaPath } from "../../../utils/schema-editor.js";
+import { useEditorContext } from "../../../context/EditorContext.js";
 import { useTreeNodeActionLabels } from "../../../hooks/useTreeNodeActionLabels.js";
 import { JseTreeToggle } from "../../atoms/JseTreeToggle.js";
 import { JseTreeNodeActions } from "../JseTreeNodeActions.js";
@@ -38,6 +39,7 @@ export function SchemaTreeNode({
   onEdit,
   onDelete,
 }: SchemaTreeNodeProps) {
+  const { readonly } = useEditorContext();
   const node = tryGetNodeAtPath(document, path);
   const children = useMemo(
     () => listDocumentChildren(document, path),
@@ -50,8 +52,8 @@ export function SchemaTreeNode({
   const isSelected = schemaPathKey(selectedPath) === pathKey;
   const isExpanded = path.length === 0 || expandedKeys.has(pathKey);
   const hasChildren = children.length > 0;
-  const showAdd = node !== undefined && canAcceptSchemaChildren(node);
-  const showDelete = canDeleteDocumentNode(path);
+  const showAdd = !readonly && node !== undefined && canAcceptSchemaChildren(node);
+  const showDelete = !readonly && canDeleteDocumentNode(path);
   const { addLabel, editLabel, deleteLabel } = useTreeNodeActionLabels(label, "schema");
 
   if (!node) return null;

@@ -60,6 +60,12 @@
         "expression": "!has(data.kontakte) || data.kontakte.size() == 0 ? 0.0 : data.kontakte.map(k, double(k.zufriedenheit)).sum() / double(data.kontakte.size())"
       }
     },
+    "newsletter": {
+      "type": "boolean",
+      "title": "Newsletter",
+      "description": "Receive product updates by email",
+      "x-switch": true
+    },
     "kontakte": {
       "type": "array",
       "title": "Contacts",

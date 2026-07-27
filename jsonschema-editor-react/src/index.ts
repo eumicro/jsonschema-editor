@@ -8,6 +8,8 @@ export { ControlField } from "./components/molecules/form/ControlField.js";
 export { UiElementRenderer } from "./components/molecules/ui/UiFormElementResolver.js";
 export { JseInput } from "./components/atoms/JseInput.js";
 export { JseSelect } from "./components/atoms/JseSelect.js";
+export { JseCheckbox } from "./components/atoms/JseCheckbox.js";
+export { JseSwitch } from "./components/atoms/JseSwitch.js";
 export { JseSchemaFormField } from "./components/molecules/form/JseSchemaFormField.js";
 
 export {

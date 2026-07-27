@@ -23,6 +23,7 @@ import {
   type UiPath,
 } from "../../utils/ui-editor.js";
 import { syncUiI18nPrefix } from "../../utils/sync-ui-i18n-prefix.js";
+import { useEditorContext } from "../../context/EditorContext.js";
 import { useJseI18n } from "../../context/JseI18nContext.js";
 import type { JseLocale } from "../../i18n/types.js";
 import type { UiLabelMessages } from "../../utils/ui-label-messages.js";
@@ -49,6 +50,7 @@ export function UiStructureEditor({
   onMessagesChange,
 }: UiStructureEditorProps) {
   const { t } = useJseI18n();
+  const { readonly } = useEditorContext();
 
   const [viewMode, setViewMode] = useState<"tree" | "layout">("layout");
   const [expandedKeys, setExpandedKeys] = useState<Set<string>>(() => new Set(["root"]));
@@ -271,7 +273,7 @@ export function UiStructureEditor({
         />
       ) : null}
 
-      {viewMode === "layout" ? (
+      {viewMode === "layout" && !readonly ? (
         <UiAddToolbar
           root={root}
           selectedPath={selectedPath}

@@ -97,6 +97,8 @@ export const itMessages = {
   "schemaAttributes.x-rating.symbolPalette": "Tavolozza simboli",
   "schemaAttributes.x-rating.customSymbol": "Selezione / simbolo personalizzato",
   "schemaAttributes.x-rating.customSymbolPlaceholder": "qualsiasi simbolo Unicode",
+  "schemaAttributes.x-switch": "Interruttore (x-switch)",
+  "schemaAttributes.x-switch.hint": "Mostra il boolean come interruttore invece che come checkbox.",
   "schemaAttributes.extensionEnabled": "Attivo",
   "schemaAttributes.x-file.multiple": "Più file",
   "schemaAttributes.x-file.acceptTypes": "Tipi consentiti",

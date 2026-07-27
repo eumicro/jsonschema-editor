@@ -97,6 +97,8 @@ export const frMessages = {
   "schemaAttributes.x-rating.symbolPalette": "Palette de symboles",
   "schemaAttributes.x-rating.customSymbol": "Sélection / symbole personnalisé",
   "schemaAttributes.x-rating.customSymbolPlaceholder": "n’importe quel symbole Unicode",
+  "schemaAttributes.x-switch": "Interrupteur (x-switch)",
+  "schemaAttributes.x-switch.hint": "Afficher le booléen comme interrupteur au lieu d’une case à cocher.",
   "schemaAttributes.extensionEnabled": "Actif",
   "schemaAttributes.x-file.multiple": "Plusieurs fichiers",
   "schemaAttributes.x-file.acceptTypes": "Types autorisés",

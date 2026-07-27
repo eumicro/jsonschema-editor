@@ -6,17 +6,20 @@ import { computedExtension } from "./computed-extension.js";
 import { fileExtension } from "./file-extension.js";
 import { progressBarExtension } from "./progress-bar-extension.js";
 import { ratingExtension } from "./rating-extension.js";
+import { switchExtension } from "./switch-extension.js";
 import GeometryAttributeControl from "./components/GeometryAttributeControl.vue";
 import ComputedAttributeControl from "./components/ComputedAttributeControl.vue";
 import FileAttributeControl from "./components/FileAttributeControl.vue";
 import ProgressBarAttributeControl from "./components/ProgressBarAttributeControl.vue";
 import RatingAttributeControl from "./components/RatingAttributeControl.vue";
+import SwitchAttributeControl from "./components/SwitchAttributeControl.vue";
 import {
   GEOMETRY_ATTRIBUTE,
   COMPUTED_ATTRIBUTE,
   FILE_ATTRIBUTE,
   PROGRESS_BAR_ATTRIBUTE,
   RATING_ATTRIBUTE,
+  SWITCH_ATTRIBUTE,
 } from "@jsonschema-editor/json-schema-extensions";
 import "./file-field.css";
 import "./date-today-field.css";
@@ -54,6 +57,12 @@ export function registerDefaultVueExtensions(): void {
     50,
     "vue-ext-rating-attr",
   );
+  globalSchemaAttributeControlRegistry.registerName(
+    SWITCH_ATTRIBUTE,
+    SwitchAttributeControl,
+    50,
+    "vue-ext-switch-attr",
+  );
   registerVueExtension(formatFieldsExtension);
   registerVueExtension(valuesSourceExtension);
   registerVueExtension(geometryExtension);
@@ -61,6 +70,7 @@ export function registerDefaultVueExtensions(): void {
   registerVueExtension(fileExtension);
   registerVueExtension(progressBarExtension);
   registerVueExtension(ratingExtension);
+  registerVueExtension(switchExtension);
 }
 
 export { formatFieldsExtension, ExtendedFormatFormField, DateTodayFormField } from "./format-fields-extension.js";
@@ -72,6 +82,8 @@ export { progressBarExtension, ProgressBarFormField } from "./progress-bar-exten
 export { default as ProgressBarAttributeControl } from "./components/ProgressBarAttributeControl.vue";
 export { ratingExtension, RatingFormField } from "./rating-extension.js";
 export { default as RatingAttributeControl } from "./components/RatingAttributeControl.vue";
+export { switchExtension, SwitchFormField } from "./switch-extension.js";
+export { default as SwitchAttributeControl } from "./components/SwitchAttributeControl.vue";
 export {
   provideFileFieldProvider,
   useFileFieldProvider,

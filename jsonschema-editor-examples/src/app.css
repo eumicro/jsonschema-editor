@@ -396,6 +396,45 @@ body {
   min-height: 28rem;
 }
 
+.app__panel-body--editor {
+  display: flex;
+  flex-direction: column;
+}
+
+.app__editor-readonly {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-end;
+  gap: 0.6rem;
+  margin: 0 0 0.85rem;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid var(--app-border);
+  border-radius: 0.55rem;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--app-surface) 92%, var(--app-accent-soft)) 0%, var(--app-surface) 100%);
+  box-shadow: 0 1px 2px rgb(15 23 42 / 4%);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--app-text);
+  cursor: pointer;
+  user-select: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.app__editor-readonly:hover {
+  border-color: color-mix(in srgb, var(--app-accent) 35%, var(--app-border));
+  box-shadow: 0 2px 8px rgb(15 23 42 / 6%);
+}
+
+.app__editor-readonly:has(:focus-visible) {
+  outline: 2px solid var(--app-accent);
+  outline-offset: 2px;
+}
+
+.app__editor-readonly__label {
+  line-height: 1.2;
+}
+
 /* Form split view */
 .app__split {
   display: grid;

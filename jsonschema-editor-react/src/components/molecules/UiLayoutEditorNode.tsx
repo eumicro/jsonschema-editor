@@ -24,6 +24,7 @@ import {
   setActiveLayoutDragSourcePath,
 } from "../../utils/ui-layout-drag.js";
 import type { UiPaletteKind } from "../../utils/ui-palette.js";
+import { useEditorContext } from "../../context/EditorContext.js";
 import { useJseI18n } from "../../context/JseI18nContext.js";
 import { useTreeNodeActionLabels } from "../../hooks/useTreeNodeActionLabels.js";
 import { UiLayoutDropZone } from "../atoms/UiLayoutDropZone.js";
@@ -62,6 +63,7 @@ export function UiLayoutEditorNode({
 }: UiLayoutEditorNodeProps) {
   const [activeDropIndex, setActiveDropIndex] = useState<number | null>(null);
   const { t } = useJseI18n();
+  const { readonly } = useEditorContext();
 
   const element = getUiElementAt(root, path);
   const label = getUiElementLabel(element);
@@ -76,8 +78,8 @@ export function UiLayoutEditorNode({
     () => listUiChildren(element, path),
     [element, path],
   );
-  const showAdd = canAcceptUiChildren(element, document);
-  const showDelete = canDeleteUiElement(path);
+  const showAdd = !readonly && canAcceptUiChildren(element, document);
+  const showDelete = !readonly && canDeleteUiElement(path);
   const { addLabel, editLabel, deleteLabel } = useTreeNodeActionLabels(label, "ui");
   const isDragging =
     dragSourcePath !== null && uiPathKey(dragSourcePath) === pathKey;
@@ -127,6 +129,7 @@ export function UiLayoutEditorNode({
   }
 
   function canDropAt(insertIndex: number, event?: React.DragEvent): boolean {
+    if (readonly) return false;
     const kind = resolvePaletteKind(event);
     if (kind) {
       if (!isLayout && !showDetail) return false;
@@ -140,10 +143,14 @@ export function UiLayoutEditorNode({
     return canMoveUiElementTo(root, sourcePath, stackParentPath, insertIndex);
   }
 
-  const hasActiveDrag = dragSourcePath !== null || Boolean(paletteKind);
+  const hasActiveDrag = !readonly && (dragSourcePath !== null || Boolean(paletteKind));
   const showStack = isLayout || showDetail;
 
   function handleDragStart(event: React.DragEvent) {
+    if (readonly) {
+      event.preventDefault();
+      return;
+    }
     onDragStart(path);
     setActiveLayoutDragSourcePath(path, uiPathKey);
     event.dataTransfer?.setData("text/plain", pathKey);
@@ -243,7 +250,7 @@ export function UiLayoutEditorNode({
         {path.length > 0 ? (
           <span
             className="jse-layout-block__drag-handle"
-            draggable
+            draggable={!readonly}
             role="presentation"
             aria-hidden="true"
             onDragStart={(event) => {

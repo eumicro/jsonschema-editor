@@ -9,6 +9,8 @@ export interface EditorContextValue {
   updateDocument: (next: SchemaDocument) => void;
   updateSchema: (next: SchemaDocument) => void;
   updateUiSchema: (next: UiSchema, manual?: boolean) => void;
+  /** When true, schema/UI structure and attributes are visible but not editable. */
+  readonly: boolean;
 }
 
 const EditorContext = createContext<EditorContextValue | null>(null);

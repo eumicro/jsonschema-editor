@@ -180,3 +180,10 @@ export type {
   RatingExtensionConfig,
   RatingSymbol,
 } from "./rating.js";
+
+export {
+  SWITCH_ATTRIBUTE,
+  createSwitchSchema,
+  isSwitchExtensionConfig,
+  readSwitchConfig,
+} from "./switch.js";
