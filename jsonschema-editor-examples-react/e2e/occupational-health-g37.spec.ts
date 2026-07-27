@@ -5,7 +5,7 @@ const STEP_COUNT = 8;
 
 async function goToStep(page: import("@playwright/test").Page, stepIndex: number) {
   for (let i = 0; i < stepIndex; i++) {
-    await page.getByRole("button", { name: "Next" }).click();
+    await page.getByRole("button", { name: "Weiter" }).click();
   }
 }
 
@@ -18,9 +18,9 @@ test.describe("G37 Arbeitsmedizin", () => {
   test("lädt Stepper mit acht Schritten und Default-Daten", async ({ page }) => {
     await expect(page.locator(".jse-stepper")).toBeVisible();
     await expect(page.locator(".jse-stepper__step-indicator")).toHaveCount(STEP_COUNT);
-    await expect(page.locator(".jse-stepper__step-indicator--active")).toContainText("Recording");
+    await expect(page.locator(".jse-stepper__step-indicator--active")).toContainText("Aufnahme");
 
-    await expect(page.locator(".jse-field").filter({ hasText: /^Last name/ })).toBeVisible();
+    await expect(page.locator(".jse-field").filter({ hasText: /^Nachname/ })).toBeVisible();
 
     const output = await readFormOutput(page);
     expect(output.aktenzeichen).toBe("G37-2026-0042");
@@ -44,10 +44,10 @@ test.describe("G37 Arbeitsmedizin", () => {
   });
 
   test("Aufnahme: Betriebsgelände rendert Karte", async ({ page }) => {
-    await expect(page.getByText("Company premises (map)")).toBeVisible();
+    await expect(page.getByText("Betriebsgelände (Karte)")).toBeVisible();
     await expect(page.locator(".jse-geometry-map")).toBeVisible();
-    await expect(page.getByRole("button", { name: "Edit", exact: true })).toBeVisible();
-    await expect(page.getByRole("button", { name: "Delete" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Bearbeiten", exact: true })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Löschen" })).toBeVisible();
 
     const output = await readFormOutput(page);
     const gelaende = (output.arbeitgeber as Record<string, unknown>).betriebsgelaende as Record<
@@ -63,7 +63,7 @@ test.describe("G37 Arbeitsmedizin", () => {
     const map = page.locator(".jse-geometry-map.leaflet-container");
     await expect(map).toBeVisible();
 
-    await page.getByRole("button", { name: "Delete" }).click();
+    await page.getByRole("button", { name: "Löschen" }).click();
     await expect(map.locator("path.leaflet-interactive, .leaflet-interactive").first()).toBeVisible();
     await map.locator("path.leaflet-interactive, .leaflet-interactive").first().click({ force: true });
 
@@ -81,26 +81,26 @@ test.describe("G37 Arbeitsmedizin", () => {
 
   test("Vorgeschichte: Einwilligungen und frühere Vorsorge", async ({ page }) => {
     await goToStep(page, 1);
-    await expect(page.locator(".jse-stepper__step-indicator--active")).toContainText("Prehistory");
-    await expect(page.getByText("Previous G37/screen precaution taken")).toBeVisible();
-    await expect(page.getByText("Consent to processing the examination data")).toBeVisible();
+    await expect(page.locator(".jse-stepper__step-indicator--active")).toContainText("Vorgeschichte");
+    await expect(page.getByText("Frühere G37-/Bildschirmvorsorge durchgeführt")).toBeVisible();
+    await expect(page.getByText("Einwilligung zur Verarbeitung der Untersuchungsdaten")).toBeVisible();
   });
 
   test("Anamnese: Categorization-Tabs und Untersuchungsschritt", async ({ page }) => {
     await goToStep(page, 2);
-    await expect(page.getByRole("tab", { name: "General" })).toBeVisible();
-    await expect(page.getByRole("tab", { name: "Workplace" })).toBeVisible();
-    await page.getByRole("tab", { name: "Workplace" }).click();
-    await expect(page.getByText("Work briefing/briefing at the screen location takes place")).toBeVisible();
+    await expect(page.getByRole("tab", { name: "Allgemein" })).toBeVisible();
+    await expect(page.getByRole("tab", { name: "Arbeitsplatz" })).toBeVisible();
+    await page.getByRole("tab", { name: "Arbeitsplatz" }).click();
+    await expect(page.getByText("Arbeitseinweisung / Einweisung am Bildschirmplatz erfolgt")).toBeVisible();
 
     await goToStep(page, 1);
-    await expect(page.locator(".jse-stepper__step-indicator--active")).toContainText("Investigation");
+    await expect(page.locator(".jse-stepper__step-indicator--active")).toContainText("Untersuchung");
     await expect(
-      page.getByRole("group", { name: "Initial / follow-up / supplementary examination" }).getByText("Type"),
+      page.getByRole("group", { name: "Erst- / Nach- / Ergänzungsuntersuchung" }).getByText("Typ"),
     ).toBeVisible();
 
     await goToStep(page, 4);
-    await expect(page.locator(".jse-stepper__step-indicator--active")).toContainText("Certificate");
+    await expect(page.locator(".jse-stepper__step-indicator--active")).toContainText("Attest");
     const output = await readFormOutput(page);
     expect(output.attest).toMatchObject({
       arztName: "Dr. med. Julia Hoffmann",
@@ -110,19 +110,19 @@ test.describe("G37 Arbeitsmedizin", () => {
 
   test("Beratung und Mitteilung: G37-Abschnitte sichtbar", async ({ page }) => {
     await goToStep(page, 5);
-    await expect(page.locator(".jse-stepper__step-indicator--active")).toContainText("Advice");
-    await expect(page.getByText("Consultation carried out")).toBeVisible();
+    await expect(page.locator(".jse-stepper__step-indicator--active")).toContainText("Beratung");
+    await expect(page.getByText("Beratung durchgeführt")).toBeVisible();
 
-    await page.getByRole("button", { name: "Next" }).click();
-    await expect(page.locator(".jse-stepper__step-indicator--active")).toContainText("Notice");
-    await expect(page.getByText("Assessment category")).toBeVisible();
+    await page.getByRole("button", { name: "Weiter" }).click();
+    await expect(page.locator(".jse-stepper__step-indicator--active")).toContainText("Mitteilung");
+    await expect(page.getByText("Beurteilungskategorie")).toBeVisible();
   });
 
   test("Programm oneOf: Wechsel zu Ergänzungsuntersuchung zeigt Detailblock", async ({ page }) => {
     await goToStep(page, 3);
 
     const programSelect = page
-      .getByRole("group", { name: "Initial / follow-up / supplementary examination" })
+      .getByRole("group", { name: "Erst- / Nach- / Ergänzungsuntersuchung" })
       .locator("select.jse-field__input")
       .first();
     await programSelect.selectOption({ label: "Supplementary examination" });
@@ -144,6 +144,7 @@ test.describe("G37 Arbeitsmedizin", () => {
     await goToStep(page, 3);
 
     await expect(page.locator(".jse-stepper__panel")).not.toContainText("[object Object]");
+    // Nested $defs titles fall back to schema.title (EN) when no message key exists.
     await expect(page.getByText("Distance visual acuity")).toBeVisible();
     await expect(page.getByText("Visual acuity near (workplace-related)")).toBeVisible();
     await expect(page.getByText("Result of the screening test (G37 assessment scheme)")).toBeVisible();

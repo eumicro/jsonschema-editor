@@ -47,7 +47,7 @@ test.describe("Auto-Konfigurator (verschachtelt)", () => {
     page.on("pageerror", (error) => errors.push(error.message));
 
     await openEditorMode(page);
-    await page.getByRole("button", { name: "Element zu Fahrzeugbestellung hinzufügen" }).click();
+    await page.getByRole("button", { name: "Element zu Vehicle order hinzufügen" }).click();
     const dialog = page.getByRole("dialog", { name: "Element hinzufügen" });
     await dialog.getByPlaceholder("z. B. name").fill("extra");
     await dialog.getByRole("button", { name: "+ string", exact: true }).click();

@@ -9,7 +9,7 @@ test.describe("Felder-Erweiterungen x-read-only / x-hidden", () => {
   test("Formular: x-read-only deaktiviert Eingabe", async ({ page }) => {
     await openFormMode(page);
 
-    const emailField = page.locator(".jse-field").filter({ hasText: "Email" });
+    const emailField = page.locator(".jse-field").filter({ hasText: "E-Mail" });
     await expect(emailField.locator("input")).toBeDisabled();
 
     const nameField = page.locator(".jse-field").filter({ hasText: /^Name/ });
@@ -18,29 +18,29 @@ test.describe("Felder-Erweiterungen x-read-only / x-hidden", () => {
 
   test("Formular: x-hidden blendet Feld aus", async ({ page }) => {
     await openFormMode(page);
-    await expect(page.getByText("Internal note")).toHaveCount(0);
+    await expect(page.getByText("Interne Notiz")).toHaveCount(0);
     const output = await readFormOutput(page);
     expect(output.internalNote).toBe("VIP-Kunde");
   });
 
   test("Schema-Editor: Feld-Attribute für alle Typen sichtbar", async ({ page }) => {
     await openEditorMode(page);
-    await page.getByRole("button", { name: "Edit attributes of phone" }).click();
+    await page.getByRole("button", { name: "Attribute von phone bearbeiten" }).click();
 
     const panel = page.locator(".jse-attributes-panel");
-    await expect(panel.getByText("Read-only (x-read-only)")).toBeVisible();
-    await expect(panel.getByText("Hidden (x-hidden)")).toBeVisible();
+    await expect(panel.getByText("Nur lesen (x-read-only)")).toBeVisible();
+    await expect(panel.getByText("Ausblenden (x-hidden)")).toBeVisible();
   });
 
   test("Schema-Editor: Sammelaktion setzt x-read-only auf Unterbaum", async ({ page }) => {
     await openEditorMode(page);
-    await page.getByRole("button", { name: "Edit attributes of address" }).click();
+    await page.getByRole("button", { name: "Attribute von address bearbeiten" }).click();
 
     const panel = page.locator(".jse-attributes-panel");
-    await panel.getByRole("button", { name: "All: read-only" }).evaluate((btn: HTMLButtonElement) => btn.click());
+    await panel.getByRole("button", { name: "Alle: nur lesen" }).evaluate((btn: HTMLButtonElement) => btn.click());
     await openFormMode(page);
 
-    for (const label of ["Street", "City", "ZIP code"]) {
+    for (const label of ["Straße", "Ort", "PLZ"]) {
       const field = page.locator(".jse-field").filter({ has: page.getByText(label, { exact: true }) });
       await expect(field.locator("input")).toBeDisabled();
     }
@@ -50,17 +50,17 @@ test.describe("Felder-Erweiterungen x-read-only / x-hidden", () => {
     await openFormMode(page);
 
     const progress = page.locator(".jse-field").filter({
-      has: page.locator(".jse-field__label", { hasText: "Progress" }),
+      has: page.locator(".jse-field__label", { hasText: "Fortschritt" }),
     });
     await expect(progress.locator(".jse-progress-bar__range")).toBeDisabled();
     await expect(progress.locator(".jse-progress-bar__value")).toHaveText("3.5");
 
-    await page.getByRole("tab", { name: "Conversation" }).click();
-    const list = page.locator(".jse-array-field").filter({ hasText: "Contacts" });
+    await page.getByRole("tab", { name: "Konversation" }).click();
+    const list = page.locator(".jse-array-field").filter({ hasText: "Kontakte" });
     const first = list.locator(".jse-array-item").first();
     await first.locator(".jse-rating__symbol").nth(2).click();
 
-    await page.getByRole("tab", { name: "General" }).click();
+    await page.getByRole("tab", { name: "Allgemein" }).click();
     // (3+3+5+3+2+4)/6 = 3.333… → 3.3
     await expect(progress.locator(".jse-progress-bar__value")).toHaveText("3.3");
 
@@ -70,9 +70,9 @@ test.describe("Felder-Erweiterungen x-read-only / x-hidden", () => {
 
   test("Formular: Kontakte mit date-today, Kommentar und x-rating", async ({ page }) => {
     await openFormMode(page);
-    await page.getByRole("tab", { name: "Conversation" }).click();
+    await page.getByRole("tab", { name: "Konversation" }).click();
 
-    const list = page.locator(".jse-array-field").filter({ hasText: "Contacts" });
+    const list = page.locator(".jse-array-field").filter({ hasText: "Kontakte" });
     await expect(list.locator(".jse-array-item")).toHaveCount(6);
 
     const first = list.locator(".jse-array-item").first();

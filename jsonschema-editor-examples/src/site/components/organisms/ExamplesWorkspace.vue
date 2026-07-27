@@ -168,6 +168,8 @@ const embedCode = computed(() =>
           </div>
           <aside class="app__split-side">
             <div class="app__code-header">{{ ui.dataPanelTitle }}</div>
+            <!-- Machine-readable mirror for E2E; CodeMirror textContent is not reliable JSON. -->
+            <pre class="app__form-data-output" hidden>{{ dataJson }}</pre>
             <SiteCodeEditor
               :value="dataJson"
               language="json"

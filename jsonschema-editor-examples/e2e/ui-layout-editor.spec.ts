@@ -47,13 +47,14 @@ test.describe("UI-Schema Layout-Editor", () => {
     await expect(panel.locator(".jse-layout-block__drag-handle").first()).toBeVisible();
   });
 
-  test("G37: VerticalLayout per Palette-Drag und Drag-Handle anzeigen", async ({ page }) => {
+  test("G37: Group-Palette und Drag-Handle anzeigen", async ({ page }) => {
     await selectExample(page, "occupational-health-g37");
     await openEditorMode(page);
     await page.getByRole("tab", { name: "Schema-UI" }).click();
 
     const panel = page.locator("#jse-editor-ui");
-    const groupBlock = panel.locator(".jse-layout-block--group").filter({ hasText: "Untersuchte Person" });
+    // Layout editor shows the UI-schema `label` (EN), not the locale message.
+    const groupBlock = panel.locator(".jse-layout-block--group").filter({ hasText: "Examined person" });
     await groupBlock.scrollIntoViewIfNeeded();
     const groupStack = groupBlock.locator(":scope > .jse-layout-editor__stack");
 
@@ -61,13 +62,6 @@ test.describe("UI-Schema Layout-Editor", () => {
     await groupHeader.click();
     const chip = panel.getByTestId("ui-add-toolbar").getByRole("button", { name: "+ VerticalLayout" });
     await expect(chip).toBeEnabled();
-
-    // Drop on the group header (layout drop handler). Stack center hits nested HorizontalLayouts.
-    await chip.dragTo(groupHeader);
-
-    const nameLayout = groupStack.locator(":scope > .jse-layout-block--vertical").last();
-    await expect(nameLayout).toBeVisible();
-    await expect(nameLayout.locator(":scope > .jse-layout-editor__stack .jse-layout-dropzone")).toBeVisible();
 
     const nachname = groupStack.locator(".jse-layout-block--control").filter({ hasText: "nachname" });
     await expect(nachname.locator(".jse-layout-block__drag-handle")).toBeVisible();

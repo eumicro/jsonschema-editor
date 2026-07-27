@@ -5,6 +5,26 @@
       "type": "Control",
       "scope": "#/properties/positionen",
       "label": "Cost items",
+      "options": {
+        "elementLabelProp": "bezeichnung",
+        "detail": {
+          "type": "HorizontalLayout",
+          "elements": [
+            {
+              "type": "Control",
+              "scope": "#/properties/bezeichnung",
+              "label": "Designation",
+              "i18n": "cost-estimate.bezeichnung"
+            },
+            {
+              "type": "Control",
+              "scope": "#/properties/betrag",
+              "label": "Amount (EUR)",
+              "i18n": "cost-estimate.betrag"
+            }
+          ]
+        }
+      },
       "i18n": "cost-estimate.positionen"
     },
     {

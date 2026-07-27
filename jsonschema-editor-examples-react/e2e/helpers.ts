@@ -2,7 +2,7 @@ import type { Locator, Page } from "@playwright/test";
 import { expect } from "@playwright/test";
 
 export async function selectExample(page: Page, id: string): Promise<void> {
-  await page.goto(`/en/examples/react/${id}`);
+  await page.goto(`/de/examples/react/${id}`);
   const select = page.locator("#app-example-select");
   await select.waitFor({ state: "attached" });
   await expect(select).toHaveValue(id);
@@ -15,11 +15,11 @@ export async function selectExample(page: Page, id: string): Promise<void> {
 }
 
 export async function openFormMode(page: Page): Promise<void> {
-  await page.getByRole("tab", { name: "Test form" }).click();
+  await page.getByRole("tab", { name: "Formular testen" }).click();
 }
 
 export async function openEditorMode(page: Page): Promise<void> {
-  await page.getByRole("tab", { name: "Edit schema" }).click();
+  await page.getByRole("tab", { name: "Schema bearbeiten" }).click();
 }
 
 /** Upload via the visible button so the browser fires change on the file input. */
@@ -29,6 +29,7 @@ export async function uploadToFileField(
   files: string | string[],
 ): Promise<void> {
   const fileChooserPromise = page.waitForEvent("filechooser");
+  // Button labels are currently hardcoded English in the file-field extension.
   await field.getByRole("button", { name: /Add files|Choose file/i }).click();
   const fileChooser = await fileChooserPromise;
   await fileChooser.setFiles(files);

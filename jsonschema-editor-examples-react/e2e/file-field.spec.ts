@@ -44,7 +44,7 @@ test.describe("Datei-Upload (x-file)", () => {
     await expect(listField.locator(".jse-file-field__item")).toHaveCount(1);
     await expect(page.locator(".jse-file-gallery__counter")).toHaveText("1 / 1");
 
-    await page.getByRole("button", { name: "Close gallery" }).click();
+    await page.getByRole("button", { name: "Galerie schließen" }).click();
     await expect(page.locator(".jse-file-gallery")).toHaveCount(0);
 
     const output = await readFormOutput(page);

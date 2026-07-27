@@ -63,7 +63,7 @@ test.describe("Schadensmeldung: Datei-Upload", () => {
     await expect(uploadField.locator(".jse-file-field__item")).toHaveCount(2);
     await expect(page.locator(".jse-file-gallery__counter")).toHaveText("1 / 2");
 
-    await page.getByRole("button", { name: "Close gallery" }).click();
+    await page.getByRole("button", { name: "Galerie schließen" }).click();
     await expect(page.locator(".jse-file-gallery")).toHaveCount(0);
 
     const output = await readFormOutput(page);

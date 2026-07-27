@@ -17,62 +17,62 @@ const scenarios: GeometryScenario[] = [
     point: true,
     line: false,
     polygon: false,
-    countPattern: /0 \/ max\. 1 geometry\/geometries/,
-    drawButtons: ["Place point"],
-    hiddenDrawButtons: ["Draw line", "Draw polygon"],
+    countPattern: /0 \/ max\. 1 Geometrie\(n\)/,
+    drawButtons: ["Punkt setzen"],
+    hiddenDrawButtons: ["Linie zeichnen", "Polygon zeichnen"],
   },
   {
     title: "Route erfassen",
     point: false,
     line: true,
     polygon: false,
-    countPattern: /0 \/ max\. 2 geometry\/geometries/,
-    drawButtons: ["Draw line"],
-    hiddenDrawButtons: ["Place point", "Draw polygon"],
+    countPattern: /0 \/ max\. 2 Geometrie\(n\)/,
+    drawButtons: ["Linie zeichnen"],
+    hiddenDrawButtons: ["Punkt setzen", "Polygon zeichnen"],
   },
   {
     title: "Einsatzgebiet abgrenzen",
     point: false,
     line: false,
     polygon: true,
-    countPattern: /0 \/ max\. 1 geometry\/geometries/,
-    drawButtons: ["Draw polygon"],
-    hiddenDrawButtons: ["Place point", "Draw line"],
+    countPattern: /0 \/ max\. 1 Geometrie\(n\)/,
+    drawButtons: ["Polygon zeichnen"],
+    hiddenDrawButtons: ["Punkt setzen", "Linie zeichnen"],
   },
   {
     title: "Standort und Route",
     point: true,
     line: true,
     polygon: false,
-    countPattern: /0 \/ max\. 3 geometry\/geometries/,
-    drawButtons: ["Place point", "Draw line"],
-    hiddenDrawButtons: ["Draw polygon"],
+    countPattern: /0 \/ max\. 3 Geometrie\(n\)/,
+    drawButtons: ["Punkt setzen", "Linie zeichnen"],
+    hiddenDrawButtons: ["Polygon zeichnen"],
   },
   {
     title: "Standort und Gebiet",
     point: true,
     line: false,
     polygon: true,
-    countPattern: /0 \/ max\. 2 geometry\/geometries/,
-    drawButtons: ["Place point", "Draw polygon"],
-    hiddenDrawButtons: ["Draw line"],
+    countPattern: /0 \/ max\. 2 Geometrie\(n\)/,
+    drawButtons: ["Punkt setzen", "Polygon zeichnen"],
+    hiddenDrawButtons: ["Linie zeichnen"],
   },
   {
     title: "Route und Gebiet",
     point: false,
     line: true,
     polygon: true,
-    countPattern: /0 \/ max\. 2 geometry\/geometries/,
-    drawButtons: ["Draw line", "Draw polygon"],
-    hiddenDrawButtons: ["Place point"],
+    countPattern: /0 \/ max\. 2 Geometrie\(n\)/,
+    drawButtons: ["Linie zeichnen", "Polygon zeichnen"],
+    hiddenDrawButtons: ["Punkt setzen"],
   },
   {
     title: "Gesamtplanung",
     point: true,
     line: true,
     polygon: true,
-    countPattern: /0 \/ max\. 5 geometry\/geometries/,
-    drawButtons: ["Place point", "Draw line", "Draw polygon"],
+    countPattern: /0 \/ max\. 5 Geometrie\(n\)/,
+    drawButtons: ["Punkt setzen", "Linie zeichnen", "Polygon zeichnen"],
     hiddenDrawButtons: [],
   },
   {
@@ -80,17 +80,17 @@ const scenarios: GeometryScenario[] = [
     point: false,
     line: false,
     polygon: true,
-    countPattern: /1 \/ 1–3 geometry\/geometries/,
-    drawButtons: ["Draw polygon"],
-    hiddenDrawButtons: ["Place point", "Draw line"],
+    countPattern: /1 \/ 1–3 Geometrie\(n\)/,
+    drawButtons: ["Polygon zeichnen"],
+    hiddenDrawButtons: ["Punkt setzen", "Linie zeichnen"],
   },
   {
     title: "Zwei Kartenelemente",
     point: true,
     line: true,
     polygon: true,
-    countPattern: /0 \/ exactly 2 geometry\/geometries/,
-    drawButtons: ["Place point", "Draw line", "Draw polygon"],
+    countPattern: /0 \/ exakt 2 Geometrie\(n\)/,
+    drawButtons: ["Punkt setzen", "Linie zeichnen", "Polygon zeichnen"],
     hiddenDrawButtons: [],
   },
 ];
@@ -129,26 +129,26 @@ test.describe("Geometry-Konfigurationen (Browser)", () => {
 
   test("Schema-Editor: x-geometry Attribute (Punkt/Linie/Polygon, Anzahl)", async ({ page }) => {
     await openEditorMode(page);
-    await page.getByRole("button", { name: "Edit attributes of pointOnly" }).click();
+    await page.getByRole("button", { name: "Attribute von pointOnly bearbeiten" }).click();
 
     const panel = page.locator(".jse-attributes-panel");
-    await expect(panel.getByText("Geometry (map)")).toBeVisible();
-    await expect(panel.getByText("Point")).toBeVisible();
-    await expect(panel.getByText("Line")).toBeVisible();
+    await expect(panel.getByText("Geometrie (Karte)")).toBeVisible();
+    await expect(panel.getByText("Punkt")).toBeVisible();
+    await expect(panel.getByText("Linie")).toBeVisible();
     await expect(panel.getByText("Polygon")).toBeVisible();
-    await expect(panel.getByText("Count mode")).toBeVisible();
+    await expect(panel.getByText("Anzahl-Modus")).toBeVisible();
 
-    const pointCheckbox = panel.locator(".jse-geometry-attr__check").filter({ hasText: "Point" }).locator("input");
+    const pointCheckbox = panel.locator(".jse-geometry-attr__check").filter({ hasText: "Punkt" }).locator("input");
     await expect(pointCheckbox).toBeChecked();
     await pointCheckbox.setChecked(false);
     await pointCheckbox.setChecked(true);
 
-    await panel.getByText("Count mode").locator("..").locator("select").selectOption("exact");
+    await panel.getByText("Anzahl-Modus").locator("..").locator("select").selectOption("exact");
     await panel.getByText("exactObjects").locator("..").locator("input").fill("2");
 
     await openFormMode(page);
     const field = fieldByTitle(page, "Standort markieren");
-    await expect(field.getByText(/0 \/ exactly 2 geometry\/geometries/)).toBeVisible();
+    await expect(field.getByText(/0 \/ exakt 2 Geometrie\(n\)/)).toBeVisible();
   });
 
   test("Formular: Mindestanzahl verhindert Löschen (Mehrere Gebiete)", async ({ page }) => {
@@ -156,16 +156,16 @@ test.describe("Geometry-Konfigurationen (Browser)", () => {
     await field.scrollIntoViewIfNeeded();
     const map = field.locator(".jse-geometry-map.leaflet-container");
 
-    await expect(field.getByText(/1 \/ 1–3 geometry\/geometries/)).toBeVisible({ timeout: 10_000 });
+    await expect(field.getByText(/1 \/ 1–3 Geometrie\(n\)/)).toBeVisible({ timeout: 10_000 });
 
-    await field.getByRole("button", { name: "Delete" }).click();
+    await field.getByRole("button", { name: "Löschen" }).click();
     await field
       .locator(".jse-geometry-map .leaflet-overlay-pane path.leaflet-interactive")
       .click({ force: true });
 
-    await expect(field.getByText(/At least 1 geometry\/geometries required./)).toBeVisible({
+    await expect(field.getByText(/Mindestens 1 Geometrie\(n\) erforderlich./)).toBeVisible({
       timeout: 5000,
     });
-    await expect(field.getByText(/1 \/ 1–3 geometry\/geometries/)).toBeVisible();
+    await expect(field.getByText(/1 \/ 1–3 Geometrie\(n\)/)).toBeVisible();
   });
 });

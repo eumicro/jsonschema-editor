@@ -125,9 +125,9 @@ test.describe("x-computed (CEL)", () => {
   test("Schema-Editor: x-computed Attribut sichtbar", async ({ page }) => {
     await selectExample(page, "computed-cost-qa");
     await openEditorMode(page);
-    await page.getByRole("button", { name: "Edit attributes of gesamtsumme" }).click();
+    await page.getByRole("button", { name: "Attribute von gesamtsumme bearbeiten" }).click();
 
     const panel = page.locator(".jse-attributes-panel");
-    await expect(panel.getByText("Computed (CEL, x-computed)")).toBeVisible();
+    await expect(panel.getByText("Berechnet (CEL, x-computed)")).toBeVisible();
   });
 });

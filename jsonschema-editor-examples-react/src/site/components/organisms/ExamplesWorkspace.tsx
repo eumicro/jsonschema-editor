@@ -199,6 +199,10 @@ export function ExamplesWorkspace({
               </div>
               <aside className="app__split-side">
                 <div className="app__code-header">{ui.dataPanelTitle}</div>
+                {/* Machine-readable mirror for E2E; CodeMirror textContent is not reliable JSON. */}
+                <pre className="app__form-data-output" hidden>
+                  {dataJson}
+                </pre>
                 <SiteCodeEditor
                   value={dataJson}
                   language="json"

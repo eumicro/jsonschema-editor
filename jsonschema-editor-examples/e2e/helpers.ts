@@ -5,7 +5,7 @@ import type { ExampleId } from "../src/examples/catalog";
 const E2E_STACK = process.env.E2E_STACK === "react" ? "react" : "vue";
 
 export function exampleUrl(id: ExampleId): string {
-  return `/en/examples/${E2E_STACK}/${id}`;
+  return `/de/examples/${E2E_STACK}/${id}`;
 }
 
 export async function selectExample(page: Page, id: ExampleId): Promise<void> {
@@ -14,11 +14,11 @@ export async function selectExample(page: Page, id: ExampleId): Promise<void> {
 }
 
 export async function openFormMode(page: Page): Promise<void> {
-  await page.getByRole("tab", { name: "Test form" }).click();
+  await page.getByRole("tab", { name: "Formular testen" }).click();
 }
 
 export async function openEditorMode(page: Page): Promise<void> {
-  await page.getByRole("tab", { name: "Edit schema" }).click();
+  await page.getByRole("tab", { name: "Schema bearbeiten" }).click();
 }
 
 /** Upload via the visible button so the browser fires change on the file input. */
@@ -28,6 +28,7 @@ export async function uploadToFileField(
   files: string | string[],
 ): Promise<void> {
   const fileChooserPromise = page.waitForEvent("filechooser");
+  // Button labels are currently hardcoded English in the file-field extension.
   await field.getByRole("button", { name: /Add files|Choose file/i }).click();
   const fileChooser = await fileChooserPromise;
   await fileChooser.setFiles(files);

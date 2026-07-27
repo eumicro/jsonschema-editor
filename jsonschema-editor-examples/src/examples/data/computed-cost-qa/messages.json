@@ -1,46 +1,64 @@
 {
   "en": {
     "cost-estimate.positionen.label": "Cost items",
+    "cost-estimate.bezeichnung.label": "Designation",
+    "cost-estimate.betrag.label": "Amount (EUR)",
     "cost-estimate.gesamtsumme.label": "Total",
     "cost-estimate.gesamtsumme.description": "Is calculated automatically from all positions"
   },
   "de": {
     "cost-estimate.positionen.label": "Kostenpositionen",
+    "cost-estimate.bezeichnung.label": "Bezeichnung",
+    "cost-estimate.betrag.label": "Betrag",
     "cost-estimate.gesamtsumme.label": "Gesamtsumme",
     "cost-estimate.gesamtsumme.description": "Wird aus allen Positionen automatisch berechnet"
   },
   "fr": {
     "cost-estimate.positionen.label": "Éléments de coûts",
+    "cost-estimate.bezeichnung.label": "Désignation",
+    "cost-estimate.betrag.label": "Montant (EUR)",
     "cost-estimate.gesamtsumme.label": "Total",
     "cost-estimate.gesamtsumme.description": "Est calculé automatiquement à partir de toutes les positions"
   },
   "it": {
     "cost-estimate.positionen.label": "Voci di costo",
+    "cost-estimate.bezeichnung.label": "Designazione",
+    "cost-estimate.betrag.label": "Importo (EUR)",
     "cost-estimate.gesamtsumme.label": "Totale",
     "cost-estimate.gesamtsumme.description": "Viene calcolato automaticamente da tutte le posizioni"
   },
   "pl": {
     "cost-estimate.positionen.label": "Pozycje kosztowe",
+    "cost-estimate.bezeichnung.label": "Oznaczenie",
+    "cost-estimate.betrag.label": "Kwota (EUR)",
     "cost-estimate.gesamtsumme.label": "Całkowity",
     "cost-estimate.gesamtsumme.description": "Jest obliczany automatycznie ze wszystkich pozycji"
   },
   "uk": {
     "cost-estimate.positionen.label": "Статті витрат",
+    "cost-estimate.bezeichnung.label": "Позначення",
+    "cost-estimate.betrag.label": "Сума (євро)",
     "cost-estimate.gesamtsumme.label": "Всього",
     "cost-estimate.gesamtsumme.description": "Розраховується автоматично з усіх позицій"
   },
   "ru": {
     "cost-estimate.positionen.label": "Статьи затрат",
+    "cost-estimate.bezeichnung.label": "Обозначение",
+    "cost-estimate.betrag.label": "Сумма (евро)",
     "cost-estimate.gesamtsumme.label": "Общий",
     "cost-estimate.gesamtsumme.description": "Рассчитывается автоматически со всех позиций"
   },
   "zh": {
     "cost-estimate.positionen.label": "成本项目",
+    "cost-estimate.bezeichnung.label": "指定",
+    "cost-estimate.betrag.label": "金额（欧元）",
     "cost-estimate.gesamtsumme.label": "全部的",
     "cost-estimate.gesamtsumme.description": "从所有位置自动计算"
   },
   "ja": {
     "cost-estimate.positionen.label": "費用項目",
+    "cost-estimate.bezeichnung.label": "指定",
+    "cost-estimate.betrag.label": "金額（ユーロ）",
     "cost-estimate.gesamtsumme.label": "合計",
     "cost-estimate.gesamtsumme.description": "すべてのポジションから自動的に計算されます"
   }
