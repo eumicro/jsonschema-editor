@@ -39,10 +39,10 @@ const emit = defineEmits<{
   <header class="app__topbar">
     <div class="app__topbar-start">
       <BrandLink
-        :href="examplesHref"
+        :href="getStartedHref"
         :brand-prefix="ui.brandPrefix"
         :brand-suffix="ui.brandSuffix"
-        @navigate="emit('openExamples')"
+        @navigate="emit('openGetStarted')"
       />
       <nav class="app__topnav" :aria-label="ui.topNavAria">
         <NavLink

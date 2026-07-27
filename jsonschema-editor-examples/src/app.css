@@ -579,11 +579,227 @@ body {
   text-align: center;
 }
 
+.get-started__orbit-wrap {
+  position: relative;
+  width: min(100%, 46rem);
+  margin: 0 auto 1.35rem;
+  isolation: isolate;
+}
+
+.get-started__orbit {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.get-started__blob--a {
+  animation: get-started-blob-drift 11s ease-in-out infinite alternate;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.get-started__blob--b {
+  animation: get-started-blob-drift 14s ease-in-out infinite alternate-reverse;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation-delay: -3s;
+}
+
+.get-started__wire {
+  stroke-dasharray: 8 10;
+  animation: get-started-dash 18s linear infinite;
+}
+
+.get-started__wire--2 {
+  animation-duration: 22s;
+  animation-direction: reverse;
+}
+
+.get-started__wire--3 {
+  animation-duration: 15s;
+  animation-delay: -4s;
+}
+
+.get-started__spark {
+  filter: drop-shadow(0 0 4px rgb(20 184 166 / 70%));
+}
+
+/* Left: 3 steps */
+.get-started__step-card > rect {
+  fill: rgb(255 255 255 / 92%);
+  stroke: #99f6e4;
+  stroke-width: 1.3;
+}
+
+.get-started__step-dot {
+  fill: #ccfbf1;
+  stroke: #0d9488;
+  stroke-width: 1.4;
+}
+
+.get-started__step-num {
+  fill: #0f766e;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.get-started__step-label {
+  fill: #0f172a;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.get-started__step-sub {
+  fill: #64748b;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 10px;
+}
+
+.get-started__step-card--1 {
+  animation: get-started-float 6.5s ease-in-out infinite;
+}
+
+.get-started__step-card--2 {
+  animation: get-started-float 7.2s ease-in-out infinite;
+  animation-delay: -1.5s;
+}
+
+.get-started__step-card--3 {
+  animation: get-started-float 6.8s ease-in-out infinite;
+  animation-delay: -3s;
+}
+
+/* Middle: loose fields */
+.get-started__loose-field > rect:first-child {
+  fill: rgb(255 255 255 / 78%);
+  stroke: #cbd5e1;
+  stroke-width: 1.1;
+  stroke-dasharray: 4 3;
+}
+
+.get-started__loose-bar {
+  fill: #94a3b8;
+  opacity: 0.55;
+}
+
+.get-started__loose-input {
+  fill: #f8fafc;
+  stroke: #e2e8f0;
+  stroke-width: 1;
+}
+
+.get-started__loose-radio {
+  fill: #fff;
+  stroke: #94a3b8;
+  stroke-width: 1.2;
+}
+
+.get-started__loose-field--1 {
+  animation: get-started-tumble 7s ease-in-out infinite;
+}
+
+.get-started__loose-field--2 {
+  animation: get-started-tumble 8.2s ease-in-out infinite;
+  animation-delay: -1.8s;
+}
+
+.get-started__loose-field--3 {
+  animation: get-started-tumble 6.4s ease-in-out infinite;
+  animation-delay: -3.2s;
+}
+
+.get-started__loose-field--4 {
+  animation: get-started-tumble 7.6s ease-in-out infinite;
+  animation-delay: -0.9s;
+}
+
+.get-started__loose-brace {
+  fill: #0f766e;
+  font-family: ui-monospace, "Cascadia Code", "Consolas", monospace;
+  font-size: 36px;
+  font-weight: 700;
+  opacity: 0.28;
+  animation: get-started-brace-breathe 5s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.get-started__loose-brace--close {
+  animation-delay: -2.4s;
+  opacity: 0.22;
+}
+
+/* Right: pretty form */
+.get-started__pretty-form {
+  animation: get-started-form-glow 4.8s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.get-started__pretty-shell {
+  stroke: #99f6e4;
+  stroke-width: 1.4;
+}
+
+.get-started__pretty-accent {
+  fill: #0d9488;
+}
+
+.get-started__pretty-title {
+  fill: #0f172a;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.get-started__pretty-hint {
+  fill: #64748b;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 10px;
+}
+
+.get-started__pretty-label {
+  fill: #475569;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.get-started__pretty-control {
+  fill: #fff;
+  stroke: #cbd5e1;
+  stroke-width: 1.2;
+}
+
+.get-started__pretty-value {
+  fill: #0f172a;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 12px;
+}
+
+.get-started__pretty-btn {
+  fill: #0d9488;
+  animation: get-started-btn-pulse 3.6s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.get-started__pretty-btn-label {
+  fill: #fff;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+}
+
 .get-started__title {
   margin: 0 0 0.75rem;
   font-size: clamp(1.75rem, 3vw, 2.25rem);
   font-weight: 700;
   letter-spacing: -0.03em;
+  animation: get-started-rise 0.7s ease-out both;
 }
 
 .get-started__lead {
@@ -592,6 +808,111 @@ body {
   font-size: 1.05rem;
   line-height: 1.6;
   color: var(--app-muted);
+  animation: get-started-rise 0.7s ease-out 0.12s both;
+}
+
+@keyframes get-started-blob-drift {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(12px, -10px) scale(1.06);
+  }
+}
+
+@keyframes get-started-dash {
+  to {
+    stroke-dashoffset: -220;
+  }
+}
+
+@keyframes get-started-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes get-started-tumble {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0.75;
+  }
+  50% {
+    transform: translate(4px, -8px) rotate(3deg);
+    opacity: 1;
+  }
+}
+
+@keyframes get-started-brace-breathe {
+  0%,
+  100% {
+    opacity: 0.18;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes get-started-form-glow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes get-started-btn-pulse {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.08);
+  }
+}
+
+@keyframes get-started-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .get-started__blob--a,
+  .get-started__blob--b,
+  .get-started__wire,
+  .get-started__step-card--1,
+  .get-started__step-card--2,
+  .get-started__step-card--3,
+  .get-started__loose-field--1,
+  .get-started__loose-field--2,
+  .get-started__loose-field--3,
+  .get-started__loose-field--4,
+  .get-started__loose-brace,
+  .get-started__pretty-form,
+  .get-started__pretty-btn,
+  .get-started__title,
+  .get-started__lead {
+    animation: none !important;
+  }
+
+  .get-started__spark {
+    display: none;
+  }
 }
 
 .get-started__section {

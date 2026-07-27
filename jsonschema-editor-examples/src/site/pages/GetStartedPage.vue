@@ -2,6 +2,7 @@
 import { computed } from "vue";
 import type { AppLocale, AppStack } from "../../app-routing";
 import { getStartedFor } from "../i18n/get-started";
+import GetStartedOrbitArt from "../components/atoms/GetStartedOrbitArt.vue";
 
 const props = defineProps<{
   locale: AppLocale;
@@ -23,6 +24,9 @@ function featuredHref(exampleId: string): string {
 <template>
   <article class="get-started">
     <header class="get-started__header">
+      <div class="get-started__orbit-wrap">
+        <GetStartedOrbitArt />
+      </div>
       <h1 class="get-started__title">{{ content.title }}</h1>
       <p class="get-started__lead">{{ content.lead }}</p>
     </header>

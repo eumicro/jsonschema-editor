@@ -52,10 +52,10 @@ export function SiteTopbar({
     <header className="app__topbar">
       <div className="app__topbar-start">
         <BrandLink
-          href={examplesHref}
+          href={getStartedHref}
           brandPrefix={ui.brandPrefix}
           brandSuffix={ui.brandSuffix}
-          onNavigate={onOpenExamples}
+          onNavigate={onOpenGetStarted}
         />
         <nav className="app__topnav" aria-label={ui.topNavAria}>
           <NavLink

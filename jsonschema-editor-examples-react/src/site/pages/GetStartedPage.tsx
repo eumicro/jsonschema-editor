@@ -1,5 +1,6 @@
 import { getStartedFor } from "../../../../jsonschema-editor-examples/src/site/i18n/get-started.js";
 import type { AppLocale, AppStack } from "../../app-routing.js";
+import { GetStartedOrbitArt } from "../components/atoms/GetStartedOrbitArt.js";
 
 interface GetStartedPageProps {
   locale: AppLocale;
@@ -19,6 +20,9 @@ export function GetStartedPage({
   return (
     <article className="get-started">
       <header className="get-started__header">
+        <div className="get-started__orbit-wrap">
+          <GetStartedOrbitArt />
+        </div>
         <h1 className="get-started__title">{content.title}</h1>
         <p className="get-started__lead">{content.lead}</p>
       </header>
