@@ -272,6 +272,10 @@ schema.setProperty("title", new StringSchema(), true);
 const ui = UiSchema.generateForSchema(schema);
 ```
 
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for setup, tests, and pull-request guidelines.
+
 ## License
 
 [MIT](./LICENSE)
