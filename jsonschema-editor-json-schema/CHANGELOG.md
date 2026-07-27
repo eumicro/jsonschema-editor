@@ -1,5 +1,11 @@
 # @jsonschema-editor/json-schema
 
+## 0.1.15
+
+### Patch Changes
+
+- Point package homepage and READMEs at the live demo site.
+
 ## 0.1.14
 
 ### Patch Changes

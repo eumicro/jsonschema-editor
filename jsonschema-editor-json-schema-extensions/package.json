@@ -1,6 +1,6 @@
 {
   "name": "@jsonschema-editor/json-schema-extensions",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "description": "Format and geometry extensions for JSON Schema (email, url, phone, x-geometry) with validators and schema helpers",
   "type": "module",
   "license": "MIT",
@@ -14,7 +14,7 @@
     "url": "git+https://github.com/eumicro/jsonschema-editor.git",
     "directory": "jsonschema-editor-json-schema-extensions"
   },
-  "homepage": "https://github.com/eumicro/jsonschema-editor/tree/main/jsonschema-editor-json-schema-extensions#readme",
+  "homepage": "https://jsonschema-editor.cloudapplication.net/",
   "bugs": "https://github.com/eumicro/jsonschema-editor/issues",
   "keywords": [
     "json-schema",

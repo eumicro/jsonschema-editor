@@ -1,6 +1,6 @@
 {
   "name": "@jsonschema-editor/react-extensions",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "description": "React form field renderers for JSON Schema extensions (formats, values-source, computed, file, geometry)",
   "type": "module",
   "license": "MIT",
@@ -14,7 +14,7 @@
     "url": "git+https://github.com/eumicro/jsonschema-editor.git",
     "directory": "jsonschema-editor-react-extensions"
   },
-  "homepage": "https://github.com/eumicro/jsonschema-editor/tree/main/jsonschema-editor-react-extensions#readme",
+  "homepage": "https://jsonschema-editor.cloudapplication.net/",
   "bugs": "https://github.com/eumicro/jsonschema-editor/issues",
   "keywords": [
     "react",

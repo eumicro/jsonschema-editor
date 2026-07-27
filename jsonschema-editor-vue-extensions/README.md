@@ -4,6 +4,8 @@ Vue form field renderers for extended JSON Schema formats (`email`, `uri`, `phon
 
 Works with `@jsonschema-editor/json-schema-extensions` on the schema side and registers custom controls via `@jsonschema-editor/vue` extension API.
 
+**Live demo:** [jsonschema-editor.cloudapplication.net](https://jsonschema-editor.cloudapplication.net/)
+
 ## Installation
 
 ```bash

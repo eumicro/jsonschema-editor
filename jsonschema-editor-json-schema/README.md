@@ -2,6 +2,8 @@
 
 Standalone, **strictly object-oriented** JSON Schema data model.
 
+**Live demo:** [jsonschema-editor.cloudapplication.net](https://jsonschema-editor.cloudapplication.net/)
+
 ## Principles
 
 - **Inheritance**: `SchemaNode` → `LeafSchema` / `CompositeSchema` → concrete types

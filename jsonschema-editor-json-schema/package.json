@@ -1,6 +1,6 @@
 {
   "name": "@jsonschema-editor/json-schema",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "description": "Object-oriented JSON Schema data model",
   "type": "module",
   "license": "MIT",
@@ -14,7 +14,7 @@
     "url": "git+https://github.com/eumicro/jsonschema-editor.git",
     "directory": "jsonschema-editor-json-schema"
   },
-  "homepage": "https://github.com/eumicro/jsonschema-editor/tree/main/jsonschema-editor-json-schema#readme",
+  "homepage": "https://jsonschema-editor.cloudapplication.net/",
   "bugs": "https://github.com/eumicro/jsonschema-editor/issues",
   "keywords": [
     "json-schema",

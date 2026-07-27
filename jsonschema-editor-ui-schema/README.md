@@ -2,6 +2,8 @@
 
 Standalone, **strictly object-oriented** UI schema data model (JSON Forms compatible).
 
+**Live demo:** [jsonschema-editor.cloudapplication.net](https://jsonschema-editor.cloudapplication.net/)
+
 ## Principles
 
 - **Inheritance**: `UiElement` → `UiLayout` / `Control` / `Label`

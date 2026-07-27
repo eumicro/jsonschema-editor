@@ -4,6 +4,8 @@ React form field renderers for JSON Schema extensions: format fields (`email`, `
 
 Works with `@jsonschema-editor/json-schema-extensions` on the schema side and registers custom controls via the `@jsonschema-editor/react` extension API.
 
+**Live demo:** [jsonschema-editor.cloudapplication.net](https://jsonschema-editor.cloudapplication.net/)
+
 ## Installation
 
 ```bash

@@ -1,5 +1,15 @@
 # @jsonschema-editor/vue
 
+## 0.1.15
+
+### Patch Changes
+
+- Point package homepage and READMEs at the live demo site.
+- Updated dependencies
+  - @jsonschema-editor/json-schema@0.1.15
+  - @jsonschema-editor/json-schema-extensions@0.1.15
+  - @jsonschema-editor/ui-schema@0.1.15
+
 ## 0.1.14
 
 ### Patch Changes

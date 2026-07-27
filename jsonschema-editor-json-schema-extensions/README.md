@@ -2,6 +2,8 @@
 
 Format extensions for **email**, **url**, and **phone**, plus **`x-values-source`** (static lists and API-backed selects) on top of `@jsonschema-editor/json-schema`.
 
+**Live demo:** [jsonschema-editor.cloudapplication.net](https://jsonschema-editor.cloudapplication.net/)
+
 ## Installation
 
 ```bash

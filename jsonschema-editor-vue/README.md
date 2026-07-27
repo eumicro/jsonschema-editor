@@ -2,6 +2,8 @@
 
 JSON Schema form editor and fillable form for **Vue 3**.
 
+**Live demo:** [jsonschema-editor.cloudapplication.net](https://jsonschema-editor.cloudapplication.net/)
+
 ## Installation
 
 ```bash

@@ -2,6 +2,8 @@
 
 JSON Schema fillable form for **React** (scaffold / MVP).
 
+**Live demo:** [jsonschema-editor.cloudapplication.net](https://jsonschema-editor.cloudapplication.net/)
+
 ## Installation
 
 ```bash
