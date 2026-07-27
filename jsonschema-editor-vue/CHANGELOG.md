@@ -1,5 +1,13 @@
 # @jsonschema-editor/vue
 
+## 0.1.16
+
+### Patch Changes
+
+- @jsonschema-editor/json-schema@0.1.16
+- @jsonschema-editor/json-schema-extensions@0.1.16
+- @jsonschema-editor/ui-schema@0.1.16
+
 ## 0.1.15
 
 ### Patch Changes

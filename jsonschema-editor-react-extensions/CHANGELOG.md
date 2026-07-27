@@ -1,5 +1,14 @@
 # @jsonschema-editor/react-extensions
 
+## 0.1.16
+
+### Patch Changes
+
+- 875c3bf: Fix Leaflet `_leaflet_pos` crash when the React geometry map remounts under Strict Mode.
+  - @jsonschema-editor/json-schema@0.1.16
+  - @jsonschema-editor/json-schema-extensions@0.1.16
+  - @jsonschema-editor/react@0.1.16
+
 ## 0.1.15
 
 ### Patch Changes
