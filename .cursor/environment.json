@@ -1,0 +1,10 @@
+{
+  "name": "jsonschema-editor",
+  "install": "corepack enable && corepack prepare pnpm@9.15.9 --activate && pnpm install --frozen-lockfile && pnpm run build",
+  "terminals": [
+    {
+      "name": "dev:site",
+      "command": "pnpm run dev:site"
+    }
+  ]
+}

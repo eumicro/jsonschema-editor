@@ -3,7 +3,8 @@ dist/
 /site/
 *.local
 .DS_Store
-.cursor/
+.cursor/*
+!.cursor/environment.json
 .playwright-mcp/
 
 # Test & build artifacts
