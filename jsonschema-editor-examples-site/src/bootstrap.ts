@@ -1,4 +1,3 @@
-const DEFAULT_EXAMPLE_ID = "occupational-health-g37";
 const STACK_KEY = "jse.site.stack";
 
 function preferredStack(): "vue" | "react" {
@@ -13,11 +12,12 @@ function preferredStack(): "vue" | "react" {
 
 const path = location.pathname.replace(/\/+$/, "") || "/";
 if (path === "/" || path === "") {
-  location.replace(`/en/examples/vue/${DEFAULT_EXAMPLE_ID}`);
+  location.replace("/en/get-started/vue");
 } else {
   const parts = path.split("/").filter(Boolean);
   const stack =
-    parts[1] === "examples" && (parts[2] === "vue" || parts[2] === "react")
+    (parts[1] === "examples" || parts[1] === "get-started") &&
+    (parts[2] === "vue" || parts[2] === "react")
       ? parts[2]
       : preferredStack();
   if (stack === "react") {

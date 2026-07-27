@@ -42,7 +42,7 @@ export default defineConfig({
     host: "127.0.0.1",
     port: 5173,
     strictPort: true,
-    open: "/en/examples/vue/occupational-health-g37",
+    open: "/en/get-started/vue",
   },
   preview: {
     host: "127.0.0.1",
