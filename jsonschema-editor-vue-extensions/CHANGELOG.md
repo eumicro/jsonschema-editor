@@ -1,5 +1,15 @@
 # @jsonschema-editor/vue-extensions
 
+## 0.1.17
+
+### Patch Changes
+
+- 0498a62: Add schema editor `readonly` mode, boolean `x-switch` custom field, and polished checkbox/switch atoms. Also fix Vue categorization tab styles so they match React.
+- Updated dependencies [0498a62]
+  - @jsonschema-editor/json-schema@0.1.17
+  - @jsonschema-editor/json-schema-extensions@0.1.17
+  - @jsonschema-editor/vue@0.1.17
+
 ## 0.1.16
 
 ### Patch Changes
