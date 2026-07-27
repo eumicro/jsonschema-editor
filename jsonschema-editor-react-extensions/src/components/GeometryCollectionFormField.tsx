@@ -107,6 +107,28 @@ function boundsForCollection(
   return group.getBounds();
 }
 
+/** True while the Leaflet map is still attached to a live DOM container. */
+function isMapAlive(map: L.Map | null | undefined): map is L.Map {
+  if (!map) return false;
+  try {
+    const container = map.getContainer();
+    // After map.remove(), panes are torn down and fitBounds throws on `_leaflet_pos`.
+    return Boolean(container?.isConnected && map.getPane("mapPane"));
+  } catch {
+    return false;
+  }
+}
+
+function safeFitBounds(map: L.Map, bounds: L.LatLngBounds): void {
+  if (!isMapAlive(map) || !bounds.isValid()) return;
+  try {
+    // animate:false avoids zoom-transition callbacks after unmount / remount.
+    map.fitBounds(bounds.pad(0.2), { animate: false });
+  } catch {
+    /* ignore layout races during Strict Mode remount */
+  }
+}
+
 function updateRemovalPolicy(
   group: L.FeatureGroup,
   config: NormalizedGeometryConfig
@@ -315,7 +337,7 @@ export function GeometryCollectionFormField({
 
       const bounds = boundsForCollection(collection);
       if (bounds) {
-        map.fitBounds(bounds.pad(0.2));
+        safeFitBounds(map, bounds);
       }
 
       if (!readonly) {
@@ -331,7 +353,7 @@ export function GeometryCollectionFormField({
   const handleGeometryMapChange = useCallback(() => {
     const map = mapInstanceRef.current;
     const group = featureGroupRef.current;
-    if (!map || !group || !geometryConfig) return;
+    if (!isMapAlive(map) || !group || !geometryConfig) return;
 
     syncValueFromMap();
     const count = geometriesFromGroup(group).length;
@@ -363,6 +385,20 @@ export function GeometryCollectionFormField({
     t,
   ]);
 
+  // Keep latest handlers in refs so the map mounts once (Vue-parity) and is not
+  // torn down when callback identities change — that race caused Leaflet
+  // `_leaflet_pos` errors under React Strict Mode.
+  const syncValueFromMapRef = useRef(syncValueFromMap);
+  syncValueFromMapRef.current = syncValueFromMap;
+  const handleGeometryMapChangeRef = useRef(handleGeometryMapChange);
+  handleGeometryMapChangeRef.current = handleGeometryMapChange;
+  const loadCollectionOnMapRef = useRef(loadCollectionOnMap);
+  loadCollectionOnMapRef.current = loadCollectionOnMap;
+  const currentCollectionRef = useRef(currentCollection);
+  currentCollectionRef.current = currentCollection;
+  const tRef = useRef(t);
+  tRef.current = t;
+
   useEffect(() => {
     const config = geometryConfig;
     const container = mapContainerRef.current;
@@ -370,11 +406,16 @@ export function GeometryCollectionFormField({
 
     fixLeafletIcons();
 
-    const collection = currentCollection();
+    const collection = currentCollectionRef.current();
     const initialBounds = boundsForCollection(collection);
     const fallbackCenter: L.LatLngExpression = [53.0061937, 7.4118535];
 
+    let cancelled = false;
+    let rafId = 0;
     mapInitializingRef.current = true;
+
+    const onSync = () => syncValueFromMapRef.current();
+    const onGeometryChange = () => handleGeometryMapChangeRef.current();
 
     try {
       const map = L.map(container, {
@@ -393,7 +434,7 @@ export function GeometryCollectionFormField({
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (map as any).pm.setGlobalOptions({ layerGroup: group });
 
-      loadCollectionOnMap(map, group, collection, syncValueFromMap);
+      loadCollectionOnMapRef.current(map, group, collection, onSync);
       lastValidCollectionRef.current = cloneCollection(collection);
 
       if (!readonly) {
@@ -404,7 +445,9 @@ export function GeometryCollectionFormField({
           if (!mapPm(map)?.globalRemovalModeEnabled()) return;
           if (geometriesFromGroup(group).length > config.minObjects) return;
           setMapError(
-            t("extensions.geometry.minRequired", { min: config.minObjects })
+            tRef.current("extensions.geometry.minRequired", {
+              min: config.minObjects,
+            })
           );
         });
 
@@ -416,60 +459,72 @@ export function GeometryCollectionFormField({
           if (group.getLayers().length > config.maxObjects) {
             group.removeLayer(event.layer);
             setMapError(
-              t("extensions.geometry.maxAllowed", { max: config.maxObjects })
+              tRef.current("extensions.geometry.maxAllowed", {
+                max: config.maxObjects,
+              })
             );
             return;
           }
-          enableGeomanForLayer(event.layer, syncValueFromMap);
+          enableGeomanForLayer(event.layer, onSync);
           setMapError(null);
-          syncValueFromMap();
-          lastValidCollectionRef.current = cloneCollection(currentCollection());
+          onSync();
+          lastValidCollectionRef.current = cloneCollection(
+            currentCollectionRef.current()
+          );
         });
 
-        map.on("pm:remove", handleGeometryMapChange);
-        group.on("layerremove", handleGeometryMapChange);
-        attachSyncEventsForGroup(group, syncValueFromMap);
+        map.on("pm:remove", onGeometryChange);
+        group.on("layerremove", onGeometryChange);
+        attachSyncEventsForGroup(group, onSync);
       }
 
       mapInstanceRef.current = map;
       featureGroupRef.current = group;
 
-      requestAnimationFrame(() => {
-        map.invalidateSize();
+      rafId = requestAnimationFrame(() => {
+        if (cancelled || !isMapAlive(map)) return;
+        try {
+          map.invalidateSize();
+        } catch {
+          return;
+        }
         const bounds = boundsForCollection(collection);
         if (bounds) {
-          map.fitBounds(bounds.pad(0.2));
+          safeFitBounds(map, bounds);
         }
       });
     } catch (error) {
       setMapError(
         error instanceof Error
           ? error.message
-          : t("extensions.geometry.mapLoadError")
+          : tRef.current("extensions.geometry.mapLoadError")
       );
     } finally {
       mapInitializingRef.current = false;
     }
 
     return () => {
-      mapInstanceRef.current?.remove();
+      cancelled = true;
+      cancelAnimationFrame(rafId);
+      const map = mapInstanceRef.current;
       mapInstanceRef.current = null;
       featureGroupRef.current = null;
+      if (map) {
+        try {
+          map.remove();
+        } catch {
+          /* already torn down */
+        }
+      }
+      // Ensure Strict Mode remount can re-init on the same DOM node.
+      delete (container as HTMLElement & { _leaflet_id?: number })._leaflet_id;
     };
-  }, [
-    currentCollection,
-    geometryConfig,
-    handleGeometryMapChange,
-    loadCollectionOnMap,
-    readonly,
-    syncValueFromMap,
-    t,
-  ]);
+  }, [geometryConfig, readonly]);
 
   useEffect(() => {
     const map = mapInstanceRef.current;
     const config = geometryConfig;
-    if (!map || !config) return;
+    if (!isMapAlive(map) || !config) return;
     applyDrawControls(map, config, readonly);
   }, [geometryConfig, readonly]);
 
@@ -477,7 +532,7 @@ export function GeometryCollectionFormField({
     if (suppressValueReloadRef.current || mapInitializingRef.current) return;
     const map = mapInstanceRef.current;
     const group = featureGroupRef.current;
-    if (!map || !group || !isGeometryCollection(value)) return;
+    if (!isMapAlive(map) || !group || !isGeometryCollection(value)) return;
 
     const current = geometriesFromGroup(group);
     if (current.length === value.geometries.length) return;
