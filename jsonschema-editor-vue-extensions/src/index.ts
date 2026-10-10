@@ -24,5 +24,11 @@ export {
   useFileFieldProvider,
   FILE_FIELD_PROVIDER_KEY,
   createInMemoryFileFieldProvider,
+  relationExtension,
+  RelationFieldFormField,
+  RelationAttributeControl,
+  provideRelationFieldProvider,
+  useRelationFieldProvider,
+  RELATION_FIELD_PROVIDER_KEY,
 } from "./register.js";
 export type { InMemoryFileFieldProvider } from "./in-memory-file-field-provider.js";

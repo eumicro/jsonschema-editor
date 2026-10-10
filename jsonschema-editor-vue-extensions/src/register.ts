@@ -7,12 +7,14 @@ import { fileExtension } from "./file-extension.js";
 import { progressBarExtension } from "./progress-bar-extension.js";
 import { ratingExtension } from "./rating-extension.js";
 import { switchExtension } from "./switch-extension.js";
+import { relationExtension } from "./relation-extension.js";
 import GeometryAttributeControl from "./components/GeometryAttributeControl.vue";
 import ComputedAttributeControl from "./components/ComputedAttributeControl.vue";
 import FileAttributeControl from "./components/FileAttributeControl.vue";
 import ProgressBarAttributeControl from "./components/ProgressBarAttributeControl.vue";
 import RatingAttributeControl from "./components/RatingAttributeControl.vue";
 import SwitchAttributeControl from "./components/SwitchAttributeControl.vue";
+import RelationAttributeControl from "./components/RelationAttributeControl.vue";
 import {
   GEOMETRY_ATTRIBUTE,
   COMPUTED_ATTRIBUTE,
@@ -20,6 +22,8 @@ import {
   PROGRESS_BAR_ATTRIBUTE,
   RATING_ATTRIBUTE,
   SWITCH_ATTRIBUTE,
+  RELATION_REFERENCE_ATTRIBUTE,
+  RELATION_SNAPSHOT_ATTRIBUTE,
 } from "@jsonschema-editor/json-schema-extensions";
 import "./file-field.css";
 import "./date-today-field.css";
@@ -63,6 +67,18 @@ export function registerDefaultVueExtensions(): void {
     50,
     "vue-ext-switch-attr",
   );
+  globalSchemaAttributeControlRegistry.registerName(
+    RELATION_REFERENCE_ATTRIBUTE,
+    RelationAttributeControl,
+    50,
+    "vue-ext-relation-reference-attr",
+  );
+  globalSchemaAttributeControlRegistry.registerName(
+    RELATION_SNAPSHOT_ATTRIBUTE,
+    RelationAttributeControl,
+    50,
+    "vue-ext-relation-snapshot-attr",
+  );
   registerVueExtension(formatFieldsExtension);
   registerVueExtension(valuesSourceExtension);
   registerVueExtension(geometryExtension);
@@ -71,6 +87,7 @@ export function registerDefaultVueExtensions(): void {
   registerVueExtension(progressBarExtension);
   registerVueExtension(ratingExtension);
   registerVueExtension(switchExtension);
+  registerVueExtension(relationExtension);
 }
 
 export { formatFieldsExtension, ExtendedFormatFormField, DateTodayFormField } from "./format-fields-extension.js";
@@ -91,4 +108,11 @@ export {
 } from "./file-field-provider.js";
 export { createInMemoryFileFieldProvider } from "./in-memory-file-field-provider.js";
 export type { InMemoryFileFieldProvider } from "./in-memory-file-field-provider.js";
+export { relationExtension, RelationFieldFormField } from "./relation-extension.js";
+export { default as RelationAttributeControl } from "./components/RelationAttributeControl.vue";
+export {
+  provideRelationFieldProvider,
+  useRelationFieldProvider,
+  RELATION_FIELD_PROVIDER_KEY,
+} from "./relation-field-provider.js";
 

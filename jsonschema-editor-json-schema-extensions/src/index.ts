@@ -187,3 +187,31 @@ export {
   isSwitchExtensionConfig,
   readSwitchConfig,
 } from "./switch.js";
+
+export {
+  RELATION_REFERENCE_ATTRIBUTE,
+  RELATION_SNAPSHOT_ATTRIBUTE,
+  buildDisplayConfigFromFields,
+  createRelationReferenceSchema,
+  createRelationSnapshotSchema,
+  displayFieldsFromSchema,
+  isRelationDescriptor,
+  isRelationExtensionConfig,
+  isTargetAllowed,
+  normalizeRelationConfig,
+  projectRelationDisplay,
+  readRelationConfig,
+  readRelationReferenceConfig,
+  readRelationSnapshotConfig,
+  validateRelationFieldValue,
+} from "./relation.js";
+export type {
+  NormalizedRelationConfig,
+  RelationCatalogItem,
+  RelationDescriptor,
+  RelationDisplayConfig,
+  RelationExtensionConfig,
+  RelationFieldContext,
+  RelationFieldProvider,
+  RelationTargetAllow,
+} from "./relation.js";

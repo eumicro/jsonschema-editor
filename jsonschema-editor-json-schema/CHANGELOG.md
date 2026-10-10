@@ -1,5 +1,11 @@
 # @jsonschema-editor/json-schema
 
+## 0.1.18
+
+### Patch Changes
+
+- Proxy-safe `cloneJsonCompatible` for schema/UI attribute clones (fixes Vue Proxy `structuredClone` failures). Restore `x-relation-reference` / `x-relation-snapshot` APIs and Vue relation form controls.
+
 ## 0.1.17
 
 ### Patch Changes
