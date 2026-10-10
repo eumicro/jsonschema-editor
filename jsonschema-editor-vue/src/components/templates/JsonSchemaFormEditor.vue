@@ -17,17 +17,22 @@ import {
 import { useSchemaFormEditorState } from "../../composables/useSchemaFormEditorState";
 import { setupJseVueExtensions, type JseVueExtension } from "../../registry/vue-extension";
 
-const props = defineProps<{
-  schema: SchemaDocument;
-  uiSchema: UiSchema;
-  locale?: JseLocale;
-  fallbackLocale?: JseLocale;
-  messages?: JseI18nOptions["messages"];
-  translate?: JseI18nOptions["translate"];
-  /** Opt-in locales for editing UI label translations in the attributes panel. */
-  labelLocales?: JseLocale[];
-  extensions?: JseVueExtension[];
-}>();
+const props = withDefaults(
+  defineProps<{
+    schema: SchemaDocument;
+    uiSchema: UiSchema;
+    locale?: JseLocale;
+    fallbackLocale?: JseLocale;
+    messages?: JseI18nOptions["messages"];
+    translate?: JseI18nOptions["translate"];
+    /** Opt-in locales for editing UI label translations in the attributes panel. */
+    labelLocales?: JseLocale[];
+    extensions?: JseVueExtension[];
+    /** When true, schema and UI schema stay visible but are not editable. */
+    readonly?: boolean;
+  }>(),
+  { readonly: false },
+);
 
 const emit = defineEmits<{
   "update:schema": [schema: SchemaDocument];
@@ -54,7 +59,9 @@ const {
   regenerateUiFromSchema,
   schemaJson,
   uiSchemaJson,
-} = useSchemaFormEditorState(toRef(props, "schema"), toRef(props, "uiSchema"), emit);
+} = useSchemaFormEditorState(toRef(props, "schema"), toRef(props, "uiSchema"), emit, {
+  readonly: toRef(props, "readonly"),
+});
 </script>
 
 <template>
@@ -84,7 +91,7 @@ const {
         role="tabpanel"
         aria-labelledby="jse-editor-tab-ui"
       >
-        <div v-if="uiManualEdit" class="jse-editor__banner">
+        <div v-if="uiManualEdit && !readonly" class="jse-editor__banner">
           {{ t("editor.banner.manualUi") }}
           <JseButton type="button" @click="regenerateUiFromSchema">
             {{ t("editor.banner.regenerate") }}
@@ -108,11 +115,11 @@ const {
         </summary>
         <label v-show="editorTab === 'schema'" class="jse-editor__json">
           {{ t("editor.advanced.schemaJson") }}
-          <JseTextarea v-model="schemaJson" :rows="8" />
+          <JseTextarea v-model="schemaJson" :rows="8" :disabled="readonly" />
         </label>
         <label v-show="editorTab === 'ui'" class="jse-editor__json">
           {{ t("editor.advanced.uiJson") }}
-          <JseTextarea v-model="uiSchemaJson" :rows="8" />
+          <JseTextarea v-model="uiSchemaJson" :rows="8" :disabled="readonly" />
         </label>
       </details>
     </section>

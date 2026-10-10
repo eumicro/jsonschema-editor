@@ -7,9 +7,11 @@ import ControlField from "./components/molecules/form/ControlField.vue";
 import UiElementRenderer from "./components/molecules/ui/UiElementRenderer.vue";
 import JseInput from "./components/atoms/JseInput.vue";
 import JseSelect from "./components/atoms/JseSelect.vue";
+import JseCheckbox from "./components/atoms/JseCheckbox.vue";
+import JseSwitch from "./components/atoms/JseSwitch.vue";
 import JseSchemaFormField from "./components/molecules/form/JseSchemaFormField.vue";
 
-export { JsonSchemaForm, JsonSchemaFormEditor, ControlField, UiElementRenderer, JseInput, JseSelect, JseSchemaFormField };
+export { JsonSchemaForm, JsonSchemaFormEditor, ControlField, UiElementRenderer, JseInput, JseSelect, JseCheckbox, JseSwitch, JseSchemaFormField };
 
 export {
   SchemaDocument,

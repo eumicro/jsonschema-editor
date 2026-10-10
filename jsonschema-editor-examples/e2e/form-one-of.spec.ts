@@ -23,7 +23,7 @@ test.describe("oneOf-Formular", () => {
   test("Wechsel Mensch → Maschine zeigt Nummer-Feld", async ({ page }) => {
     await oneOfSelect(page).selectOption("1");
 
-    await expect(page.locator(".jse-field__label", { hasText: /^Nummer/ })).toBeVisible();
+    await expect(page.locator(".jse-field__label", { hasText: /^Number/ })).toBeVisible();
     await expect(page.locator(".jse-field__label", { hasText: /^Name/ })).toHaveCount(0);
 
     const output = await readFormOutput(page);
@@ -37,6 +37,6 @@ test.describe("oneOf-Formular", () => {
 
     const labels = await fieldLabels(page);
     expect(labels.some((l) => l.startsWith("Name"))).toBe(true);
-    expect(labels.some((l) => l.startsWith("Nummer"))).toBe(false);
+    expect(labels.some((l) => l.startsWith("Number"))).toBe(false);
   });
 });

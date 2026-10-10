@@ -173,6 +173,8 @@ export interface EditorContext {
   updateDocument: (next: SchemaDocument) => void;
   updateSchema: (next: SchemaDocument) => void;
   updateUiSchema: (next: UiSchema, manual?: boolean) => void;
+  /** When true, schema/UI structure and attributes are visible but not editable. */
+  readonly: Ref<boolean>;
 }
 
 export type { TypeControlRegistry, TypeMatcher, TypeControlRegistration } from "./type-registry.js";

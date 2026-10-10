@@ -104,6 +104,8 @@ export const enMessages = {
   "schemaAttributes.x-rating.symbolPalette": "Symbol palette",
   "schemaAttributes.x-rating.customSymbol": "Selection / custom symbol",
   "schemaAttributes.x-rating.customSymbolPlaceholder": "any Unicode symbol",
+  "schemaAttributes.x-switch": "Switch (x-switch)",
+  "schemaAttributes.x-switch.hint": "Render the boolean field as a switch instead of a checkbox.",
   "schemaAttributes.extensionEnabled": "Enabled",
   "schemaAttributes.x-file.multiple": "Multiple files",
   "schemaAttributes.x-file.acceptTypes": "Accepted types",

@@ -49,11 +49,6 @@
   max-width: 100%;
 }
 
-.jse-field__checkbox {
-  width: 1.1rem;
-  height: 1.1rem;
-}
-
 .jse-field--invalid .jse-field__input {
   border-color: #dc2626;
 }
@@ -171,7 +166,7 @@
   flex-wrap: wrap;
 }
 
-.jse-editor button:not(.jse-icon-btn):not(.jse-rating__symbol):not(.jse-rating-attr__symbol-option) {
+.jse-editor button:not(.jse-icon-btn):not(.jse-rating__symbol):not(.jse-rating-attr__symbol-option):not(.jse-switch) {
   cursor: pointer;
   border: 1px solid #d1d5db;
   background: #f9fafb;
@@ -179,7 +174,7 @@
   padding: 0.35rem 0.65rem;
 }
 
-.jse-editor button:not(.jse-icon-btn):not(.jse-rating__symbol):not(.jse-rating-attr__symbol-option):hover {
+.jse-editor button:not(.jse-icon-btn):not(.jse-rating__symbol):not(.jse-rating-attr__symbol-option):not(.jse-switch):hover {
   background: #f3f4f6;
 }
 
@@ -826,12 +821,164 @@
 
 .jse-input,
 .jse-select,
-.jse-checkbox,
 .jse-textarea {
   padding: 0.45rem 0.6rem;
   border: 1px solid #d1d5db;
   border-radius: 0.375rem;
   font: inherit;
+}
+
+.jse-checkbox,
+input.jse-field__checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+  width: 1.125rem;
+  height: 1.125rem;
+  margin: 0;
+  padding: 0;
+  flex-shrink: 0;
+  border: 1.5px solid #b8c0cc;
+  border-radius: 0.3rem;
+  background-color: #fff;
+  background-image: linear-gradient(180deg, #fff 0%, #f8fafc 100%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 85%),
+    0 1px 1px rgb(15 23 42 / 5%);
+  display: inline-grid;
+  place-content: center;
+  vertical-align: middle;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.jse-checkbox::before,
+input.jse-field__checkbox::before {
+  content: "";
+  width: 0.65rem;
+  height: 0.65rem;
+  transform: scale(0);
+  transition: transform 0.12s ease-out;
+  background-color: #fff;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+.jse-checkbox:hover:not(:disabled),
+input.jse-field__checkbox:hover:not(:disabled) {
+  border-color: #64748b;
+}
+
+.jse-checkbox:checked,
+input.jse-field__checkbox:checked {
+  background-color: #0f766e;
+  background-image: none;
+  border-color: #0f766e;
+  box-shadow: 0 1px 2px rgb(15 118 110 / 28%);
+}
+
+.jse-checkbox:checked::before,
+input.jse-field__checkbox:checked::before {
+  transform: scale(1);
+}
+
+.jse-checkbox:focus-visible,
+input.jse-field__checkbox:focus-visible {
+  outline: 2px solid #0f766e;
+  outline-offset: 2px;
+}
+
+.jse-checkbox:disabled,
+input.jse-field__checkbox:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  background: #f3f4f6;
+  box-shadow: none;
+}
+
+.jse-field--invalid .jse-checkbox,
+.jse-field--invalid input.jse-field__checkbox {
+  border-color: #dc2626;
+}
+
+label.jse-field__checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: auto;
+  height: auto;
+  margin: 0;
+  font: inherit;
+  cursor: default;
+}
+
+.jse-switch {
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.jse-switch:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.jse-switch:focus-visible {
+  outline: none;
+}
+
+.jse-switch:focus-visible .jse-switch__track {
+  outline: 2px solid #0f766e;
+  outline-offset: 2px;
+}
+
+.jse-switch__track {
+  position: relative;
+  box-sizing: border-box;
+  width: 2.5rem;
+  height: 1.4rem;
+  border-radius: 999px;
+  background: #cbd5e1;
+  box-shadow: inset 0 1px 2px rgb(15 23 42 / 12%);
+  transition: background-color 0.18s ease;
+}
+
+.jse-switch__thumb {
+  position: absolute;
+  top: 0.15rem;
+  left: 0.15rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgb(15 23 42 / 22%);
+  transition: transform 0.18s ease;
+}
+
+.jse-switch[aria-checked="true"] .jse-switch__track {
+  background: #0f766e;
+}
+
+.jse-switch[aria-checked="true"] .jse-switch__thumb {
+  transform: translateX(1.1rem);
+}
+
+.jse-switch:hover:not(:disabled) .jse-switch__track {
+  background: #94a3b8;
+}
+
+.jse-switch[aria-checked="true"]:hover:not(:disabled) .jse-switch__track {
+  background: #0d9488;
 }
 
 .jse-structure-editor__view-toggle {

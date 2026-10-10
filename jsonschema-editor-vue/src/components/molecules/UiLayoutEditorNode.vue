@@ -26,6 +26,7 @@ import {
 } from "../../utils/ui-layout-drag";
 import type { UiPaletteKind } from "../../utils/ui-palette";
 import { useJseI18n } from "../../composables/useJseI18n";
+import { useEditorContext } from "../../composables/useEditorContext";
 import { useTreeNodeActionLabels } from "../../composables/useTreeNodeActionLabels";
 import UiLayoutDropZone from "../atoms/UiLayoutDropZone.vue";
 import JseTreeNodeActions from "./JseTreeNodeActions.vue";
@@ -52,6 +53,7 @@ const emit = defineEmits<{
 }>();
 
 const activeDropIndex = ref<number | null>(null);
+const { readonly } = useEditorContext();
 
 const element = computed(() => getUiElementAt(props.root, props.path));
 const label = computed(() => getUiElementLabel(element.value));
@@ -64,8 +66,10 @@ const stackParentPath = computed((): UiPath =>
 );
 const isHorizontal = computed(() => element.value instanceof HorizontalLayout);
 const children = computed(() => listUiChildren(element.value, props.path));
-const showAdd = computed(() => canAcceptUiChildren(element.value, props.document));
-const showDelete = computed(() => canDeleteUiElement(props.path));
+const showAdd = computed(
+  () => !readonly.value && canAcceptUiChildren(element.value, props.document),
+);
+const showDelete = computed(() => !readonly.value && canDeleteUiElement(props.path));
 const { t } = useJseI18n();
 const { addLabel, editLabel, deleteLabel } = useTreeNodeActionLabels(label, "ui");
 const isDragging = computed(
@@ -117,6 +121,7 @@ function dropParentForAccept(): UiElement {
 }
 
 function canDropAt(insertIndex: number, event?: DragEvent): boolean {
+  if (readonly.value) return false;
   const paletteKind = resolvePaletteKind(event);
   if (paletteKind) {
     if (!isLayout.value && !showDetail.value) return false;
@@ -131,12 +136,16 @@ function canDropAt(insertIndex: number, event?: DragEvent): boolean {
 }
 
 const hasActiveDrag = computed(
-  () => props.dragSourcePath !== null || Boolean(props.paletteKind),
+  () => !readonly.value && (props.dragSourcePath !== null || Boolean(props.paletteKind)),
 );
 
 const showStack = computed(() => isLayout.value || showDetail.value);
 
 function onDragStart(event: DragEvent) {
+  if (readonly.value) {
+    event.preventDefault();
+    return;
+  }
   emit("dragStart", props.path);
   setActiveLayoutDragSourcePath(props.path, uiPathKey);
   event.dataTransfer?.setData("text/plain", pathKey.value);
@@ -234,7 +243,7 @@ function onDropZoneDrop(insertIndex: number, event: DragEvent) {
       <span
         v-if="path.length > 0"
         class="jse-layout-block__drag-handle"
-        draggable="true"
+        :draggable="!readonly"
         role="presentation"
         aria-hidden="true"
         @dragstart.stop="onDragStart"

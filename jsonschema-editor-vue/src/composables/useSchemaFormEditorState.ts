@@ -20,8 +20,10 @@ export function useSchemaFormEditorState(
   schema: Ref<SchemaDocument>,
   uiSchema: Ref<UiSchema>,
   emit: SchemaFormEditorEmits,
+  options: { readonly?: Ref<boolean> } = {},
 ) {
   const { t } = useJseI18n();
+  const readonlyRef = options.readonly ?? ref(false);
 
   const editorTabs = computed(() => [
     {
@@ -62,6 +64,7 @@ export function useSchemaFormEditorState(
   const uiRoot = computed(() => uiSchemaRef.value.root);
 
   function updateDocument(next: SchemaDocument) {
+    if (readonlyRef.value) return;
     documentRef.value = next;
     emit("update:schema", next);
     const syncedRoot = syncUiSchemaWithSchema(next, uiSchemaRef.value.root);
@@ -73,6 +76,7 @@ export function useSchemaFormEditorState(
   }
 
   function updateUiRoot(next: UiElement) {
+    if (readonlyRef.value) return;
     uiManualEdit.value = true;
     const nextUi = new UiSchema(next);
     uiSchemaRef.value = nextUi;
@@ -80,6 +84,7 @@ export function useSchemaFormEditorState(
   }
 
   function regenerateUiFromSchema() {
+    if (readonlyRef.value) return;
     uiManualEdit.value = false;
     const doc = documentRef.value;
     const generated = UiSchema.generateForSchema(doc.root, "#", (ref) => doc.resolveRef(ref));
@@ -88,6 +93,7 @@ export function useSchemaFormEditorState(
   }
 
   function updateUiSchema(next: UiSchema, manual = true) {
+    if (readonlyRef.value) return;
     if (manual) uiManualEdit.value = true;
     uiSchemaRef.value = next;
     emit("update:uiSchema", next);
@@ -96,6 +102,7 @@ export function useSchemaFormEditorState(
   const schemaJson = computed({
     get: () => JSON.stringify(documentRef.value.toJSON(), null, 2),
     set: (raw: string) => {
+      if (readonlyRef.value) return;
       try {
         const parsed = JSON.parse(raw) as JsonSchemaObject;
         updateDocument(documentFromJSON(parsed));
@@ -108,6 +115,7 @@ export function useSchemaFormEditorState(
   const uiSchemaJson = computed({
     get: () => JSON.stringify(uiSchemaRef.value.toJSON(), null, 2),
     set: (raw: string) => {
+      if (readonlyRef.value) return;
       try {
         const parsed = JSON.parse(raw) as UiSchemaObject;
         uiManualEdit.value = true;
@@ -127,6 +135,7 @@ export function useSchemaFormEditorState(
     updateDocument,
     updateSchema: updateDocument,
     updateUiSchema,
+    readonly: readonlyRef,
   });
 
   return {

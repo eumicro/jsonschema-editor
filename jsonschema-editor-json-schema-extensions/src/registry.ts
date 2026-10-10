@@ -22,6 +22,7 @@ import { isValuesSourceConfig } from "./values-source.js";
 import { isFileExtensionConfig } from "./file.js";
 import { isProgressBarExtensionConfig } from "./progress-bar.js";
 import { isRatingExtensionConfig } from "./rating.js";
+import { isSwitchExtensionConfig } from "./switch.js";
 import { registerFieldFlagAttributes } from "./field-flags.js";
 
 export const jsonSchemaFormatExtensions: readonly JsonSchemaFormatExtension[] = [
@@ -159,6 +160,14 @@ export function createExtensionsRegistry(
       exclusiveWith: ["x-progress-bar"],
     },
     deserialize: (raw) => (isRatingExtensionConfig(raw) ? raw : undefined),
+    serialize: (value) => value,
+  });
+  base.register({
+    name: "x-switch",
+    defaultValue: undefined,
+    offerForKinds: ["boolean"],
+    composition: { role: "presentation" },
+    deserialize: (raw) => (isSwitchExtensionConfig(raw) ? raw : undefined),
     serialize: (value) => value,
   });
   registerFieldFlagAttributes(base);

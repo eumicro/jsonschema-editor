@@ -16,6 +16,7 @@ import JseSuggestionInput from "../../atoms/JseSuggestionInput.vue";
 import AttributeControlResolver from "../attributes/AttributeControlResolver.vue";
 import ControlScopeField from "../ControlScopeField.vue";
 import { useJseI18n } from "../../../composables/useJseI18n";
+import { useEditorContext } from "../../../composables/useEditorContext";
 import { useUiAttributesPanel } from "../../../composables/useUiAttributesPanel";
 import { listElementLabelPropSuggestions } from "../../../utils/array-item-label";
 import { listUsedControlScopes } from "../../../utils/control-scope-suggestions";
@@ -43,6 +44,7 @@ const emit = defineEmits<{
 }>();
 
 const { t } = useJseI18n();
+const { readonly } = useEditorContext();
 const documentRef = toRef(props, "document");
 const labelLocalesRef = toRef(props, "labelLocales");
 
@@ -189,6 +191,7 @@ function updateLocaleTranslation(locale: JseLocale, value: string | number): voi
       <div class="jse-structure-editor__buttons">
         <JseButton
           type="button"
+          :disabled="readonly"
           :class="{ 'jse-btn--active': layoutKind === 'VerticalLayout' }"
           @click="setLayoutKind('VerticalLayout')"
         >
@@ -196,6 +199,7 @@ function updateLocaleTranslation(locale: JseLocale, value: string | number): voi
         </JseButton>
         <JseButton
           type="button"
+          :disabled="readonly"
           :class="{ 'jse-btn--active': layoutKind === 'HorizontalLayout' }"
           @click="setLayoutKind('HorizontalLayout')"
         >
@@ -203,6 +207,7 @@ function updateLocaleTranslation(locale: JseLocale, value: string | number): voi
         </JseButton>
         <JseButton
           type="button"
+          :disabled="readonly"
           :class="{ 'jse-btn--active': layoutKind === 'Group' }"
           @click="setLayoutKind('Group')"
         >
@@ -219,6 +224,7 @@ function updateLocaleTranslation(locale: JseLocale, value: string | number): voi
         :suggestion-schema="suggestionSchema"
         :used-scopes="usedScopes"
         :conflict-scopes="conflictScopes"
+        :disabled="readonly"
         @update:model-value="updateAttribute('scope', $event)"
       />
       <JseFormField
@@ -229,6 +235,7 @@ function updateLocaleTranslation(locale: JseLocale, value: string | number): voi
           v-model="elementLabelPropValue"
           :suggestions="elementLabelPropSuggestions"
           :placeholder="t('uiAttributes.elementLabelPropPlaceholder')"
+          :disabled="readonly"
         />
         <p class="jse-structure-editor__hint">{{ t("uiAttributes.elementLabelPropHint") }}</p>
       </JseFormField>
@@ -246,6 +253,7 @@ function updateLocaleTranslation(locale: JseLocale, value: string | number): voi
         :attribute-name="field.name"
         :label="t(field.labelKey)"
         mode="ui"
+        :readonly="readonly"
         :model-value="readAttribute(field.name)"
         @update:model-value="updateAttribute(field.name, $event)"
       />
@@ -260,6 +268,7 @@ function updateLocaleTranslation(locale: JseLocale, value: string | number): voi
         <JseInput
           :model-value="readLocaleTranslation(locale)"
           :placeholder="uiI18nMessageKey(i18nPrefix, i18nSuffix)"
+          :readonly="readonly"
           @update:model-value="updateLocaleTranslation(locale, $event)"
         />
       </JseFormField>

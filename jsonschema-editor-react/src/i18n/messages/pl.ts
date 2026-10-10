@@ -95,6 +95,8 @@ export const plMessages = {
   "schemaAttributes.x-rating.symbolPalette": "Paleta symboli",
   "schemaAttributes.x-rating.customSymbol": "Wybór / własny symbol",
   "schemaAttributes.x-rating.customSymbolPlaceholder": "dowolny symbol Unicode",
+  "schemaAttributes.x-switch": "Przełącznik (x-switch)",
+  "schemaAttributes.x-switch.hint": "Wyświetl pole logiczne jako przełącznik zamiast checkboxa.",
   "schemaAttributes.extensionEnabled": "Aktywne",
   "schemaAttributes.x-file.multiple": "Wiele plików",
   "schemaAttributes.x-file.acceptTypes": "Dozwolone typy",

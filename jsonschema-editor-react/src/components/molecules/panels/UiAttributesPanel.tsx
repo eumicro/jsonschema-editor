@@ -14,6 +14,7 @@ import { JseFormField } from "../JseFormField.js";
 import { JseSuggestionInput } from "../../atoms/JseSuggestionInput.js";
 import { AttributeControlResolver } from "../attributes/AttributeControlResolver.js";
 import { ControlScopeField } from "../ControlScopeField.js";
+import { useEditorContext } from "../../../context/EditorContext.js";
 import { useJseI18n } from "../../../context/JseI18nContext.js";
 import { useUiAttributesPanel } from "../../../hooks/useUiAttributesPanel.js";
 import { listElementLabelPropSuggestions } from "../../../utils/array-item-label.js";
@@ -49,6 +50,7 @@ export function UiAttributesPanel({
   onMessagesChange,
 }: UiAttributesPanelProps) {
   const { t } = useJseI18n();
+  const { readonly } = useEditorContext();
 
   const {
     selectedElement,
@@ -158,6 +160,7 @@ export function UiAttributesPanel({
           <div className="jse-structure-editor__buttons">
             <JseButton
               type="button"
+              disabled={readonly}
               className={layoutKind === "VerticalLayout" ? "jse-btn--active" : ""}
               onClick={() => setLayoutKind("VerticalLayout")}
             >
@@ -165,6 +168,7 @@ export function UiAttributesPanel({
             </JseButton>
             <JseButton
               type="button"
+              disabled={readonly}
               className={layoutKind === "HorizontalLayout" ? "jse-btn--active" : ""}
               onClick={() => setLayoutKind("HorizontalLayout")}
             >
@@ -172,6 +176,7 @@ export function UiAttributesPanel({
             </JseButton>
             <JseButton
               type="button"
+              disabled={readonly}
               className={layoutKind === "Group" ? "jse-btn--active" : ""}
               onClick={() => setLayoutKind("Group")}
             >
@@ -191,6 +196,7 @@ export function UiAttributesPanel({
               suggestionSchema={suggestionSchema}
               usedScopes={usedScopes}
               conflictScopes={conflictScopes}
+              disabled={readonly}
               modelValue={typeof value === "string" ? value : ""}
               onModelValueChange={(next) => handleAttributeUpdate("scope", next)}
             />
@@ -206,6 +212,7 @@ export function UiAttributesPanel({
                 onModelValueChange={(next) => updateAttribute("elementLabelProp", next)}
                 suggestions={elementLabelPropSuggestions}
                 placeholder={t("uiAttributes.elementLabelPropPlaceholder")}
+                disabled={readonly}
               />
               <p className="jse-structure-editor__hint">
                 {t("uiAttributes.elementLabelPropHint")}
@@ -234,6 +241,7 @@ export function UiAttributesPanel({
             attributeName={field.name}
             label={t(field.labelKey)}
             mode="ui"
+            readonly={readonly}
             modelValue={readAttribute(field.name)}
             onModelValueChange={(value) => updateAttribute(field.name, value)}
           />
@@ -248,6 +256,7 @@ export function UiAttributesPanel({
             >
               <JseInput
                 modelValue={readLocaleTranslation(locale)}
+                readOnly={readonly}
                 placeholder={
                   i18nPrefix
                     ? uiI18nMessageKey(i18nPrefix, i18nSuffix)

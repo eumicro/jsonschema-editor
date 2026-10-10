@@ -8,6 +8,7 @@ import {
   FILE_ATTRIBUTE,
   PROGRESS_BAR_ATTRIBUTE,
   RATING_ATTRIBUTE,
+  SWITCH_ATTRIBUTE,
 } from "@jsonschema-editor/json-schema-extensions";
 import { formatFieldsExtension } from "./format-fields-extension.js";
 import { geometryExtension } from "./geometry-extension.js";
@@ -16,16 +17,19 @@ import { computedExtension } from "./computed-extension.js";
 import { fileExtension } from "./file-extension.js";
 import { progressBarExtension } from "./progress-bar-extension.js";
 import { ratingExtension } from "./rating-extension.js";
+import { switchExtension } from "./switch-extension.js";
 import { GeometryAttributeControl } from "./components/GeometryAttributeControl.js";
 import { ComputedAttributeControl } from "./components/ComputedAttributeControl.js";
 import { FileAttributeControl } from "./components/FileAttributeControl.js";
 import { ProgressBarAttributeControl } from "./components/ProgressBarAttributeControl.js";
 import { RatingAttributeControl } from "./components/RatingAttributeControl.js";
+import { SwitchAttributeControl } from "./components/SwitchAttributeControl.js";
 import "./file-field.css";
 import "./geometry-field.css";
 import "./date-today-field.css";
 import "./progress-bar-field.css";
 import "./rating-field.css";
+import "./switch-field.css";
 
 export function registerDefaultReactExtensions(): void {
   globalSchemaAttributeControlRegistry.registerName(
@@ -58,6 +62,12 @@ export function registerDefaultReactExtensions(): void {
     50,
     "react-ext-rating-attr",
   );
+  globalSchemaAttributeControlRegistry.registerName(
+    SWITCH_ATTRIBUTE,
+    SwitchAttributeControl,
+    50,
+    "react-ext-switch-attr",
+  );
   registerReactExtension(formatFieldsExtension);
   registerReactExtension(valuesSourceExtension);
   registerReactExtension(geometryExtension);
@@ -65,6 +75,7 @@ export function registerDefaultReactExtensions(): void {
   registerReactExtension(fileExtension);
   registerReactExtension(progressBarExtension);
   registerReactExtension(ratingExtension);
+  registerReactExtension(switchExtension);
 }
 
 export { formatFieldsExtension, ExtendedFormatFormField, DateTodayFormField } from "./format-fields-extension.js";
@@ -76,6 +87,8 @@ export { progressBarExtension, ProgressBarFormField } from "./progress-bar-exten
 export { ProgressBarAttributeControl } from "./components/ProgressBarAttributeControl.js";
 export { ratingExtension, RatingFormField } from "./rating-extension.js";
 export { RatingAttributeControl } from "./components/RatingAttributeControl.js";
+export { switchExtension, SwitchFormField } from "./switch-extension.js";
+export { SwitchAttributeControl } from "./components/SwitchAttributeControl.js";
 export {
   FileFieldProvider,
   useFileFieldProvider,

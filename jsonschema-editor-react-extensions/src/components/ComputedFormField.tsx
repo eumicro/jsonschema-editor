@@ -10,6 +10,7 @@ import {
 } from "@jsonschema-editor/json-schema-extensions";
 import {
   JseInput,
+  JseCheckbox,
   JseSchemaFormField,
   useFormFieldLabel,
   useScopedField,
@@ -87,7 +88,7 @@ export function ComputedFormField({
         />
       ) : (
         <label className="jse-field__checkbox">
-          <input type="checkbox" checked={value === true} disabled />
+          <JseCheckbox modelValue={value === true} disabled />
           <span>{displayValue === "true" ? "Ja" : "Nein"}</span>
         </label>
       )}

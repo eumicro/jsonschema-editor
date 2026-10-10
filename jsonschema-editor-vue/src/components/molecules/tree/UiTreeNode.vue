@@ -13,6 +13,7 @@ import {
   type UiPath,
 } from "../../../utils/ui-editor";
 import { canAcceptUiChildren, canDeleteUiElement } from "../../../utils/ui-tree-actions";
+import { useEditorContext } from "../../../composables/useEditorContext";
 import { useTreeNodeActionLabels } from "../../../composables/useTreeNodeActionLabels";
 import { useJseI18n } from "../../../composables/useJseI18n";
 import JseTreeToggle from "../../atoms/JseTreeToggle.vue";
@@ -41,6 +42,7 @@ const emit = defineEmits<{
 }>();
 
 const { t } = useJseI18n();
+const { readonly } = useEditorContext();
 const element = computed(() => getUiElementAt(props.root, props.path));
 const children = computed(() => listUiChildren(element.value, props.path));
 const label = computed(() => getUiElementLabel(element.value));
@@ -54,18 +56,24 @@ const hasDetail = computed(() => controlAllowsDetail(element.value, props.docume
 const hasChildren = computed(() => children.value.length > 0);
 const isContainer = computed(() => isLayout.value || hasDetail.value);
 const isDragOver = ref(false);
-const showAdd = computed(() => canAcceptUiChildren(element.value, props.document));
-const showDelete = computed(() => canDeleteUiElement(props.path));
+const showAdd = computed(
+  () => !readonly.value && canAcceptUiChildren(element.value, props.document),
+);
+const showDelete = computed(() => !readonly.value && canDeleteUiElement(props.path));
 const { addLabel, editLabel, deleteLabel } = useTreeNodeActionLabels(label, "ui");
 
 function onDragStart(event: DragEvent) {
+  if (readonly.value) {
+    event.preventDefault();
+    return;
+  }
   emit("dragStart", props.path);
   event.dataTransfer?.setData("text/plain", pathKey.value);
   event.dataTransfer!.effectAllowed = "move";
 }
 
 function onDragOver(event: DragEvent) {
-  if (!isContainer.value || !props.dragSourcePath) return;
+  if (readonly.value || !isContainer.value || !props.dragSourcePath) return;
   event.preventDefault();
   isDragOver.value = true;
 }
@@ -77,7 +85,7 @@ function onDragLeave() {
 function onDrop(event: DragEvent) {
   event.preventDefault();
   isDragOver.value = false;
-  if (!props.dragSourcePath) return;
+  if (readonly.value || !props.dragSourcePath) return;
   const targetPath =
     hasDetail.value && !isLayout.value ? ([...props.path, "detail"] as UiPath) : props.path;
   emit("drop", targetPath, props.dragSourcePath);
@@ -93,7 +101,7 @@ function onDrop(event: DragEvent) {
         'jse-tree-node__row--drag-over': isDragOver,
       }"
       :style="{ paddingLeft: `${((depth ?? 0) * 16) + 4}px` }"
-      draggable="true"
+      :draggable="!readonly"
       @click="emit('select', path)"
       @dragstart="onDragStart"
       @dragover="onDragOver"

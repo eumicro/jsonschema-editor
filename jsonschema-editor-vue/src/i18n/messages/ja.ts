@@ -92,6 +92,8 @@ export const jaMessages = {
   "schemaAttributes.x-rating.symbolPalette": "記号パレット",
   "schemaAttributes.x-rating.customSymbol": "選択 / 独自の記号",
   "schemaAttributes.x-rating.customSymbolPlaceholder": "任意の Unicode 記号",
+  "schemaAttributes.x-switch": "スイッチ (x-switch)",
+  "schemaAttributes.x-switch.hint": "真偽値フィールドをチェックボックスではなくスイッチで表示します。",
   "schemaAttributes.extensionEnabled": "有効",
   "schemaAttributes.x-file.multiple": "複数ファイル",
   "schemaAttributes.x-file.acceptTypes": "許可する種類",

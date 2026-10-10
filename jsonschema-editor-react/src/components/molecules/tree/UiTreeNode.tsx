@@ -12,6 +12,7 @@ import {
   type UiPath,
 } from "../../../utils/ui-editor.js";
 import { canAcceptUiChildren, canDeleteUiElement } from "../../../utils/ui-tree-actions.js";
+import { useEditorContext } from "../../../context/EditorContext.js";
 import { useJseI18n } from "../../../context/JseI18nContext.js";
 import { useTreeNodeActionLabels } from "../../../hooks/useTreeNodeActionLabels.js";
 import { JseTreeToggle } from "../../atoms/JseTreeToggle.js";
@@ -52,6 +53,7 @@ export function UiTreeNode({
 }: UiTreeNodeProps) {
   const [isDragOver, setIsDragOver] = useState(false);
   const { t } = useJseI18n();
+  const { readonly } = useEditorContext();
 
   const element = getUiElementAt(root, path);
   const children = useMemo(() => listUiChildren(element, path), [element, path]);
@@ -62,18 +64,22 @@ export function UiTreeNode({
   const isLayout = isLayoutElement(element);
   const hasDetail = controlAllowsDetail(element, document);
   const isContainer = isLayout || hasDetail;
-  const showAdd = canAcceptUiChildren(element, document);
-  const showDelete = canDeleteUiElement(path);
+  const showAdd = !readonly && canAcceptUiChildren(element, document);
+  const showDelete = !readonly && canDeleteUiElement(path);
   const { addLabel, editLabel, deleteLabel } = useTreeNodeActionLabels(label, "ui");
 
   function handleDragStart(event: React.DragEvent) {
+    if (readonly) {
+      event.preventDefault();
+      return;
+    }
     onDragStart(path);
     event.dataTransfer?.setData("text/plain", pathKey);
     if (event.dataTransfer) event.dataTransfer.effectAllowed = "move";
   }
 
   function handleDragOver(event: React.DragEvent) {
-    if (!isContainer || !dragSourcePath) return;
+    if (readonly || !isContainer || !dragSourcePath) return;
     event.preventDefault();
     setIsDragOver(true);
   }
@@ -81,7 +87,7 @@ export function UiTreeNode({
   function handleDrop(event: React.DragEvent) {
     event.preventDefault();
     setIsDragOver(false);
-    if (!dragSourcePath) return;
+    if (readonly || !dragSourcePath) return;
     const targetPath =
       hasDetail && !isLayout ? ([...path, "detail"] as UiPath) : path;
     onDrop(targetPath, dragSourcePath);
@@ -98,7 +104,7 @@ export function UiTreeNode({
           .filter(Boolean)
           .join(" ")}
         style={{ paddingLeft: `${depth * 16 + 4}px` }}
-        draggable
+        draggable={!readonly}
         onClick={() => onSelect(path)}
         onDragStart={handleDragStart}
         onDragOver={handleDragOver}

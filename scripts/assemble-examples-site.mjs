@@ -10,7 +10,6 @@ const vueDist = join(root, "jsonschema-editor-examples", "dist");
 const reactDist = join(root, "jsonschema-editor-examples-react", "dist");
 const examplesDataRoot = join(root, "jsonschema-editor-examples", "src", "examples", "data");
 const cnamePath = join(root, "jsonschema-editor-examples", "public", "CNAME");
-const defaultExampleId = "occupational-health-g37";
 
 function assertDist(label, dir) {
   if (!existsSync(dir)) {
@@ -93,7 +92,7 @@ const bootstrap = `<!doctype html>
         }
         var path = location.pathname.replace(/\\/+$/, "") || "/";
         if (path === "/" || path === "") {
-          location.replace("/en/examples/vue/${defaultExampleId}");
+          location.replace("/en/get-started/vue");
           return;
         }
         var parts = path.split("/").filter(Boolean);

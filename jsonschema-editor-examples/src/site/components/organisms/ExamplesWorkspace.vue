@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import type { SchemaDocument } from "@jsonschema-editor/json-schema";
 import type { UiSchema } from "@jsonschema-editor/ui-schema/bridge";
-import { JsonSchemaForm, JsonSchemaFormEditor, type JseLocale } from "@jsonschema-editor/vue";
+import { JsonSchemaForm, JsonSchemaFormEditor, JseCheckbox, type JseLocale } from "@jsonschema-editor/vue";
 import type { AppLocale } from "../../../app-routing";
 import {
   exampleCopyFor,
@@ -42,6 +42,7 @@ const props = defineProps<{
     formPanelAria: string;
     dataPanelTitle: string;
     editorPanelAria: string;
+    editorReadonly: string;
     jsonPanelAria: string;
     codePanelAria: string;
     jsonTabsAria: string;
@@ -68,6 +69,8 @@ const embedCode = computed(() =>
     locale: props.locale,
   }),
 );
+
+const editorReadonly = ref(false);
 </script>
 
 <template>
@@ -181,10 +184,14 @@ const embedCode = computed(() =>
         <div
           v-if="mode === 'editor'"
           id="app-panel-editor"
-          class="app__panel-body"
+          class="app__panel-body app__panel-body--editor"
           role="tabpanel"
           :aria-label="ui.editorPanelAria"
         >
+          <label class="app__editor-readonly">
+            <JseCheckbox v-model="editorReadonly" />
+            <span class="app__editor-readonly__label">{{ ui.editorReadonly }}</span>
+          </label>
           <JsonSchemaFormEditor
             v-model:schema="schema"
             v-model:ui-schema="uiSchema"
@@ -192,6 +199,7 @@ const embedCode = computed(() =>
             :locale="locale"
             :fallback-locale="fallbackLocale"
             :label-locales="labelLocales"
+            :readonly="editorReadonly"
           />
         </div>
 

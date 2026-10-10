@@ -92,6 +92,8 @@ export const zhMessages = {
   "schemaAttributes.x-rating.symbolPalette": "符号调色板",
   "schemaAttributes.x-rating.customSymbol": "选择 / 自定义符号",
   "schemaAttributes.x-rating.customSymbolPlaceholder": "任意 Unicode 符号",
+  "schemaAttributes.x-switch": "开关 (x-switch)",
+  "schemaAttributes.x-switch.hint": "将布尔字段显示为开关而非复选框。",
   "schemaAttributes.extensionEnabled": "启用",
   "schemaAttributes.x-file.multiple": "多个文件",
   "schemaAttributes.x-file.acceptTypes": "允许的类型",

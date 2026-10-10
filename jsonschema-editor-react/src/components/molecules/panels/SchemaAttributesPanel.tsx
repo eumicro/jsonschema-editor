@@ -6,6 +6,7 @@ import { JseFormField } from "../JseFormField.js";
 import { ArrayItemsTypeControl } from "../ArrayItemsTypeControl.js";
 import { AttributeControlResolver } from "../attributes/AttributeControlResolver.js";
 import { SchemaFieldBulkActions } from "./SchemaFieldBulkActions.js";
+import { useEditorContext } from "../../../context/EditorContext.js";
 import { useJseI18n } from "../../../context/JseI18nContext.js";
 import { useSchemaAttributesPanel } from "../../../hooks/useSchemaAttributesPanel.js";
 import type { SchemaPath } from "../../../utils/schema-editor.js";
@@ -24,6 +25,7 @@ export function SchemaAttributesPanel({
   onSelectedPathChange,
 }: SchemaAttributesPanelProps) {
   const { t } = useJseI18n();
+  const { readonly } = useEditorContext();
 
   const {
     propertyNameInput,
@@ -66,6 +68,7 @@ export function SchemaAttributesPanel({
         >
           <JseInput
             modelValue={propertyNameInput}
+            readOnly={readonly}
             placeholder={
               isDefRoot
                 ? t("schemaAttributes.defNamePlaceholder")
@@ -93,6 +96,7 @@ export function SchemaAttributesPanel({
           <JseSelect
             modelValue={selectedDefRef}
             className="jse-field__input"
+            disabled={readonly}
             onModelValueChange={(value) => {
               setSelectedDefRef(String(value));
               commitRefChange();
@@ -115,6 +119,7 @@ export function SchemaAttributesPanel({
           label={t(field.labelKey)}
           mode="schema"
           document={document}
+          readonly={readonly}
           modelValue={readAttribute(field.name)}
           onModelValueChange={(value) => updateAttribute(field.name, value)}
         />
@@ -122,11 +127,15 @@ export function SchemaAttributesPanel({
 
       {parentObject && propertyName && !isDefRoot ? (
         <JseFormField boolean label={t("schemaAttributes.required")}>
-          <JseCheckbox modelValue={isRequired} onModelValueChange={setRequired} />
+          <JseCheckbox
+            modelValue={isRequired}
+            disabled={readonly}
+            onModelValueChange={setRequired}
+          />
         </JseFormField>
       ) : null}
 
-      {showItemsTypeControl ? (
+      {showItemsTypeControl && !readonly ? (
         <JseFormField label={t("schemaAttributes.itemsType")}>
           <ArrayItemsTypeControl
             compact
@@ -136,7 +145,7 @@ export function SchemaAttributesPanel({
         </JseFormField>
       ) : null}
 
-      {showBulkFieldActions ? (
+      {showBulkFieldActions && !readonly ? (
         <SchemaFieldBulkActions onApply={applyBulkFieldAttribute} />
       ) : null}
     </div>
