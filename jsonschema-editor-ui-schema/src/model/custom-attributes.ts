@@ -1,3 +1,4 @@
+import { cloneJsonCompatible } from "@jsonschema-editor/json-schema";
 import type { UiSchemaAttributeRegistry } from "../attribute-registry.js";
 import { globalUiSchemaAttributeRegistry } from "../attribute-registry.js";
 import type { UiSchemaObject } from "../types.js";
@@ -36,7 +37,7 @@ export class UiCustomAttributeCollection {
   clone(registry: UiSchemaAttributeRegistry = this.registry): UiCustomAttributeCollection {
     const copy = new UiCustomAttributeCollection(registry);
     for (const [key, value] of this.values) {
-      copy.values.set(key, structuredClone(value));
+      copy.values.set(key, cloneJsonCompatible(value));
     }
     return copy;
   }

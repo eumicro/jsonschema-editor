@@ -1,3 +1,4 @@
+import { cloneJsonCompatible } from "./clone-value.js";
 import type { CompositionSchema, ObjectSchema, SchemaNode } from "./model/index.js";
 
 function isArrayIndex(key: string): boolean {
@@ -41,11 +42,7 @@ export function getValueAtPath(data: Record<string, unknown>, path: readonly str
 }
 
 function cloneFormDataRoot(data: Record<string, unknown>): Record<string, unknown> {
-  try {
-    return structuredClone(data);
-  } catch {
-    return JSON.parse(JSON.stringify(data)) as Record<string, unknown>;
-  }
+  return cloneJsonCompatible(data);
 }
 
 /** Immutably writes a value into form/instance data. Returns a cloned root object. */

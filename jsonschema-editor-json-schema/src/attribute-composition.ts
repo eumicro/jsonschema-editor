@@ -1,9 +1,10 @@
 import type { JsonSchemaAttributeRegistry } from "./attribute-registry.js";
+import { cloneJsonCompatible } from "./clone-value.js";
 import type { SchemaNode } from "./model/node.js";
 import type { AttributeOfferKind } from "./types.js";
 
 function cloneAttributeValue<T>(value: T): T {
-  return structuredClone(value);
+  return cloneJsonCompatible(value);
 }
 
 function isOfferKind(kind: string): kind is AttributeOfferKind {
