@@ -23,6 +23,7 @@ import { isFileExtensionConfig } from "./file.js";
 import { isProgressBarExtensionConfig } from "./progress-bar.js";
 import { isRatingExtensionConfig } from "./rating.js";
 import { isSwitchExtensionConfig } from "./switch.js";
+import { isRelationExtensionConfig } from "./relation.js";
 import { registerFieldFlagAttributes } from "./field-flags.js";
 
 export const jsonSchemaFormatExtensions: readonly JsonSchemaFormatExtension[] = [
@@ -170,6 +171,22 @@ export function createExtensionsRegistry(
     deserialize: (raw) => (isSwitchExtensionConfig(raw) ? raw : undefined),
     serialize: (value) => value,
   });
+  if (!base.isRegistered("x-relation-reference")) {
+    base.register({
+      name: "x-relation-reference",
+      defaultValue: undefined,
+      deserialize: (raw) => (isRelationExtensionConfig(raw) ? raw : undefined),
+      serialize: (value) => value,
+    });
+  }
+  if (!base.isRegistered("x-relation-snapshot")) {
+    base.register({
+      name: "x-relation-snapshot",
+      defaultValue: undefined,
+      deserialize: (raw) => (isRelationExtensionConfig(raw) ? raw : undefined),
+      serialize: (value) => value,
+    });
+  }
   registerFieldFlagAttributes(base);
   return base;
 }

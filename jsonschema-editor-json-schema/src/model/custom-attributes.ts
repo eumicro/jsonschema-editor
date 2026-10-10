@@ -1,5 +1,6 @@
 import type { JsonSchemaAttributeRegistry } from "../attribute-registry.js";
 import { globalJsonSchemaAttributeRegistry } from "../attribute-registry.js";
+import { cloneJsonCompatible } from "../clone-value.js";
 import type { JsonSchemaObject } from "../types.js";
 
 export class CustomAttributeCollection {
@@ -48,7 +49,7 @@ export class CustomAttributeCollection {
   clone(registry: JsonSchemaAttributeRegistry = this.registry): CustomAttributeCollection {
     const copy = new CustomAttributeCollection(registry);
     for (const [key, value] of this.values) {
-      copy.values.set(key, structuredClone(value));
+      copy.values.set(key, cloneJsonCompatible(value));
     }
     return copy;
   }

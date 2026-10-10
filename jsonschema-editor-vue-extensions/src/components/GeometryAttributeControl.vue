@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
+import { cloneJsonCompatible } from "@jsonschema-editor/json-schema";
 import {
   DEFAULT_GEOMETRY_STYLE_URL,
   isGeometryExtensionConfig,
@@ -63,7 +64,8 @@ const atLeastOneType = computed(() => draft.value.point || draft.value.line || d
 
 function commit(): void {
   if (!atLeastOneType.value) return;
-  modelValue.value = toStoredConfig(draft.value, countMode.value);
+  // Detach from Vue reactive Proxies so SchemaDocument.deepClone can structuredClone.
+  modelValue.value = cloneJsonCompatible(toStoredConfig(draft.value, countMode.value));
 }
 
 function setCountMode(mode: CountMode): void {

@@ -1,5 +1,6 @@
 export * from "./types.js";
 export * from "./attribute-registry.js";
+export { cloneJsonCompatible } from "./clone-value.js";
 export {
   transferCompatibleCustomAttributes,
   enforceExclusiveCustomAttributes,
